@@ -19,10 +19,11 @@ const ReservationCancelModal = ({
   onEditReservation, parentToggle, reservation, toggleShow, t, userId, users
 }) => {
   const [show, setShow] = useState(toggleShow);
-  const [checkboxDisabled, handleCheckbox] = useState(false);
+  const [checkboxDisabled, disableCheckbox] = useState(true);
   const handleClose = () => {
     setShow(() => false);
     parentToggle(false);
+    disableCheckbox(true);
   };
 
   /**
@@ -55,6 +56,10 @@ const ReservationCancelModal = ({
     );
   };
 
+  const handleCancel = () => {
+    // implement handleCancel
+  };
+
   return (
     <Modal
       onHide={handleClose}
@@ -81,7 +86,9 @@ const ReservationCancelModal = ({
             reservation.resource
             && renderCheckBox(
               t('ReservationInformationForm.refundCheckBox'),
-              () => console.log('checkbox')
+              () => {
+                disableCheckbox(!checkboxDisabled);
+              }
             )
           }
         </div>
@@ -90,14 +97,14 @@ const ReservationCancelModal = ({
       <Modal.Footer>
         <Button
           bsStyle="default"
-          onClick={() => console.log('cancelAllowedCancel')}
+          onClick={handleClose}
         >
           {t('ReservationCancelModal.cancelAllowedCancel')}
         </Button>
         <Button
           bsStyle="danger"
-          disabled
-          onClick={() => console.log('cancelAllowedConfirm')}
+          disabled={checkboxDisabled}
+          onClick={handleCancel}
         >
           {t('ReservationCancelModal.cancelAllowedConfirm')}
         </Button>
