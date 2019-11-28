@@ -32,13 +32,26 @@ const ReservationCancelModal = ({
    * and ReservationCancelModal are using CompactReservationList to output resource name, date, etc.
    * We need to alter reservation a little bit before passing it to CompactReservationList.
    */
+
   const reservationCopyId = JSON.parse(JSON.stringify(reservation));
   const id = reservationCopyId.resource.id;
   reservationCopyId.resource = id;
 
+  /**
+   * Reservation props passed from ManageReservationsPage
+   * is slightly different than reservation props
+   * passed from ReservationInformationModal.
+   * E.g. resource is a string instead of { name = 'Foo' }
+   */
+
   const reservationCopy = JSON.parse(JSON.stringify(reservation));
-  const name = reservationCopy.resource.name.fi;
-  reservationCopy.resource.name = name;
+  if (reservationCopy.resource.name) {
+    const name = reservationCopy.resource.name.fi;
+    reservationCopy.resource.name = name;
+  } else {
+    delete reservationCopy.resource;
+    reservationCopy.resource = { name: '' };
+  }
 
   useEffect(() => {
     setShow(toggleShow);
