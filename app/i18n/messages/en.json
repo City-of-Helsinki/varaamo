@@ -204,7 +204,8 @@
   "ReservationEditForm.cancelEdit": "Cancel editing",
   "ReservationEditForm.saveChanges": "Save changes",
   "ReservationEditForm.startEdit": "Edit reservation",
-  "ReservationForm.reservationFieldsAsteriskExplanation": "Please fill in the following data for your preliminary reservation. The fields marked with an asterisk (*) are mandatory.",
+  "ReservationForm.reservationFieldsAsteriskManualBilling": "Please fill in the following data for your preliminary reservation. The fields marked with an asterisk (*) are mandatory.",
+  "ReservationForm.reservationFieldsAsteriskNormal": "The fields marked with an asterisk (*) are mandatory.",
   "ReservationForm.cancel": "Back",
   "ReservationForm.emailError": "Enter a valid e-mail address",
   "ReservationForm.eventSubjectInfo": "Event name is visible to staff only. Giving a name to the event makes it easier to guide the guests to the right space. Please remember to also tell the name to people arriving to the event.",
@@ -386,7 +387,7 @@
   "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h",
   "TimePickerCalendar.info.today": "Today",
 
-  "CalendarLegend.closed": "Closed",
+  "CalendarLegend.closed": "Unavailable",
   "CalendarLegend.selection": "Selected",
   "CalendarLegend.taken": "Taken",
   "CalendarLegend.available": "Available"

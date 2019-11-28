@@ -206,7 +206,8 @@
   "ReservationEditForm.cancelEdit": "Avbryta",
   "ReservationEditForm.saveChanges": "Spara ändringar",
   "ReservationEditForm.startEdit": "Ändra bokningstiden",
-  "ReservationForm.reservationFieldsAsteriskExplanation": "Fyll ännu i följande uppgifter för den preliminära bokningen. Uppgifterna markerade med en asterisk (*) är obligatoriska.",
+  "ReservationForm.reservationFieldsAsteriskManualBilling": "Fyll ännu i följande uppgifter för den preliminära bokningen. Uppgifterna markerade med en asterisk (*) är obligatoriska.",
+  "ReservationForm.reservationFieldsAsteriskNormal": "Uppgifterna markerade med en asterisk (*) är obligatoriska.",
   "ReservationForm.cancel": "Tillbaka",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
   "ReservationForm.eventSubjectInfo": "Evenemangets namn är synbar enbart for personalen. Genom att ge evenemanget ett namn så kan vi lotsa besökarna till de rätta utrymmen. Kom ihåg att berätta evenemangets namn även till besökarna.",
@@ -387,7 +388,7 @@
   "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång.",
   "TimePickerCalendar.info.today": "Idag",
 
-  "CalendarLegend.closed": "Stängd",
+  "CalendarLegend.closed": "Inte tillgänglig",
   "CalendarLegend.selection": "Vald",
   "CalendarLegend.taken": "Tagen",
   "CalendarLegend.available": "Tillgängligt"

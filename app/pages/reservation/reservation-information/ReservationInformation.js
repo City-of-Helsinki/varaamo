@@ -126,17 +126,6 @@ class ReservationInformation extends Component {
     return requiredFormFields;
   }
 
-  renderInfoTexts = () => {
-    const { resource, t } = this.props;
-    if (!resource.needManualConfirmation) return null;
-
-    return (
-      <div className="app-ReservationInformation__info-texts">
-        <p>{t('ConfirmReservationModal.priceInfo')}</p>
-      </div>
-    );
-  }
-
   render() {
     const {
       isEditing,
