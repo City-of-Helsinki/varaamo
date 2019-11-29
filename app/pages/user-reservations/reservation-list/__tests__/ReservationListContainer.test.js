@@ -13,11 +13,14 @@ import ReservationListItem from '../ReservationListItem';
 describe('pages/user-reservations/reservation-list/ReservationListContainer', () => {
   function getWrapper(props) {
     const defaults = {
-      isAdmin: false,
       loading: false,
+      location: {
+        search: ''
+      },
       reservations: [],
       resources: {},
       staffUnits: [],
+      paginatedReservations: {},
       units: {},
     };
     return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
@@ -27,11 +30,24 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
     const props = {
-      isAdmin: false,
+      location: {
+        search: '',
+      },
       reservations: Immutable([
         Reservation.build({ resource: resource.id }),
         Reservation.build({ resource: 'unfetched-resource' }),
       ]),
+      paginatedReservations: {
+        count: 0,
+        comingReservations: Immutable([
+          Reservation.build({ resource: resource.id }),
+          Reservation.build({ resource: 'unfetched-resource' }),
+        ]),
+        pastReservations: Immutable([
+          Reservation.build({ resource: resource.id }),
+          Reservation.build({ resource: 'unfetched-resource' }),
+        ]),
+      },
       resources: Immutable({
         [resource.id]: resource,
       }),
@@ -52,16 +68,16 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
     describe('rendering individual reservations', () => {
       test('renders a ReservationListItem for every reservation in props', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
-        expect(reservationListItems).toHaveLength(props.reservations.length);
+        const { comingReservations, pastReservations } = props.paginatedReservations;
+        expect(reservationListItems).toHaveLength(comingReservations.length + pastReservations.length);
       });
 
       test('passes isAdmin, isStaff and reservation', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
-        reservationListItems.forEach((reservationListItem, index) => {
+        reservationListItems.forEach((reservationListItem) => {
           const actualProps = reservationListItem.props();
           expect(actualProps.isAdmin).toBe(props.isAdmin);
           expect(actualProps.isStaff).toBe(false);
-          expect(actualProps.reservation).toEqual(props.reservations[index]);
           expect(reservationListItems.at(0).prop('resource')).toEqual(resource);
           expect(reservationListItems.at(1).prop('resource')).toEqual({});
           expect(reservationListItems.at(0).prop('unit')).toEqual(unit);
