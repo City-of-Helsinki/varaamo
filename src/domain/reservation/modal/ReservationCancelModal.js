@@ -20,11 +20,20 @@ const ReservationCancelModal = ({
   onEditReservation, parentToggle, reservation, toggleShow, t, userId, users
 }) => {
   const [show, setShow] = useState(toggleShow);
-  const [checkboxDisabled, disableCheckbox] = useState(true);
+  /**
+   * Until we have billable information in resource data the checkbox disabled is false. See below...
+   */
+  const [checkboxDisabled, disableCheckbox] = useState(false);
+  /**
+   * We need a way to distinguish between billable and free resources.
+   * Until that it implemented in respa we ENABLE checkbox (see above...) and set billable to false.
+   */
+  const [billable, setBillable] = useState(false);
   const handleClose = () => {
     setShow(() => false);
     parentToggle(false);
-    disableCheckbox(true);
+    // Remove comment when billable information in implemented in respa. See above...
+    // disableCheckbox(true);
   };
 
   /**
@@ -98,6 +107,7 @@ const ReservationCancelModal = ({
           }
           {
             reservation.resource
+            && billable
             && renderCheckBox(
               t('ReservationInformationForm.refundCheckBox'),
               () => {
