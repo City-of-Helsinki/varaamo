@@ -147,4 +147,6 @@ ReservationCancelModal.propTypes = {
   users: PropTypes.object.isRequired
 };
 
+export { ReservationCancelModal };
+
 export default connect(mapStateToProps)(injectT(ReservationCancelModal));
