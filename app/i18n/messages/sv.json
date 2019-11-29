@@ -245,6 +245,8 @@
   "ReservationInformationForm.paymentTermsAndConditionsLabel": "Jag har läst och godkänner",
   "ReservationInformationForm.paymentTermsAndConditionsLink": "betalningsvillkoren",
   "ReservationListContainer.emptyMessage": "Du har ännu inte några bokningar.",
+  "ReservationListContainer.comingReservations": "Kommande",
+  "ReservationListContainer.pastReservations": "Dåtid",
   "ReservationListItem.accessCodeText": "Utrymmets PIN-kod:",
   "ReservationPage.detailsTime": "Tidpunkt",
   "ReservationPage.detailsTitle": "Bokningens uppgifter",

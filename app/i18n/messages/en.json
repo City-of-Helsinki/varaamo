@@ -243,6 +243,8 @@
   "ReservationInformationForm.paymentTermsAndConditionsLabel": "I have read and accepted",
   "ReservationInformationForm.paymentTermsAndConditionsLink": "payment terms and conditions",
   "ReservationListContainer.emptyMessage": "You do not have any reservations yet.",
+  "ReservationListContainer.comingReservations": "Coming",
+  "ReservationListContainer.pastReservations": "Past",
   "ReservationListItem.accessCodeText": "PIN code of the premises:",
   "ReservationPage.detailsTime": "Time",
   "ReservationPage.detailsTitle": "Summary",
