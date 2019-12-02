@@ -166,7 +166,7 @@ describe('Utils: reservationUtils', () => {
   describe('getMissingValues', () => {
     function getReservation(extraValues) {
       const defaults = {
-        eventDescription: 'Some description',
+        eventSubject: 'Some subject',
         reserverName: 'Luke Skywalker',
       };
       return Reservation.build(Object.assign({}, defaults, extraValues));
