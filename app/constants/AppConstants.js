@@ -19,7 +19,7 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  REQUIRED_STAFF_EVENT_FIELDS: ['eventDescription', 'reserverName'],
+  REQUIRED_STAFF_EVENT_FIELDS: ['eventSubject', 'reserverName'],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
