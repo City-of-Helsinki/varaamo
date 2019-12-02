@@ -35,8 +35,8 @@ class UnconnectedUserReservationsPage extends Component {
 
   render() {
     const {
-      reservationsFetchCount,
       resourcesLoaded,
+      reservationsLoading,
       t,
     } = this.props;
     return (
@@ -52,7 +52,7 @@ class UnconnectedUserReservationsPage extends Component {
               <ReservationList
                 fetchReservations={this.props.actions.fetchReservations}
                 history={this.props.history}
-                loading={reservationsFetchCount < 1}
+                loading={reservationsLoading}
                 location={this.props.location}
                 pageSize={PAGE_SIZE}
               />
@@ -70,8 +70,8 @@ UnconnectedUserReservationsPage.propTypes = {
   actions: PropTypes.object.isRequired,
   history: PropTypes.object,
   location: PropTypes.object,
-  reservationsFetchCount: PropTypes.number.isRequired,
   resourcesLoaded: PropTypes.bool.isRequired,
+  reservationsLoading: PropTypes.bool,
   t: PropTypes.func.isRequired,
 };
 UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
