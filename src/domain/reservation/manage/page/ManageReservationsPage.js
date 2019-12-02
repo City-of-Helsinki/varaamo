@@ -258,6 +258,19 @@ class ManageReservationsPage extends React.Component {
             showOnlyFilters={showOnlyFilters}
             units={units}
           />
+          <Grid>
+            <Row>
+              <Col sm={12}>
+                <span>
+                  {totalCount > 0
+                    ? t('ManageReservationsPage.searchResults', { count: totalCount })
+                    : t('ManageReservationsPage.noSearchResults')
+                  }
+                </span>
+              </Col>
+            </Row>
+          </Grid>
+
         </div>
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={title}>

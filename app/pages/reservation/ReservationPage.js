@@ -152,6 +152,11 @@ class UnconnectedReservationPage extends Component {
           } : {};
 
         if (isOrder) {
+          // Save billing information to respa
+          // eslint-disable-next-line no-param-reassign
+          values.reserverName = `${values.billingFirstName} ${values.billingLastName}`;
+          // eslint-disable-next-line no-param-reassign
+          values.reserverEmailAddress = values.billingEmailAddress;
           this.setState({ view: 'payment' });
         }
         allReservations.forEach(reservation => actions.postReservation({
