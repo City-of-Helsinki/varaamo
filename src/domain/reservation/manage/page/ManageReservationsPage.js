@@ -24,6 +24,7 @@ import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
+import ConnectedReservationCancelModal from '../../modal/ReservationCancelModal';
 
 export const PAGE_SIZE = 50;
 
@@ -47,7 +48,8 @@ class ManageReservationsPage extends React.Component {
       totalCount: 0,
       isModalOpen: false,
       selectedReservation: {},
-      showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY]
+      showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY],
+      isReservationCancelModalOpen: false
     };
   }
 
@@ -139,10 +141,24 @@ class ManageReservationsPage extends React.Component {
     }));
   }
 
-  onEditReservation = async (reservation, status) => {
+  // The same function is passed to ManageReservationsList, ReservationInformationModal AND ReservationCancelModal!!!
+  onEditReservation = async (reservation, status, openReservationCancelModal = false) => {
     try {
       if (status === RESERVATION_STATE.CANCELLED) {
-        await reservationUtils.cancelReservation(reservation);
+        if (openReservationCancelModal) {
+          // We are calling ReservationCancelModal via ManageReservationsList.
+          await this.setState((prevState) => {
+            return {
+              isReservationCancelModalOpen: !prevState.isReservationCancelModalOpen,
+              selectedReservation: reservation
+            };
+          });
+        } else {
+          // We are calling ReservationCancelModal via ReservationInformationModal.
+          await reservationUtils.cancelReservation(reservation);
+          // We need to close the ReservationCancelModal.
+          this.parentToggle(false);
+        }
       } else {
         await reservationUtils.putReservation(reservation, { state: status });
       }
@@ -199,6 +215,12 @@ class ManageReservationsPage extends React.Component {
     return reservations;
   }
 
+  parentToggle = (bool) => {
+    this.setState(() => ({
+      isReservationCancelModalOpen: bool
+    }));
+  }
+
   render() {
     const {
       t,
@@ -213,7 +235,8 @@ class ManageReservationsPage extends React.Component {
       totalCount,
       isModalOpen,
       selectedReservation,
-      showOnlyFilters
+      showOnlyFilters,
+      isReservationCancelModalOpen
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -270,6 +293,14 @@ class ManageReservationsPage extends React.Component {
               reservation={selectedReservation}
             />
           </div>
+        )}
+        {isReservationCancelModalOpen && (
+          <ConnectedReservationCancelModal
+            onEditReservation={this.onEditReservation}
+            parentToggle={this.parentToggle}
+            reservation={selectedReservation}
+            toggleShow={isReservationCancelModalOpen}
+          />
         )}
       </div>
     );

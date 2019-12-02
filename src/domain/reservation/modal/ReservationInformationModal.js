@@ -11,13 +11,19 @@ import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import ReservationMetadata from '../information/ReservationMetadata';
+import ConnectedReservationCancelModal from './ReservationCancelModal';
 
 const ReservationInformationModal = ({
   t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
+  const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(false);
   const saveComment = () => onSaveComment(reservation, comment);
   const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+
+  const parentToggle = (bool) => {
+    toggleReservationCancelModal(bool);
+  };
 
   const renderField = (label, value) => {
     return (
@@ -104,7 +110,7 @@ const ReservationInformationModal = ({
 
         <Button
           bsStyle="default"
-          onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
+          onClick={() => toggleReservationCancelModal(!isReservationCancelModalOpen)}
         >
           {t('ReservationInfoModal.cancelButton')}
         </Button>
@@ -123,6 +129,12 @@ const ReservationInformationModal = ({
           {t('ReservationInfoModal.confirmButton')}
         </Button>
       </Modal.Footer>
+      <ConnectedReservationCancelModal
+        onEditReservation={onEditReservation}
+        parentToggle={parentToggle}
+        reservation={reservation}
+        toggleShow={isReservationCancelModalOpen}
+      />
     </Modal>
   );
 };

@@ -7,6 +7,8 @@
   - [#1075](https://github.com/City-of-Helsinki/varaamo/pull/1075) Added premise name text and sorted resources based on that (in My premises page).
   - [#1076](https://github.com/City-of-Helsinki/varaamo/pull/1076) Added little colored boxes with texts to explain calendar event colors.
   - [#1077](https://github.com/City-of-Helsinki/varaamo/pull/1077) Changed some finnish translations. ReservationInformationForm now shows right helper text based on resource type.
+  - [#1078](https://github.com/City-of-Helsinki/varaamo/pull/1078) Users are now able to see their past reservations. User reservations page also paginates results.
+  - [#1079](https://github.com/City-of-Helsinki/varaamo/pull/1079) Cancel modal changes in app and scr.
 
 # 0.7.0
   **MINOR CHANGES**

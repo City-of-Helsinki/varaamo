@@ -11,7 +11,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 
-// eslint-disable-next-line import/named
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
@@ -164,6 +163,9 @@ class UnconnectedReservationEditForm extends Component {
           && price > 0
           && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
 
+        {!reservation.staffEvent
+          && price > 0
+          && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
