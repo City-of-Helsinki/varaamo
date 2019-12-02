@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import simple from 'simple-mock';
 
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
@@ -11,8 +12,11 @@ import {
 import ReservationListItem from '../ReservationListItem';
 
 describe('pages/user-reservations/reservation-list/ReservationListContainer', () => {
+  const fetchReservations = simple.stub();
   function getWrapper(props) {
     const defaults = {
+      fetchReservations,
+      isAdmin: false,
       loading: false,
       location: {
         search: ''
@@ -21,6 +25,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       resources: {},
       staffUnits: [],
       paginatedReservations: {},
+      pageSize: 0,
       units: {},
     };
     return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
@@ -30,6 +35,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
     const unit = Unit.build();
     const resource = Resource.build({ unit: unit.id });
     const props = {
+      isAdmin: false,
       location: {
         search: '',
       },
@@ -48,6 +54,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
           Reservation.build({ resource: 'unfetched-resource' }),
         ]),
       },
+      pageSize: 10,
       resources: Immutable({
         [resource.id]: resource,
       }),
