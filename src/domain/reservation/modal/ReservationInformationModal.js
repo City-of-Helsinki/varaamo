@@ -11,7 +11,7 @@ import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import ReservationMetadata from '../information/ReservationMetadata';
-import ReservationCancelModal from './ReservationCancelModal';
+import { ReservationCancelModal } from './ReservationCancelModal';
 
 const ReservationInformationModal = ({
   t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment

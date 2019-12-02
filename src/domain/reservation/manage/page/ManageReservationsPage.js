@@ -24,7 +24,7 @@ import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
-import ReservationCancelModal from '../../modal/ReservationCancelModal';
+import { ReservationCancelModal } from '../../modal/ReservationCancelModal';
 
 export const PAGE_SIZE = 50;
 
@@ -216,7 +216,7 @@ class ManageReservationsPage extends React.Component {
   }
 
   parentToggle = (bool) => {
-    this.setState(state => ({
+    this.setState(() => ({
       isReservationCancelModalOpen: bool
     }));
   }

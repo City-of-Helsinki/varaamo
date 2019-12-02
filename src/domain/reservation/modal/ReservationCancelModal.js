@@ -17,6 +17,8 @@ const mapStateToProps = (state) => {
 };
 
 const ReservationCancelModal = ({
+  // Remove eslint-disable later!
+  // eslint-disable-next-line no-unused-vars
   onEditReservation, parentToggle, reservation, toggleShow, t, userId, users
 }) => {
   const [show, setShow] = useState(toggleShow);
@@ -27,7 +29,9 @@ const ReservationCancelModal = ({
   /**
    * We need a way to distinguish between billable and free resources.
    * Until that it implemented in respa we ENABLE checkbox (see above...) and set billable to false.
+   * Remove eslint-disable later!
    */
+  // eslint-disable-next-line no-unused-vars
   const [billable, setBillable] = useState(false);
   const handleClose = () => {
     setShow(() => false);
