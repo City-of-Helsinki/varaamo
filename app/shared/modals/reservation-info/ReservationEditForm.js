@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -143,6 +144,8 @@ class UnconnectedReservationEditForm extends Component {
       tax
     };
 
+    const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
+
     return (
       <Form
         className={classNames('reservation-edit-form', { editing: isEditing })}
@@ -153,6 +156,11 @@ class UnconnectedReservationEditForm extends Component {
           {this.renderUserInfoRow('displayName', 'userName')}
           {this.renderUserInfoRow('email', 'userEmail')}
         </Well>
+        { billingFirstName
+        && billingLastName
+        && this.renderInfoRow(t('common.paymentNameLabel'), `${billingFirstName} ${billingLastName}`)}
+        {billingEmailAddress && this.renderInfoRow(t('common.paymentEmailLabel'), billingEmailAddress)}
+
         {this.renderEditableInfoRow('eventSubject', 'text')}
         {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}

@@ -43,6 +43,10 @@ const ReservationInformationModal = ({
     );
   };
 
+  const payerFirstName = get(reservation, 'billing_first_name', '');
+  const payerLastName = get(reservation, 'billing_last_name', '');
+  const payerEmail = get(reservation, 'billing_email_address', '');
+
   return (
     <Modal
       className="app-ReservationInformationModal"
@@ -61,8 +65,8 @@ const ReservationInformationModal = ({
             {renderField('user_name', get(reservation, 'user.display_name', ''))}
             {renderField('user_email', get(reservation, 'user.email', ''))}
           </div>
-          {renderField('payment_name', 'Antti aatami')}
-          {renderField('payment_email', 'antti@aatami.fi')}
+          {payerFirstName && payerLastName && renderField('payment_name', `${payerFirstName} ${payerLastName}`)}
+          {payerEmail && renderField('payment_email', payerEmail)}
           {renderField('reservation_time', getDateAndTime(reservation))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
 
