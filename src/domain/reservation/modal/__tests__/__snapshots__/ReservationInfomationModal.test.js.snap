@@ -295,7 +295,25 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       ReservationInfoModal.confirmButton
     </Button>
   </ModalFooter>
-  <Connect(InjectT(ReservationCancelModal))
+  <ReservationCancelModal
+    onEditReservation={
+      Object {
+        "begin": "2019-08-14T14:00:00+03:00",
+        "comments": "",
+        "end": "2019-08-14T15:00:00+03:00",
+        "event_description": "",
+        "event_subject": "",
+        "has_catering_order": false,
+        "id": 1,
+        "its_own": false,
+        "resource": 1,
+        "staff_event": false,
+        "state": "requested",
+        "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+        "user": Object {},
+        "user_permissions": null,
+      }
+    }
     parentToggle={[Function]}
     reservation={
       Object {
