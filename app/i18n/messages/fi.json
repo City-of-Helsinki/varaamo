@@ -244,6 +244,8 @@
   "ReservationInformationForm.paymentTermsAndConditionsLabel": "Olen lukenut ja hyväksynyt",
   "ReservationInformationForm.paymentTermsAndConditionsLink": "maksuehdot",
   "ReservationListContainer.emptyMessage": "Sinulla ei vielä ole yhtään varausta.",
+  "ReservationListContainer.comingReservations": "Tulevat",
+  "ReservationListContainer.pastReservations": "Menneet",
   "ReservationListItem.accessCodeText": "Tilan PIN-koodi:",
   "ReservationPage.detailsTime": "Ajankohta",
   "ReservationPage.detailsTitle": "Varauksen tiedot",
