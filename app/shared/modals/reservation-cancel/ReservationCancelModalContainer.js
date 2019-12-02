@@ -12,13 +12,24 @@ import { closeReservationCancelModal } from '../../../actions/uiActions';
 import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
 import injectT from '../../../i18n/injectT';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
-    this.state = { checkboxDisabled: true };
+    this.state = { checkboxDisabled: null };
+  }
+
+  componentDidMount() {
+    const {
+      resource
+    } = this.props;
+
+    hasProducts(resource)
+      ? this.setState({ checkboxDisabled: false })
+      : this.setState({ checkboxDisabled: true });
   }
 
   handleCancel() {
@@ -59,7 +70,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
       <Modal
         onHide={() => {
           actions.closeReservationCancelModal();
-          this.setState({ checkboxDisabled: true });
+          if (hasProducts(resource)) this.setState({ checkboxDisabled: true });
         }}
         show={show}
       >
@@ -85,7 +96,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
                 />
                 )
               }
-              {reservation.resource && !reservation.staffEvent && this.renderCheckBox(
+              {reservation.resource && !reservation.staffEvent && hasProducts(resource) && this.renderCheckBox(
                 t('ReservationInformationForm.refundCheckBox'),
                 this.handleCheckbox,
               )}
@@ -108,7 +119,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
             bsStyle="default"
             onClick={() => {
               actions.closeReservationCancelModal();
-              this.setState({ checkboxDisabled: true });
+              if (hasProducts(resource)) this.setState({ checkboxDisabled: true });
             }}
           >
             {cancelAllowed
@@ -119,7 +130,11 @@ class UnconnectedReservationCancelModalContainer extends Component {
           {cancelAllowed && (
             <Button
               bsStyle="danger"
-              disabled={isCancellingReservations || this.state.checkboxDisabled}
+              disabled={
+                hasProducts(resource)
+                  ? this.state.checkboxDisabled
+                  : isCancellingReservations
+              }
               onClick={this.handleCancel}
             >
               {isCancellingReservations
