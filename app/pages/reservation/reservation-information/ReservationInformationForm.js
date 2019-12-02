@@ -11,7 +11,7 @@ import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
 import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
-import { hasProducts } from '../../../utils/resourceUtils';
+import { getHourlyPrice, hasProducts } from '../../../utils/resourceUtils';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
 
@@ -93,6 +93,21 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
+  getAsteriskExplanation = () => {
+    const { resource, t } = this.props;
+    const maybeBillable = resource.minPricePerHour && resource.maxPricePerHour;
+    if (resource.needManualConfirmation && maybeBillable) {
+      return `${t('ConfirmReservationModal.priceInfo')} ${t('ReservationForm.reservationFieldsAsteriskManualBilling')}`;
+    }
+    if (resource.needManualConfirmation && !hasProducts(resource)) {
+      return t('ReservationForm.reservationFieldsAsteriskManualBilling');
+    }
+    if (!resource.needManualConfirmation && hasProducts(resource)) {
+      return t('ReservationForm.reservationFieldsAsteriskNormal');
+    }
+    return t('ReservationForm.reservationFieldsAsteriskNormal');
+  };
+
   renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
@@ -178,17 +193,6 @@ class UnconnectedReservationInformationForm extends Component {
     );
   }
 
-  renderInfoTexts = () => {
-    const { resource, t } = this.props;
-    if (!resource.needManualConfirmation) return null;
-
-    return (
-      <div className="app-ReservationInformation__info-texts">
-        <p>{t('ConfirmReservationModal.priceInfo')}</p>
-      </div>
-    );
-  }
-
   render() {
     const {
       isEditing,
@@ -225,9 +229,8 @@ class UnconnectedReservationInformationForm extends Component {
             />
             )
           }
-          {this.renderInfoTexts()}
           <p>
-            {t('ReservationForm.reservationFieldsAsteriskExplanation')}
+            {this.getAsteriskExplanation()}
           </p>
           { includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
