@@ -14,7 +14,7 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
       t: jest.fn(),
       userId: 'foo',
       users: { bar: 'bar' }
-    }
+    };
     const props = {
       onEditReservation: jest.fn(),
       parentToggle: jest.fn(),
