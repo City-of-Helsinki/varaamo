@@ -354,6 +354,8 @@
   "UserReservationsPage.regularReservationsHeader": "Vanliga bokningar",
   "UserReservationsPage.title": "Mina bokningar",
   "ManageReservationsPage.title": "Hantera reservationer",
+  "ManageReservationsPage.noSearchResults": "Inga sökresultat.",
+  "ManageReservationsPage.searchResults": "{count} {count, plural, one {reservation} other {reservationer}} hittades",
   "ManageReservationsList.subjectHeader": "Ämne",
   "ManageReservationsList.nameHeader": "Namn",
   "ManageReservationsList.emailHeader": "E-post",

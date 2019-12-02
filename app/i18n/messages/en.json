@@ -353,6 +353,8 @@
   "UserReservationsPage.regularReservationsHeader": "Standard reservations",
   "UserReservationsPage.title": "My reservations",
   "ManageReservationsPage.title": "Manage reservations",
+  "ManageReservationsPage.noSearchResults": "Your search found no results.",
+  "ManageReservationsPage.searchResults": "{count} {count, plural, one {reservation} other {reservations}} found",
   "ManageReservationsList.subjectHeader": "Subject",
   "ManageReservationsList.nameHeader": "Name",
   "ManageReservationsList.emailHeader": "Email",

@@ -362,6 +362,8 @@
   "UserReservationsPage.regularReservationsHeader": "Tavalliset varaukset",
   "UserReservationsPage.title": "Omat varaukset",
   "ManageReservationsPage.title": "Varausten hallinta",
+  "ManageReservationsPage.noSearchResults": "Yhtään hakutulosta ei löytynyt.",
+  "ManageReservationsPage.searchResults": "Varauksia löytyi {count} {count, plural, one {kpl} other {kpl}}",
   "ManageReservationsList.subjectHeader": "Aihe",
   "ManageReservationsList.nameHeader": "Nimi",
   "ManageReservationsList.emailHeader": "Sähköposti",
