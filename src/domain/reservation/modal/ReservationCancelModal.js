@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const ReservationCancelModal = ({
+const UnconnectedReservationCancelModal = ({
   // Remove eslint-disable later!
   // eslint-disable-next-line no-unused-vars
   onEditReservation, parentToggle, reservation, toggleShow, t, userId, users
@@ -141,7 +141,7 @@ const ReservationCancelModal = ({
   );
 };
 
-ReservationCancelModal.propTypes = {
+UnconnectedReservationCancelModal.propTypes = {
   onEditReservation: PropTypes.func.isRequired,
   parentToggle: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
@@ -151,6 +151,8 @@ ReservationCancelModal.propTypes = {
   users: PropTypes.object.isRequired
 };
 
-export { ReservationCancelModal };
+export { UnconnectedReservationCancelModal };
 
-export default connect(mapStateToProps)(injectT(ReservationCancelModal));
+const ConnectedReservationCancelModal = injectT(UnconnectedReservationCancelModal);
+
+export default connect(mapStateToProps)(ConnectedReservationCancelModal);

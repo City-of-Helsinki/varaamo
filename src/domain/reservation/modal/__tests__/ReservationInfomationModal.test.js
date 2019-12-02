@@ -14,7 +14,7 @@ describe('ReservationInformationModal', () => {
       onHide: jest.fn(),
       onSaveComment: jest.fn(),
       isOpen: true,
-      onEditReservation: mockReservation
+      onEditReservation: jest.fn()
     };
     const wrapper = shallowWithIntl(
       <ReservationInformationModal {...props} />
