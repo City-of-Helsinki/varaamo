@@ -11,7 +11,7 @@ import constants from '../../../constants/AppConstants';
 import FormTypes from '../../../constants/FormTypes';
 import ReservationMetadataField from './ReservationMetadataField';
 import injectT from '../../../i18n/injectT';
-import { getHourlyPrice, hasProducts } from '../../../utils/resourceUtils';
+import { hasProducts } from '../../../utils/resourceUtils';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
 
