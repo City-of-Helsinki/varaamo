@@ -197,6 +197,10 @@
       .unpublished-label {
         margin-left: 10px;
       }
+      .unit-name {
+        margin-right: 10px;
+        color: $blue;
+      }
     }
   }
   .timeline-groups {
@@ -244,6 +248,9 @@
             $gray-light 49.9%,
             $gray-lighter 50%
           );
+        }
+        &-whole-selected {
+          background: $gray-light;
         }
       }
     }

@@ -12,6 +12,7 @@ import get from 'lodash/get';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
+import CalendarLegend from './legend/CalendarLegend';
 import * as resourceUtils from '../../domain/resource/utils';
 import constants from '../../../app/constants/AppConstants';
 import injectT from '../../../app/i18n/injectT';
@@ -400,6 +401,7 @@ class TimePickerCalendar extends Component {
           slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
           slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
         />
+        <CalendarLegend />
       </div>
     );
   }

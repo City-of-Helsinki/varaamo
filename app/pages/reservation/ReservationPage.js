@@ -17,7 +17,6 @@ import { fetchResource } from '../../actions/resourceActions';
 import {
   clearReservations,
   closeReservationSuccessModal,
-  openResourceTermsModal,
   setSelectedTimeSlots,
 } from '../../actions/uiActions';
 import PageWrapper from '../PageWrapper';
@@ -308,7 +307,6 @@ class UnconnectedReservationPage extends Component {
                       onBack={this.handleBack}
                       onCancel={this.handleCancel}
                       onConfirm={this.handleReservation}
-                      openResourceTermsModal={actions.openResourceTermsModal}
                       reservation={reservationToEdit}
                       resource={resource}
                       selectedTime={selectedTime}
@@ -367,7 +365,6 @@ function mapDispatchToProps(dispatch) {
     clearReservations,
     closeReservationSuccessModal,
     fetchResource,
-    openResourceTermsModal,
     putReservation,
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,

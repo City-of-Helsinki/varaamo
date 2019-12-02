@@ -4,7 +4,6 @@ import React from 'react';
 
 import ReservationPopover from '../../../../../reservation-popover/ReservationPopover';
 import { UninjectedReservationSlot as ReservationSlot } from '../ReservationSlot';
-import utils from '../../utils';
 
 function getWrapper(props) {
   const defaults = {
@@ -18,24 +17,6 @@ function getWrapper(props) {
 }
 
 describe('shared/availability-view/ReservationSlot', () => {
-  test('returns a button.reservation-slot', () => {
-    const wrapper = getWrapper();
-    expect(wrapper.is('button')).toBe(true);
-    expect(wrapper.hasClass('reservation-slot')).toBe(true);
-  });
-
-  test('has correct width', () => {
-    const expected = utils.getTimeSlotWidth();
-    const actual = getWrapper().prop('style');
-    expect(actual).toEqual({ width: expected });
-  });
-
-  test('binds onClick to handleClick', () => {
-    const wrapper = getWrapper();
-    const instance = wrapper.instance();
-    expect(wrapper.prop('onClick')).toBe(instance.handleClick);
-  });
-
   describe('Popover', () => {
     function getPopover(props) {
       const wrapper = getWrapper(props);

@@ -8,7 +8,7 @@ import { createSelector } from 'reselect';
 
 import UnpublishedLabel from '../../../../label/unpublished/UnpublishedLabel';
 import injectT from '../../../../../i18n/injectT';
-import { resourcesSelector } from '../../../../../state/selectors/dataSelectors';
+import { resourcesSelector, unitsSelector } from '../../../../../state/selectors/dataSelectors';
 
 ResourceInfo.propTypes = {
   date: PropTypes.string.isRequired,
@@ -17,6 +17,7 @@ ResourceInfo.propTypes = {
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number,
   public: PropTypes.bool.isRequired,
+  unitName: PropTypes.string
 };
 export function ResourceInfo(props) {
   return (
@@ -28,6 +29,7 @@ export function ResourceInfo(props) {
         <Link to={`/resources/${props.id}?date=${props.date}`}>{props.name}</Link>
       </div>
       <div className="details">
+        <span className="unit-name">{props.unitName || ''}</span>
         <Glyphicon glyph="user" />
         {' '}
         {props.peopleCapacity}
@@ -48,12 +50,19 @@ export function selector() {
     idSelector,
     (resources, id) => resources[id]
   );
+  const unitSelector = createSelector(
+    resourceSelector,
+    unitsSelector,
+    (resource, units) => units[resource.unit]
+  );
   return createSelector(
     resourceSelector,
-    resource => ({
+    unitSelector,
+    (resource, unit) => ({
       name: resource.name,
       peopleCapacity: resource.peopleCapacity,
       public: resource.public,
+      unitName: unit ? unit.name : ''
     })
   );
 }

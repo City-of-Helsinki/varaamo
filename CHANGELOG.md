@@ -2,6 +2,14 @@
   - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
   - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
   - [#1072](https://github.com/City-of-Helsinki/varaamo/pull/1072) Added Payment state labels & total price for User reservations list. Disabled edit button for end user if reservation is billable.
+  - [#1073](https://github.com/City-of-Helsinki/varaamo/pull/1073) My premises now gets slotSize from resource.
+  - [#1074](https://github.com/City-of-Helsinki/varaamo/pull/1074) Changed payment and resource terms of service to text boxes.
+  - [#1075](https://github.com/City-of-Helsinki/varaamo/pull/1075) Added premise name text and sorted resources based on that (in My premises page).
+  - [#1076](https://github.com/City-of-Helsinki/varaamo/pull/1076) Added little colored boxes with texts to explain calendar event colors.
+  - [#1077](https://github.com/City-of-Helsinki/varaamo/pull/1077) Changed some finnish translations. ReservationInformationForm now shows right helper text based on resource type.
+  - [#1078](https://github.com/City-of-Helsinki/varaamo/pull/1078) Users are now able to see their past reservations. User reservations page also paginates results.
+  - [#1079](https://github.com/City-of-Helsinki/varaamo/pull/1079) Cancel modal changes in app and scr.
+  - [#1080](https://github.com/City-of-Helsinki/varaamo/pull/1080) Fixed problem where wrong field was required when making reservation as admin.
 
 # 0.7.0
   **MINOR CHANGES**

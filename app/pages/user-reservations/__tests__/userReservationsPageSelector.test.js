@@ -7,19 +7,15 @@ describe('pages/user-reservations/userReservationsPageSelector', () => {
     return userReservationsPageSelector(state);
   }
 
-  test('returns adminReservationFilters', () => {
-    expect(getSelected().adminReservationFilters).toBeDefined();
-  });
-
   test('returns isAdmin', () => {
     expect(getSelected().isAdmin).toBeDefined();
   });
 
-  test('returns reservationsFetchCount', () => {
-    expect(getSelected().reservationsFetchCount).toBeDefined();
-  });
-
   test('returns resourcesLoaded', () => {
     expect(getSelected().resourcesLoaded).toBeDefined();
+  });
+
+  test('returns reservationsLoading', () => {
+    expect(getSelected().reservationsLoading).toBeDefined();
   });
 });

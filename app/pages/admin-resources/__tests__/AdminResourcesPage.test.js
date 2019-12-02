@@ -11,6 +11,7 @@ import { UnconnectedAdminResourcesPage as AdminResourcesPage } from '../AdminRes
 describe('pages/admin-resources/AdminResourcesPage', () => {
   const changeAdminResourcesPageDate = simple.stub();
   const fetchFavoritedResources = simple.stub();
+  const fetchUnits = simple.stub();
   const selectAdminResourceType = simple.stub();
   const openConfirmReservationModal = simple.stub();
   const unselectAdminResourceType = simple.stub();
@@ -20,6 +21,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       changeAdminResourcesPageDate,
       changeRecurringBaseTime: () => null,
       fetchFavoritedResources,
+      fetchUnits,
       selectAdminResourceType,
       openConfirmReservationModal,
       unselectAdminResourceType,

@@ -287,5 +287,6 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     slotLabelInterval="01:00:00"
     unselectAuto={false}
   />
+  <InjectT(CalendarLegend) />
 </div>
 `;
