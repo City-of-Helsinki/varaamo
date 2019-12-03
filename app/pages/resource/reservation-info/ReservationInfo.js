@@ -7,7 +7,7 @@ import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import iconCalendar from '../../../assets/icons/calendar.svg';
 import iconClock from '../../../assets/icons/clock-o.svg';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
-import { getMaxPeriodText } from '../../../utils/resourceUtils';
+import { getMaxPeriodText, getMinPeriodText } from '../../../utils/resourceUtils';
 import injectT from '../../../i18n/injectT';
 
 function renderLoginText(isLoggedIn, resource) {
@@ -22,14 +22,18 @@ function renderLoginText(isLoggedIn, resource) {
   );
 }
 
-function renderEarliestResDay(date, t) {
-  if (!date) {
+
+function renderEarliestResDay(resource, t) {
+  if (!resource.reservableAfter && !resource.reservableDaysInAdvance) {
     return null;
   }
+  const time = resource.reservableAfter
+    ? moment(resource.reservableAfter).toNow(true)
+    : moment().add(resource.reservableDaysInAdvance, 'days').toNow(true);
   return (
     <p className="reservable-after-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
-      <strong>{t('ReservationInfo.reservationEarliestDays', { time: moment(date).toNow(true) })}</strong>
+      <strong>{t('ReservationInfo.reservationEarliestDays', { time })}</strong>
     </p>
   );
 }
@@ -44,6 +48,20 @@ function renderMaxPeriodText(resource, t) {
       <img alt="" className="app-ResourceHeader__info-icon" src={iconClock} />
       <strong>{t('ReservationInfo.reservationMaxLength')}</strong>
       {` ${maxPeriodText}`}
+    </p>
+  );
+}
+
+function renderMinPeriodText(resource, t) {
+  if (!resource.minPeriod) {
+    return null;
+  }
+  const minPeriodText = getMinPeriodText(t, resource);
+  return (
+    <p className="app-ResourcePage__content-min-period">
+      <img alt="" className="app-ResourceHeader__info-icon" src={iconClock} />
+      <strong>{t('ReservationInfo.reservationMinLength')}</strong>
+      {` ${minPeriodText}`}
     </p>
   );
 }
@@ -65,7 +83,8 @@ function ReservationInfo({ isLoggedIn, resource, t }) {
   return (
     <div className="app-ReservationInfo">
       <WrappedText openLinksInNewTab text={resource.reservationInfo} />
-      {renderEarliestResDay(resource.reservableAfter, t)}
+      {renderEarliestResDay(resource, t)}
+      {renderMinPeriodText(resource, t)}
       {renderMaxPeriodText(resource, t)}
       {renderMaxReservationsPerUserText(resource.maxReservationsPerUser, t)}
       {renderLoginText(isLoggedIn, resource)}

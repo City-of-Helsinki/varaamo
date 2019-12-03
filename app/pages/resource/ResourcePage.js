@@ -22,7 +22,7 @@ import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
 import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
-import { getMaxPeriodText, getResourcePageUrl, getMinPeriodText } from '../../utils/resourceUtils';
+import { getResourcePageUrl } from '../../utils/resourceUtils';
 import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ResourceHeader from './resource-header/ResourceHeader';
 import ResourceInfo from './resource-info/ResourceInfo';
@@ -183,8 +183,6 @@ class UnconnectedResourcePage extends Component {
       return <NotFoundPage />;
     }
 
-    const maxPeriodText = getMaxPeriodText(t, resource);
-    const minPeriodText = getMinPeriodText(t, resource);
     const images = this.orderImages(resource.images || []);
 
     const mainImageIndex = findIndex(images, image => image.type === 'main');
@@ -243,22 +241,6 @@ class UnconnectedResourcePage extends Component {
                                 {t('ReservationInfo.selectionEditDirections')}
                               </div>
                             </React.Fragment>
-                          )
-                          }
-
-                          {/* Show reservation max period text */}
-                          {resource.maxPeriod && (
-                            <div className="app-ResourcePage__content-max-period">
-                              {`${t('ReservationInfo.reservationMaxLength')} ${maxPeriodText}`}
-                            </div>
-                          )}
-
-                          {/* Show reservation max period text */}
-                          {resource.minPeriod
-                          && (
-                            <div className="app-ResourcePage__content-min-period">
-                              <p>{`${t('ReservationInfo.reservationMinLength')} ${minPeriodText}`}</p>
-                            </div>
                           )
                           }
 
