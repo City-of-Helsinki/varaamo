@@ -11,6 +11,7 @@
   - [#1079](https://github.com/City-of-Helsinki/varaamo/pull/1079) Cancel modal changes in app and scr.
   - [#1080](https://github.com/City-of-Helsinki/varaamo/pull/1080) Fixed problem where wrong field was required when making reservation as admin.
   - [#1081](https://github.com/City-of-Helsinki/varaamo/pull/1081) Added payer name and email into My premises and Manage reservations info modals. Manage reservations page also shows total amount of search results.
+  - [#1082](https://github.com/City-of-Helsinki/varaamo/pull/1082) Switched resource specificTerms position on view.
 
 # 0.7.0
   **MINOR CHANGES**
