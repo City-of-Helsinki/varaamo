@@ -362,12 +362,6 @@ class UnconnectedReservationInformationForm extends Component {
           </React.Fragment>
           )
           }
-          {resource.specificTerms && (
-            <div>
-              <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
-              <p className="specificTermsContent">{resource.specificTerms}</p>
-            </div>
-          )}
           {includes(fields, 'paymentTermsAndConditions')
             && (
             <React.Fragment>
@@ -379,6 +373,12 @@ class UnconnectedReservationInformationForm extends Component {
             </React.Fragment>
             )
           }
+          {resource.specificTerms && (
+            <div>
+              <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
+              <p className="specificTermsContent">{resource.specificTerms}</p>
+            </div>
+          )}
           <div>
             <Button
               onClick={onCancel}
