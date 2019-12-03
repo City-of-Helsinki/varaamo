@@ -221,7 +221,6 @@ class UnconnectedResourcePage extends Component {
 
                     <ResourcePanel header={t('ResourceInfo.reserveTitle')}>
                       <>
-                        {/* VARAA */}
                         {resource.externalReservationUrl && (
                         <form action={resource.externalReservationUrl}>
                           <input
