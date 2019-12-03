@@ -1,4 +1,19 @@
-# 0.8.0-pre
+# 0.8.0
+  **MINOR CHANGES**
+  - Reordered info blocks on ResourcePage
+  - Added colored explanations for fullCalendar events.
+  - Brought back missing billingFirstName, billingLastName, billingPhoneNumber and billingEmailAddress.
+  - Changed Terms of Service and Payment of Service modals to text box. Moved resource specific terms before buttons.
+  - Fixed issue where eventDescription was set to required instead of eventSubject when making reservation as admin.
+  - My premises slot sizes match are now determined by resource. Events with price have different color and show little price tag.
+  - My premises shows units name and are now sorted based on that.
+  - If event is billable, information modal shows payers name and email. Also price and cancel directions for staff are shown. Cancel confirmation modal has extra step for confirming that user has read cancel directions.
+  - Removed admin utilities from Your reservations page. Future and past reservations are shown below titles and page is now paginated.
+  - Your premise list items have label for payment state and show price that was paid. If user is not admin modify button is disabled and cancel button shows modal with directions.
+  - Fixed some finnish translations on Manage reservations page. Total number of reservations is also shown.
+  - Cancel buttons in Manage reservations have extra confirmation dialog.  
+
+  **CHANGELOG**
   - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
   - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
   - [#1072](https://github.com/City-of-Helsinki/varaamo/pull/1072) Added Payment state labels & total price for User reservations list. Disabled edit button for end user if reservation is billable.
