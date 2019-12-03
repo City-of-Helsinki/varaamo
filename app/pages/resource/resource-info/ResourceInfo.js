@@ -18,6 +18,7 @@ function ResourceInfo({
 
   return (
     <section className="app-ResourceInfo">
+      {/* KUVAUS */}
       {resource.description && (
         <ResourcePanel header={t('ResourceInfo.descriptionTitle')}>
           <div className="app-ResourceInfo__description">
@@ -26,15 +27,14 @@ function ResourceInfo({
         </ResourcePanel>
       )}
 
-      <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
-        <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
-      </ResourcePanel>
-
+      {/* RESURSSIKOHTAISET TIEDOT */}
       {resource.specificTerms && (
         <ResourcePanel header={t('ResourcePage.specificTerms')}>
           <p>{resource.specificTerms}</p>
         </ResourcePanel>
       )}
+
+      {/* LISÄTIEDOT */}
       <ResourcePanel header={t('ResourceInfo.additionalInfoTitle')}>
         <Row>
           <Col className="app-ResourceInfo__address" xs={6}>
@@ -61,6 +61,12 @@ function ResourceInfo({
         </Row>
       </ResourcePanel>
 
+      {/* VARAUKSEN TIEDOT */}
+      <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
+        <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
+      </ResourcePanel>
+
+      {/* WHERE DOES THIS GO? */}
       { Array.isArray(resource.equipment)
         && resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
     </section>
