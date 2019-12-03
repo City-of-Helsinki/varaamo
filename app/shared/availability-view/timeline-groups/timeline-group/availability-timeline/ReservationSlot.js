@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import injectT from '../../../../../i18n/injectT';
 import ReservationPopover from '../../../../reservation-popover/ReservationPopover';
@@ -11,6 +12,7 @@ export class UninjectedReservationSlot extends React.Component {
     begin: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
     isSelectable: PropTypes.bool.isRequired,
+    itemIndex: PropTypes.number,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -22,6 +24,7 @@ export class UninjectedReservationSlot extends React.Component {
       hover: PropTypes.bool,
       resourceId: PropTypes.string.isRequired,
     }),
+    slotSize: PropTypes.string
   };
 
   constructor(props) {
@@ -52,9 +55,13 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   getSlotInfo() {
+    const { end, slotSize } = this.props;
+    const slotDuration = moment.duration(slotSize).hours();
+    const slotDivider = moment.duration(slotSize).hours() * 2 - 1;
+    const slotEnd = slotDuration < 1 ? end : moment(end).add(30 * slotDivider, 'minutes').format('YYYY-MM-DDTHH:mm:ss');
     return {
       begin: this.props.begin,
-      end: this.props.end,
+      end: slotEnd,
       resourceId: this.props.resourceId,
     };
   }
@@ -86,6 +93,9 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   render() {
+    const { itemIndex, slotSize } = this.props;
+    const slotDuration = moment.duration(slotSize).hours();
+    const divideIndex = slotDuration * 2;
     const isSelected = this.getIsSelected();
     const slot = (
       <button
@@ -96,10 +106,10 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: utils.getTimeSlotWidth() }}
+        style={{ width: slotDuration < 1 ? utils.getTimeSlotWidth() : utils.getTimeSlotWidth() * divideIndex }}
         type="button"
       >
-        <span className="a11y-text">Make reservation</span>
+        <span className="a11y-text" />
       </button>
     );
     if (this.shouldShowPopover(isSelected)) {
@@ -113,7 +123,13 @@ export class UninjectedReservationSlot extends React.Component {
         </ReservationPopover>
       );
     }
-    return slot;
+    return (
+      <React.Fragment>
+        {slotDuration > 0 && itemIndex % divideIndex === 0 && slot}
+        {slotDuration > 0 && itemIndex % divideIndex > 0 && <span />}
+        {slotDuration < 1 && slot}
+      </React.Fragment>
+    );
   }
 }
 

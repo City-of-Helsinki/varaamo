@@ -1,0 +1,44 @@
+.app-CalendarLegend {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  .color-box {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+
+    align-self: center;
+
+    &__closed {
+      background-color: $gray-light;
+    }
+
+    &__selection {
+      background-color: #bddbf0;
+      border: 1px solid $hel-coat
+    }
+
+    &__taken {
+      background-color: $red;
+    }
+
+    &__available{
+      background-color: $white;
+      border-top: 1px solid $gray;
+      border-bottom: 1px solid $gray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .dash {
+    width: 100%;
+    height: 1px;
+    background: $gray-light;
+  }
+}

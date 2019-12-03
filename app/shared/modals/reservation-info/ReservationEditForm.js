@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -11,6 +12,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 
+import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
@@ -135,6 +137,15 @@ class UnconnectedReservationEditForm extends Component {
 
     if (isEmpty(reservation)) return <span />;
 
+    const price = getReservationPrice(reservation.begin, reservation.end, resource);
+    const tax = getTaxPercentage(resource);
+    const tVariables = {
+      price,
+      tax
+    };
+
+    const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
+
     return (
       <Form
         className={classNames('reservation-edit-form', { editing: isEditing })}
@@ -145,13 +156,24 @@ class UnconnectedReservationEditForm extends Component {
           {this.renderUserInfoRow('displayName', 'userName')}
           {this.renderUserInfoRow('email', 'userEmail')}
         </Well>
+        { billingFirstName
+        && billingLastName
+        && this.renderInfoRow(t('common.paymentNameLabel'), `${billingFirstName} ${billingLastName}`)}
+        {billingEmailAddress && this.renderInfoRow(t('common.paymentEmailLabel'), billingEmailAddress)}
+
         {this.renderEditableInfoRow('eventSubject', 'text')}
         {this.renderStaticInfoRow('reserverName')}
         {this.renderEditableInfoRow('eventDescription', 'textarea')}
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
         {this.renderReservationTime()}
         {this.renderInfoRow(t('common.resourceLabel'), resource.name)}
+        {!reservation.staffEvent
+          && price > 0
+          && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
 
+        {!reservation.staffEvent
+          && price > 0
+          && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}

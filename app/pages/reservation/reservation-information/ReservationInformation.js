@@ -23,7 +23,6 @@ class ReservationInformation extends Component {
     onBack: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
-    openResourceTermsModal: PropTypes.func.isRequired,
     reservation: PropTypes.object,
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
@@ -82,6 +81,10 @@ class ReservationInformation extends Component {
 
     if (hasProducts(resource)) {
       formFields.push('paymentTermsAndConditions');
+      formFields.push('billingFirstName');
+      formFields.push('billingLastName');
+      formFields.push('billingPhoneNumber');
+      formFields.push('billingEmailAddress');
     }
 
     return uniq(formFields);
@@ -113,20 +116,14 @@ class ReservationInformation extends Component {
 
     if (hasProducts(resource)) {
       requiredFormFields.push('paymentTermsAndConditions');
+      if (!isAdmin) {
+        requiredFormFields.push('billingFirstName');
+        requiredFormFields.push('billingLastName');
+        requiredFormFields.push('billingEmailAddress');
+      }
     }
 
     return requiredFormFields;
-  }
-
-  renderInfoTexts = () => {
-    const { resource, t } = this.props;
-    if (!resource.needManualConfirmation) return null;
-
-    return (
-      <div className="app-ReservationInformation__info-texts">
-        <p>{t('ConfirmReservationModal.priceInfo')}</p>
-      </div>
-    );
   }
 
   render() {
@@ -135,7 +132,6 @@ class ReservationInformation extends Component {
       isMakingReservations,
       onBack,
       onCancel,
-      openResourceTermsModal,
       resource,
       selectedTime,
       t,
@@ -165,7 +161,6 @@ class ReservationInformation extends Component {
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
-            openResourceTermsModal={openResourceTermsModal}
             requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
             resource={resource}
             termsAndConditions={termsAndConditions}

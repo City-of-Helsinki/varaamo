@@ -19,7 +19,7 @@ export default {
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  REQUIRED_STAFF_EVENT_FIELDS: ['eventDescription', 'reserverName'],
+  REQUIRED_STAFF_EVENT_FIELDS: ['eventSubject', 'reserverName'],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
@@ -36,6 +36,24 @@ export default {
     requested: {
       labelBsStyle: 'primary',
       labelTextId: 'common.requested',
+    },
+  },
+  RESERVATION_PAYMENT_LABELS: {
+    confirmed: {
+      labelBsStyle: 'success',
+      labelTextId: 'payment.success'
+    },
+    waiting: {
+      labelBsStyle: 'warning',
+      labelTextId: 'payment.processing'
+    },
+    rejected: {
+      labelBsStyle: 'danger',
+      labelTextId: 'payment.failed'
+    },
+    cancelled: {
+      labelBsStyle: 'danger',
+      labelTextId: 'payment.cancelled'
     },
   },
   SEARCH_PAGE_SIZE: 30,

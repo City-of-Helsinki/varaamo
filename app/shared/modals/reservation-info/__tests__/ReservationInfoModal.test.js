@@ -87,7 +87,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
       test('renders ReservationStateLabel component', () => {
         const reservationStateLabel = getWrapper().find(ReservationStateLabel);
-        expect(reservationStateLabel.length).toBe(1);
+        expect(reservationStateLabel.length).toBe(0);
       });
 
       test('renders ReservationEditForm component', () => {

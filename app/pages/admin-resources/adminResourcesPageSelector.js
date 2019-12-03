@@ -6,7 +6,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from '../../constants/ActionTypes';
 import { isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
-import { resourcesSelector } from '../../state/selectors/dataSelectors';
+import { resourcesSelector, unitsSelector } from '../../state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from '../../state/selectors/factories/requestIsActiveSelectorFactory';
 
 const dateSelector = state => state.ui.pages.adminResources.date || moment().format('YYYY-MM-DD');
@@ -35,7 +35,16 @@ const filteredAdminResourceSelector = createSelector(
 
 const filteredAdminResourcesIdsSelector = createSelector(
   filteredAdminResourceSelector,
-  resources => sortBy(resources, 'name').map(res => res.id),
+  unitsSelector,
+  (resources, units) => {
+    const resourcesWithUnits = resources.map((res) => {
+      const resource = { ...res };
+      const resourceUnit = units[res.unit];
+      if (resourceUnit) resource.unitName = resourceUnit.name;
+      return resource;
+    });
+    return sortBy(resourcesWithUnits, 'unitName').map(res => res.id);
+  },
 );
 
 const adminResourcesPageSelector = createStructuredSelector({

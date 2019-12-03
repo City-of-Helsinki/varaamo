@@ -12,7 +12,7 @@ $reservation-list-label-height: 20px;
     min-height: 180px;
 
     @media (max-width: $screen-xs-max) {
-      min-height: 200px;
+      min-height: 230px;
     }
 
     .image-container {
@@ -41,13 +41,7 @@ $reservation-list-label-height: 20px;
         margin-bottom: 8px;
         margin-top: -8px;
         width: 100%;
-
-        .label {
-          display: inline-block;
-          line-height: $reservation-list-label-height;
-          padding-top: 0;
-          padding-bottom: 0;
-        }
+        display: flex;
       }
 
       .location, .timeslot {
@@ -58,6 +52,11 @@ $reservation-list-label-height: 20px;
       .reservation-access-code {
         font-weight: bold;
         margin-left: 33.8px;
+      }
+
+      .price {
+        margin-left: 33.8px;
+        font-weight: bold;
       }
     }
 

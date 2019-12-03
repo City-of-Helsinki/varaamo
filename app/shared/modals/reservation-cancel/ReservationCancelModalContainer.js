@@ -5,23 +5,54 @@ import Modal from 'react-bootstrap/lib/Modal';
 import { FormattedHTMLMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Toggle from 'react-toggle';
 
 import { deleteReservation } from '../../../actions/reservationActions';
 import { closeReservationCancelModal } from '../../../actions/uiActions';
 import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
 import injectT from '../../../i18n/injectT';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
+import { hasProducts } from '../../../utils/resourceUtils';
 
 class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.state = { checkboxDisabled: null };
+  }
+
+  componentDidMount() {
+    const {
+      resource
+    } = this.props;
+
+    hasProducts(resource)
+      ? this.setState({ checkboxDisabled: false })
+      : this.setState({ checkboxDisabled: true });
   }
 
   handleCancel() {
     const { actions, reservation } = this.props;
     actions.deleteReservation(reservation);
     actions.closeReservationCancelModal();
+  }
+
+  handleCheckbox() {
+    this.setState(prevState => ({ checkboxDisabled: !prevState.checkboxDisabled }));
+  }
+
+  renderCheckBox(notice, onConfirm) {
+    return (
+      <div>
+        <p><strong>{notice}</strong></p>
+        <Toggle
+          defaultChecked={false}
+          id="checkbox"
+          onChange={e => onConfirm(e.target.checked)}
+        />
+      </div>
+    );
   }
 
   render() {
@@ -37,7 +68,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
 
     return (
       <Modal
-        onHide={actions.closeReservationCancelModal}
+        onHide={() => {
+          actions.closeReservationCancelModal();
+          if (hasProducts(resource)) this.setState({ checkboxDisabled: true });
+        }}
         show={show}
       >
         <Modal.Header closeButton>
@@ -62,6 +96,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
                 />
                 )
               }
+              {reservation.resource && !reservation.staffEvent && hasProducts(resource) && this.renderCheckBox(
+                t('ReservationInformationForm.refundCheckBox'),
+                this.handleCheckbox,
+              )}
             </div>
             )
           }
@@ -79,7 +117,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
         <Modal.Footer>
           <Button
             bsStyle="default"
-            onClick={actions.closeReservationCancelModal}
+            onClick={() => {
+              actions.closeReservationCancelModal();
+              if (hasProducts(resource)) this.setState({ checkboxDisabled: true });
+            }}
           >
             {cancelAllowed
               ? t('ReservationCancelModal.cancelAllowedCancel')
@@ -89,7 +130,11 @@ class UnconnectedReservationCancelModalContainer extends Component {
           {cancelAllowed && (
             <Button
               bsStyle="danger"
-              disabled={isCancellingReservations}
+              disabled={
+                hasProducts(resource)
+                  ? this.state.checkboxDisabled
+                  : isCancellingReservations
+              }
               onClick={this.handleCancel}
             >
               {isCancellingReservations

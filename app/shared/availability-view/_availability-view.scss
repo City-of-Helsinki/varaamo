@@ -197,6 +197,10 @@
       .unpublished-label {
         margin-left: 10px;
       }
+      .unit-name {
+        margin-right: 10px;
+        color: $blue;
+      }
     }
   }
   .timeline-groups {
@@ -244,6 +248,9 @@
             $gray-light 49.9%,
             $gray-lighter 50%
           );
+        }
+        &-whole-selected {
+          background: $gray-light;
         }
       }
     }
@@ -308,6 +315,13 @@
     &.reserved {
       background-color: $brand-success;
     }
+    &.waiting {
+      background-color: $hel-summer;
+      color: $black
+    }
+    &.paid {
+      background-color: #007a64;
+    }
     .names {
       height: 100%;
       overflow: hidden;
@@ -330,6 +344,20 @@
       position: relative;
       left: 100px;
     }
+  }
+
+  .event-subject {
+    margin-right: 5px;
+  }
+
+  .price-tag {
+    display: flex;
+    justify-content: flex-start;
+    background-color: $black;
+    color: $white;
+    width: 43px;
+    padding: 0 3px;
+    font-size: 1.25rem;
   }
 }
 

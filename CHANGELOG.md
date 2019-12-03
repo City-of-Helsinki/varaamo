@@ -1,3 +1,34 @@
+# 0.8.0
+  **MINOR CHANGES**
+  - Reordered info blocks on ResourcePage
+  - Added colored explanations for fullCalendar events.
+  - Brought back missing billingFirstName, billingLastName, billingPhoneNumber and billingEmailAddress.
+  - Changed Terms of Service and Payment of Service modals to text box. Moved resource specific terms before buttons.
+  - Fixed issue where eventDescription was set to required instead of eventSubject when making reservation as admin.
+  - My premises slot sizes match are now determined by resource. Events with price have different color and show little price tag.
+  - My premises shows units name and are now sorted based on that.
+  - If event is billable, information modal shows payers name and email. Also price and cancel directions for staff are shown. Cancel confirmation modal has extra step for confirming that user has read cancel directions.
+  - Removed admin utilities from Your reservations page. Future and past reservations are shown below titles and page is now paginated.
+  - Your premise list items have label for payment state and show price that was paid. If user is not admin modify button is disabled and cancel button shows modal with directions.
+  - Fixed some finnish translations on Manage reservations page. Total number of reservations is also shown.
+  - Cancel buttons in Manage reservations have extra confirmation dialog.  
+
+  **CHANGELOG**
+  - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
+  - [#1071](https://github.com/City-of-Helsinki/varaamo/pull/1071) Edited My premise event styles and added payment status labels for ReservationInfoModal
+  - [#1072](https://github.com/City-of-Helsinki/varaamo/pull/1072) Added Payment state labels & total price for User reservations list. Disabled edit button for end user if reservation is billable.
+  - [#1073](https://github.com/City-of-Helsinki/varaamo/pull/1073) My premises now gets slotSize from resource.
+  - [#1074](https://github.com/City-of-Helsinki/varaamo/pull/1074) Changed payment and resource terms of service to text boxes.
+  - [#1075](https://github.com/City-of-Helsinki/varaamo/pull/1075) Added premise name text and sorted resources based on that (in My premises page).
+  - [#1076](https://github.com/City-of-Helsinki/varaamo/pull/1076) Added little colored boxes with texts to explain calendar event colors.
+  - [#1077](https://github.com/City-of-Helsinki/varaamo/pull/1077) Changed some finnish translations. ReservationInformationForm now shows right helper text based on resource type.
+  - [#1078](https://github.com/City-of-Helsinki/varaamo/pull/1078) Users are now able to see their past reservations. User reservations page also paginates results.
+  - [#1079](https://github.com/City-of-Helsinki/varaamo/pull/1079) Cancel modal changes in app and scr.
+  - [#1080](https://github.com/City-of-Helsinki/varaamo/pull/1080) Fixed problem where wrong field was required when making reservation as admin.
+  - [#1081](https://github.com/City-of-Helsinki/varaamo/pull/1081) Added payer name and email into My premises and Manage reservations info modals. Manage reservations page also shows total amount of search results.
+  - [#1082](https://github.com/City-of-Helsinki/varaamo/pull/1082) Switched resource specificTerms position on view.
+  - [#1083](https://github.com/City-of-Helsinki/varaamo/pull/1083) Reordered info blocks on ResourcePage. Moved min period from "Reserve" to "Reservation information".
+
 # 0.7.0
   **MINOR CHANGES**
   - Added event close and staff event checkboxes for staff in reservation form / resource page

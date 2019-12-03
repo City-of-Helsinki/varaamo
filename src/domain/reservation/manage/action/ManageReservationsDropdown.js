@@ -42,7 +42,7 @@ const UntranslatedManageReservationsDropdown = ({
 
           {userCanCancel && (
             <MenuItem
-              onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED)}
+              onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED, true)}
             >
               {t('ManageReservationsList.actionLabel.cancel')}
             </MenuItem>

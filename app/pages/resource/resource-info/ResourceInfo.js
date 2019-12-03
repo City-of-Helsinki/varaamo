@@ -26,15 +26,12 @@ function ResourceInfo({
         </ResourcePanel>
       )}
 
-      <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
-        <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
-      </ResourcePanel>
-
       {resource.specificTerms && (
         <ResourcePanel header={t('ResourcePage.specificTerms')}>
           <p>{resource.specificTerms}</p>
         </ResourcePanel>
       )}
+
       <ResourcePanel header={t('ResourceInfo.additionalInfoTitle')}>
         <Row>
           <Col className="app-ResourceInfo__address" xs={6}>
@@ -59,6 +56,10 @@ function ResourceInfo({
             )}
           </Col>
         </Row>
+      </ResourcePanel>
+
+      <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
+        <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
       </ResourcePanel>
 
       { Array.isArray(resource.equipment)

@@ -37,16 +37,20 @@
     font-size: 1.25rem;
   }
 
-  .fc-event {
+  .fc-event,
+  .fc-event:hover {
     font-size: 1.75rem;
     font-weight: bold;
     background-color: #bddbf0;
     border: 1px solid $hel-coat;
+    color: $hel-coat;
   }
 
-  .fc-event.fc-selected:after {
-    opacity: 0.35;
-    background-color: $hel-coat;
+
+
+  .fc-event.fc-selected::after {
+    background-color: #bddbf0;
+    color: $hel-coat;
   }
 
 

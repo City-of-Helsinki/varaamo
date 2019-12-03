@@ -42,6 +42,26 @@ exports[`ManageReservationsPage renders correctly 1`] = `
       }
       units={Array []}
     />
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}
+    >
+      <Row
+        bsClass="row"
+        componentClass="div"
+      >
+        <Col
+          bsClass="col"
+          componentClass="div"
+          sm={12}
+        >
+          <span>
+            ManageReservationsPage.noSearchResults
+          </span>
+        </Col>
+      </Row>
+    </Grid>
   </div>
   <div
     className="app-ManageReservationsPage__list"

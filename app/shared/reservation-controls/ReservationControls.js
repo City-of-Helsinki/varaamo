@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../i18n/injectT';
+import { hasProducts } from '../../utils/resourceUtils';
 
 class ReservationControls extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class ReservationControls extends Component {
       edit: (
         <Button
           bsStyle="primary"
+          disabled={!this.props.isStaff && !this.props.isAdmin && hasProducts(this.props.resource)}
           key="editButton"
           onClick={props.onEditClick}
         >
@@ -128,6 +130,7 @@ ReservationControls.propTypes = {
   onEditClick: PropTypes.func.isRequired,
   onInfoClick: PropTypes.func.isRequired,
   reservation: PropTypes.object,
+  resource: PropTypes.object,
   t: PropTypes.func.isRequired,
 };
 
