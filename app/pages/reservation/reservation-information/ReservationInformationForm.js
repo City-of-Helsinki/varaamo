@@ -232,6 +232,11 @@ class UnconnectedReservationInformationForm extends Component {
           <p>
             {this.getAsteriskExplanation()}
           </p>
+          {
+            resource.reservationExtraQuestions && (
+              <pre>{resource.reservationExtraQuestions}</pre>
+            )
+          }
           { includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
