@@ -6,7 +6,6 @@
   }
 
   &__range {
-    visibility: hidden;
     display: flex;
     align-items: baseline;
     flex-direction: row;
@@ -24,12 +23,6 @@
       &:last-child {
         margin-left: 15px;
       }
-    }
-  }
-
-  &--checked {
-    .app-TimeRangeFilter__range {
-      visibility: visible;
     }
   }
 }
