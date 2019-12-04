@@ -17,6 +17,19 @@
       margin: 0 6px;
     }
 
+    .app-Select {
+      &__single {
+        &-value {
+          &--is-disabled {
+            color: $gray !important;
+          }
+        }
+      }
+    }
+
+
+
+
     .app-SelectFilter {
       flex: 1 2 25%;
 
