@@ -57,11 +57,10 @@ class UnconnectedReservationPage extends Component {
       && isEmpty(selected)
     ) {
       const query = queryString.parse(location.search);
-
       if (!query.id && query.resource) {
         history.replace(`/resources/${query.resource}`);
       } else {
-        history.replace('/my-reservations');
+        history.replace(query.path ? '/manage-reservations' : '/my-reservations');
       }
     } else {
       this.fetchResource();
@@ -101,9 +100,12 @@ class UnconnectedReservationPage extends Component {
   };
 
   handleCancel = () => {
-    const { reservationToEdit, resource, history } = this.props;
+    const {
+      reservationToEdit, resource, history, location
+    } = this.props;
     if (!isEmpty(reservationToEdit)) {
-      history.replace('/my-reservations');
+      const query = queryString.parse(location.search);
+      history.replace(query.path ? '/manage-reservations' : '/my-reservations');
     } else {
       history.replace(`/resources/${resource.id}`);
     }
@@ -124,7 +126,6 @@ class UnconnectedReservationPage extends Component {
     const {
       actions, reservationToEdit, resource, selected, recurringReservations = []
     } = this.props;
-
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
@@ -152,11 +153,6 @@ class UnconnectedReservationPage extends Component {
           } : {};
 
         if (isOrder) {
-          // Save billing information to respa
-          // eslint-disable-next-line no-param-reassign
-          values.reserverName = `${values.billingFirstName} ${values.billingLastName}`;
-          // eslint-disable-next-line no-param-reassign
-          values.reserverEmailAddress = values.billingEmailAddress;
           this.setState({ view: 'payment' });
         }
         allReservations.forEach(reservation => actions.postReservation({
@@ -235,6 +231,7 @@ class UnconnectedReservationPage extends Component {
       isStaff,
       isFetchingResource,
       isMakingReservations,
+      location,
       reservationCreated,
       reservationEdited,
       reservationToEdit,
@@ -323,6 +320,7 @@ class UnconnectedReservationPage extends Component {
                   <ReservationConfirmation
                     failedReservations={failedReservations}
                     isEdited={isEdited}
+                    location={location}
                     reservation={reservationCreated || reservationEdited}
                     resource={resource}
                     user={user}

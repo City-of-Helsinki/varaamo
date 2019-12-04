@@ -130,7 +130,7 @@ class ManageReservationsPage extends React.Component {
     actions.editReservation({ reservation: normalizedReservation });
     // TODO: Remove this after refactor timeSlot
 
-    const nextUrl = reservationUtils.getEditReservationUrl(reservation);
+    const nextUrl = `${reservationUtils.getEditReservationUrl(reservation)}&path=manage-reservations`;
     history.push(nextUrl);
   };
 

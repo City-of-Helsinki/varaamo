@@ -1,3 +1,6 @@
+# 0.9.0-pre
+  - [#1087](https://github.com/City-of-Helsinki/varaamo/pull/1087) Navigation will bring user back to correct page when editing reservation. During edit form values are filled with existing data.
+
 # 0.8.0
   **MINOR CHANGES**
   - Reordered info blocks on ResourcePage
