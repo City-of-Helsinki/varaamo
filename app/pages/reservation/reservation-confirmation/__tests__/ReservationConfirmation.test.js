@@ -15,6 +15,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   const defaultProps = {
     failedReservations: [],
     isEdited: false,
+    location: {
+      search: ''
+    },
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),
     user: Immutable(User.build()),

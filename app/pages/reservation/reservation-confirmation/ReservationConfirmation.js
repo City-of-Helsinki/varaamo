@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
@@ -19,6 +20,7 @@ class ReservationConfirmation extends Component {
   static propTypes = {
     failedReservations: PropTypes.array.isRequired,
     isEdited: PropTypes.bool,
+    location: PropTypes.object,
     reservation: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
@@ -36,6 +38,14 @@ class ReservationConfirmation extends Component {
         .then(reservationPrice => this.setState({ reservationPrice }));
     }
   }
+
+  getReturnUrl = (isEdited) => {
+    const { location } = this.props;
+    if (!isEdited) return '/my-reservations';
+
+    const query = queryString.parse(location.search);
+    return query.path ? '/manage-reservations' : '/my-reservations';
+  };
 
   renderField(field, label, value) {
     return (
@@ -116,7 +126,7 @@ class ReservationConfirmation extends Component {
             }
 
             <p className="app-ReservationConfirmation__button-wrapper">
-              <Link to="/my-reservations">
+              <Link to={this.getReturnUrl(isEdited)}>
                 <Button bsStyle="primary" className="app-ReservationConfirmation__button">
                   {t('ReservationConfirmation.ownReservationButton')}
                 </Button>
