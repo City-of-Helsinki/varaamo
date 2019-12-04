@@ -232,11 +232,6 @@ class UnconnectedReservationInformationForm extends Component {
           <p>
             {this.getAsteriskExplanation()}
           </p>
-          {
-            resource.reservationExtraQuestions && (
-              <pre>{resource.reservationExtraQuestions}</pre>
-            )
-          }
           {includes(fields, 'reservationExtraQuestions')
           && this.renderField(
             'reservationExtraQuestions',
