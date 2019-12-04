@@ -123,10 +123,3 @@ ConnectedReservationFields = connect(
 )(ConnectedReservationFields);
 
 export default ConnectedReservationFields;
-
-/*
-export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-  initialValues: { staffEvent: true, type: RESERVATION_TYPE.NORMAL }
-})(InternalReservationFields));
- */
