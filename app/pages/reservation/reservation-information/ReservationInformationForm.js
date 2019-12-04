@@ -237,6 +237,14 @@ class UnconnectedReservationInformationForm extends Component {
               <pre>{resource.reservationExtraQuestions}</pre>
             )
           }
+          {includes(fields, 'reservationExtraQuestions')
+          && this.renderField(
+            'reservationExtraQuestions',
+            'textarea',
+            t('common.reservationExtraQuestions'),
+            { rows: 5 }
+          )
+          }
           { includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
