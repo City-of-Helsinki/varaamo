@@ -2,7 +2,7 @@
 
 exports[`TimeRangeFilter render normally 1`] = `
 <div
-  className="app-TimeRangeFilter app-TimeRangeFilter--checked"
+  className="app-TimeRangeFilter"
 >
   <ToggleFilter
     checked={true}
@@ -15,6 +15,7 @@ exports[`TimeRangeFilter render normally 1`] = `
   >
     <InjectT(SelectFilter)
       className="app-TimeRangeFilter__range-start"
+      disabled={false}
       id="time-filter-start-select"
       isClearable={false}
       isSearchable={false}
@@ -220,6 +221,7 @@ exports[`TimeRangeFilter render normally 1`] = `
     </div>
     <InjectT(SelectFilter)
       className="app-TimeRangeFilter__range-end"
+      disabled={false}
       id="time-filter-end-select"
       isClearable={false}
       isSearchable={false}
@@ -277,6 +279,7 @@ exports[`TimeRangeFilter render normally 1`] = `
     />
     <InjectT(SelectFilter)
       className="app-TimeRangeFilter__range-duration"
+      disabled={false}
       id="time-filter-duration-select"
       isClearable={false}
       isSearchable={false}
