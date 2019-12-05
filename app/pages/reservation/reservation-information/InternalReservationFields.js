@@ -118,6 +118,7 @@ ConnectedReservationFields = connect(
       staffEvent: true,
       type: RESERVATION_TYPE.NORMAL,
       ...toCamelCase(state.ui.reservations.toEdit[0]),
+      reservationExtraQuestionsDefault: state.data.resources[state.ui.resourceMap.resourceId].reservationExtraQuestions,
       reservationExtraQuestions: state.data.resources[state.ui.resourceMap.resourceId].reservationExtraQuestions
     }
   })

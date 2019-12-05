@@ -5,8 +5,6 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -95,18 +93,6 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { defaultReservationExtraQuestions: null };
-  }
-
-  componentDidMount() {
-    const { reservationExtraQuestions } = this.props;
-    this.setState({
-      defaultReservationExtraQuestions: reservationExtraQuestions
-    });
-  }
-
   getAsteriskExplanation = () => {
     const { resource, t } = this.props;
     const maybeBillable = resource.minPricePerHour && resource.maxPricePerHour;
@@ -122,14 +108,6 @@ class UnconnectedReservationInformationForm extends Component {
     return t('ReservationForm.reservationFieldsAsteriskNormal');
   };
 
-  handleTextareaOnChange = (event, name) => {
-    const { defaultReservationExtraQuestions } = this.state;
-    const { actions } = this.props;
-    if (name === 'reservationExtraQuestions' && event.target.value === '') {
-      actions.resetReservationExtraQuestionsAction(defaultReservationExtraQuestions);
-    }
-  }
-
   renderField(name, type, label, help = null) {
     if (!includes(this.props.fields, name)) {
       return null;
@@ -142,7 +120,6 @@ class UnconnectedReservationInformationForm extends Component {
         help={help}
         label={`${label}${isRequired ? '*' : ''}`}
         name={name}
-        onChange={e => this.handleTextareaOnChange(e, name)}
         type={type}
       />
     );
@@ -451,41 +428,20 @@ UnconnectedReservationInformationForm.propTypes = {
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
   isStaff: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
-  reservationExtraQuestions: PropTypes.string,
-  actions: PropTypes.object
+  valid: PropTypes.bool.isRequired
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
-const mapStateToProps = state => ({
-  reservationExtraQuestions: state.data.resources[state.ui.resourceMap.resourceId].reservationExtraQuestions
-});
-
-function mapDispatchToProps(dispatch) {
-  function resetReservationExtraQuestionsAction(str) {
-    return {
-      type: '@@redux-form/CHANGE',
-      meta: {
-        form: 'RESERVATION',
-        field: 'reservationExtraQuestions',
-        touch: false,
-        persistentSubmitErrors: false
-      },
-      payload: str
-    };
-  }
-
-  const actionCreators = {
-    resetReservationExtraQuestionsAction
-  };
-
-  return { actions: bindActionCreators(actionCreators, dispatch) };
-}
-
 export { UnconnectedReservationInformationForm };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectT(reduxForm({
+export default injectT(reduxForm({
   form: FormTypes.RESERVATION,
   initialValues: { internalReservation: true },
+  onChange: (obj) => {
+    if (obj.reservationExtraQuestions === '') {
+      // eslint-disable-next-line no-param-reassign
+      obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
+    }
+  },
   validate
-})(UnconnectedReservationInformationForm)));
+})(UnconnectedReservationInformationForm));
