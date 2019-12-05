@@ -11,7 +11,6 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Panel from 'react-bootstrap/lib/Panel';
 import Grid from 'react-bootstrap/lib/Grid';
-import classNames from 'classnames';
 
 import constants from '../../../../app/constants/AppConstants';
 import * as searchUtils from '../utils';
