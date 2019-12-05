@@ -11,6 +11,7 @@ import injectT from '../../../../../app/i18n/injectT';
 class SelectFilter extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     id: PropTypes.string.isRequired,
     isClearable: PropTypes.bool,
     isSearchable: PropTypes.bool,
@@ -48,6 +49,7 @@ class SelectFilter extends React.Component {
     const {
       id,
       className,
+      disabled,
       isLoading = false,
       isClearable = true,
       isSearchable = true,
@@ -68,6 +70,7 @@ class SelectFilter extends React.Component {
               classNamePrefix="app-Select"
               id={id}
               isClearable={isClearable}
+              isDisabled={disabled}
               isMulti={isMulti}
               isSearchable={isSearchable}
               noOptionsMessage={this.noOptionsMessage}

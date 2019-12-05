@@ -11,4 +11,10 @@
   &__sort {
     margin-top: 10px;
   }
+
+  &__results {
+    @media (max-width: $screen-md) {
+      min-height: 150px;
+    }
+  }
 }

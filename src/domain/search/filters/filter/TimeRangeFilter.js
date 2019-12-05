@@ -266,9 +266,7 @@ class TimeRangeFilter extends React.Component {
 
     return (
       <div
-        className={classNames('app-TimeRangeFilter', {
-          'app-TimeRangeFilter--checked': isChecked,
-        })}
+        className="app-TimeRangeFilter"
       >
         <ToggleFilter
           checked={isChecked}
@@ -279,6 +277,7 @@ class TimeRangeFilter extends React.Component {
         <div className="app-TimeRangeFilter__range">
           <SelectFilter
             className="app-TimeRangeFilter__range-start"
+            disabled={!isChecked}
             id="time-filter-start-select"
             isClearable={false}
             isSearchable={false}
@@ -289,6 +288,7 @@ class TimeRangeFilter extends React.Component {
           <div className="app-TimeRangeFilter__range-separator">-</div>
           <SelectFilter
             className="app-TimeRangeFilter__range-end"
+            disabled={!isChecked}
             id="time-filter-end-select"
             isClearable={false}
             isSearchable={false}
@@ -299,6 +299,7 @@ class TimeRangeFilter extends React.Component {
           />
           <SelectFilter
             className="app-TimeRangeFilter__range-duration"
+            disabled={!isChecked}
             id="time-filter-duration-select"
             isClearable={false}
             isSearchable={false}
