@@ -25,6 +25,24 @@
     padding-top: 15px;
   }
 
+  &__today-button {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    height: 38px;
+    background-color: $black;
+    color: $white;
+
+
+    &-disabled:hover,
+    &-disabled:focus,
+    &-disabled:active,
+    &-disabled {
+      background-color: transparent;
+      color: $gray;
+    }
+  }
+
   &__submit-button {
     min-width: 120px;
   }

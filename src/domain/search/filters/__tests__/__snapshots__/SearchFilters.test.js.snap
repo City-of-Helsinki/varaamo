@@ -42,10 +42,23 @@ exports[`ResourceMap renders correctly 1`] = `
           sm={12}
         >
           <InjectT(UntranslatedDateFilter)
-            date={2017-12-09T22:00:00.000Z}
+            date={2017-12-09T21:59:59.999Z}
             label="SearchFilters.dateLabel"
             onChange={[Function]}
           />
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="primary"
+            className="app-SearchFilters__today-button"
+            disabled={false}
+            key="today-button"
+            onClick={[Function]}
+            type="submit"
+          >
+            TimePickerCalendar.info.today
+          </Button>
         </Col>
       </Row>
       <Uncontrolled(Panel)

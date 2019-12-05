@@ -134,6 +134,16 @@ class SearchFilters extends React.Component {
                     this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));
                   }}
                 />
+                <Button
+                  bsStyle="primary"
+                  className="app-SearchFilters__today-button"
+                  disabled={moment(date).isSame(moment(), 'day')}
+                  key="today-button"
+                  onClick={() => this.onFilterChange('date', moment().format(constants.DATE_FORMAT))}
+                  type="submit"
+                >
+                  {t('TimePickerCalendar.info.today')}
+                </Button>
               </Col>
             </Row>
             <Panel

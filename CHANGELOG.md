@@ -1,6 +1,7 @@
 # 0.9.0-pre
   - [#1087](https://github.com/City-of-Helsinki/varaamo/pull/1087) Navigation will bring user back to correct page when editing reservation. During edit form values are filled with existing data.
   - [#1088](https://github.com/City-of-Helsinki/varaamo/pull/1088) Sort by on search page has enough space so it won't disappear under footer. TimeRangeFilter selects are always show, but disabled if not toggled.
+  - [#1089](https://github.com/City-of-Helsinki/varaamo/pull/1089) Added today buttons to search and my premises pages.
 
 # 0.8.0
   **MINOR CHANGES**
