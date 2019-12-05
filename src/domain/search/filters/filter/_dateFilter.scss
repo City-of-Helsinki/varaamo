@@ -2,7 +2,11 @@
   display: inline-block;
   margin-bottom: 0;
   position: relative;
-  width: 100%;
+  width: 80%;
+
+  @media (max-width: $screen-sm-min) {
+    width: 75%
+  }
 
   &__icon {
     width: 22px;

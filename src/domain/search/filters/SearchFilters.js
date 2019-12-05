@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Panel from 'react-bootstrap/lib/Panel';
 import Grid from 'react-bootstrap/lib/Grid';
+import classNames from 'classnames';
 
 import constants from '../../../../app/constants/AppConstants';
 import * as searchUtils from '../utils';
@@ -134,6 +135,16 @@ class SearchFilters extends React.Component {
                     this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));
                   }}
                 />
+                <Button
+                  bsStyle="primary"
+                  className="app-SearchFilters__today-button"
+                  disabled={moment(date).isSame(moment(), 'day')}
+                  key="today-button"
+                  onClick={() => this.onFilterChange('date', moment().format(constants.DATE_FORMAT))}
+                  type="submit"
+                >
+                  {t('TimePickerCalendar.info.today')}
+                </Button>
               </Col>
             </Row>
             <Panel
