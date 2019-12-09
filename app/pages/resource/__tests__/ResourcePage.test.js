@@ -256,7 +256,7 @@ describe('pages/resource/ResourcePage', () => {
       expect(fetchResource.callCount).toBe(1);
       expect(actualArgs[0]).toBe(defaultProps.id);
       expect(actualArgs[1].start).toContain('2015-08-31');
-      expect(actualArgs[1].end).toContain('2015-11-30');
+      expect(actualArgs[1].end).toContain('2016-01-31');
     });
 
     test('fetches resource with correct arguments with a passed date', () => {
@@ -268,7 +268,7 @@ describe('pages/resource/ResourcePage', () => {
       expect(fetchResource.callCount).toBe(1);
       expect(actualArgs[0]).toBe(defaultProps.id);
       expect(actualArgs[1].start).toContain('2015-09-30');
-      expect(actualArgs[1].end).toContain('2015-12-31');
+      expect(actualArgs[1].end).toContain('2016-02-29');
     });
   });
 
