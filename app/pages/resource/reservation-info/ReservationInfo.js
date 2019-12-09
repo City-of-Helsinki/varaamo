@@ -24,10 +24,12 @@ function renderLoginText(isLoggedIn, resource) {
 
 
 function renderEarliestResDay(resource, t) {
-  if (!resource.reservableMinDaysInAdvance) {
+  if (!resource.reservableAfter && !resource.reservableMinDaysInAdvance) {
     return null;
   }
-  const time = moment().add(resource.reservableMinDaysInAdvance, 'days').toNow(true);
+  const time = resource.reservableAfter
+    ? moment(resource.reservableAfter).toNow(true)
+    : moment().add(resource.reservableMinDaysInAdvance, 'days').toNow(true);
   return (
     <p className="reservable-after-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
@@ -37,14 +39,20 @@ function renderEarliestResDay(resource, t) {
 }
 
 const renderLastResDay = (resource, t) => {
-  if (!resource.reservableMaxDaysInAdvance) {
+  if (!resource.reservableBefore && !resource.reservableMaxDaysInAdvance) {
     return null;
   }
-  const time = moment().add(resource.reservableMaxDaysInAdvance, 'days').toNow(true);
+  const time = resource.reservableBefore
+    ? moment(resource.reservableBefore).toNow(true)
+    : moment().add(resource.reservableMaxDaysInAdvance, 'days').toNow(true);
+
+  const date = resource.reservableBefore
+    ? moment(resource.reservableBefore).format('DD.MM.YYYY')
+    : moment().add(resource.reservableMaxDaysInAdvance, 'days').format('DD.MM.YYYY');
   return (
     <p className="reservable-before-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
-      <strong>{t('ReservationInfo.reservationLatestDays', { time })}</strong>
+      <strong>{t('ReservationInfo.reservationLatestDays', { time, date })}</strong>
     </p>
   );
 };

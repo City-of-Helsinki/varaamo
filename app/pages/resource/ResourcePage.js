@@ -74,7 +74,7 @@ class UnconnectedResourcePage extends Component {
   isDayReservable = (day) => {
     const { resource: { reservableAfter, reservableBefore } } = this.props;
     const beforeDate = reservableAfter || moment().subtract(0, 'day');
-    const lastDate = reservableBefore ? moment(reservableBefore).add(0, 'day') : null;
+    const lastDate = reservableBefore ? moment(reservableBefore).add(1, 'day') : null;
     if (lastDate) return !moment(day).isBetween(beforeDate, lastDate, 'day');
     return moment(day).isBefore(beforeDate, 'day');
   };
