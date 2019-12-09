@@ -18,6 +18,9 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
     availability: {},
     currentLanguage: 'en',
     selectedDate: '2015-10-11',
+    resource: {
+      reservableDaysInAdvance: 360,
+    },
     onDateChange: simple.mock(),
   };
   function getWrapper(props) {
@@ -29,10 +32,10 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   beforeAll(() => {
     wrapper = getWrapper({
       availability: {
-        '2015-10-01': { percentage: 0 },
-        '2015-10-02': { percentage: 50 },
-        '2015-10-03': { percentage: 81 },
-        '2015-10-04': { percentage: 100 },
+        '2020-10-01': { percentage: 0 },
+        '2020-10-02': { percentage: 50 },
+        '2020-10-03': { percentage: 81 },
+        '2020-10-04': { percentage: 100 },
       },
     });
     dayWrapper = wrapper.find(DayPicker);
@@ -165,28 +168,27 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
       expect(instance.calendarWrapper).toBe(element);
     });
   });
-
   describe('modifiers', () => {
     test('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
-      expect(func(new Date('2015-10-01'))).toBe(false);
-      expect(func(new Date('2015-10-02'))).toBe(false);
-      expect(func(new Date('2015-10-03'))).toBe(true);
-      expect(func(new Date('2015-10-04'))).toBe(true);
+      expect(func(new Date('2020-10-01'))).toBe(false);
+      expect(func(new Date('2020-10-02'))).toBe(false);
+      expect(func(new Date('2020-10-03'))).toBe(true);
+      expect(func(new Date('2020-10-04'))).toBe(true);
     });
     test('is busy if percentage is lower than 80', () => {
       const func = dayWrapper.prop('modifiers').busy;
-      expect(func(new Date('2015-10-01'))).toBe(false);
-      expect(func(new Date('2015-10-02'))).toBe(true);
-      expect(func(new Date('2015-10-03'))).toBe(false);
-      expect(func(new Date('2015-10-04'))).toBe(false);
+      expect(func(new Date('2020-10-01'))).toBe(false);
+      expect(func(new Date('2020-10-02'))).toBe(true);
+      expect(func(new Date('2020-10-03'))).toBe(false);
+      expect(func(new Date('2020-10-04'))).toBe(false);
     });
     test('is booked if percentage is 0', () => {
       const func = dayWrapper.prop('modifiers').booked;
-      expect(func(new Date('2015-10-01'))).toBe(true);
-      expect(func(new Date('2015-10-02'))).toBe(false);
-      expect(func(new Date('2015-10-03'))).toBe(false);
-      expect(func(new Date('2015-10-04'))).toBe(false);
+      expect(func(new Date('2020-10-01'))).toBe(true);
+      expect(func(new Date('2020-10-02'))).toBe(false);
+      expect(func(new Date('2020-10-03'))).toBe(false);
+      expect(func(new Date('2020-10-04'))).toBe(false);
     });
   });
 
