@@ -147,7 +147,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
     });
 
     describe('form fields', () => {
-      const fieldName = 'reserverName';
+      const fieldName = 'eventSubject';
 
       test('renders a field if it is included in props.fields', () => {
         const fields = [fieldName];
@@ -166,6 +166,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
+            isStaff: false
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).toContain('*');
@@ -184,11 +185,13 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const staffEventSelected = true;
 
           test('shows an asterisk beside REQUIRED_STAFF_EVENT_FIELDS', () => {
-            const fields = [fieldName];
+            // Give adminField value that is in REQUIRED_STAFF_EVENT_FIELDS
+            const adminField = 'eventDescription';
+            const fields = [adminField];
             const props = {
               fields,
-              requiredFields: [fieldName],
-              staffEventSelected,
+              requiredFields: [adminField],
+              isStaff: true,
             };
             const input = getWrapper(props).find(Field);
             expect(input.props().label).toContain('*');
