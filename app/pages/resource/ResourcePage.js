@@ -73,8 +73,8 @@ class UnconnectedResourcePage extends Component {
 
   isDayReservable = (day) => {
     const { resource: { reservableAfter, reservableBefore } } = this.props;
-    const beforeDate = reservableAfter || moment().subtract(1, 'day');
-    const lastDate = reservableBefore ? moment(reservableBefore).add(1, 'day') : null;
+    const beforeDate = reservableAfter || moment().subtract(0, 'day');
+    const lastDate = reservableBefore ? moment(reservableBefore).add(0, 'day') : null;
     if (lastDate) return !moment(day).isBetween(beforeDate, lastDate, 'day');
     return moment(day).isBefore(beforeDate, 'day');
   };
@@ -127,14 +127,18 @@ class UnconnectedResourcePage extends Component {
 
   fetchResource = (date = this.props.date) => {
     const { actions, id } = this.props;
-    const start = moment(date)
+    let start = moment(date)
       .subtract(1, 'M')
       .startOf('month')
       .toISOString();
     const end = moment(date)
-      .add(1, 'M')
+      .add(3, 'M')
       .endOf('month')
       .toISOString();
+
+    if (moment(date).isAfter(moment().add(30, 'days'))) {
+      start = moment().subtract(1, 'day').toISOString();
+    }
 
     actions.fetchResource(id, { start, end });
   };
@@ -184,7 +188,6 @@ class UnconnectedResourcePage extends Component {
     }
 
     const images = this.orderImages(resource.images || []);
-
     const mainImageIndex = findIndex(images, image => image.type === 'main');
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
