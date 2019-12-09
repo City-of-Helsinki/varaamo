@@ -42,7 +42,7 @@ const renderLastResDay = (resource, t) => {
   }
   const time = moment().add(resource.reservableMaxDaysInAdvance, 'days').toNow(true);
   return (
-    <p className="reservable-after-text">
+    <p className="reservable-before-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
       <strong>{t('ReservationInfo.reservationLatestDays', { time })}</strong>
     </p>
