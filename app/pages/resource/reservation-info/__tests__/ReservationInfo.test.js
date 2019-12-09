@@ -16,7 +16,8 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservable: true,
         reservableAfter: '2019-03-06T00:00:00Z',
         reservationInfo: 'Some information',
-        reservableDaysInAdvance: 2
+        reservableMinDaysInAdvance: 2,
+        reservableMaxDaysInAdvance: 90
       })
     ),
   };
@@ -38,15 +39,28 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   });
 
   describe('earliest reservation day text', () => {
-    test('is rendered correctly when resource.reservableAfter is defined', () => {
+    test('is rendered correctly when resource.reservableMinDaysInAdvance is defined', () => {
       const resAfterText = getWrapper().find('.reservable-after-text');
       expect(resAfterText).toHaveLength(1);
     });
 
-    test('is not rendered if resource.reservableAfter is not defined', () => {
+    test('is not rendered if resource.reservableMinDaysInAdvance is not defined', () => {
       const resource = {};
       const maxLengthText = getWrapper({ resource }).find('.reservable-after-text');
       expect(maxLengthText).toHaveLength(0);
+    });
+  });
+
+  describe('latest reservation day test', () => {
+    test('is rendered correctly when resource.reservableMaxDaysInAdvance is defined', () => {
+      const resLatestText = getWrapper().find('.reservable-before-text');
+      expect(resLatestText).toHaveLength(1);
+    });
+
+    test('is not rendered if resource.reservableMaxDaysInAdvance is not defined', () => {
+      const resource = {};
+      const resLatestText = getWrapper({ resource }).find('.reservable-before-text');
+      expect(resLatestText).toHaveLength(0);
     });
   });
 

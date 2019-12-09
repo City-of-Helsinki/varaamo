@@ -54,6 +54,7 @@ export class UnconnectedResourceCalendar extends Component {
     const {
       availability,
       currentLanguage,
+      resource,
       selectedDate,
       t,
     } = this.props;
@@ -61,10 +62,19 @@ export class UnconnectedResourceCalendar extends Component {
     const selectedDay = new Date();
     selectedDay.setFullYear(year, month - 1, dayNumber);
     const selectedDateText = moment(selectedDate).format('dddd D. MMMM YYYY');
+    let reservableUntil;
+    if (resource.reservableDaysInAdvance) {
+      reservableUntil = moment().add(resource.reservableDaysInAdvance, 'days');
+    } else reservableUntil = moment().add(12, 'M');
+
     const modifiers = {
       available: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
-        return availability[dayDate] && availability[dayDate].percentage >= 80;
+        return (
+          availability[dayDate]
+          && availability[dayDate].percentage >= 80
+          && moment(day).isBetween(moment().startOf('day'), reservableUntil)
+        );
       },
       busy: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
@@ -72,11 +82,15 @@ export class UnconnectedResourceCalendar extends Component {
           availability[dayDate]
           && availability[dayDate].percentage < 80
           && availability[dayDate].percentage > 0
+          && moment(day).isBetween(moment().startOf('day'), reservableUntil)
         );
       },
       booked: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
-        return availability[dayDate] && availability[dayDate].percentage === 0;
+        return (
+          availability[dayDate]
+          && availability[dayDate].percentage === 0
+          && moment(day).isBetween(moment().startOf('day'), reservableUntil));
       },
     };
 
@@ -132,6 +146,7 @@ UnconnectedResourceCalendar.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
   selectedDate: PropTypes.string.isRequired,
   onDateChange: PropTypes.func.isRequired,
+  resource: PropTypes.object,
   t: PropTypes.func.isRequired,
 };
 UnconnectedResourceCalendar = injectT(UnconnectedResourceCalendar); // eslint-disable-line

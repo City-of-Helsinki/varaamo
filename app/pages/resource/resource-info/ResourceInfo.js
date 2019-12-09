@@ -58,12 +58,12 @@ function ResourceInfo({
         </Row>
       </ResourcePanel>
 
+      { Array.isArray(resource.equipment)
+      && resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
+
       <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
         <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />
       </ResourcePanel>
-
-      { Array.isArray(resource.equipment)
-        && resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
     </section>
   );
 }
