@@ -80,6 +80,7 @@
   "common.requested": "Requested",
   "common.reservationTimeLabel": "Time and date of the reservation",
   "common.reservationExtraQuestions": "Reservation extra questions",
+  "common.reservationExtraQuestionsLabel": "Reservation extra questions",
   "common.reserverAddressLabel": "Address",
   "common.reserverAddressCityLabel": "City",
   "common.reserverAddressStreetLabel": "Street address",

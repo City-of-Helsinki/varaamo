@@ -80,6 +80,7 @@
   "common.requested": "Käsiteltävänä",
   "common.reservationTimeLabel": "Varauksen ajankohta",
   "common.reservationExtraQuestions": "Lisäkysymykset",
+  "common.reservationExtraQuestionsLabel": "Lisäkysymykset",
   "common.reserverAddressLabel": "Osoite",
   "common.reserverAddressCityLabel": "Kaupunki",
   "common.reserverAddressStreetLabel": "Osoite",
