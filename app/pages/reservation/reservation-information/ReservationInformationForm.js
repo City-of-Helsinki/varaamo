@@ -64,7 +64,7 @@ function getTermsAndConditionsError(field) {
 export function validate(values, { fields, requiredFields, t }) {
   const errors = {};
   const currentRequiredFields = values.staffEvent
-    ? []
+    ? constants.REQUIRED_STAFF_EVENT_FIELDS
     : requiredFields;
   fields.forEach((field) => {
     const validator = validators[field];
