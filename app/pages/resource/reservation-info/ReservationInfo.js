@@ -24,12 +24,10 @@ function renderLoginText(isLoggedIn, resource) {
 
 
 function renderEarliestResDay(resource, t) {
-  if (!resource.reservableAfter && !resource.reservableDaysInAdvance) {
+  if (!resource.reservableMinDaysInAdvance) {
     return null;
   }
-  const time = resource.reservableAfter
-    ? moment(resource.reservableAfter).toNow(true)
-    : moment().add(resource.reservableDaysInAdvance, 'days').toNow(true);
+  const time = moment().add(resource.reservableMinDaysInAdvance, 'days').toNow(true);
   return (
     <p className="reservable-after-text">
       <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
@@ -37,6 +35,19 @@ function renderEarliestResDay(resource, t) {
     </p>
   );
 }
+
+const renderLastResDay = (resource, t) => {
+  if (!resource.reservableMaxDaysInAdvance) {
+    return null;
+  }
+  const time = moment().add(resource.reservableMaxDaysInAdvance, 'days').toNow(true);
+  return (
+    <p className="reservable-after-text">
+      <img alt="" className="app-ResourceHeader__info-icon" src={iconCalendar} />
+      <strong>{t('ReservationInfo.reservationLatestDays', { time })}</strong>
+    </p>
+  );
+};
 
 function renderMaxPeriodText(resource, t) {
   if (!resource.maxPeriod) {
@@ -84,6 +95,7 @@ function ReservationInfo({ isLoggedIn, resource, t }) {
     <div className="app-ReservationInfo">
       <WrappedText openLinksInNewTab text={resource.reservationInfo} />
       {renderEarliestResDay(resource, t)}
+      {renderLastResDay(resource, t)}
       {renderMinPeriodText(resource, t)}
       {renderMaxPeriodText(resource, t)}
       {renderMaxReservationsPerUserText(resource.maxReservationsPerUser, t)}
