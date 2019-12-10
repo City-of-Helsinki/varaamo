@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
+import { connect } from 'react-redux';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -93,6 +94,18 @@ export function validate(values, { fields, requiredFields, t }) {
 }
 
 class UnconnectedReservationInformationForm extends Component {
+  componentDidMount() {
+    const {
+      dispatch,
+      resource
+    } = this.props;
+
+    console.log('componentDidMount resource', resource);
+
+    // dispatch(change('RESERVATION', 'reservationExtraQuestionsDefault', resource.reservationExtraQuestions));
+    // dispatch(change('RESERVATION', 'reservationExtraQuestions', resource.reservationExtraQuestions));
+  }
+
   getAsteriskExplanation = () => {
     const { resource, t } = this.props;
     const maybeBillable = resource.minPricePerHour && resource.maxPricePerHour;
@@ -224,7 +237,6 @@ class UnconnectedReservationInformationForm extends Component {
             isStaff && (
             <InternalReservationFields
               commentsMaxLengths={maxLengths.comments}
-              reservationExtraQuestions={resource.reservationExtraQuestions}
               valid={valid}
             />
             )
@@ -427,20 +439,46 @@ UnconnectedReservationInformationForm.propTypes = {
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
   isStaff: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired
+  valid: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
 export { UnconnectedReservationInformationForm };
 
-export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-  initialValues: { internalReservation: true },
-  onChange: (obj) => {
-    if (obj.reservationExtraQuestions === '') {
-      // eslint-disable-next-line no-param-reassign
-      obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
-    }
-  },
-  validate
-})(UnconnectedReservationInformationForm));
+// eslint-disable-next-line import/no-mutable-exports
+let ConnectedReservationInformationForm = UnconnectedReservationInformationForm;
+
+ConnectedReservationInformationForm = injectT(reduxForm({
+  form: FormTypes.RESERVATION
+})(ConnectedReservationInformationForm));
+
+ConnectedReservationInformationForm = connect(
+  (state) => {
+    /**
+     * TODO: state.data.resources object may contain multiple keys and values.
+     * In that case Object.keys(state.data.resources)[0] returns wrong reservationExtraQuestions.
+     * ui.reservations.selected[0] <--- Can multiple reservations be selected?
+     * reservationExtraQuestionsDefault IS NOT DISPATCHED to store?
+     */
+    console.log('InternalReservationFields resources', state.data.resources);
+    return {
+      initialValues: {
+        internalReservation: true,
+        reservationExtraQuestionsDefault: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
+        reservationExtraQuestions: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
+      },
+      onChange: (obj) => {
+        console.log('onChange obj', obj);
+        console.log('onChange obj.reservationExtraQuestions', obj.reservationExtraQuestions);
+        if (obj.reservationExtraQuestions === '') {
+          // eslint-disable-next-line no-param-reassign
+          obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
+        }
+      },
+      validate
+    };
+  }
+)(ConnectedReservationInformationForm);
+
+export default ConnectedReservationInformationForm;
