@@ -50,7 +50,7 @@
     a:focus {
       text-decoration: none;
     }
-
+    .today,
     .previous,
     .next {
       color: white;
@@ -73,6 +73,13 @@
       content: '\e080';
       padding-left: 5px;
     }
+
+  }
+
+  .current-value {
+    width: 160px;
+    display: flex;
+    justify-content: space-between;
   }
 
   .date-picker {

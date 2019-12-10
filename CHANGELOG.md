@@ -1,3 +1,18 @@
+# 0.8.1
+  **MINOR CHANGES**
+  - Fixed bug in reservation details where under "Reservation must be made xx days in advance" actually displays data from "Reservations can be made a xxx in advance".
+  - Staff no longer needs to fill all mandatory metadata fields.
+  - Sort by select box has enough clearance so it won't disappear behind footer if there are no search results.
+  - Search page time range is always visible.
+  - Added today buttons and functionality to search page and my premises. 
+  
+  **CHANGELOG**
+  - [#1087](https://github.com/City-of-Helsinki/varaamo/pull/1087) Navigation will bring user back to correct page when editing reservation. During edit form values are filled with existing data.
+  - [#1088](https://github.com/City-of-Helsinki/varaamo/pull/1088) Sort by on search page has enough space so it won't disappear under footer. TimeRangeFilter selects are always show, but disabled if not toggled.
+  - [#1089](https://github.com/City-of-Helsinki/varaamo/pull/1089) Added today buttons to search and my premises pages.
+  - [#1091](https://github.com/City-of-Helsinki/varaamo/pull/1091) Increased time period for getting resources opening hours. Added text that shows how far in the future user can make a reservation.
+  - [#1092](https://github.com/City-of-Helsinki/varaamo/pull/1092) Removed all mandatory fields is isStaff is true, except eventDescription & reserverName.
+
 # 0.8.0
   **MINOR CHANGES**
   - Reordered info blocks on ResourcePage
