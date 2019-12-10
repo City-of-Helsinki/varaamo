@@ -3,6 +3,7 @@
   - [#1088](https://github.com/City-of-Helsinki/varaamo/pull/1088) Sort by on search page has enough space so it won't disappear under footer. TimeRangeFilter selects are always show, but disabled if not toggled.
   - [#1089](https://github.com/City-of-Helsinki/varaamo/pull/1089) Added today buttons to search and my premises pages.
   - [#1091](https://github.com/City-of-Helsinki/varaamo/pull/1091) Increased time period for getting resources opening hours. Added text that shows how far in the future user can make a reservation.
+  - [#1092](https://github.com/City-of-Helsinki/varaamo/pull/1092) Removed all mandatory fields is isStaff is true, except eventDescription & reserverName.
 
 # 0.8.0
   **MINOR CHANGES**
