@@ -115,13 +115,20 @@ ConnectedReservationFields = injectT(reduxForm({
 })(ConnectedReservationFields));
 
 ConnectedReservationFields = connect(
-  state => ({
-    initialValues: {
-      staffEvent: true,
-      type: RESERVATION_TYPE.NORMAL,
-      ...toCamelCase(state.ui.reservations.toEdit[0])
-    }
-  })
+  (state) => {
+    const resource = state.ui.reservations.toEdit.length > 0
+      ? state.ui.reservations.toEdit[0].resource
+      : state.ui.reservations.selected[0].resource;
+    return {
+      initialValues: {
+        staffEvent: true,
+        type: RESERVATION_TYPE.NORMAL,
+        reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
+        reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
+        ...toCamelCase(state.ui.reservations.toEdit[0])
+      }
+    };
+  }
 )(ConnectedReservationFields);
 
 export default ConnectedReservationFields;
