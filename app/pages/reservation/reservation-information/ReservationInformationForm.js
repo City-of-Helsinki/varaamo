@@ -225,6 +225,7 @@ class UnconnectedReservationInformationForm extends Component {
             isStaff && (
             <InternalReservationFields
               commentsMaxLengths={maxLengths.comments}
+              reservationExtraQuestions={resource.reservationExtraQuestions}
               valid={valid}
             />
             )

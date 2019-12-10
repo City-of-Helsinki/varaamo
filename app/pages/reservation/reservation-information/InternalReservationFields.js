@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
@@ -11,12 +11,28 @@ import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
 
 class InternalReservationFields extends Component {
+  componentDidMount() {
+    const {
+      dispatch,
+      reservationExtraQuestions
+    } = this.props;
+
+    /**
+     * TODO: This is working on My premises
+     * but NOT WORKING on Manage Reservation side.
+     */
+    console.log('reservationExtraQuestions', reservationExtraQuestions);
+    dispatch(change('RESERVATION', 'reservationExtraQuestionsDefault', reservationExtraQuestions));
+    dispatch(change('RESERVATION', 'reservationExtraQuestions', reservationExtraQuestions));
+  }
+
   render() {
     const {
       t,
       commentsMaxLengths,
       valid
     } = this.props;
+
     return (
       <div className="app-ReservationDetails">
         <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
@@ -89,7 +105,9 @@ class InternalReservationFields extends Component {
 InternalReservationFields.propTypes = {
   t: PropTypes.func.isRequired,
   commentsMaxLengths: PropTypes.number.isRequired,
-  valid: PropTypes.bool.isRequired
+  valid: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  reservationExtraQuestions: PropTypes.string.isRequired
 };
 
 const toCamelCase = (obj) => {
@@ -113,15 +131,22 @@ ConnectedReservationFields = injectT(reduxForm({
 })(ConnectedReservationFields));
 
 ConnectedReservationFields = connect(
-  state => ({
-    initialValues: {
-      staffEvent: true,
-      type: RESERVATION_TYPE.NORMAL,
-      reservationExtraQuestionsDefault: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
-      reservationExtraQuestions: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
-      ...toCamelCase(state.ui.reservations.toEdit[0])
-    }
-  })
+  (state) => {
+    /**
+     * TODO: state.data.resources object may contain multiple keys and values.
+     * In that case Object.keys(state.data.resources)[0] returns wrong reservationExtraQuestions.
+     */
+    console.log('InternalReservationFields resources', state.data.resources);
+    return {
+      initialValues: {
+        staffEvent: true,
+        type: RESERVATION_TYPE.NORMAL,
+        reservationExtraQuestionsDefault: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
+        reservationExtraQuestions: state.data.resources[state.data.resources[Object.keys(state.data.resources)[0]].id].reservationExtraQuestions,
+        ...toCamelCase(state.ui.reservations.toEdit[0])
+      }
+    };
+  },
 )(ConnectedReservationFields);
 
 export default ConnectedReservationFields;
