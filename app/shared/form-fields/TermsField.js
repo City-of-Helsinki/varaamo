@@ -18,7 +18,6 @@ function TermsField({
       <Col sm={9}>
         <RBCheckbox {...input}>
           {label}
-          *
           {showError && <HelpBlock>{meta.error}</HelpBlock>}
         </RBCheckbox>
       </Col>

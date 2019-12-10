@@ -168,6 +168,7 @@ describe('Utils: reservationUtils', () => {
       const defaults = {
         eventSubject: 'Some subject',
         reserverName: 'Luke Skywalker',
+        eventDescription: 'Is male'
       };
       return Reservation.build(Object.assign({}, defaults, extraValues));
     }

@@ -15,7 +15,7 @@ function Textarea({
     <div className="app-ReservationPage__formfield">
       <label>
         {label}
-        <textarea {...input} required />
+        <textarea {...input} />
       </label>
       {touched && error && <Error error={t(error)} />}
     </div>

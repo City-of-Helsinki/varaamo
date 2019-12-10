@@ -126,9 +126,9 @@ class UnconnectedReservationInformationForm extends Component {
   }
 
   renderTermsField(name) {
-    const { t } = this.props;
+    const { t, isStaff } = this.props;
     // eslint-disable-next-line max-len
-    const label = `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}`;
+    const label = `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}${isStaff ? '' : '*'}`;
     return (
       <Field
         component={TermsField}
@@ -141,9 +141,9 @@ class UnconnectedReservationInformationForm extends Component {
   }
 
   renderPaymentTermsField = () => {
-    const { t } = this.props;
+    const { t, isStaff } = this.props;
     // eslint-disable-next-line max-len
-    const label = `${t('ReservationInformationForm.paymentTermsAndConditionsLabel')} ${t('ReservationInformationForm.paymentTermsAndConditionsLink')}`;
+    const label = `${t('ReservationInformationForm.paymentTermsAndConditionsLabel')} ${t('ReservationInformationForm.paymentTermsAndConditionsLink')}${isStaff ? '' : '*'}`;
     return (
       <Field
         component={TermsField}
@@ -201,14 +201,13 @@ class UnconnectedReservationInformationForm extends Component {
       onCancel,
       requiredFields,
       resource,
-      staffEventSelected,
       t,
       termsAndConditions,
       isStaff,
       valid,
     } = this.props;
 
-    this.requiredFields = staffEventSelected
+    this.requiredFields = isStaff
       ? constants.REQUIRED_STAFF_EVENT_FIELDS
       : requiredFields;
 
@@ -425,7 +424,6 @@ UnconnectedReservationInformationForm.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   requiredFields: PropTypes.array.isRequired,
   resource: PropTypes.object.isRequired,
-  staffEventSelected: PropTypes.bool,
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
   isStaff: PropTypes.bool.isRequired,
