@@ -116,9 +116,19 @@ ConnectedReservationFields = injectT(reduxForm({
 
 ConnectedReservationFields = connect(
   (state) => {
-    const resource = state.ui.reservations.toEdit.length > 0
-      ? state.ui.reservations.toEdit[0].resource
-      : state.ui.reservations.selected[0].resource;
+    let resource;
+
+    if (state.ui.reservations.toEdit.length > 0) {
+      resource = state.ui.reservations.toEdit[0].resource;
+      console.log('admin: state.ui.reservations.toEdit[0].resource', resource);
+    } else if (state.ui.reservations.selected.length > 0) {
+      resource = state.ui.reservations.selected[0].resource;
+      console.log('admin: state.ui.reservations.selected[0].resource', resource);
+    } else {
+      resource = 'av4pn7vgewja';
+      console.log('admin: HOW TO GET THIS RESOURCE ID?', resource);
+    }
+
     return {
       initialValues: {
         staffEvent: true,

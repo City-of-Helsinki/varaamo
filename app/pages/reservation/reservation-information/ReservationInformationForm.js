@@ -456,9 +456,19 @@ ConnectedReservationInformationForm = injectT(reduxForm({
 
 ConnectedReservationInformationForm = connect(
   (state) => {
-    const resource = state.ui.reservations.toEdit.length > 0
-      ? state.ui.reservations.toEdit[0].resource
-      : state.ui.reservations.selected[0].resource;
+    let resource;
+
+    if (state.ui.reservations.toEdit.length > 0) {
+      resource = state.ui.reservations.toEdit[0].resource;
+      console.log('user: state.ui.reservations.toEdit[0].resource', resource);
+    } else if (state.ui.reservations.selected.length > 0) {
+      resource = state.ui.reservations.selected[0].resource;
+      console.log('user: state.ui.reservations.selected[0].resource', resource);
+    } else {
+      resource = 'av4pn7vgewja';
+      console.log('user: HOW TO GET THIS RESOURCE ID?', resource);
+    }
+
     return {
       initialValues: {
         internalReservation: true,
@@ -467,7 +477,12 @@ ConnectedReservationInformationForm = connect(
         ...toCamelCase(state.ui.reservations.toEdit[0])
       },
       onChange: (obj) => {
-        if (obj.reservationExtraQuestions === '') {
+        /**
+         * We cannot empty Reservation extra questions on the first time when we are making a new reservation.
+         * The second time we are editing existing reservation we can empty Reservation extra questions.
+         * We separate the new and the existing one with !obj.resource check.
+         */
+        if (obj.reservationExtraQuestions === '' && !obj.resource) {
           // eslint-disable-next-line no-param-reassign
           obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
         }
