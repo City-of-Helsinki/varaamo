@@ -17,6 +17,7 @@ import Header from '../../src/domain/header/Header';
 import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
 import { getCustomizationClassName } from '../utils/customizationUtils';
 import Notifications from '../shared/notifications/NotificationsContainer';
+import UserNotificator from '../../src/common/notificator/user/UserNotificator';
 
 const userIdSelector = state => state.auth.userId;
 
@@ -63,6 +64,7 @@ export class UnconnectedAppContainer extends Component {
         <Header location={this.props.location}>
           <Favicon />
           <TestSiteMessage />
+          <UserNotificator />
         </Header>
         <div className="app-content">
           <Grid>
