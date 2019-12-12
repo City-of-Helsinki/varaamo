@@ -6,7 +6,51 @@
     align-items: center;
   }
 
+  .action-row {
+    margin-top: 20px;
+    margin-bottom: 7px;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .button-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .notification-list {
+    margin-top: 50px;
+  }
+
+
   input {
     margin-bottom: 10px;
+    width: 100%;
+    border: 2px solid $black;
+    height: 52px;
+    padding-left: 5px;
+  }
+
+  .app-Select {
+    input {
+      height: 30px
+    }
+  }
+
+  textarea {
+    padding: 10px;
+    width: 100%;
+    border: 2px solid $black;
+  }
+
+  button {
+    color: $white;
+    background-color: $black;
+    width: 100px;
+    height: 30px;
+    border: none;
   }
 }
