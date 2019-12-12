@@ -21,4 +21,8 @@
     cursor: pointer;
     color: $gray-light
   }
+
+  &__danger {
+    background-color: #f6e2e6 !important;
+  }
 }

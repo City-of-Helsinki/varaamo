@@ -1,4 +1,7 @@
+.app-CreateNotificationModal,
 .app-CreateNotifications {
+  margin-top: 30px;
+
   .login {
     width: 100%;
     display: flex;
@@ -19,12 +22,33 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+
+    button {
+      margin-left: 10px;
+    }
   }
 
   .notification-list {
     margin-top: 50px;
+    width: 100%;
+
+    th {
+      text-align: center;
+    }
+
+    tbody {
+      tr:hover {
+        background-color: $gray-light;
+        cursor: pointer;
+      }
+    }
   }
 
+  .modal-footer {
+    button {
+      margin-right: 20px;
+    }
+  }
 
   input {
     margin-bottom: 10px;
@@ -53,4 +77,5 @@
     height: 30px;
     border: none;
   }
+
 }

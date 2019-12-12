@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap/lib';
+import { Grid } from 'react-bootstrap';
 import { auth, firestore } from 'firebase';
-import Select from 'react-select';
 import moment from 'moment';
 
-import NotificationDatePicker from '../date/NotificatorDatePicker';
+import CreateNotificationsForm from './form/CreateNotificationsForm';
+import CreateNotificationsList from './list/CreateNotificationsList';
+import CreateNotificationModal from './modal/CreateNotificationModal';
 
 class CreateNotifications extends Component {
   constructor(props) {
@@ -16,8 +17,15 @@ class CreateNotifications extends Component {
       email: '',
       password: '',
       newNotification: {
+        active: {
+          value: true,
+          label: 'True'
+        },
+        created: moment().startOf('day').format('YYYYMMDDTHHmmss'),
         until: moment().toDate()
-      }
+      },
+      selectedNotification: {},
+      isOpen: false
     };
   }
 
@@ -31,6 +39,7 @@ class CreateNotifications extends Component {
       querySnap.forEach((doc) => {
         const notification = doc.data();
         notification.id = doc.id;
+        notification.until = moment(notification.until).toDate();
         notifications.push(notification);
       });
       this.setState({ notifications });
@@ -41,19 +50,6 @@ class CreateNotifications extends Component {
     this.unsubscribeAuthListener && this.unsubscribeAuthListener();
     this.unsubscribeNotificationsListener && this.unsubscribeNotificationsListener();
   }
-
-  addElement = (element) => {
-    const { newNotification } = this.state;
-    newNotification.message += ` ${element}`;
-    this.setState({ newNotification });
-  };
-
-  addNewNotification = () => {
-    const { newNotification } = this.state;
-    firestore().collection('notifications').add(newNotification)
-    // eslint-disable-next-line no-console
-      .catch(err => console.log('ERROR', err));
-  };
 
   logIn = () => {
     const { email, password } = this.state;
@@ -68,19 +64,73 @@ class CreateNotifications extends Component {
     this.setState({ newNotification });
   };
 
+  onSelectedFieldChange = (event, field) => {
+    const { selectedNotification } = this.state;
+    selectedNotification[field] = event.target.value;
+    this.setState({ selectedNotification });
+  };
+
+  addElement = (element) => {
+    const { newNotification } = this.state;
+    newNotification.message += ` ${element}`;
+    this.setState({ newNotification });
+  };
+
+  onNotificationSelect = (notification) => {
+    const selectedNotification = JSON.parse(JSON.stringify(notification));
+    // Turn selectedNotification.until back to date so DayPicker wont crash
+    selectedNotification.until = moment(selectedNotification.until).toDate();
+    this.setState({ selectedNotification, isOpen: true });
+  };
+
+  onHide = () => {
+    this.setState({
+      isOpen: false,
+      selectedNotification: {}
+    });
+  };
+
+  addNotification = () => {
+    const newNotification = JSON.parse(JSON.stringify(this.state.newNotification));
+    // Modify data so it will be saved correctly
+    newNotification.until = moment(newNotification.until).format('YYYYMMDDTHHmmss');
+
+    firestore().collection('notifications').add(newNotification)
+      .then(() => {
+        // Reset values
+        this.setState({
+          newNotification: {
+            active: {
+              value: true,
+              label: 'True'
+            },
+            created: moment().startOf('day').format('YYYYMMDDTHHmmss'),
+            until: moment().toDate()
+          }
+        });
+      })
+      // eslint-disable-next-line no-console
+      .catch(err => console.log('ERROR', err));
+  };
+
+  saveNotification = () => {
+    const selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
+    firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
+      .then(() => {
+        this.setState({
+          isOpen: false,
+          selectedNotification: {}
+        });
+      })
+      // eslint-disable-next-line no-console
+      .catch(err => console.log('ERROR', err));
+  };
+
   render() {
     const {
-      email, password, superuser, loading, notifications, newNotification
+      email, isOpen, password, superuser, loading, notifications, newNotification, selectedNotification
     } = this.state;
-    const targetOptions = [
-      { value: 'staff', label: 'Staff' },
-      { value: 'user', label: 'User' },
-      { value: 'all', label: 'All' }
-    ];
-    const urgencyOptions = [
-      { value: 'warning', label: 'Warning' },
-      { value: 'danger', label: 'Danger' }
-    ];
+
     return (
       <div className="app-CreateNotifications">
         <Grid>
@@ -95,88 +145,29 @@ class CreateNotifications extends Component {
               </div>
             )
             : (
-              <div>
-                <span onClick={() => auth().signOut()}>Sign out</span>
-                <h4>Create new notification</h4>
-                <Row>
-                  <Col sm={3}>
-                    <span>Name</span>
-                    <input
-                      onChange={event => this.onFieldChange(event, 'name')}
-                      value={newNotification.name || ''}
-                    />
-                  </Col>
-                  <Col sm={3}>
-                    <span>Target</span>
-                    <Select
-                      className="app-Select"
-                      classNamePrefix="app-Select"
-                      options={targetOptions}
-                      placeholder="Select"
-                      value={newNotification.target}
-                    />
-                  </Col>
-                  <Col sm={3}>
-                    <span>Urgency</span>
-                    <Select
-                      className="app-Select"
-                      classNamePrefix="app-Select"
-                      options={urgencyOptions}
-                      placeholder="Select"
-                      value={newNotification.urgency}
-                    />
-                  </Col>
-                  <Col sm={3}>
-                    <span>Until</span>
-                    <NotificationDatePicker
-                      date={newNotification.until}
-                      onChange={this.onFieldChange}
-                    />
-                  </Col>
-                </Row>
-                <Row className="action-row">
-                  <Col sm={12}>
-                    <button
-                      onClick={() => this.addElement('<a href="http://" target="_blank">Text</a>')}
-                      type="button"
-                    >
-                      {'</a>'}
-                    </button>
-
-                    <button
-                      onClick={() => this.addElement('<b></b>')}
-                      type="button"
-                    >
-                      {'<b>'}
-                    </button>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col sm={12}>
-                    <textarea
-                      onChange={event => this.onFieldChange(event, 'message')}
-                      placeholder="Notification message"
-                      rows={5}
-                      value={newNotification.message || ''}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col className="button-row" sm={12}>
-                    <button onClick={this.addNewNotification} type="submit">Add</button>
-                  </Col>
-                </Row>
-
-                <div className="notification-list">
-                  <h4>Notifications list</h4>
-                  {notifications && notifications.map(notification => (
-                    <span>{notification.name}</span>
-                  ))}
-                </div>
-              </div>
+              <React.Fragment>
+                <CreateNotificationsForm
+                  addElement={this.addElement}
+                  addNew={this.addNotification}
+                  newNotification={newNotification}
+                  onFieldChange={this.onFieldChange}
+                />
+                <CreateNotificationsList
+                  notifications={notifications}
+                  onClick={this.onNotificationSelect}
+                />
+              </React.Fragment>
             )
           }
         </Grid>
+        <CreateNotificationModal
+          addElement={this.addElement}
+          isOpen={isOpen}
+          onFieldChange={this.onSelectedFieldChange}
+          onHide={this.onHide}
+          save={this.saveNotification}
+          selectedNotification={selectedNotification}
+        />
       </div>
     );
   }

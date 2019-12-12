@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import { firestore } from 'firebase';
 import ReactHtmlWrapper from 'react-html-parser';
+import classNames from 'classnames';
 
 class UserNotificator extends Component {
   state = {
@@ -20,7 +21,8 @@ class UserNotificator extends Component {
         notification.id = doc.id;
         notifications.push(notification);
       });
-      this.setState({ notifications, showNotificator: true });
+      const showNotificator = notifications && notifications.length > 0;
+      this.setState({ notifications, showNotificator });
     });
   }
 
@@ -37,9 +39,13 @@ class UserNotificator extends Component {
   render() {
     const { notifications, showNotificator } = this.state;
     const notification = notifications[0] || {};
+
     if (showNotificator) {
       return (
-        <div className="app-UserNotificator">
+        <div className={classNames('app-UserNotificator', {
+          'app-UserNotificator__danger': notification.urgency === 'danger'
+        })}
+        >
           <span className="close-notificator" onClick={this.closeNotificator}>X</span>
           <Grid className="container">
             <Row>
