@@ -53,6 +53,7 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   handleSelect(selection) {
+    window.varaamo = { resourceId: selection.resourceId }; // TODO: Fix this UGLY HACK!!!
     this.setState({ selection });
     this.props.actions.changeRecurringBaseTime(selection);
     this.props.actions.openConfirmReservationModal();
