@@ -116,18 +116,9 @@ ConnectedReservationFields = injectT(reduxForm({
 
 ConnectedReservationFields = connect(
   (state) => {
-    let resource;
-
-    if (state.ui.reservations.toEdit.length > 0) {
-      resource = state.ui.reservations.toEdit[0].resource;
-      console.log('[1] admin: state.ui.reservations.toEdit[0].resource', resource);
-    } else if (state.ui.reservations.selected.length > 0) {
-      resource = state.ui.reservations.selected[0].resource;
-      console.log('[2] admin: state.ui.reservations.selected[0].resource', resource);
-    } else {
-      resource = window.varaamo.resourceId; // TODO: Fix this UGLY HACK!!!
-      console.log('[3] admin: window.varaamo.resourceId', resource);
-    }
+    const resource = state.ui.reservations.toEdit.length > 0
+      ? state.ui.reservations.toEdit[0].resource
+      : state.ui.reservations.selected[0].resource;
 
     return {
       initialValues: {

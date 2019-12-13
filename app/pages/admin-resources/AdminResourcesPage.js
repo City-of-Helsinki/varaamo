@@ -12,6 +12,7 @@ import {
   selectAdminResourceType,
   openConfirmReservationModal,
   unselectAdminResourceType,
+  myPremisessSetSelectedTimeSlots,
 } from '../../actions/uiActions';
 import injectT from '../../i18n/injectT';
 import PageWrapper from '../PageWrapper';
@@ -53,7 +54,8 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   handleSelect(selection) {
-    window.varaamo = { resourceId: selection.resourceId }; // TODO: Fix this UGLY HACK!!!
+    const { actions } = this.props;
+    actions.myPremisessSetSelectedTimeSlots(selection);
     this.setState({ selection });
     this.props.actions.changeRecurringBaseTime(selection);
     this.props.actions.openConfirmReservationModal();
@@ -134,6 +136,7 @@ function mapDispatchToProps(dispatch) {
     selectAdminResourceType,
     openConfirmReservationModal,
     unselectAdminResourceType,
+    myPremisessSetSelectedTimeSlots,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

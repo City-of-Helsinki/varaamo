@@ -67,6 +67,18 @@ function reservationsReducer(state = initialState, action) {
       });
     }
 
+    case types.UI.MY_PREMISES_SET_SELECTED_TIME_SLOTS: {
+      const { payload } = action;
+      const slot = {
+        begin: payload.begin,
+        end: payload.end,
+        resource: payload.resourceId,
+      };
+      return state.merge({
+        selected: [slot],
+      });
+    }
+
     case types.API.RESERVATION_POST_ERROR: {
       const reservation = action.meta.reservation;
       const failReason = parseError(action.payload);
