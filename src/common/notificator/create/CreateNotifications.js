@@ -4,6 +4,7 @@ import { auth, firestore } from 'firebase';
 import Loader from 'react-loader';
 import moment from 'moment';
 
+import { formatValuesForUse, formatValuesForDatabase } from '../utils';
 import CreateNotificationsForm from './form/CreateNotificationsForm';
 import CreateNotificationsList from './list/CreateNotificationsList';
 import CreateNotificationModal from './modal/CreateNotificationModal';
@@ -38,9 +39,8 @@ class CreateNotifications extends Component {
     this.unsubscribeNotificationsListener = firestore().collection('notifications').onSnapshot((querySnap) => {
       const notifications = [];
       querySnap.forEach((doc) => {
-        const notification = doc.data();
+        const notification = formatValuesForUse(doc.data());
         notification.id = doc.id;
-        notification.until = moment(notification.until).toDate();
         notifications.push(notification);
       });
       this.setState({ notifications });
@@ -92,9 +92,9 @@ class CreateNotifications extends Component {
   };
 
   addNotification = () => {
-    const newNotification = JSON.parse(JSON.stringify(this.state.newNotification));
+    let newNotification = JSON.parse(JSON.stringify(this.state.newNotification));
     // Modify data so it will be saved correctly
-    newNotification.until = moment(newNotification.until).format('YYYYMMDDTHHmmss');
+    newNotification = formatValuesForDatabase(newNotification);
 
     firestore().collection('notifications').add(newNotification)
       .then(() => {
@@ -115,11 +115,11 @@ class CreateNotifications extends Component {
   };
 
   saveNotification = () => {
-    const selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
+    let selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
+    selectedNotification = formatValuesForDatabase(selectedNotification);
     firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
       .then(() => {
         this.setState({
-          isOpen: false,
           selectedNotification: {}
         });
       })
@@ -186,7 +186,7 @@ class CreateNotifications extends Component {
           onDelete={() => this.setState({ isOpen: false }, () => this.deleteNotification())}
           onFieldChange={this.onSelectedFieldChange}
           onHide={this.onHide}
-          save={this.saveNotification}
+          save={() => this.setState({isOpen: false}, () => this.saveNotification)}
           selectedNotification={selectedNotification}
         />
       </div>

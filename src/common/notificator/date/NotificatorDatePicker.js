@@ -56,7 +56,7 @@ class NotificatorDatePicker extends Component {
 }
 
 NotificatorDatePicker.propTypes = {
-  date: PropTypes.instanceOf(Date).isRequired,
+  date: PropTypes.instanceOf(Date),
   onChange: PropTypes.func.isRequired
 };
 

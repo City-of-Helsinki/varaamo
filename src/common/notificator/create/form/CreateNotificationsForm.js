@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import { createSelectOptions } from '../../utils';
 import NotificationDatePicker from '../../date/NotificatorDatePicker';
 
 const CreateNotificationsForm = (props) => {
@@ -13,20 +14,7 @@ const CreateNotificationsForm = (props) => {
     addElement, addNew, isEditing, newNotification, onFieldChange
   } = props;
 
-  const targetOptions = [
-    { value: 'staff', label: 'Staff' },
-    { value: 'user', label: 'User' },
-    { value: 'all', label: 'All' }
-  ];
-  const urgencyOptions = [
-    { values: 'common', label: 'Common' },
-    { value: 'warning', label: 'Warning' },
-    { value: 'danger', label: 'Danger' }
-  ];
-  const activeOptions = [
-    { value: true, label: 'True' },
-    { value: false, label: 'False' }
-  ];
+  const { targetOptions, urgencyOptions, activeOptions } = createSelectOptions();
 
   // Because this component is used inside modal, count dimensions and set sm value based on that
   const current = formContainer.current;

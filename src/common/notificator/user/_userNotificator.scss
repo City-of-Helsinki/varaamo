@@ -1,7 +1,7 @@
 .app-UserNotificator {
   height: 60px;
   width: 100%;
-  background-color: #fff4b4;
+  background-color: #73c0ff;
   position: relative;
 
   .container{
@@ -20,6 +20,10 @@
   .close-notificator:hover {
     cursor: pointer;
     color: $gray-light
+  }
+
+  &__warning {
+    background-color: #fff4b4 !important;
   }
 
   &__danger {
