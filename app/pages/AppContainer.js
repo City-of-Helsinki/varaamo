@@ -9,6 +9,7 @@ import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 
+import { isAdminSelector } from '../state/selectors/authSelectors';
 import { fetchUser } from '../actions/userActions';
 import { enableGeoposition } from '../actions/uiActions';
 import Favicon from '../shared/favicon/Favicon';
@@ -23,6 +24,7 @@ const userIdSelector = state => state.auth.userId;
 
 export const selector = createStructuredSelector({
   userId: userIdSelector,
+  isStaff: isAdminSelector
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -55,6 +57,7 @@ export class UnconnectedAppContainer extends Component {
   }
 
   render() {
+    const { isStaff } = this.props;
     return (
       <div className={classNames('app', getCustomizationClassName())}>
         <Helmet>
@@ -64,7 +67,9 @@ export class UnconnectedAppContainer extends Component {
         <Header location={this.props.location}>
           <Favicon />
           <TestSiteMessage />
-          <UserNotificator />
+          <UserNotificator
+            isStaff={isStaff}
+          />
         </Header>
         <div className="app-content">
           <Grid>
@@ -82,6 +87,7 @@ export class UnconnectedAppContainer extends Component {
 UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
   enableGeoposition: PropTypes.func.isRequired,
+  isStaff: PropTypes.bool,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
