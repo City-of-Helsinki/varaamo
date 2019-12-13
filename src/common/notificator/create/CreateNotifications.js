@@ -9,6 +9,15 @@ import CreateNotificationsForm from './form/CreateNotificationsForm';
 import CreateNotificationsList from './list/CreateNotificationsList';
 import CreateNotificationModal from './modal/CreateNotificationModal';
 
+const NEW_NOTIFICATION = {
+  active: {
+    value: true,
+    label: 'True'
+  },
+  created: moment().format('YYYYMMDDTHHmmss'),
+  until: moment().toDate()
+};
+
 class CreateNotifications extends Component {
   constructor(props) {
     super(props);
@@ -18,14 +27,7 @@ class CreateNotifications extends Component {
       notifications: [],
       email: '',
       password: '',
-      newNotification: {
-        active: {
-          value: true,
-          label: 'True'
-        },
-        created: moment().startOf('day').format('YYYYMMDDTHHmmss'),
-        until: moment().toDate()
-      },
+      newNotification: NEW_NOTIFICATION,
       selectedNotification: {},
       isOpen: false,
     };
@@ -100,14 +102,7 @@ class CreateNotifications extends Component {
       .then(() => {
         // Reset values
         this.setState({
-          newNotification: {
-            active: {
-              value: true,
-              label: 'True'
-            },
-            created: moment().startOf('day').format('YYYYMMDDTHHmmss'),
-            until: moment().toDate()
-          }
+          newNotification: NEW_NOTIFICATION
         });
       })
       // eslint-disable-next-line no-console
@@ -117,6 +112,7 @@ class CreateNotifications extends Component {
   saveNotification = () => {
     let selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
     selectedNotification = formatValuesForDatabase(selectedNotification);
+
     firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
       .then(() => {
         this.setState({
@@ -186,7 +182,7 @@ class CreateNotifications extends Component {
           onDelete={() => this.setState({ isOpen: false }, () => this.deleteNotification())}
           onFieldChange={this.onSelectedFieldChange}
           onHide={this.onHide}
-          save={() => this.setState({isOpen: false}, () => this.saveNotification)}
+          save={() => this.setState({ isOpen: false }, () => this.saveNotification())}
           selectedNotification={selectedNotification}
         />
       </div>

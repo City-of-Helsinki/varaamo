@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/lib/Col';
 import { firestore } from 'firebase';
 import ReactHtmlWrapper from 'react-html-parser';
 import classNames from 'classnames';
+import orderBy from 'lodash/orderBy';
+import moment from 'moment';
 
 class UserNotificator extends Component {
   static propTypes = {
@@ -13,13 +15,13 @@ class UserNotificator extends Component {
   };
 
   state = {
-    staffNotifications: [],
-    userNotifications: [],
+    notifications: []
   };
 
   componentDidMount() {
     this.unsubscribeNotificationListener = firestore()
       .collection('notifications')
+      .where('active', '==', true)
       .onSnapshot(this.onNotificationSnapshot);
   }
 
@@ -28,15 +30,37 @@ class UserNotificator extends Component {
   }
 
   onNotificationSnapshot = (querySnap) => {
-    const userNotifications = [];
-    const staffNotifications = [];
+    const notifications = [];
 
-    querySnap.forEach(doc => {
+    querySnap.forEach((doc) => {
       const notification = doc.data();
-      userNotifications.push(notification);
+      if (moment(notification.until).isAfter()) {
+        notifications.push(notification);
+      }
     });
-    this.setState({ userNotifications });
+    this.setState({ notifications });
   };
+
+  selectNotificationToShow = () => {
+    const { isStaff } = this.props;
+    const { notifications } = this.state;
+    const sortedNotifications = orderBy(notifications, 'created');
+
+    const notificationsForUser = sortedNotifications.filter(notification => notification.target === 'user');
+    const notificationsForStaff = sortedNotifications.filter(notification => notification.target === 'staff');
+    const notificationsForAll = sortedNotifications.filter(notification => notification.target === 'all');
+    if (notificationsForAll.length > 0) {
+      return notificationsForAll[0];
+    }
+    if (notificationsForStaff.length > 0 && isStaff) {
+      return notificationsForStaff[0];
+    }
+    if (notificationsForUser.length > 0 && !isStaff) {
+      return notificationsForUser[0];
+    }
+    return {};
+  };
+
 
   closeNotificator = () => {
     this.setState(prevState => ({
@@ -45,14 +69,13 @@ class UserNotificator extends Component {
   };
 
   render() {
-    const { isStaff } = this.props;
-    const { userNotifications } = this.state;
-    const notification = userNotifications[0] || {};
+    const notification = this.selectNotificationToShow();
 
+    if (notification && !notification.message) return null;
     return (
       <div className={classNames('app-UserNotificator', {
-        // 'app-UserNotificator__warning': notification.urgency.value === 'warning',
-        // 'app-UserNotificator__danger': notification.urgency.value === 'danger'
+        'app-UserNotificator__warning': notification.urgency === 'warning',
+        'app-UserNotificator__danger': notification.urgency === 'danger'
       })}
       >
         <span className="close-notificator" onClick={this.closeNotificator}>X</span>
