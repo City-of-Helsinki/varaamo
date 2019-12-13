@@ -25,7 +25,7 @@ class CreateNotifications extends Component {
         until: moment().toDate()
       },
       selectedNotification: {},
-      isOpen: false
+      isOpen: false,
     };
   }
 
@@ -126,6 +126,13 @@ class CreateNotifications extends Component {
       .catch(err => console.log('ERROR', err));
   };
 
+  deleteNotification = () => {
+    const { selectedNotification } = this.state;
+    firestore().collection('notifications').doc(selectedNotification.id).delete()
+    // eslint-disable-next-line no-console
+      .catch(err => console.log('ERROR', err));
+  };
+
   render() {
     const {
       email, isOpen, password, superuser, loading, notifications, newNotification, selectedNotification
@@ -163,6 +170,7 @@ class CreateNotifications extends Component {
         <CreateNotificationModal
           addElement={this.addElement}
           isOpen={isOpen}
+          onDelete={() => this.setState({ isOpen: false }, () => this.deleteNotification())}
           onFieldChange={this.onSelectedFieldChange}
           onHide={this.onHide}
           save={this.saveNotification}
