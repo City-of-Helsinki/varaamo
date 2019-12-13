@@ -19,6 +19,7 @@ const CreateNotificationsForm = (props) => {
     { value: 'all', label: 'All' }
   ];
   const urgencyOptions = [
+    { values: 'common', label: 'Common' },
     { value: 'warning', label: 'Warning' },
     { value: 'danger', label: 'Danger' }
   ];

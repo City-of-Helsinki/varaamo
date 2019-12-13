@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'react-bootstrap';
 import { auth, firestore } from 'firebase';
+import Loader from 'react-loader';
 import moment from 'moment';
 
 import CreateNotificationsForm from './form/CreateNotificationsForm';
@@ -129,6 +130,11 @@ class CreateNotifications extends Component {
   deleteNotification = () => {
     const { selectedNotification } = this.state;
     firestore().collection('notifications').doc(selectedNotification.id).delete()
+      .then(() => {
+        this.setState({
+          selectedNotification: {}
+        });
+      })
     // eslint-disable-next-line no-console
       .catch(err => console.log('ERROR', err));
   };
@@ -140,38 +146,40 @@ class CreateNotifications extends Component {
 
     return (
       <div className="app-CreateNotifications">
-        <Grid>
-          {!superuser && !loading
-            && (
-            <div className="login">
-              <div className="center">
-                <span>Email</span>
-                <input onChange={e => this.setState({ email: e.target.value })} value={email} />
-                <span>Password</span>
-                <input onChange={e => this.setState({ password: e.target.value })} type="password" value={password} />
-                <button onClick={this.logIn} type="submit">Log in</button>
+        <Loader loaded={!loading}>
+          <Grid>
+            {!superuser && !loading
+              && (
+              <div className="login">
+                <div className="center">
+                  <span>Email</span>
+                  <input onChange={e => this.setState({ email: e.target.value })} value={email} />
+                  <span>Password</span>
+                  <input onChange={e => this.setState({ password: e.target.value })} type="password" value={password} />
+                  <button onClick={this.logIn} type="submit">Log in</button>
+                </div>
               </div>
-            </div>
-            )
-          }
+              )
+            }
 
-          {superuser && !loading
-            && (
-            <React.Fragment>
-              <CreateNotificationsForm
-                addElement={this.addElement}
-                addNew={this.addNotification}
-                newNotification={newNotification}
-                onFieldChange={this.onFieldChange}
-              />
-              <CreateNotificationsList
-                notifications={notifications}
-                onClick={this.onNotificationSelect}
-              />
-            </React.Fragment>
-            )
-          }
-        </Grid>
+            {superuser && !loading
+              && (
+              <React.Fragment>
+                <CreateNotificationsForm
+                  addElement={this.addElement}
+                  addNew={this.addNotification}
+                  newNotification={newNotification}
+                  onFieldChange={this.onFieldChange}
+                />
+                <CreateNotificationsList
+                  notifications={notifications}
+                  onClick={this.onNotificationSelect}
+                />
+              </React.Fragment>
+              )
+            }
+          </Grid>
+        </Loader>
         <CreateNotificationModal
           addElement={this.addElement}
           isOpen={isOpen}
