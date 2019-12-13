@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import DayPicker from 'react-day-picker';
 import moment from 'moment';
@@ -8,6 +9,10 @@ const DatePickerWrapper = ({ children }) => (
     {children}
   </div>
 );
+
+DatePickerWrapper.propTypes = {
+  children: PropTypes.any
+};
 
 class NotificatorDatePicker extends Component {
   state = {
@@ -20,7 +25,7 @@ class NotificatorDatePicker extends Component {
     this.setState({ isOpen: false });
 
     onChange({ target: { value: newDate } }, 'until');
-  }
+  };
 
   render() {
     const { date } = this.props;
@@ -49,5 +54,10 @@ class NotificatorDatePicker extends Component {
     );
   }
 }
+
+NotificatorDatePicker.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  onChange: PropTypes.func.isRequired
+};
 
 export default NotificatorDatePicker;
