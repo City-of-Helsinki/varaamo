@@ -30,11 +30,15 @@ class UserNotificator extends Component {
   }
 
   onNotificationSnapshot = (querySnap) => {
+    let cookies = document.cookie.replace('notifications=', '');
+    cookies = cookies && cookies.split(',');
+
     const notifications = [];
 
     querySnap.forEach((doc) => {
       const notification = doc.data();
-      if (moment(notification.until).isAfter()) {
+      notification.id = doc.id;
+      if (!cookies.includes(notification.id) && moment(notification.until).isAfter()) {
         notifications.push(notification);
       }
     });
@@ -62,10 +66,13 @@ class UserNotificator extends Component {
   };
 
 
-  closeNotificator = () => {
-    this.setState(prevState => ({
-      showNotificator: !prevState.showNotificator
-    }));
+  closeNotificator = (notification) => {
+    let cookies = document.cookie.replace('notifications=', '');
+    cookies = (cookies && cookies.split(',')) || [];
+
+    if (!cookies.includes(notification.id)) cookies.push(notification.id);
+    document.cookie = `notifications=${cookies.join(',')}`;
+    this.setState({ notifications: [] });
   };
 
   render() {
@@ -78,7 +85,7 @@ class UserNotificator extends Component {
         'app-UserNotificator__danger': notification.urgency === 'danger'
       })}
       >
-        <span className="close-notificator" onClick={this.closeNotificator}>X</span>
+        <span className="close-notificator" onClick={() => this.closeNotificator(notification)}>X</span>
         <Grid className="container">
           <Row>
             <Col sm={12}>
