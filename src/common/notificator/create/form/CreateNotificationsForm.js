@@ -40,7 +40,9 @@ const CreateNotificationsForm = (props) => {
     <div ref={formContainer}>
       {!isEditing && (
         <React.Fragment>
-          <span onClick={() => auth().signOut()}>Sign out</span>
+          <div className="button-row">
+            <button onClick={() => auth().signOut()} type="button">Sign out</button>
+          </div>
           <h4>Create new notification</h4>
         </React.Fragment>
       )}

@@ -5,8 +5,13 @@
   .login {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+
+    .center {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   .action-row {

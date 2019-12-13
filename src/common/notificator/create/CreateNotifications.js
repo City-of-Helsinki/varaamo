@@ -142,28 +142,33 @@ class CreateNotifications extends Component {
       <div className="app-CreateNotifications">
         <Grid>
           {!superuser && !loading
-            ? (
-              <div className="login">
+            && (
+            <div className="login">
+              <div className="center">
                 <span>Email</span>
                 <input onChange={e => this.setState({ email: e.target.value })} value={email} />
                 <span>Password</span>
                 <input onChange={e => this.setState({ password: e.target.value })} type="password" value={password} />
                 <button onClick={this.logIn} type="submit">Log in</button>
               </div>
+            </div>
             )
-            : (
-              <React.Fragment>
-                <CreateNotificationsForm
-                  addElement={this.addElement}
-                  addNew={this.addNotification}
-                  newNotification={newNotification}
-                  onFieldChange={this.onFieldChange}
-                />
-                <CreateNotificationsList
-                  notifications={notifications}
-                  onClick={this.onNotificationSelect}
-                />
-              </React.Fragment>
+          }
+
+          {superuser && !loading
+            && (
+            <React.Fragment>
+              <CreateNotificationsForm
+                addElement={this.addElement}
+                addNew={this.addNotification}
+                newNotification={newNotification}
+                onFieldChange={this.onFieldChange}
+              />
+              <CreateNotificationsList
+                notifications={notifications}
+                onClick={this.onNotificationSelect}
+              />
+            </React.Fragment>
             )
           }
         </Grid>
