@@ -14,6 +14,11 @@ const NEW_NOTIFICATION = {
     value: true,
     label: 'True'
   },
+  message: {
+    fi: '',
+    en: '',
+    sv: ''
+  },
   created: moment().format('YYYYMMDDTHHmmss'),
   until: moment().toDate()
 };
@@ -61,21 +66,30 @@ class CreateNotifications extends Component {
       .catch(err => console.log('ERROR', err));
   };
 
-  onFieldChange = (event, field) => {
+  onFieldChange = (event, field, lang) => {
     const { newNotification } = this.state;
-    newNotification[field] = event.target.value;
+    if (field === 'message') {
+      newNotification.message[lang] = event.target.value;
+    } else {
+      newNotification[field] = event.target.value;
+    }
     this.setState({ newNotification });
   };
 
-  onSelectedFieldChange = (event, field) => {
+  onSelectedFieldChange = (event, field, lang) => {
     const { selectedNotification } = this.state;
-    selectedNotification[field] = event.target.value;
+    if (field === 'message') {
+      selectedNotification.message[lang] = event.target.value;
+    } else {
+      selectedNotification[field] = event.target.value;
+    }
+    console.log(selectedNotification);
     this.setState({ selectedNotification });
   };
 
-  addElement = (element) => {
+  addElement = (element, lang) => {
     const { newNotification } = this.state;
-    newNotification.message += ` ${element}`;
+    newNotification.message[lang] += ` ${element}`;
     this.setState({ newNotification });
   };
 

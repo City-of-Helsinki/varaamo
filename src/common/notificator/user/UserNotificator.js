@@ -11,7 +11,8 @@ import moment from 'moment';
 
 class UserNotificator extends Component {
   static propTypes = {
-    isStaff: PropTypes.bool
+    isStaff: PropTypes.bool,
+    language: PropTypes.string
   };
 
   state = {
@@ -76,8 +77,8 @@ class UserNotificator extends Component {
   };
 
   render() {
+    const { language } = this.props;
     const notification = this.selectNotificationToShow();
-
     if (notification && !notification.message) return null;
     return (
       <div className={classNames('app-UserNotificator', {
@@ -89,7 +90,12 @@ class UserNotificator extends Component {
         <Grid className="container">
           <Row>
             <Col sm={12}>
-              <span>{ ReactHtmlWrapper(notification.message) }</span>
+              <span>
+                { notification.message[language]
+                  ? ReactHtmlWrapper(notification.message[language])
+                  : ReactHtmlWrapper(notification.message.fi)
+                }
+              </span>
             </Col>
           </Row>
         </Grid>

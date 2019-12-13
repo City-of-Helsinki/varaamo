@@ -21,10 +21,12 @@ import Notifications from '../shared/notifications/NotificationsContainer';
 import UserNotificator from '../../src/common/notificator/user/UserNotificator';
 
 const userIdSelector = state => state.auth.userId;
+const languageSelector = state => state.intl && state.intl.locale;
 
 export const selector = createStructuredSelector({
+  isStaff: isAdminSelector,
+  language: languageSelector,
   userId: userIdSelector,
-  isStaff: isAdminSelector
 });
 
 export class UnconnectedAppContainer extends Component {
@@ -57,7 +59,7 @@ export class UnconnectedAppContainer extends Component {
   }
 
   render() {
-    const { isStaff } = this.props;
+    const { isStaff, language } = this.props;
     return (
       <div className={classNames('app', getCustomizationClassName())}>
         <Helmet>
@@ -69,6 +71,7 @@ export class UnconnectedAppContainer extends Component {
           <TestSiteMessage />
           <UserNotificator
             isStaff={isStaff}
+            language={language}
           />
         </Header>
         <div className="app-content">
@@ -88,6 +91,7 @@ UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
   enableGeoposition: PropTypes.func.isRequired,
   isStaff: PropTypes.bool,
+  language: PropTypes.string,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
