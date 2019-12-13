@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import { decamelizeKeys } from 'humps';
 
 import { addNotification } from '../../actions/notificationsActions';
 import { postReservation, putReservation } from '../../actions/reservationActions';
@@ -132,9 +133,10 @@ class UnconnectedReservationPage extends Component {
 
       if (!isEmpty(reservationToEdit)) {
         const reservation = Object.assign({}, reservationToEdit);
+        const decamelizeValues = decamelizeKeys(Object.assign({}, values));
         actions.putReservation({
           ...reservation,
-          ...values,
+          ...decamelizeValues,
           begin,
           end,
         });
