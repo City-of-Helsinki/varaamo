@@ -90,7 +90,7 @@ class UserNotificator extends Component {
         <Grid className="container">
           <Row>
             <Col sm={12}>
-              <span>
+              <span className="notification-message">
                 { notification.message[language]
                   ? ReactHtmlWrapper(notification.message[language])
                   : ReactHtmlWrapper(notification.message.fi)
