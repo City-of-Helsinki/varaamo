@@ -87,9 +87,6 @@ class ReservationInformation extends Component {
       formFields.push('billingEmailAddress');
     }
 
-    if (resource.reservationExtraQuestions) {
-      formFields.push('reservationExtraQuestions');
-    }
 
     return uniq(formFields);
   }
