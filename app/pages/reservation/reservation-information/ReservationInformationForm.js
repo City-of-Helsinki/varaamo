@@ -456,9 +456,9 @@ ConnectedReservationInformationForm = connect(
       },
       onChange: (obj) => {
         /**
-         * We cannot empty Reservation extra questions on the first time when we are making a new reservation.
-         * The second time we are editing existing reservation we can empty Reservation extra questions.
-         * We separate the new and the existing one with !obj.resource check.
+         * We separate creating new reservation and editing existing reservation with !obj.resource check.
+         * If we clear reservationExtraQuestions in the first place default reservationExtraQuestions is returned.
+         * We can override default value when editing existing reservation.
          */
         if (obj.reservationExtraQuestions === '' && !obj.resource) {
           // eslint-disable-next-line no-param-reassign
