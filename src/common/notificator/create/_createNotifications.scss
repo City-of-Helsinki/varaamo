@@ -68,6 +68,19 @@
     }
   }
 
+  .modal-content {
+    width: 650px;
+
+    .modal-body {
+      overflow: hidden;
+    }
+
+    .modal-container {
+      margin: 0 auto;
+      width: 600px;
+    }
+  }
+
   .modal-footer {
     button {
       margin-right: 20px;
