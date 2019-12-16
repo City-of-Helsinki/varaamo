@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
-import camelCase from 'lodash/camelCase';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -16,6 +15,7 @@ import injectT from '../../../i18n/injectT';
 import { hasProducts } from '../../../utils/resourceUtils';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
+import { toCamelCase } from '../../../../src/common/data/utils';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -436,19 +436,6 @@ export { UnconnectedReservationInformationForm };
 
 // eslint-disable-next-line import/no-mutable-exports
 let ConnectedReservationInformationForm = UnconnectedReservationInformationForm;
-
-const toCamelCase = (obj) => {
-  if (!obj) return {};
-
-  const camelCasedObj = {};
-
-  Object.keys(obj).forEach((key) => {
-    const camelCasedKey = camelCase(key);
-    camelCasedObj[camelCasedKey] = obj[key];
-  });
-
-  return camelCasedObj;
-};
 
 ConnectedReservationInformationForm = injectT(reduxForm({
   form: FormTypes.RESERVATION

@@ -4,11 +4,11 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import camelCase from 'lodash/camelCase';
 
 import { RESERVATION_TYPE } from '../../../../src/domain/reservation/constants';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
+import { toCamelCase } from '../../../../src/common/data/utils';
 
 class InternalReservationFields extends Component {
   render() {
@@ -92,19 +92,6 @@ InternalReservationFields.propTypes = {
   commentsMaxLengths: PropTypes.number.isRequired,
   valid: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
-};
-
-const toCamelCase = (obj) => {
-  if (!obj) return {};
-
-  const camelCasedObj = {};
-
-  Object.keys(obj).forEach((key) => {
-    const camelCasedKey = camelCase(key);
-    camelCasedObj[camelCasedKey] = obj[key];
-  });
-
-  return camelCasedObj;
 };
 
 // eslint-disable-next-line import/no-mutable-exports
