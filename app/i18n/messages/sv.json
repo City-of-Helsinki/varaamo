@@ -80,6 +80,7 @@
   "common.requested": "Behandlas",
   "common.reservationTimeLabel": "Tidpunkt för bokning",
   "common.reservationExtraQuestions": "Ytterligare frågor",
+  "common.reservationExtraQuestionsLabel": "Ytterligare frågor",
   "common.reserverAddressLabel": "Adress",
   "common.reserverAddressCityLabel": "Stad",
   "common.reserverAddressStreetLabel": "Gatuadress",

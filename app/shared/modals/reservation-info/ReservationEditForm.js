@@ -180,6 +180,7 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
+        {this.renderStaticInfoRow('reservationExtraQuestions')}
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
         {isAdmin && reservationIsEditable && (
           <div className="form-controls">

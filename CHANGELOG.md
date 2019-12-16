@@ -1,3 +1,6 @@
+# 0.9.0-pre
+  - [#1095](https://github.com/City-of-Helsinki/varaamo/pull/1095) Display extra question field on reservation form
+
 # 0.8.1
   **MINOR CHANGES**
   - Fixed bug in reservation details where under "Reservation must be made xx days in advance" actually displays data from "Reservations can be made a xxx in advance".
