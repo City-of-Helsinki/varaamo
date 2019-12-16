@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -173,6 +172,7 @@ class UnconnectedReservationEditForm extends Component {
 
         {!reservation.staffEvent
           && price > 0
+        // eslint-disable-next-line max-len
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}

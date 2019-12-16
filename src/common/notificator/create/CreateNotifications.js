@@ -83,7 +83,6 @@ class CreateNotifications extends Component {
     } else {
       selectedNotification[field] = event.target.value;
     }
-    console.log(selectedNotification);
     this.setState({ selectedNotification });
   };
 

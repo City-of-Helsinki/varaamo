@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Moment from 'moment';
-import classNames from 'classnames';
 import { extendMoment } from 'moment-range';
 
 import ToggleFilter from './ToggleFilter';
