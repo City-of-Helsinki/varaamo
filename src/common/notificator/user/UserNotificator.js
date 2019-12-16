@@ -11,8 +11,8 @@ import moment from 'moment';
 
 class UserNotificator extends Component {
   static propTypes = {
-    isStaff: PropTypes.bool,
-    language: PropTypes.string
+    isStaff: PropTypes.bool.isRequired,
+    language: PropTypes.string.isRequired
   };
 
   state = {
