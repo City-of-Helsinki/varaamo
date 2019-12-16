@@ -54,8 +54,7 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   handleSelect(selection) {
-    const { actions } = this.props;
-    actions.myPremisessSetSelectedTimeSlots(selection);
+    this.props.actions.myPremisessSetSelectedTimeSlots(selection);
     this.setState({ selection });
     this.props.actions.changeRecurringBaseTime(selection);
     this.props.actions.openConfirmReservationModal();
