@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
+import firebase from 'firebase';
 
 import { isAdminSelector } from '../state/selectors/authSelectors';
 import { fetchUser } from '../actions/userActions';
@@ -69,10 +70,14 @@ export class UnconnectedAppContainer extends Component {
         <Header location={this.props.location}>
           <Favicon />
           <TestSiteMessage />
-          <UserNotificator
-            isStaff={isStaff}
-            language={language}
-          />
+          {firebase.apps.length > 0
+            && (
+            <UserNotificator
+              isStaff={isStaff}
+              language={language}
+            />
+            )
+          }
         </Header>
         <div className="app-content">
           <Grid>
