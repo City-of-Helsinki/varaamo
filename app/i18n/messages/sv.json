@@ -311,6 +311,7 @@
   "ResourcePage.reserveHeader": "Boka utrymme",
   "ResourcePage.showMap": "Visa på kartan",
   "ResourcePage.specificTerms": "Specifika villkor",
+  "ResourcePage.genericTermsHeader": "Utrymmets användningsregler",
   "ResourceTypeFilter.title": "Visa",
   "SearchBox.buttonText": "Sök",
   "SearchBox.placeholder": "Sök rum genom att mata in uppgifter om rummet",

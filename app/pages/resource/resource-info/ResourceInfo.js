@@ -32,6 +32,12 @@ function ResourceInfo({
         </ResourcePanel>
       )}
 
+      {resource.genericTerms && (
+        <ResourcePanel defaultExpanded={false} header={t('ResourcePage.genericTermsHeader')}>
+          <p>{resource.genericTerms}</p>
+        </ResourcePanel>
+      )}
+
       <ResourcePanel header={t('ResourceInfo.additionalInfoTitle')}>
         <Row>
           <Col className="app-ResourceInfo__address" xs={6}>
