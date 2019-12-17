@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNotificationForm Snapshot test 1`] = `
+<div>
+  <div
+    className="button-row"
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Sign out
+    </button>
+  </div>
+  <h4>
+    Create new notification
+  </h4>
+  <Row
+    bsClass="row"
+    componentClass="div"
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={3}
+    >
+      <span>
+        Name
+      </span>
+      <input
+        onChange={[Function]}
+        value=""
+      />
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={3}
+    >
+      <span>
+        Target
+      </span>
+      <StateManager
+        className="app-Select"
+        classNamePrefix="app-Select"
+        defaultInputValue=""
+        defaultMenuIsOpen={false}
+        defaultValue={null}
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "label": "Staff",
+              "value": "staff",
+            },
+            Object {
+              "label": "User",
+              "value": "user",
+            },
+            Object {
+              "label": "All",
+              "value": "all",
+            },
+          ]
+        }
+        placeholder="Select"
+      />
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={3}
+    >
+      <span>
+        Urgency
+      </span>
+      <StateManager
+        className="app-Select"
+        classNamePrefix="app-Select"
+        defaultInputValue=""
+        defaultMenuIsOpen={false}
+        defaultValue={null}
+        onChange={[Function]}
+        options={
+          Array [
+            Object {
+              "label": "Common",
+              "value": "common",
+            },
+            Object {
+              "label": "Warning",
+              "value": "warning",
+            },
+            Object {
+              "label": "Danger",
+              "value": "danger",
+            },
+          ]
+        }
+        placeholder="Select"
+      />
+    </Col>
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={3}
+    >
+      <span>
+        Until
+      </span>
+      <NotificatorDatePicker
+        onChange={[Function]}
+      />
+    </Col>
+  </Row>
+  <Row
+    bsClass="row"
+    className="action-row"
+    componentClass="div"
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={12}
+    >
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        &lt;/a&gt;
+      </button>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        &lt;b&gt;
+      </button>
+    </Col>
+  </Row>
+  <Row
+    bsClass="row"
+    componentClass="div"
+  >
+    <Col
+      bsClass="col"
+      componentClass="div"
+      sm={12}
+    >
+      <div
+        className="language-row"
+      >
+        <button
+          className="language-button active"
+          key="fi"
+          onClick={[Function]}
+          type="submit"
+        >
+          FI
+        </button>
+        <button
+          className="language-button"
+          key="en"
+          onClick={[Function]}
+          type="submit"
+        >
+          EN
+        </button>
+        <button
+          className="language-button"
+          key="sv"
+          onClick={[Function]}
+          type="submit"
+        >
+          SV
+        </button>
+      </div>
+      <textarea
+        onChange={[Function]}
+        placeholder="Notification message for FI"
+        rows={5}
+        value=""
+      />
+    </Col>
+  </Row>
+  <Row
+    bsClass="row"
+    componentClass="div"
+  >
+    <Col
+      bsClass="col"
+      className="button-row"
+      componentClass="div"
+      sm={12}
+    >
+      <button
+        onClick={[Function]}
+        type="submit"
+      >
+        Add
+      </button>
+    </Col>
+  </Row>
+</div>
+`;
