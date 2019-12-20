@@ -24,7 +24,7 @@ class NotificatorDatePicker extends Component {
 
     this.setState({ isOpen: false });
 
-    onChange({ target: { value: newDate } }, 'until');
+    onChange({ target: { value: moment(newDate).endOf('day').toDate() } }, 'until');
   };
 
   render() {
