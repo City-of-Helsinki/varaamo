@@ -27,6 +27,10 @@
 
   .DayPicker-Month {
     width: 250px;
+
+    @media (max-width: 1200px){
+      width: 200px;
+    }
   }
 
   &:hover {
