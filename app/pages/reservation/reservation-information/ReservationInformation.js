@@ -87,6 +87,7 @@ class ReservationInformation extends Component {
       formFields.push('billingEmailAddress');
     }
 
+
     return uniq(formFields);
   }
 
