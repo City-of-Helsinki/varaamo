@@ -1,0 +1,118 @@
+.app-CreateNotificationModal,
+.app-CreateNotifications {
+  margin-top: 30px;
+
+  .login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .center {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .action-row {
+    margin-top: 20px;
+    margin-bottom: 7px;
+
+    button {
+      margin-right: 10px;
+    }
+  }
+
+  .language-row {
+    .language-button {
+      background-color: $white;
+      color: $black;
+      border: 2px solid $black;
+      border-bottom: none;
+    }
+
+    .active {
+      background-color: $black;
+      color: $white;
+    }
+
+    .language-button:active,
+    .language-button:focus {
+      outline: none;
+    }
+  }
+
+  .button-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  .notification-list {
+    margin-top: 50px;
+    width: 100%;
+
+    th {
+      text-align: center;
+    }
+
+    tbody {
+      tr:hover {
+        background-color: $gray-light;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .modal-content {
+    width: 650px;
+
+    .modal-body {
+      overflow: hidden;
+    }
+
+    .modal-container {
+      margin: 0 auto;
+      width: 600px;
+    }
+  }
+
+  .modal-footer {
+    button {
+      margin-right: 20px;
+    }
+  }
+
+  input {
+    margin-bottom: 10px;
+    width: 100%;
+    border: 2px solid $black;
+    height: 52px;
+    padding-left: 5px;
+  }
+
+  .app-Select {
+    input {
+      height: 30px
+    }
+  }
+
+  textarea {
+    padding: 10px;
+    width: 100%;
+    border: 2px solid $black;
+    resize: none;
+  }
+
+  button {
+    color: $white;
+    background-color: $black;
+    width: 100px;
+    height: 30px;
+    border: none;
+  }
+}

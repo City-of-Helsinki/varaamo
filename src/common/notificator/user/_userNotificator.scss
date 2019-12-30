@@ -1,0 +1,32 @@
+.app-UserNotificator {
+  height: 60px;
+  width: 100%;
+  background-color: #73c0ff;
+  position: relative;
+
+  .container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .close-notificator {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    color: $gray;
+  }
+
+  .close-notificator:hover {
+    cursor: pointer;
+    color: $gray-light
+  }
+
+  &__warning {
+    background-color: #fff4b4 !important;
+  }
+
+  &__danger {
+    background-color: #f6e2e6 !important;
+  }
+}

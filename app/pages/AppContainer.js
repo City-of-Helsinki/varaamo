@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
+import firebase from 'firebase';
 
+import { isAdminSelector } from '../state/selectors/authSelectors';
 import { fetchUser } from '../actions/userActions';
 import { enableGeoposition } from '../actions/uiActions';
 import Favicon from '../shared/favicon/Favicon';
@@ -17,10 +19,14 @@ import Header from '../../src/domain/header/Header';
 import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
 import { getCustomizationClassName } from '../utils/customizationUtils';
 import Notifications from '../shared/notifications/NotificationsContainer';
+import UserNotificator from '../../src/common/notificator/user/UserNotificator';
 
 const userIdSelector = state => state.auth.userId;
+const languageSelector = state => state.intl && state.intl.locale;
 
 export const selector = createStructuredSelector({
+  isStaff: isAdminSelector,
+  language: languageSelector,
   userId: userIdSelector,
 });
 
@@ -54,6 +60,7 @@ export class UnconnectedAppContainer extends Component {
   }
 
   render() {
+    const { isStaff, language } = this.props;
     return (
       <div className={classNames('app', getCustomizationClassName())}>
         <Helmet>
@@ -63,6 +70,14 @@ export class UnconnectedAppContainer extends Component {
         <Header location={this.props.location}>
           <Favicon />
           <TestSiteMessage />
+          {firebase.apps.length > 0
+            && (
+            <UserNotificator
+              isStaff={isStaff}
+              language={language}
+            />
+            )
+          }
         </Header>
         <div className="app-content">
           <Grid>
@@ -80,6 +95,8 @@ export class UnconnectedAppContainer extends Component {
 UnconnectedAppContainer.propTypes = {
   children: PropTypes.node,
   enableGeoposition: PropTypes.func.isRequired,
+  isStaff: PropTypes.bool,
+  language: PropTypes.string,
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
