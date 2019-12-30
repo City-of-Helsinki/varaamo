@@ -1,6 +1,7 @@
 # 0.9.0-pre
   - [#1095](https://github.com/City-of-Helsinki/varaamo/pull/1095) Display extra question field on reservation form
   - [#1096](https://github.com/City-of-Helsinki/varaamo/pull/1096) Added ResourcePanel for genericTerms. Added react-autosize-textarea for reservationExtraQuestions.
+  - [#1098](https://github.com/City-of-Helsinki/varaamo/pull/1098) Added user notificator system.
 
 # 0.8.1
   **MINOR CHANGES**
