@@ -6,7 +6,9 @@ import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
 import { getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationControls from '../ReservationControls';
-import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from '../ReservationControlsContainer';
+import {
+  UnconnectedReservationControlsContainer as ReservationControlsContainer,
+} from '../ReservationControlsContainer';
 
 describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();

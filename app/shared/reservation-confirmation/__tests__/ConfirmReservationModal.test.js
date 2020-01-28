@@ -1,4 +1,3 @@
-import forEach from 'lodash/forEach';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
@@ -10,7 +9,6 @@ import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import ConfirmReservationModal from '../ConfirmReservationModal';
-import ReservationForm from '../ReservationForm';
 
 describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
   const defaultProps = {

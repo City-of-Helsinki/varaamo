@@ -91,7 +91,6 @@ InternalReservationFields.propTypes = {
   t: PropTypes.func.isRequired,
   commentsMaxLengths: PropTypes.number.isRequired,
   valid: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
 
 // eslint-disable-next-line import/no-mutable-exports
