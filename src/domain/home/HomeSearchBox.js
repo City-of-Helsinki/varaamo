@@ -12,7 +12,7 @@ class HomeSearchBox extends React.Component {
   };
 
   state = {
-    value: ''
+    value: '',
   }
 
   handleChange = (event) => {

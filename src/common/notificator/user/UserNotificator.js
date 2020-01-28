@@ -12,11 +12,11 @@ import moment from 'moment';
 class UserNotificator extends Component {
   static propTypes = {
     isStaff: PropTypes.bool.isRequired,
-    language: PropTypes.string.isRequired
+    language: PropTypes.string.isRequired,
   };
 
   state = {
-    notifications: []
+    notifications: [],
   };
 
   componentDidMount() {
@@ -83,7 +83,7 @@ class UserNotificator extends Component {
     return (
       <div className={classNames('app-UserNotificator', {
         'app-UserNotificator__warning': notification.urgency === 'warning',
-        'app-UserNotificator__danger': notification.urgency === 'danger'
+        'app-UserNotificator__danger': notification.urgency === 'danger',
       })}
       >
         <span className="close-notificator" onClick={() => this.closeNotificator(notification)}>X</span>

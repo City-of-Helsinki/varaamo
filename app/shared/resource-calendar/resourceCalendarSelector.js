@@ -19,7 +19,7 @@ const AvailabilitySelector = createSelector(
     const availableTimeByDate = {};
     (resource.openingHours || []).forEach(({ closes, date, opens }) => {
       const openMinutes = moment.duration(
-        moment(closes).diff(moment(opens))
+        moment(closes).diff(moment(opens)),
       ).asMinutes();
       if (availableTimeByDate[date]) {
         availableTimeByDate[date].openMinutes += openMinutes;
@@ -34,7 +34,7 @@ const AvailabilitySelector = createSelector(
       const date = begin.substring(0, 10);
       if (availableTimeByDate[date]) {
         const reservedMinutes = moment.duration(
-          moment(end).diff(moment(begin))
+          moment(end).diff(moment(begin)),
         ).asMinutes();
         availableTimeByDate[date].reservedMinutes += reservedMinutes;
       }
@@ -43,7 +43,7 @@ const AvailabilitySelector = createSelector(
       ...date,
       percentage: ((date.openMinutes - date.reservedMinutes) * 100) / date.openMinutes,
     }));
-  }
+  },
 );
 
 const reservationCalendarSelector = createStructuredSelector({

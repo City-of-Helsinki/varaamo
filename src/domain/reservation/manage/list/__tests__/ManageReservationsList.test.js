@@ -13,7 +13,7 @@ describe('ManageReservationsList', () => {
       unit: [unit.build()],
     };
     const wrapper = shallowWithIntl(
-      <UnwrappedManageReservationsList {...props} />
+      <UnwrappedManageReservationsList {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

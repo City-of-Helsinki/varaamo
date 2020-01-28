@@ -62,7 +62,7 @@ class ReservationConfirmation extends Component {
 
   render() {
     const {
-      failedReservations, isEdited, reservation, resource, t, user
+      failedReservations, isEdited, reservation, resource, t, user,
     } = this.props;
     const { reservationPrice } = this.state;
     const refUrl = window.location.href;
@@ -141,19 +141,19 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'pricePerPeriod',
                 t('common.priceLabel'),
-                getReservationPricePerPeriod(resource)
+                getReservationPricePerPeriod(resource),
               )}
             {reservationPrice
               && this.renderField(
                 'reservationPrice',
                 t('common.totalPriceLabel'),
-                `${reservationPrice}€`
+                `${reservationPrice}€`,
               )}
             {reservation.reserverName
               && this.renderField(
                 'reserverName',
                 t('common.reserverNameLabel'),
-                reservation.reserverName
+                reservation.reserverName,
               )}
             {reservation.reserverId
               && this.renderField('reserverId', t('common.reserverIdLabel'), reservation.reserverId)}
@@ -161,31 +161,31 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reserverPhoneNumber',
                 t('common.reserverPhoneNumberLabel'),
-                reservation.reserverPhoneNumber
+                reservation.reserverPhoneNumber,
               )}
             {reservation.reserverEmailAddress
               && this.renderField(
                 'reserverEmailAddress',
                 t('common.reserverEmailAddressLabel'),
-                reservation.reserverEmailAddress
+                reservation.reserverEmailAddress,
               )}
             {reservation.eventSubject
               && this.renderField(
                 'eventSubject',
                 t('common.eventSubjectLabel'),
-                reservation.eventSubject
+                reservation.eventSubject,
               )}
             {reservation.eventDescription
               && this.renderField(
                 'eventDescription',
                 t('common.eventDescriptionLabel'),
-                reservation.eventDescription
+                reservation.eventDescription,
               )}
             {reservation.numberOfParticipants
               && this.renderField(
                 'numberOfParticipants',
                 t('common.numberOfParticipantsLabel'),
-                reservation.numberOfParticipants
+                reservation.numberOfParticipants,
               )}
             {reservation.comments
               && this.renderField('comments', t('common.commentsLabel'), reservation.comments)}
@@ -193,19 +193,19 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'reserverAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.reserverAddressStreet
+                reservation.reserverAddressStreet,
               )}
             {reservation.reserverAddressZip
               && this.renderField(
                 'reserverAddressZip',
                 t('common.addressZipLabel'),
-                reservation.reserverAddressZip
+                reservation.reserverAddressZip,
               )}
             {reservation.reserverAddressCity
               && this.renderField(
                 'reserverAddressCity',
                 t('common.addressCityLabel'),
-                reservation.reserverAddressCity
+                reservation.reserverAddressCity,
               )}
             {reservation.billingAddressStreet && (
               <Col xs={12}>{t('common.billingAddressLabel')}</Col>
@@ -214,43 +214,43 @@ class ReservationConfirmation extends Component {
               && this.renderField(
                 'billingFirstName',
                 t('common.billingFirstNameLabel'),
-                reservation.billingFirstName
+                reservation.billingFirstName,
               )}
             {reservation.billingLastName
               && this.renderField(
                 'billingLastName',
                 t('common.billingLastNameLabel'),
-                reservation.billingLastName
+                reservation.billingLastName,
               )}
             {reservation.billingPhoneNumber
               && this.renderField(
                 'billingPhoneNumber',
                 t('common.billingPhoneNumberLabel'),
-                reservation.billingPhoneNumber
+                reservation.billingPhoneNumber,
               )}
             {reservation.billingEmailAddress
               && this.renderField(
                 'billingEmailAddress',
                 t('common.billingEmailAddressLabel'),
-                reservation.billingEmailAddress
+                reservation.billingEmailAddress,
               )}
             {reservation.billingAddressStreet
               && this.renderField(
                 'billingAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.billingAddressStreet
+                reservation.billingAddressStreet,
               )}
             {reservation.billingAddressZip
               && this.renderField(
                 'billingAddressZip',
                 t('common.addressZipLabel'),
-                reservation.billingAddressZip
+                reservation.billingAddressZip,
               )}
             {reservation.billingAddressCity
               && this.renderField(
                 'billingAddressCity',
                 t('common.addressCityLabel'),
-                reservation.billingAddressCity
+                reservation.billingAddressCity,
               )}
           </div>
         </Col>

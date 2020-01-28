@@ -33,7 +33,7 @@ export default class TimelineGroups extends React.Component {
     groups: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-      })
+      }),
     ).isRequired,
     onReservationSlotClick: PropTypes.func,
     onReservationSlotMouseEnter: PropTypes.func,

@@ -12,7 +12,7 @@ describe('CreateNotificationForm', () => {
     addNew: simple.stub(),
     isEditing: false,
     newNotification: {},
-    onFieldChange: simple.stub()
+    onFieldChange: simple.stub(),
   };
   const getWrapper = props => shallow(<CreateNotificationsForm {...defaultProps} {...props} />);
 

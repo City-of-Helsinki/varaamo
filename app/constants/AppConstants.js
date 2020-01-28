@@ -41,19 +41,19 @@ export default {
   RESERVATION_PAYMENT_LABELS: {
     confirmed: {
       labelBsStyle: 'success',
-      labelTextId: 'payment.success'
+      labelTextId: 'payment.success',
     },
     waiting: {
       labelBsStyle: 'warning',
-      labelTextId: 'payment.processing'
+      labelTextId: 'payment.processing',
     },
     rejected: {
       labelBsStyle: 'danger',
-      labelTextId: 'payment.failed'
+      labelTextId: 'payment.failed',
     },
     cancelled: {
       labelBsStyle: 'danger',
-      labelTextId: 'payment.cancelled'
+      labelTextId: 'payment.cancelled',
     },
   },
   SEARCH_PAGE_SIZE: 30,
@@ -83,5 +83,5 @@ export default {
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
-  }
+  },
 };

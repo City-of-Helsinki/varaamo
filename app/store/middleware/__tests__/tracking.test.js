@@ -94,7 +94,7 @@ describe('store/middleware/tracking', () => {
           expect(push.callCount).toBe(1);
           done();
         },
-        500
+        500,
       );
     });
   });

@@ -11,7 +11,7 @@ function ResourceEquipment({
   t,
 }) {
   const equipmentColumns = equipment.map(
-    (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>
+    (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>,
   );
   return (
     <ResourcePanel header={t('ResourceEquipment.headingText')}>

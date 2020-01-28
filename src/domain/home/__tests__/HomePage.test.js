@@ -43,7 +43,7 @@ describe('pages/home/HomePage', () => {
             {
               id: 'purpose-foo',
               name: {
-                en: 'purpose-name'
+                en: 'purpose-name',
               },
             },
           ],

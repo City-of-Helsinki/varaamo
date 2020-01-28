@@ -15,15 +15,15 @@ export const RESERVATION_METADATA = [
   'reserver_email_address',
   'reserver_id',
   'reserver_name',
-  'reserver_phone_number'
+  'reserver_phone_number',
 ];
 
 export const RESERVATION_SHOWONLY_FILTERS = {
   FAVORITE: 'favorite',
-  CAN_MODIFY: 'can_modify'
+  CAN_MODIFY: 'can_modify',
 };
 
 export const RESERVATION_TYPE = {
   NORMAL: 'normal',
-  BLOCKED: 'blocked'
+  BLOCKED: 'blocked',
 };

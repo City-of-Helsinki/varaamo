@@ -15,7 +15,7 @@ function Label({
     <div
       className={classNames(
         'app-Label',
-        className
+        className,
       )}
     >
       <BootstrapLabel {...rest}>

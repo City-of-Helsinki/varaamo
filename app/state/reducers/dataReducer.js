@@ -25,7 +25,7 @@ function handleReservation(state, reservation) {
   if (state.resources[reservation.resource]) {
     const reservations = reject(
       state.resources[reservation.resource].reservations,
-      current => current.url === reservation.url
+      current => current.url === reservation.url,
     );
     entities.resources = {
       [reservation.resource]: {

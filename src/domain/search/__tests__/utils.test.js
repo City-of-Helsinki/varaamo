@@ -24,9 +24,9 @@ describe('src/domain/search/utils.js', () => {
 
   test('getUnitOptions', () => {
     const units = [
-      { id: 1, name: { fi: 'B', }, },
-      { id: 2, name: { fi: 'C', }, },
-      { id: 3, name: { fi: 'A', }, },
+      { id: 1, name: { fi: 'B' } },
+      { id: 2, name: { fi: 'C' } },
+      { id: 3, name: { fi: 'A' } },
     ];
 
     const options = searchUtils.getUnitOptions(units, 'fi');
@@ -42,10 +42,10 @@ describe('src/domain/search/utils.js', () => {
 
   test('getPurposeOptions', () => {
     const purposes = [
-      { id: 1, name: { fi: 'B', }, parent: null, },
-      { id: 2, name: { fi: 'C', }, parent: null, },
-      { id: 3, name: { fi: 'A', }, parent: 2, },
-      { id: 4, name: { fi: 'D', }, parent: null, },
+      { id: 1, name: { fi: 'B' }, parent: null },
+      { id: 2, name: { fi: 'C' }, parent: null },
+      { id: 3, name: { fi: 'A' }, parent: 2 },
+      { id: 4, name: { fi: 'D' }, parent: null },
     ];
 
     const options = searchUtils.getPurposeOptions(purposes, 'fi');

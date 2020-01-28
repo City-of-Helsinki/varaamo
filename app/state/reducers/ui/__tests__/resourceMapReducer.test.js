@@ -34,7 +34,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
             resources: keyBy(resources, 'id'),
             units: keyBy(units, 'id'),
           },
-        })
+        }),
       );
       const units = [
         Unit.build(),
@@ -56,7 +56,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
           const nextState = resourceMapReducer(initialState, action);
 
           expect(nextState.unitId).toEqual(expected);
-        }
+        },
       );
 
       test(
@@ -71,7 +71,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
           const nextState = resourceMapReducer(initialState, action);
 
           expect(nextState.unitId).toEqual(expected);
-        }
+        },
       );
     });
 
@@ -101,7 +101,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
       test('Sets resourceId from location pathname', () => {
         const resourcePageChange = createAction(
           'ENTER_OR_CHANGE_RESOURCE_PAGE',
-          location => (location)
+          location => (location),
         );
         const action = resourcePageChange({
           pathname: '/resources/qwertyasdfgh',

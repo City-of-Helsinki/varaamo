@@ -126,7 +126,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           { label: '12:00 (2 h)', value: '12:00' },
         ];
         expect(options).toEqual(expected);
-      }
+      },
     );
 
     test(
@@ -154,7 +154,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           { label: '06:00 (2 h)', value: '06:00' },
         ];
         expect(options).toEqual(expected);
-      }
+      },
     );
   });
 
@@ -184,7 +184,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           callHandleBeginTimeChange(props, value);
           expect(onChange.callCount).toBe(1);
           expect(onChange.lastCall.args).toEqual([expectedArg]);
-        }
+        },
       );
 
       test(
@@ -200,7 +200,7 @@ describe('shared/reservation-confirmation/TimeControls', () => {
           const expectedArg = moment('2017-01-01T16:00:00').toISOString();
           expect(onChange.callCount).toBe(1);
           expect(onChange.lastCall.args).toEqual([expectedArg]);
-        }
+        },
       );
 
       test('does not call end.input.onChange if old end time is still valid', () => {

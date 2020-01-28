@@ -19,7 +19,7 @@ const ManageReservationsComment = ({ comments }) => (
   </div>
 );
 ManageReservationsComment.propTypes = {
-  comments: PropTypes.string
+  comments: PropTypes.string,
 };
 
 export default ManageReservationsComment;

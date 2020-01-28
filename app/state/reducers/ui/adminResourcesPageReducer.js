@@ -28,8 +28,8 @@ function adminResourcesPageReducer(state = initialState, action) {
       return state.merge({
         selectedResourceTypes: filter(
           state.selectedResourceTypes,
-          resourceType => resourceType !== action.payload
-        )
+          resourceType => resourceType !== action.payload,
+        ),
       });
     }
 

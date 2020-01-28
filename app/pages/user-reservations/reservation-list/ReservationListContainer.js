@@ -26,7 +26,7 @@ class UnconnectedReservationListContainer extends Component {
         pageSize,
         all: true,
         isOwn: true,
-        ordering: '-begin'
+        ordering: '-begin',
       });
     }
   }
@@ -35,7 +35,7 @@ class UnconnectedReservationListContainer extends Component {
     const { history, location } = this.props;
     const filters = getFiltersFromUrl(location, false);
     history.push({
-      search: getSearchFromFilters({ ...filters, page: newPage })
+      search: getSearchFromFilters({ ...filters, page: newPage }),
     });
   };
 

@@ -162,7 +162,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
 
             expect(wrappedText.length).toBe(1);
             expect(wrappedText.prop('text')).toBe(termsAndConditions);
-          }
+          },
         );
 
         test('renders terms and conditions input wrapper', () => {

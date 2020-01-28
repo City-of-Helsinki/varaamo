@@ -10,7 +10,7 @@ const selectedReservationsSelector = createSelector(
   (selected) => {
     const selectedReservations = Immutable(combine(selected));
     return selectedReservations;
-  }
+  },
 );
 
 export default selectedReservationsSelector;

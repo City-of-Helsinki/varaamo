@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 const ResourcePanel = ({
-  defaultExpanded = true, header, children
+  defaultExpanded = true, header, children,
 }) => {
   return (
     <div className="app-ResourcePanel">

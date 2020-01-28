@@ -9,22 +9,22 @@ export const createSelectOptions = () => {
   const targetOptions = [
     { value: 'staff', label: 'Staff' },
     { value: 'user', label: 'User' },
-    { value: 'all', label: 'All' }
+    { value: 'all', label: 'All' },
   ];
   const urgencyOptions = [
     { value: 'common', label: 'Common' },
     { value: 'warning', label: 'Warning' },
-    { value: 'danger', label: 'Danger' }
+    { value: 'danger', label: 'Danger' },
   ];
   const activeOptions = [
     { value: true, label: 'True' },
-    { value: false, label: 'False' }
+    { value: false, label: 'False' },
   ];
 
   return {
     targetOptions,
     urgencyOptions,
-    activeOptions
+    activeOptions,
   };
 };
 

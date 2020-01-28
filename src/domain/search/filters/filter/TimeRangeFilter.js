@@ -213,7 +213,7 @@ class TimeRangeFilter extends React.Component {
     // Duration can't be more than the difference of the start time and end time.
     const updatedDuration = Math.min(
       getMomentFromTime(updatedEndTime).diff(start, 'minutes'),
-      duration
+      duration,
     );
 
     this.setState({
@@ -240,7 +240,7 @@ class TimeRangeFilter extends React.Component {
     // Duration can't be more than the difference of the start time and end time.
     const updatedDuration = Math.min(
       end.diff(start, 'minutes'),
-      duration
+      duration,
     );
 
     this.setState({

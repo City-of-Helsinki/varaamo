@@ -33,7 +33,7 @@ const paginatedSelector = (state) => {
 
 const paginatedReservationsSelector = createSelector(
   paginatedSelector,
-  reservations => reservations
+  reservations => reservations,
 );
 
 export default paginatedReservationsSelector;

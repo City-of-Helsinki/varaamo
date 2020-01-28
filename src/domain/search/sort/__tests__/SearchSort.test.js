@@ -7,7 +7,7 @@ import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 describe('SearchSort', () => {
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <SearchSort locale="en" onChange={() => null} t={jest.fn()} />
+      <SearchSort locale="en" onChange={() => null} t={jest.fn()} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

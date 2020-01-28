@@ -105,7 +105,7 @@ function createApiTest(options) {
           types: [{
             type: (
               (tests.request && tests.request.type) || 'Specify request.type'
-            )
+            ),
           }],
         },
       };
@@ -253,5 +253,5 @@ export {
   makeButtonTests,
   shallowWithIntl,
   mountWithIntl,
-  globalDateMock
+  globalDateMock,
 };

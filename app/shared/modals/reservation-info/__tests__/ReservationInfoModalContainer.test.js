@@ -100,7 +100,7 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
           callOnSaveCommentsClick({ commentReservation });
           expect(commentReservation.callCount).toBe(1);
           expect(commentReservation.lastCall.args).toEqual([reservation, resource, comments]);
-        }
+        },
       );
     });
   });

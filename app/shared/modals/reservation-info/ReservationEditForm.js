@@ -45,7 +45,7 @@ class UnconnectedReservationEditForm extends Component {
     const value = this.getAddress(
       reservation[`${addressType}Street`],
       reservation[`${addressType}Zip`],
-      reservation[`${addressType}City`]
+      reservation[`${addressType}City`],
     );
     return this.renderInfoRow(label, value);
   }
@@ -97,7 +97,7 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t
+      isEditing, reservation, resource, t,
     } = this.props;
     if (isEditing) {
       return (
@@ -140,7 +140,7 @@ class UnconnectedReservationEditForm extends Component {
     const tax = getTaxPercentage(resource);
     const tVariables = {
       price,
-      tax
+      tax,
     };
 
     const { billingFirstName, billingLastName, billingEmailAddress } = reservation;

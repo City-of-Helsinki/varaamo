@@ -59,8 +59,8 @@ module.exports = {
         STORAGE_BUCKET: JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
         MESSAGING_SENDER_ID: JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
         APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
-        MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID)
-      }
+        MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+      },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb|fi|sv/),
   ],

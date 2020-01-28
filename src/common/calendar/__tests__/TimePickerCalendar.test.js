@@ -20,7 +20,7 @@ describe('TimePickerCalendar', () => {
 
   const selected = {
     start: '2019-09-05T10:30:00+03:00',
-    end: '2019-09-05T12:00:00+03:00'
+    end: '2019-09-05T12:00:00+03:00',
   };
 
 
@@ -37,7 +37,7 @@ describe('TimePickerCalendar', () => {
   describe('edittingReservation', () => {
     const defaultSelected = {
       begin: '2019-09-05T10:30:00+03:00',
-      end: '2019-09-05T12:00:00+03:00'
+      end: '2019-09-05T12:00:00+03:00',
     };
 
     const edittingReservation = reservation.build(defaultSelected);
@@ -57,8 +57,8 @@ describe('TimePickerCalendar', () => {
       wrapper.setState({
         selected: {
           start: '2019-09-05T13:30:00+03:00',
-          end: '2019-09-05T14:00:00+03:00'
-        }
+          end: '2019-09-05T14:00:00+03:00',
+        },
       });
 
       // select random time range
@@ -68,9 +68,9 @@ describe('TimePickerCalendar', () => {
       instance.calendarRef = {
         current: {
           getApi: () => ({
-            unselect: jest.fn()
-          })
-        }
+            unselect: jest.fn(),
+          }),
+        },
       };
 
       wrapper.update();

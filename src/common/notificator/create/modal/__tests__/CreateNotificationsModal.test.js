@@ -14,7 +14,7 @@ describe('CreateNotificationsModal', () => {
     onFieldChange: simple.stub(),
     onHide: simple.stub(),
     onDelete: simple.stub(),
-    selectedNotification: {}
+    selectedNotification: {},
   };
   const getWrapper = props => shallow(<CreateNotificationModal {...defaultProps} {...props} />);
 

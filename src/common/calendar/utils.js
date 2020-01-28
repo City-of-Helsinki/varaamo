@@ -9,7 +9,7 @@ import get from 'lodash/get';
 export const getDefaultSelectedTimeRange = (reservation) => {
   return reservation ? {
     start: reservation.begin,
-    end: reservation.end
+    end: reservation.end,
   } : null;
 };
 
@@ -107,7 +107,7 @@ export const getMinPeriodTimeRange = (resource, start, end) => {
 
   if (!minPeriod) {
     return {
-      start, end
+      start, end,
     };
   }
 
@@ -117,13 +117,13 @@ export const getMinPeriodTimeRange = (resource, start, end) => {
     // time range smaller than min_period, return min_period
     return {
       start,
-      end: minPeriodEnd.toDate()
+      end: minPeriodEnd.toDate(),
     };
   }
 
   return {
     start,
-    end
+    end,
   };
 };
 
@@ -144,7 +144,7 @@ export const getMaxPeriodTimeRange = (resource, start, end, isStaff) => {
 
   if (!maxPeriod || isStaff) {
     return {
-      start, end
+      start, end,
     };
   }
 
@@ -154,12 +154,12 @@ export const getMaxPeriodTimeRange = (resource, start, end, isStaff) => {
     // time range is over max_period not allowed, return max_period
     return {
       start,
-      end: maxPeriodEnd.toDate()
+      end: maxPeriodEnd.toDate(),
     };
   }
 
   return {
     start,
-    end
+    end,
   };
 };

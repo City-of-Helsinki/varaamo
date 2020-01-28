@@ -18,7 +18,7 @@ describe('SelectField', () => {
     };
 
     const wrapper = shallowWithIntl(
-      <SelectField {...props} />
+      <SelectField {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

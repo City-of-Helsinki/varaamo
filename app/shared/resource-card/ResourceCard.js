@@ -24,7 +24,7 @@ import ResourceCardInfoCell from './info-cell/ResourceCardInfoCell';
 import resourceCardSelector from './resourceCardSelector';
 import {
   favoriteResource,
-  unfavoriteResource
+  unfavoriteResource,
 } from '../../actions/resourceActions';
 
 class ResourceCard extends Component {
@@ -69,7 +69,7 @@ class ResourceCard extends Component {
 
   render() {
     const {
-      date, resource, t, unit, actions, isLoggedIn
+      date, resource, t, unit, actions, isLoggedIn,
     } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {

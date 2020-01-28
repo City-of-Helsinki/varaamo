@@ -11,10 +11,10 @@ describe('TextFilter', () => {
       id: 'foo',
       onChange: jest.fn(),
       onSearch: jest.fn(),
-      value: 'bar'
+      value: 'bar',
     };
     const wrapper = shallowWithIntl(
-      <TextFilter {...props} />
+      <TextFilter {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -25,13 +25,13 @@ const purposeIcons = {
   manufacturing: iconManufacturing,
   meetingsAndWorking: iconMeetingsAndWorking,
   events: iconOrganizeEvents,
-  sauna: iconSauna
+  sauna: iconSauna,
 };
 
 class HomePage extends Component {
   state = {
     isFetchingPurposes: false,
-    purposes: null
+    purposes: null,
   }
 
   componentDidMount() {
@@ -121,7 +121,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   history: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  locale: PropTypes.string.isRequired
+  locale: PropTypes.string.isRequired,
 };
 
 export default injectT(HomePage);

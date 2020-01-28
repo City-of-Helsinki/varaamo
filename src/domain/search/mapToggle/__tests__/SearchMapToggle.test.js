@@ -11,7 +11,7 @@ describe('SearchMapToggle', () => {
         active="list"
         onClick={() => null}
         resultCount={53}
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe('SearchMapToggle', () => {
         active="list"
         onClick={onClick}
         resultCount={53}
-      />
+      />,
     );
 
     wrapper.find('.app-SearchMapToggle__button-map').simulate('click');

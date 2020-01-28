@@ -92,12 +92,12 @@ function Reservation({ onClick, products, ...reservation }) {
                 && reservation.userPermissions.canModify,
             },
             {
-              waiting: reservation.state === 'waiting_for_payment'
+              waiting: reservation.state === 'waiting_for_payment',
             },
             {
               paid: reservation.state === 'confirmed'
                 && !reservation.staffEvent
-                && price
+                && price,
             })}
           style={{ width }}
         >

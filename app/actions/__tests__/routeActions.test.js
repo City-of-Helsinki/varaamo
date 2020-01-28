@@ -19,7 +19,7 @@ describe('Actions: resourceActions', () => {
         updateRoute('homepage');
 
         expect(reduxActions.createAction.calls[0].arg).toBe('ENTER_OR_CHANGE_HOMEPAGE_PAGE');
-      }
+      },
     );
   });
 });

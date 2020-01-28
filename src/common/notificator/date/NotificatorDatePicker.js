@@ -11,12 +11,12 @@ const DatePickerWrapper = ({ children }) => (
 );
 
 DatePickerWrapper.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 class NotificatorDatePicker extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
   };
 
   onChange = (newDate) => {
@@ -57,7 +57,7 @@ class NotificatorDatePicker extends Component {
 
 NotificatorDatePicker.propTypes = {
   date: PropTypes.instanceOf(Date),
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default NotificatorDatePicker;

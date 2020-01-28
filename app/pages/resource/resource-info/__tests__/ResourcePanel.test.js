@@ -7,10 +7,10 @@ import { shallowWithIntl } from '../../../../utils/testUtils';
 describe('ResourcePanel', () => {
   test('renders correctly', () => {
     const props = {
-      header: 'foo'
+      header: 'foo',
     };
     const wrapper = shallowWithIntl(
-      <ResourcePanel {...props}><p>bar</p></ResourcePanel>
+      <ResourcePanel {...props}><p>bar</p></ResourcePanel>,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

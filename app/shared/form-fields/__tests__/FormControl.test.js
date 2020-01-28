@@ -53,7 +53,7 @@ describe('shared/form-fields/FormControl', () => {
 
       test('contains the label text given in props', () => {
         expect(
-          getColWrapper().props().children
+          getColWrapper().props().children,
         ).toEqual(expect.arrayContaining([defaultProps.label]));
       });
 

@@ -45,7 +45,7 @@ function SearchMapToggle({
                   <Button
                     className={classNames(
                       'app-SearchMapToggle__button',
-                      `app-SearchMapToggle__button-${button.key}`
+                      `app-SearchMapToggle__button-${button.key}`,
                     )}
                     disabled={active === button.key}
                     key={button.key}

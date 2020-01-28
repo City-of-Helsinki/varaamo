@@ -44,7 +44,7 @@ class ManageReservationsPincode extends Component {
 }
 
 ManageReservationsPincode.propTypes = {
-  reservation: PropTypes.object.isRequired
+  reservation: PropTypes.object.isRequired,
 };
 
 export default ManageReservationsPincode;

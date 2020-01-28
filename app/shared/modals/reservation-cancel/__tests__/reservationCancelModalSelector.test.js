@@ -46,7 +46,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
           'ui.reservations.toCancel': [reservation],
         });
         expect(selected.cancelAllowed).toBe(false);
-      }
+      },
     );
   });
 
@@ -98,7 +98,7 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
           'ui.modals.open': [],
         });
         expect(selected.show).toBe(false);
-      }
+      },
     );
   });
 });

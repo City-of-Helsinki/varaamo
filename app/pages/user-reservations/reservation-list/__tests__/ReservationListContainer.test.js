@@ -19,7 +19,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       isAdmin: false,
       loading: false,
       location: {
-        search: ''
+        search: '',
       },
       reservations: [],
       resources: {},

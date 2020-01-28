@@ -7,7 +7,7 @@ import ResourceCardInfoCell from '../ResourceCardInfoCell';
 describe('ResourceCardInfoCell', () => {
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <ResourceCardInfoCell />
+      <ResourceCardInfoCell />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

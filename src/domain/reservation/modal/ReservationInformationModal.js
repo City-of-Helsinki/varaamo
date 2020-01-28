@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Modal, Row, Col, Button, ControlLabel, FormControl
+  Modal, Row, Col, Button, ControlLabel, FormControl,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
@@ -14,7 +14,7 @@ import ReservationMetadata from '../information/ReservationMetadata';
 import ConnectedReservationCancelModal from './ReservationCancelModal';
 
 const ReservationInformationModal = ({
-  t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment
+  t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment,
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(false);
@@ -153,7 +153,7 @@ ReservationInformationModal.propTypes = {
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
   onSaveComment: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
 };
 
 export default injectT(ReservationInformationModal);

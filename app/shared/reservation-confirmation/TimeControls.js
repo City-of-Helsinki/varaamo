@@ -48,7 +48,7 @@ class TimeControls extends Component {
 
   getEndTimeOptions(beginValue) {
     const {
-      begin, maxReservationPeriod, timeFormat, timeSlots
+      begin, maxReservationPeriod, timeFormat, timeSlots,
     } = this.props;
     const beginTime = beginValue || begin.input.value;
     const firstPossibleIndex = timeSlots.findIndex(slot => moment(slot.end).isAfter(beginTime));

@@ -4,7 +4,7 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import PropTypes from 'prop-types';
 
 const PopoverOverlay = ({
-  content, title, trigger, children, placement
+  content, title, trigger, children, placement,
 }) => (
   <div className="app-PopoverOverlay">
     <OverlayTrigger
@@ -28,10 +28,10 @@ PopoverOverlay.propTypes = {
   title: PropTypes.element,
   trigger: PropTypes.oneOf([
     PropTypes.string,
-    PropTypes.array
+    PropTypes.array,
   ]),
   children: PropTypes.element,
-  placement: PropTypes.string
+  placement: PropTypes.string,
 };
 
 export default PopoverOverlay;

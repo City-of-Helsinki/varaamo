@@ -12,7 +12,7 @@ import {
   getMissingValues,
   getNextAvailableTime,
   getNextReservation,
-  getReservationPrice
+  getReservationPrice,
 } from '../reservationUtils';
 
 jest.mock('axios');
@@ -56,7 +56,7 @@ describe('Utils: reservationUtils', () => {
         const reservations = ['mock reservation'];
 
         expect(combine(reservations)).toEqual(reservations);
-      }
+      },
     );
 
     test('combines two reservations if they are continual', () => {
@@ -112,7 +112,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = { reserverName: 'Luke' };
         const resource = {};
         expect(isStaffEvent(reservation, resource)).toBe(false);
-      }
+      },
     );
 
     test(
@@ -121,7 +121,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = { reserverName: 'Luke' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
         expect(isStaffEvent(reservation, resource)).toBe(false);
-      }
+      },
     );
 
     test(
@@ -130,7 +130,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = {};
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
         expect(isStaffEvent(reservation, resource)).toBe(true);
-      }
+      },
     );
 
     test(
@@ -139,7 +139,7 @@ describe('Utils: reservationUtils', () => {
         const reservation = { reserverName: '' };
         const resource = { requiredReservationExtraFields: ['reserver_name'] };
         expect(isStaffEvent(reservation, resource)).toBe(true);
-      }
+      },
     );
   });
 
@@ -147,7 +147,7 @@ describe('Utils: reservationUtils', () => {
     const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') }
+      { startTime: moment().subtract(20, 'minutes') },
     );
     const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
     const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
@@ -169,7 +169,7 @@ describe('Utils: reservationUtils', () => {
         eventSubject: 'Some subject',
         reserverName: 'Luke Skywalker',
         eventDescription: 'Is male',
-        reservationExtraQuestions: 'Is Yoda God?'
+        reservationExtraQuestions: 'Is Yoda God?',
       };
       return Reservation.build(Object.assign({}, defaults, extraValues));
     }
@@ -288,7 +288,7 @@ describe('Utils: reservationUtils', () => {
     const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') }
+      { startTime: moment().subtract(20, 'minutes') },
     );
     const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
     const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
@@ -312,20 +312,20 @@ describe('Utils: reservationUtils', () => {
       type: 'rent',
       name: {
         fi: 'testivuokra',
-        en: 'test rent'
+        en: 'test rent',
       },
       description: {
         fi: 'Testivuokran kuvaus.',
-        en: 'Test rent description.'
+        en: 'Test rent description.',
       },
       pretaxPrice: 10.00,
       taxPercentage: 24.00,
-      price: { amount: 12.40, type: 'per_period', period: '01:00:00' }
+      price: { amount: 12.40, type: 'per_period', period: '01:00:00' },
     }];
     const reservationMockData = {
       begin: '2019-09-06T15:00:00+03:00',
       end: '2019-09-06T16:00:00+03:00',
-      price: '12.40'
+      price: '12.40',
     };
 
     afterAll(() => {
@@ -333,7 +333,7 @@ describe('Utils: reservationUtils', () => {
     });
 
     axios.request.mockResolvedValue({
-      data: reservationMockData
+      data: reservationMockData,
     });
 
     test('return the price', () => {

@@ -41,7 +41,7 @@ class Pagination extends React.Component {
           onClick={() => onChange(i + 1)}
         >
           {i + 1}
-        </Button>
+        </Button>,
       );
     }
 
@@ -53,7 +53,7 @@ class Pagination extends React.Component {
       pages,
       page,
       onChange,
-      t
+      t,
     } = this.props;
 
     return (

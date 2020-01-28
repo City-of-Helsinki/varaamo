@@ -35,8 +35,8 @@ describe('CreateNotifications', () => {
     test('Test any of the fields except message', () => {
       const event = {
         target: {
-          value: 'Testing name'
-        }
+          value: 'Testing name',
+        },
       };
       wrapper.instance().onFieldChange(event, 'name');
       expect(wrapper.state().newNotification.name).toEqual('Testing name');

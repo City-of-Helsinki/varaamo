@@ -3,7 +3,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 
 function ModalWrapper({
-  children, className, footerContent, onClose, show, title
+  children, className, footerContent, onClose, show, title,
 }) {
   return (
     <Modal className={className} onHide={onClose} show={show}>

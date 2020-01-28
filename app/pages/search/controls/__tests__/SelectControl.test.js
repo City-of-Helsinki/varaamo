@@ -78,7 +78,7 @@ describe('pages/search/controls/SelectControl', () => {
       expect(select.prop('className')).toContain('app-Select');
       expect(select.prop('className')).toContain('foo');
       expect(defaultSelect.prop('className')).toContain('app-Select');
-    }
+    },
   );
 
   test('Select onChange calls prop onChange', () => {
@@ -99,7 +99,7 @@ describe('pages/search/controls/SelectControl', () => {
       multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
       expect(onChange.callCount).toBe(1);
       expect(onChange.lastCall.args[0]).toEqual([]);
-    }
+    },
   );
 
   test(
@@ -111,7 +111,7 @@ describe('pages/search/controls/SelectControl', () => {
       select.prop('onChange')(defaults.options, { action: 'clear' });
       expect(onChange.callCount).toBe(1);
       expect(onChange.lastCall.args[0]).toEqual({});
-    }
+    },
   );
 
   test('Select onChange calls prop onChange as fallback', () => {
@@ -136,7 +136,7 @@ describe('pages/search/controls/SelectControl', () => {
     test('fill selected option when default value is passed in', () => {
       const wrapper = getWrapper({});
       const selectedOption = wrapper.instance().getValue(
-        defaults.options[0].value, defaults.options
+        defaults.options[0].value, defaults.options,
       );
       expect(selectedOption).toEqual(defaults.options[0]);
     });

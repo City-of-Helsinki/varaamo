@@ -91,8 +91,6 @@
     
     "react/no-array-index-key": "off",
 
-    "comma-dangle": "off",
-
     "max-len": ["warn", { "code":  120}],
 
     "no-plusplus": "off",

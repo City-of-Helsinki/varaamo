@@ -8,20 +8,20 @@ test('pages/resource/resource-equipment/ResourceEquipment', () => {
   const props = {
     equipment: [
       {
-        name: 'Karaoke'
+        name: 'Karaoke',
       },
       {
-        name: 'Projector'
+        name: 'Projector',
       },
       {
-        name: 'Printer'
-      }
+        name: 'Printer',
+      },
     ],
   };
 
 
   const wrapper = shallowWithIntl(
-    <ResourceEquipment {...props} />
+    <ResourceEquipment {...props} />,
   );
 
   expect(toJSON(wrapper)).toMatchSnapshot();

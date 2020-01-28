@@ -15,7 +15,7 @@ class InternalReservationFields extends Component {
     const {
       t,
       commentsMaxLengths,
-      valid
+      valid,
     } = this.props;
 
     return (
@@ -91,14 +91,14 @@ InternalReservationFields.propTypes = {
   t: PropTypes.func.isRequired,
   commentsMaxLengths: PropTypes.number.isRequired,
   valid: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
 };
 
 // eslint-disable-next-line import/no-mutable-exports
 let ConnectedReservationFields = InternalReservationFields;
 
 ConnectedReservationFields = injectT(reduxForm({
-  form: FormTypes.RESERVATION
+  form: FormTypes.RESERVATION,
 })(ConnectedReservationFields));
 
 ConnectedReservationFields = connect(
@@ -113,10 +113,10 @@ ConnectedReservationFields = connect(
         type: RESERVATION_TYPE.NORMAL,
         reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
         reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
-        ...toCamelCase(state.ui.reservations.toEdit[0])
-      }
+        ...toCamelCase(state.ui.reservations.toEdit[0]),
+      },
     };
-  }
+  },
 )(ConnectedReservationFields);
 
 export default ConnectedReservationFields;

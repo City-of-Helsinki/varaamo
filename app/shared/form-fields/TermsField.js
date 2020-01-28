@@ -6,7 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 function TermsField({
-  input, label, meta
+  input, label, meta,
 }) {
   const showError = meta.error && meta.touched;
   return (

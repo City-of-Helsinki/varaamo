@@ -104,7 +104,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
 
         test('renders RecurringReservationControls if user is admin', () => {
           expect(
-            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls)
+            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls),
           ).toHaveLength(1);
         });
 
@@ -112,9 +112,9 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           'does not render RecurringReservationControls if user is not admin',
           () => {
             expect(
-              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
+              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls),
             ).toHaveLength(0);
-          }
+          },
         );
       });
 
@@ -136,7 +136,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
             const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
             expect(list).toHaveLength(1);
             expect(list.prop('reservations')).toEqual(defaultProps.selectedReservations);
-          }
+          },
         );
 
         test('does not render RecurringReservationControls', () => {

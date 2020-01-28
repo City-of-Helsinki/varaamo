@@ -48,8 +48,8 @@ PaymentSuccess.propTypes = {
 export default flow(
   connect(
     state => ({
-      user: currentUserSelector(state)
-    })
+      user: currentUserSelector(state),
+    }),
   ),
   injectIntl,
 )(PaymentSuccess);

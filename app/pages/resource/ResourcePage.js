@@ -96,7 +96,7 @@ class UnconnectedResourcePage extends Component {
   orderImages = (images) => {
     return [].concat(
       images.filter(image => image.type === 'main'),
-      images.filter(image => image.type !== 'main')
+      images.filter(image => image.type !== 'main'),
     );
   };
 
@@ -313,7 +313,7 @@ function mapDispatchToProps(dispatch) {
     toggleResourceMap,
     setSelectedTimeSlots,
     changeRecurringBaseTime: recurringReservations.changeBaseTime,
-    addNotification
+    addNotification,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -322,5 +322,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedResourcePage };
 export default connect(
   resourcePageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedResourcePage);

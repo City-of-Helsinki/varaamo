@@ -12,14 +12,14 @@ import { RESERVATION_STATE } from '../../../constants/ReservationState';
 const mapStateToProps = (state) => {
   return {
     userId: state.auth.userId,
-    users: state.data.users
+    users: state.data.users,
   };
 };
 
 const UnconnectedReservationCancelModal = ({
   // Remove eslint-disable later!
   // eslint-disable-next-line no-unused-vars
-  onEditReservation, parentToggle, reservation, toggleShow, t, userId, users
+  onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
 }) => {
   const [show, setShow] = useState(toggleShow);
   /**
@@ -116,7 +116,7 @@ const UnconnectedReservationCancelModal = ({
               t('ReservationInformationForm.refundCheckBox'),
               () => {
                 disableCheckbox(!checkboxDisabled);
-              }
+              },
             )
           }
         </div>
@@ -148,7 +148,7 @@ UnconnectedReservationCancelModal.propTypes = {
   toggleShow: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired,
-  users: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired,
 };
 
 export { UnconnectedReservationCancelModal };

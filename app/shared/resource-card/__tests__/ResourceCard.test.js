@@ -37,7 +37,7 @@ describe('shared/resource-card/ResourceCard', () => {
           name: 'workplace',
         },
         ...extra,
-      })
+      }),
     );
   }
 
@@ -69,7 +69,7 @@ describe('shared/resource-card/ResourceCard', () => {
         addressZip: '00100',
         municipality: 'helsinki',
         streetAddress: 'Fabiankatu',
-      })
+      }),
     ),
   };
 
@@ -139,7 +139,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
     test('render with unfavorite icon when isFavorite is true, user logged in', () => {
       const info = getWrapper({
-        resource: getResource({ isFavorite: true, isLoggedIn: true })
+        resource: getResource({ isFavorite: true, isLoggedIn: true }),
       }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
 
@@ -158,7 +158,7 @@ describe('shared/resource-card/ResourceCard', () => {
     test('invoke set unfavorite func when favorite icon is clicked, user logged in', () => {
       const info = getWrapper({
         resource: getResource({ isFavorite: true }),
-        isLoggedIn: true
+        isLoggedIn: true,
       }).find('.app-ResourceCard__info');
       const cell = info.find(ResourceCardInfoCell).last();
       cell.simulate('click');
@@ -200,7 +200,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
         expect(distanceLabel).toHaveLength(1);
         expect(distanceLabel.text()).toBe('0.1 km');
-      }
+      },
     );
   });
 
@@ -223,7 +223,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
         expect(hourlyPriceSpan.is('span')).toBe(true);
         expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
-      }
+      },
     );
 
     test(
@@ -237,7 +237,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
         expect(hourlyPriceSpan.is('span')).toBe(true);
         expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
-      }
+      },
     );
   });
 
@@ -306,7 +306,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
   test('renders UnpublishedLabel when resource public is false', () => {
     const unpublishedLabel = getWrapper(
-      { resource: getResource({ public: false }) }
+      { resource: getResource({ public: false }) },
     ).find(UnpublishedLabel);
 
     expect(unpublishedLabel.length).toEqual(1);
@@ -314,7 +314,7 @@ describe('shared/resource-card/ResourceCard', () => {
 
   test('no renders UnpublishedLabel when resource public is true', () => {
     const unpublishedLabel = getWrapper(
-      { resource: getResource({ public: true }) }
+      { resource: getResource({ public: true }) },
     ).find(UnpublishedLabel);
 
     expect(unpublishedLabel.length).toEqual(0);

@@ -220,7 +220,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
               reservation: { ...reservation, state: 'requested' },
             };
             expect(getDenyButton(props)).toHaveLength(1);
-          }
+          },
         );
       });
 
@@ -268,7 +268,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
               reservation: { ...reservation, state: 'requested' },
             };
             expect(getConfirmButton(props)).toHaveLength(1);
-          }
+          },
         );
       });
 
@@ -312,7 +312,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
                 reservation: { ...reservation, state: 'requested' },
               };
               expect(getCancelButton(props)).toHaveLength(1);
-            }
+            },
           );
 
           test('is not rendered for admins if reservation state is "requested"', () => {

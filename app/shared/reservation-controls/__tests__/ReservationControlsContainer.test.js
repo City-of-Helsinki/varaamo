@@ -69,7 +69,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       () => {
         expect(props.actions.selectReservationToCancel.callCount).toBe(1);
         expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(props.reservation);
-      }
+      },
     );
 
     test('calls the props.actions.openReservationCancelModal function', () => {
@@ -97,7 +97,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
           reservation: props.reservation,
           slotSize: props.resource.slotSize,
         });
-      }
+      },
     );
 
     test('calls history.push with correct path', () => {
@@ -119,7 +119,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       () => {
         expect(props.actions.showReservationInfoModal.callCount).toBe(1);
         expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(props.reservation);
-      }
+      },
     );
   });
 });

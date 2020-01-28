@@ -28,7 +28,7 @@ if (FIREBASE.API_KEY && FIREBASE.API_KEY.length > 0) {
     storageBucket: FIREBASE.STORAGE_BUCKET,
     messagingSenderId: FIREBASE.MESSAGING_SENDER_ID,
     appId: FIREBASE.APP_ID,
-    measurementId: FIREBASE.MEASUREMENT_ID
+    measurementId: FIREBASE.MEASUREMENT_ID,
   });
 }
 
@@ -40,5 +40,5 @@ render(
         <Router>{getRoutes()}</Router>
       </Provider>
     ),
-  document.getElementById('root')
+  document.getElementById('root'),
 );

@@ -165,7 +165,7 @@ class SearchPage extends React.Component {
       ...filters,
       page_size: constants.SEARCH_PAGE_SIZE,
       start,
-      end
+      end,
     };
 
     // Only include positional params if user has toggled the position filter on.

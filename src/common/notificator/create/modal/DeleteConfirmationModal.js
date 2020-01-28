@@ -27,7 +27,7 @@ const DeleteConfirmationDialog = (props) => {
 DeleteConfirmationDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
-  deleteConfirm: PropTypes.func.isRequired
+  deleteConfirm: PropTypes.func.isRequired,
 };
 
 export default DeleteConfirmationDialog;
