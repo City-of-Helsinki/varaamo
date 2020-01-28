@@ -22,7 +22,7 @@ import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
-moment.tz.setDefault(SETTINGS.TIME_ZONE);
+moment.tz.setDefault(constants.TIME_ZONE);
 // Re-apply moment-timezone default timezone, cause FullCalendar import have override the import
 
 class TimePickerCalendar extends Component {
@@ -302,7 +302,7 @@ class TimePickerCalendar extends Component {
 
   getCalendarOptions = () => {
     return {
-      timeZone: SETTINGS.TIME_ZONE,
+      timeZone: constants.TIME_ZONE,
       height: 'auto',
       editable: true,
       eventConstraint: 'businessHours',

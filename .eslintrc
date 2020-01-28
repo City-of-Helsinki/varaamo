@@ -7,10 +7,6 @@
     "jest": true
   },
 
-  "globals": {
-    "SETTINGS": true
-  },
-
   "parser": "babel-eslint",
 
   "plugins": ["import", "react"],

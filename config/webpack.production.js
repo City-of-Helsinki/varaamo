@@ -1,8 +1,5 @@
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -51,16 +48,6 @@ module.exports = merge(common, {
   },
   plugins: [
     // Important to keep React file size down
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      SETTINGS: {
-        API_URL: JSON.stringify(process.env.API_URL || 'https://api.hel.fi/respa/v1'),
-        SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
-        TRACKING: Boolean(process.env.PIWIK_SITE_ID),
-        CUSTOM_MUNICIPALITY_OPTIONS: process.env.CUSTOM_MUNICIPALITY_OPTIONS,
-        TIME_ZONE: JSON.stringify(process.env.TIME_ZONE || 'Europe/Helsinki'),
-      },
-    }),
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),

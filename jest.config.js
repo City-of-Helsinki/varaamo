@@ -3,10 +3,6 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  // Global vars
-  globals: {
-    SETTINGS: true,
-  },
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
 

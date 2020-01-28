@@ -234,14 +234,17 @@ function mountWithIntl(node, context) {
 
 function globalDateMock() {
   const mockedDate = new Date(2017, 11, 10);
+  const mockedUTCDate = Date.UTC(2017, 11, 10);
   const originalDate = Date;
 
   beforeAll(() => {
     global.Date = jest.fn(() => mockedDate);
+    global.Date.UTC = jest.fn(() => mockedUTCDate);
   });
 
   afterAll(() => {
     global.Date.setDate = originalDate.setDate;
+    global.Date.UTC = originalDate.UTC;
   });
 }
 

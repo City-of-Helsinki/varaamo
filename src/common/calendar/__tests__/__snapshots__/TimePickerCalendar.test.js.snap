@@ -285,6 +285,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
       }
     }
     slotLabelInterval="01:00:00"
+    timeZone="Europe/Helsinki"
     unselectAuto={false}
   />
   <InjectT(CalendarLegend) />

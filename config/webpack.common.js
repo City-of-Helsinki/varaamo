@@ -1,10 +1,12 @@
-const path = require('path');
-
 const webpack = require('webpack');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
 module.exports = {
+  node: {
+    // The settings file is shared between the client and the server. In that
+    // file we make use of dotenv and fs. Reading settings in the client will
+    // therefore result in an error unless we mock fs.
+    fs: 'empty',
+  },
   module: {
     rules: [
       {
@@ -50,18 +52,6 @@ module.exports = {
     modules: ['node_modules'],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      FIREBASE: {
-        API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
-        AUTH_DOMAIN: JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),
-        DATABASE_URL: JSON.stringify(process.env.FIREBASE_DATABASE_URL),
-        PROJECT_ID: JSON.stringify(process.env.FIREBASE_PROJECT_ID),
-        STORAGE_BUCKET: JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
-        MESSAGING_SENDER_ID: JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
-        APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
-        MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
-      },
-    }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb|fi|sv/),
   ],
 };
