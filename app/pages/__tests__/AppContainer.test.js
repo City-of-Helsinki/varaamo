@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import simple from 'simple-mock';
+import { Helmet } from 'react-helmet';
 
 import Header from '../../../src/domain/header/Header';
 import { getState } from '../../utils/testUtils';
@@ -15,6 +16,7 @@ describe('pages/AppContainer', () => {
       fetchUser: () => null,
       location: {},
       userId: null,
+      language: 'fi',
     };
     return shallow(<AppContainer {...defaults} {...props} />);
   }
@@ -75,6 +77,16 @@ describe('pages/AppContainer', () => {
     test('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).toHaveLength(1);
+    });
+
+    test('html lang attribute is set correctly for Finnish, Swedish ans English', () => {
+      const languages = ['fi', 'en', 'sv'];
+
+      languages.forEach((code) => {
+        expect(
+          getWrapper({ language: code }).find(Helmet).props().htmlAttributes
+        ).toEqual({ lang: code });
+      });
     });
   });
 

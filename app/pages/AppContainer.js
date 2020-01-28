@@ -63,7 +63,7 @@ export class UnconnectedAppContainer extends Component {
     const { isStaff, language } = this.props;
     return (
       <div className={classNames('app', getCustomizationClassName())}>
-        <Helmet>
+        <Helmet htmlAttributes={{ lang: this.props.language }}>
           <title>Varaamo</title>
         </Helmet>
 
