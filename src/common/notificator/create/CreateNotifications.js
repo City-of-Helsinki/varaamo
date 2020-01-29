@@ -12,15 +12,15 @@ import CreateNotificationModal from './modal/CreateNotificationModal';
 const NEW_NOTIFICATION = {
   active: {
     value: true,
-    label: 'True'
+    label: 'True',
   },
   message: {
     fi: '',
     en: '',
-    sv: ''
+    sv: '',
   },
   created: moment().format('YYYYMMDDTHHmmss'),
-  until: moment().toDate()
+  until: moment().toDate(),
 };
 
 class CreateNotifications extends Component {
@@ -102,7 +102,7 @@ class CreateNotifications extends Component {
   onHide = () => {
     this.setState({
       isOpen: false,
-      selectedNotification: {}
+      selectedNotification: {},
     });
   };
 
@@ -115,7 +115,7 @@ class CreateNotifications extends Component {
       .then(() => {
         // Reset values
         this.setState({
-          newNotification: NEW_NOTIFICATION
+          newNotification: NEW_NOTIFICATION,
         });
       })
       // eslint-disable-next-line no-console
@@ -129,7 +129,7 @@ class CreateNotifications extends Component {
     firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
       .then(() => {
         this.setState({
-          selectedNotification: {}
+          selectedNotification: {},
         });
       })
       // eslint-disable-next-line no-console
@@ -141,7 +141,7 @@ class CreateNotifications extends Component {
     firestore().collection('notifications').doc(selectedNotification.id).delete()
       .then(() => {
         this.setState({
-          selectedNotification: {}
+          selectedNotification: {},
         });
       })
     // eslint-disable-next-line no-console
@@ -150,7 +150,7 @@ class CreateNotifications extends Component {
 
   render() {
     const {
-      email, isOpen, password, superuser, loading, notifications, newNotification, selectedNotification
+      email, isOpen, password, superuser, loading, notifications, newNotification, selectedNotification,
     } = this.state;
 
     return (

@@ -76,7 +76,7 @@ describe('shared/availability-view/Reservation', () => {
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
       expect(element).toHaveLength(1);
-    }
+    },
   );
 
   test(
@@ -90,7 +90,7 @@ describe('shared/availability-view/Reservation', () => {
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
       expect(element).toHaveLength(0);
-    }
+    },
   );
 
   test(
@@ -98,7 +98,7 @@ describe('shared/availability-view/Reservation', () => {
     () => {
       const element = getWrapper({ state: 'requested' }).find('.requested');
       expect(element).toHaveLength(1);
-    }
+    },
   );
 
   test(
@@ -106,7 +106,7 @@ describe('shared/availability-view/Reservation', () => {
     () => {
       const element = getWrapper({ state: 'approved' }).find('.requested');
       expect(element).toHaveLength(0);
-    }
+    },
   );
 
   test('has correct width', () => {

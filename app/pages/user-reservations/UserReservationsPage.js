@@ -29,7 +29,7 @@ class UnconnectedUserReservationsPage extends Component {
       isOwn: true,
       page: filters && filters.page ? Number(filters.page) : 1,
       pageSize: 10,
-      ordering: '-begin'
+      ordering: '-begin',
     });
   }
 
@@ -88,5 +88,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedUserReservationsPage };
 export default connect(userReservationsPageSelector, mapDispatchToProps)(
-  UnconnectedUserReservationsPage
+  UnconnectedUserReservationsPage,
 );

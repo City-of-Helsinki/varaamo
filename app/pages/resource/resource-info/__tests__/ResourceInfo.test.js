@@ -21,7 +21,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
         type: {
           name: 'workplace',
         },
-      })
+      }),
     ),
     unit: Immutable(Unit.build()),
     currentEquipments: [

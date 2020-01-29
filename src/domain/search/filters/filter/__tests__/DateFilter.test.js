@@ -12,12 +12,12 @@ describe('DateFilter', () => {
       locale: 'en',
       onChange: jest.fn(),
       date: new Date(2017, 11, 10),
-      t: jest.fn()
+      t: jest.fn(),
     };
 
     globalDateMock();
     const wrapper = shallow(
-      <DateFilter {...props} />
+      <DateFilter {...props} />,
     );
 
 

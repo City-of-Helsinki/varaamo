@@ -20,7 +20,7 @@ describe('SearchListResults', () => {
         resources={[resource.build()]}
         units={[unit.build()]}
 
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

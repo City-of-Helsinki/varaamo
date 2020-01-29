@@ -29,7 +29,7 @@ const validators = {
       return t('ReservationForm.emailError');
     }
     return null;
-  }
+  },
 };
 
 const maxLengths = {
@@ -49,7 +49,7 @@ const maxLengths = {
   reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
-  comments: 1500
+  comments: 1500,
 };
 
 function isTermsAndConditionsField(field) {
@@ -238,7 +238,7 @@ class UnconnectedReservationInformationForm extends Component {
             'reservationExtraQuestions',
             'textarea',
             t('common.reservationExtraQuestions'),
-            { rows: 5 }
+            { rows: 5 },
           )
           }
           { includes(fields, 'reserverName') && (
@@ -352,13 +352,13 @@ class UnconnectedReservationInformationForm extends Component {
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 }
+            { rows: 5 },
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' }
+            { min: '0' },
           )}
           {termsAndConditions
           && (
@@ -428,7 +428,7 @@ UnconnectedReservationInformationForm.propTypes = {
   t: PropTypes.func.isRequired,
   termsAndConditions: PropTypes.string.isRequired,
   isStaff: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired
+  valid: PropTypes.bool.isRequired,
 };
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
@@ -438,7 +438,7 @@ export { UnconnectedReservationInformationForm };
 let ConnectedReservationInformationForm = UnconnectedReservationInformationForm;
 
 ConnectedReservationInformationForm = injectT(reduxForm({
-  form: FormTypes.RESERVATION
+  form: FormTypes.RESERVATION,
 })(ConnectedReservationInformationForm));
 
 ConnectedReservationInformationForm = connect(
@@ -452,7 +452,7 @@ ConnectedReservationInformationForm = connect(
         internalReservation: true,
         reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
         reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
-        ...toCamelCase(state.ui.reservations.toEdit[0])
+        ...toCamelCase(state.ui.reservations.toEdit[0]),
       },
       onChange: (obj) => {
         /**
@@ -465,9 +465,9 @@ ConnectedReservationInformationForm = connect(
           obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
         }
       },
-      validate
+      validate,
     };
-  }
+  },
 )(ConnectedReservationInformationForm);
 
 export default ConnectedReservationInformationForm;

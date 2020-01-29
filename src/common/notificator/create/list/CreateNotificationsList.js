@@ -38,7 +38,7 @@ const CreateNotificationsList = (props) => {
 
 CreateNotificationsList.propTypes = {
   notifications: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
 
 export default CreateNotificationsList;

@@ -13,7 +13,7 @@ const CreateNotificationsForm = (props) => {
   const [activeLanguage, setActiveLanguage] = useState('fi');
 
   const {
-    addElement, addNew, isEditing, newNotification, onFieldChange
+    addElement, addNew, isEditing, newNotification, onFieldChange,
   } = props;
 
   const { targetOptions, urgencyOptions, activeOptions } = createSelectOptions();
@@ -21,7 +21,7 @@ const CreateNotificationsForm = (props) => {
   // Because this component is used inside modal, count dimensions and set sm value based on that
   const current = formContainer.current;
   let dimensions = {
-    width: 601
+    width: 601,
   };
   if (current) {
     dimensions = current.getBoundingClientRect();
@@ -111,7 +111,7 @@ const CreateNotificationsForm = (props) => {
             {languageButtons.map(lang => (
               <button
                 className={classNames('language-button', {
-                  'active': activeLanguage === lang
+                  'active': activeLanguage === lang,
                 })}
                 key={lang}
                 onClick={() => setActiveLanguage(lang)}
@@ -144,7 +144,7 @@ CreateNotificationsForm.propTypes = {
   addNew: PropTypes.func.isRequired,
   isEditing: PropTypes.bool,
   newNotification: PropTypes.object.isRequired,
-  onFieldChange: PropTypes.func.isRequired
+  onFieldChange: PropTypes.func.isRequired,
 };
 
 export default CreateNotificationsForm;

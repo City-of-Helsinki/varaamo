@@ -8,7 +8,7 @@ import DeleteConfirmationDialog from './DeleteConfirmationModal';
 const CreateNotificationModal = (props) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const {
-    isOpen, onHide, selectedNotification, addElement, save, onDelete, onFieldChange
+    isOpen, onHide, selectedNotification, addElement, save, onDelete, onFieldChange,
   } = props;
 
   const deleteConfirm = () => {
@@ -61,7 +61,7 @@ CreateNotificationModal.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  selectedNotification: PropTypes.object.isRequired
+  selectedNotification: PropTypes.object.isRequired,
 };
 
 export default CreateNotificationModal;

@@ -90,7 +90,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
         const adminFields = ['comments'];
 
         expect(actual).toEqual([...supportedFields, ...adminFields]);
-      }
+      },
     );
 
     test(
@@ -101,7 +101,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
         const actual = instance.getFormFields();
 
         expect(actual).toEqual([...supportedFields, 'staffEvent']);
-      }
+      },
     );
 
     test('returns supportedReservationExtraFields and termsAndConditions', () => {
@@ -160,7 +160,7 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
         const actual = instance.getFormInitialValues();
 
         expect(actual).toEqual(expected);
-      }
+      },
     );
   });
 

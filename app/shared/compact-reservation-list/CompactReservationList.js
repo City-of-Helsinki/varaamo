@@ -43,7 +43,7 @@ class CompactReservationList extends Component {
       <ul className="compact-reservation-list">
         {this.props.reservations.map(this.renderFixedReservation)}
         {this.props.removableReservations && this.props.removableReservations.map(
-          this.renderRemovableReservation
+          this.renderRemovableReservation,
         )}
       </ul>
     );

@@ -12,7 +12,7 @@ function addNotification(state, notification) {
     {},
     NOTIFICATION_DEFAULT,
     notification,
-    { id: (state.length || 0) + 1 }
+    { id: (state.length || 0) + 1 },
   ));
 
   return Immutable(mutableState);

@@ -63,12 +63,12 @@ class ReservationTimeControls extends Component {
       Array.from(
         range.by(constants.FILTER.timePeriodType, {
           step: duration.as(constants.FILTER.timePeriodType),
-        })
+        }),
       ),
       beginMoment => ({
         label: beginMoment.format(timeFormat),
         value: beginMoment.format(timeFormat),
-      })
+      }),
     );
 
     return options;

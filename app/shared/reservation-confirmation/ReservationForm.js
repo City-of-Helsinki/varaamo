@@ -94,7 +94,7 @@ class UnconnectedReservationForm extends Component {
 
   renderTimeControls = () => {
     const {
-      fields, maxReservationPeriod, t, timeSlots
+      fields, maxReservationPeriod, t, timeSlots,
     } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
@@ -160,19 +160,19 @@ class UnconnectedReservationForm extends Component {
           {this.renderField(
             'reserverId',
             'text',
-            t('common.reserverIdLabel')
+            t('common.reserverIdLabel'),
           )}
           {this.renderField(
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 }
+            { rows: 5 },
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' }
+            { min: '0' },
           )}
           {includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
@@ -221,7 +221,7 @@ class UnconnectedReservationForm extends Component {
             {
               placeholder: t('common.commentsPlaceholder'),
               rows: 5,
-            }
+            },
           )}
           {termsAndConditions && (
             <div className="terms-and-conditions">

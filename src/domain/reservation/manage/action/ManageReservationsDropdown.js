@@ -10,7 +10,7 @@ const UntranslatedManageReservationsDropdown = ({
   onEditClick,
   onEditReservation,
   userCanModify,
-  userCanCancel
+  userCanCancel,
 }) => {
   return (
     <div className="app-ManageReservationDropdown">

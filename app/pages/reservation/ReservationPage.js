@@ -102,7 +102,7 @@ class UnconnectedReservationPage extends Component {
 
   handleCancel = () => {
     const {
-      reservationToEdit, resource, history, location
+      reservationToEdit, resource, history, location,
     } = this.props;
     if (!isEmpty(reservationToEdit)) {
       const query = queryString.parse(location.search);
@@ -125,7 +125,7 @@ class UnconnectedReservationPage extends Component {
 
   handleReservation = (values = {}) => {
     const {
-      actions, reservationToEdit, resource, selected, recurringReservations = []
+      actions, reservationToEdit, resource, selected, recurringReservations = [],
     } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
@@ -151,7 +151,7 @@ class UnconnectedReservationPage extends Component {
                 product: get(resource, 'products[0].id'),
               }],
               return_url: this.createPaymentReturnUrl(),
-            }
+            },
           } : {};
 
         if (isOrder) {
@@ -170,7 +170,7 @@ class UnconnectedReservationPage extends Component {
 
   fetchResource() {
     const {
-      actions, date, resource, location
+      actions, date, resource, location,
     } = this.props;
 
     const start = moment(date)
@@ -244,7 +244,7 @@ class UnconnectedReservationPage extends Component {
       user,
       history,
       failedReservations,
-      date
+      date,
     } = this.props;
     const { view } = this.state;
 
@@ -264,7 +264,7 @@ class UnconnectedReservationPage extends Component {
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
     const title = t(
-      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`
+      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`,
     );
 
     return (
@@ -356,7 +356,7 @@ UnconnectedReservationPage.propTypes = {
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   recurringReservations: PropTypes.array.isRequired,
-  selectedReservations: PropTypes.array.isRequired
+  selectedReservations: PropTypes.array.isRequired,
 };
 UnconnectedReservationPage = injectT(UnconnectedReservationPage); // eslint-disable-line
 
@@ -369,7 +369,7 @@ function mapDispatchToProps(dispatch) {
     postReservation,
     removeReservation: recurringReservationsConnector.removeReservation,
     setSelectedTimeSlots,
-    addNotification
+    addNotification,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };
@@ -378,5 +378,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedReservationPage };
 export default connect(
   reservationPageSelector,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UnconnectedReservationPage);

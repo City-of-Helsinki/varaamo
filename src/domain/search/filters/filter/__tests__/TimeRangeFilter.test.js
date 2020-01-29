@@ -10,10 +10,10 @@ describe('TimeRangeFilter', () => {
     const props = {
       label: 'foo',
       onChange: jest.fn(),
-      value: '2011-10-05T14:48:00.000Z,2011-10-05T14:48:00.000Z'
+      value: '2011-10-05T14:48:00.000Z,2011-10-05T14:48:00.000Z',
     };
     const wrapper = shallowWithIntl(
-      <TimeRangeFilter {...props} />
+      <TimeRangeFilter {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

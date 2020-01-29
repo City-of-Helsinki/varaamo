@@ -15,7 +15,7 @@ describe('SearchPage', () => {
     };
 
     const wrapper = shallowWithIntl(
-      <UnWrappedSearchPage {...props} />
+      <UnWrappedSearchPage {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

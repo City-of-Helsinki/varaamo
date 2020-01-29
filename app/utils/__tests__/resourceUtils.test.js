@@ -16,7 +16,7 @@ import {
   getTermsAndConditions,
   reservingIsRestricted,
   getResourcePageUrlComponents,
-  getMinPeriodText
+  getMinPeriodText,
 } from '../resourceUtils';
 
 describe('Utils: resourceUtils', () => {
@@ -599,7 +599,7 @@ describe('Utils: resourceUtils', () => {
         const expected = { closes: 'first-closes', opens: 'first-opens' };
 
         expect(getOpeningHours(resource)).toEqual(expected);
-      }
+      },
     );
 
     test(
@@ -615,7 +615,7 @@ describe('Utils: resourceUtils', () => {
         const expected = { closes: 'second-closes', opens: 'second-opens' };
 
         expect(getOpeningHours(resource, 'date2')).toEqual(expected);
-      }
+      },
     );
   });
 

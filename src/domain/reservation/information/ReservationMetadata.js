@@ -39,7 +39,7 @@ const ReservationMetadata = ({ t, reservation, customField }) => {
 ReservationMetadata.propTypes = {
   customField: PropTypes.func,
   t: PropTypes.func.isRequired,
-  reservation: PropTypes.object.isRequired
+  reservation: PropTypes.object.isRequired,
 };
 
 export default injectT(ReservationMetadata);

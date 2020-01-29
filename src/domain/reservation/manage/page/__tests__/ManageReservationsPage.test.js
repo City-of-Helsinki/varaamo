@@ -12,10 +12,10 @@ describe('ManageReservationsPage', () => {
   globalDateMock();
 
   const defaultProps = {
-    location: { search: '' }
+    location: { search: '' },
   };
   const wrapper = props => shallowWithIntl(
-    <UnwrappedManageReservationsPage {...defaultProps} {...props} />
+    <UnwrappedManageReservationsPage {...defaultProps} {...props} />,
   );
 
   test('renders correctly', () => {
@@ -30,25 +30,25 @@ describe('ManageReservationsPage', () => {
     const unFavReservation = reservationCreator.build({
       resource: unFavResource,
       user_permissions: { can_modify: false },
-      state: RESERVATION_STATE.REQUESTED
+      state: RESERVATION_STATE.REQUESTED,
     });
 
     const favReservation = reservationCreator.build({
       resource: favResource,
       user_permissions: { can_modify: true },
-      state: RESERVATION_STATE.CANCELLED
+      state: RESERVATION_STATE.CANCELLED,
     });
 
     const canModifyFav = reservationCreator.build({
       resource: favResource,
       user_permissions: { can_modify: true },
-      state: RESERVATION_STATE.REQUESTED
+      state: RESERVATION_STATE.REQUESTED,
     });
 
     const mockReservations = [
       unFavReservation,
       favReservation,
-      canModifyFav
+      canModifyFav,
     ];
 
     const page = wrapper({ userFavoriteResources: ['fav'] });

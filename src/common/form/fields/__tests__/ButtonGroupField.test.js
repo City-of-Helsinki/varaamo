@@ -19,7 +19,7 @@ describe('ButtonGroupField', () => {
     };
 
     const wrapper = shallow(
-      <ButtonGroupField {...props} />
+      <ButtonGroupField {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

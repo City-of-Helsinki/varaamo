@@ -111,12 +111,12 @@ class ManageReservationsFilters extends React.Component {
       {
         value:
         RESERVATION_SHOWONLY_FILTERS.FAVORITE,
-        label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel')
+        label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel'),
       },
       {
         value:
         RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY,
-        label: t('ManageReservationsFilters.showOnly.canModifyButtonLabel')
+        label: t('ManageReservationsFilters.showOnly.canModifyButtonLabel'),
       },
     ];
   };
@@ -128,7 +128,7 @@ class ManageReservationsFilters extends React.Component {
       units,
       intl,
       onShowOnlyFiltersChange,
-      showOnlyFilters
+      showOnlyFilters,
     } = this.props;
 
     const state = get(filters, 'state', null);
@@ -192,7 +192,7 @@ class ManageReservationsFilters extends React.Component {
                 onChange={item => this.onFilterChange('unit', item.value)}
                 options={units.map(unit => ({
                   value: unit.id,
-                  label: dataUtils.getLocalizedFieldValue(unit.name, locale)
+                  label: dataUtils.getLocalizedFieldValue(unit.name, locale),
                 }))}
                 value={get(filters, 'unit', null)}
               />

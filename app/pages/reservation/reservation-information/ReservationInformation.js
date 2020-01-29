@@ -27,7 +27,7 @@ class ReservationInformation extends Component {
     resource: PropTypes.object.isRequired,
     selectedTime: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    unit: PropTypes.object.isRequired
+    unit: PropTypes.object.isRequired,
   };
 
   state = {
@@ -106,7 +106,7 @@ class ReservationInformation extends Component {
 
   getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field)
+      field => camelCase(field),
     )];
 
     const { isAdmin } = this.props;
@@ -137,7 +137,7 @@ class ReservationInformation extends Component {
       selectedTime,
       t,
       unit,
-      isStaff
+      isStaff,
     } = this.props;
     const {
       reservationPrice,

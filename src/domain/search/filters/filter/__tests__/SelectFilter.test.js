@@ -13,11 +13,11 @@ describe('SelectFilter', () => {
       t: jest.fn(),
       options: [{
         value: 'foo',
-        label: 'bar'
-      }]
+        label: 'bar',
+      }],
     };
     const wrapper = shallowWithIntl(
-      <SelectFilter {...props} />
+      <SelectFilter {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

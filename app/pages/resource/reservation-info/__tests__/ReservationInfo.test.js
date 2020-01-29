@@ -17,8 +17,8 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservableAfter: '2019-03-06T00:00:00Z',
         reservationInfo: 'Some information',
         reservableMinDaysInAdvance: 2,
-        reservableMaxDaysInAdvance: 90
-      })
+        reservableMaxDaysInAdvance: 90,
+      }),
     ),
   };
 
@@ -83,7 +83,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       () => {
         const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
         expect(maxReservationsText).toHaveLength(1);
-      }
+      },
     );
 
     test(
@@ -92,7 +92,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         const resource = {};
         const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
         expect(maxReservationsText).toHaveLength(0);
-      }
+      },
     );
   });
 

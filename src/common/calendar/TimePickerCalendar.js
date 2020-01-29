@@ -22,7 +22,7 @@ import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const NEW_RESERVATION = 'NEW_RESERVATION';
 
-moment.tz.setDefault(SETTINGS.TIME_ZONE);
+moment.tz.setDefault(constants.TIME_ZONE);
 // Re-apply moment-timezone default timezone, cause FullCalendar import have override the import
 
 class TimePickerCalendar extends Component {
@@ -36,7 +36,7 @@ class TimePickerCalendar extends Component {
     t: PropTypes.func.isRequired,
     onTimeChange: PropTypes.func.isRequired,
     locale: PropTypes.string.isRequired,
-    edittingReservation: PropTypes.object
+    edittingReservation: PropTypes.object,
   };
 
   state = {
@@ -45,8 +45,8 @@ class TimePickerCalendar extends Component {
     header: {
       left: 'myPrev,myNext,myToday',
       center: 'title',
-      right: 'timeGridDay,timeGridWeek'
-    }
+      right: 'timeGridDay,timeGridWeek',
+    },
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -143,7 +143,7 @@ class TimePickerCalendar extends Component {
       headerConfig = {
         left: 'myPrev,myNext,myToday',
         center: 'title',
-        right: 'timeGridDay,timeGridWeek'
+        right: 'timeGridDay,timeGridWeek',
       };
     }
     if (viewType !== view) {
@@ -163,15 +163,15 @@ class TimePickerCalendar extends Component {
 
     let selectable = {
       start: selected.start,
-      end: selected.end
+      end: selected.end,
     };
 
     const isUnderMinPeriod = calendarUtils.isTimeRangeUnderMinPeriod(
-      resource, selectable.start, selectable.end
+      resource, selectable.start, selectable.end,
     );
 
     const isOverMaxPeriod = calendarUtils.isTimeRangeOverMaxPeriod(
-      resource, selectable.start, selectable.end, isStaff
+      resource, selectable.start, selectable.end, isStaff,
     );
 
     if (isUnderMinPeriod) {
@@ -181,7 +181,7 @@ class TimePickerCalendar extends Component {
       if (eventCallback) {
         eventCallback.revert();
         createNotification(
-          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration })
+          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration }),
         );
       }
 
@@ -198,11 +198,11 @@ class TimePickerCalendar extends Component {
       }
 
       createNotification(
-        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration })
+        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration }),
       );
 
       selectable = calendarUtils.getMaxPeriodTimeRange(
-        resource, selectable.start, selectable.end, isStaff
+        resource, selectable.start, selectable.end, isStaff,
       );
       // Make sure selected time will always smaller than max period
     }
@@ -302,7 +302,7 @@ class TimePickerCalendar extends Component {
 
   getCalendarOptions = () => {
     return {
-      timeZone: SETTINGS.TIME_ZONE,
+      timeZone: constants.TIME_ZONE,
       height: 'auto',
       editable: true,
       eventConstraint: 'businessHours',
@@ -321,7 +321,7 @@ class TimePickerCalendar extends Component {
         hour: 'numeric',
         minute: '2-digit',
         omitZeroMinute: false,
-        meridiem: 'short'
+        meridiem: 'short',
       },
       unselectAuto: false,
       longPressDelay: 250,
@@ -333,7 +333,7 @@ class TimePickerCalendar extends Component {
 
   getEvents = () => {
     const {
-      resource, isStaff
+      resource, isStaff,
     } = this.props;
     const { selected } = this.state;
 
@@ -344,11 +344,11 @@ class TimePickerCalendar extends Component {
         classNames: [
           'app-TimePickerCalendar__event',
           'app-TimePickerCalendar__newReservation',
-          webEventSelected
+          webEventSelected,
         ],
         editable: true,
         durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
-          resource, selected.start, selected.end, isStaff
+          resource, selected.start, selected.end, isStaff,
         ),
         id: NEW_RESERVATION,
         ...selected,
@@ -362,7 +362,7 @@ class TimePickerCalendar extends Component {
       date,
       onDateChange,
       resource,
-      t
+      t,
     } = this.props;
     const { viewType, header } = this.state;
     const addValue = viewType === 'timeGridWeek' ? 'w' : 'd';
@@ -375,16 +375,16 @@ class TimePickerCalendar extends Component {
           customButtons={{
             myPrev: {
               text: ' ',
-              click: () => onDateChange(moment(date).subtract(1, addValue).toDate())
+              click: () => onDateChange(moment(date).subtract(1, addValue).toDate()),
             },
             myNext: {
               text: ' ',
-              click: () => onDateChange(moment(date).add(1, addValue).toDate())
+              click: () => onDateChange(moment(date).add(1, addValue).toDate()),
             },
             myToday: {
               text: t('TimePickerCalendar.info.today'),
-              click: () => onDateChange(this.calendarRef.current.calendar.view.initialNowDate)
-            }
+              click: () => onDateChange(this.calendarRef.current.calendar.view.initialNowDate),
+            },
           }}
           datesRender={this.onDatesRender}
           defaultDate={date}

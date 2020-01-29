@@ -12,7 +12,7 @@ import Equipment from '../resource-equipment/ResourceEquipment';
 import ResourcePanel from './ResourcePanel';
 
 function ResourceInfo({
-  isLoggedIn, resource, unit, t
+  isLoggedIn, resource, unit, t,
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
 

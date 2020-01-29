@@ -24,7 +24,7 @@ export class UninjectedReservationSlot extends React.Component {
       hover: PropTypes.bool,
       resourceId: PropTypes.string.isRequired,
     }),
-    slotSize: PropTypes.string
+    slotSize: PropTypes.string,
   };
 
   constructor(props) {

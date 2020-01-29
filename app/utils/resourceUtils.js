@@ -159,7 +159,7 @@ function getOpeningHours(resource, selectedDate) {
 function getOpenReservations(resource) {
   return filter(
     resource.reservations,
-    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied'
+    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied',
   );
 }
 

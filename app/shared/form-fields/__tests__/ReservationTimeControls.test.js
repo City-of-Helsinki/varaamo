@@ -95,7 +95,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
           { label: '23:00', value: '23:00' },
         ];
         expect(options).toEqual(expected);
-      }
+      },
     );
   });
 
@@ -119,7 +119,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
           callHandleBeginTimeChange(onChange, value);
           expect(onChange.callCount).toBe(1);
           expect(onChange.lastCall.args).toEqual([expectedArg]);
-        }
+        },
       );
     });
 
@@ -192,7 +192,7 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         const expectedArg = moment('2018-12-30T10:00:00').toISOString();
         expect(props.begin.input.onChange.callCount).toBe(1);
         expect(props.begin.input.onChange.lastCall.args).toEqual([expectedArg]);
-      }
+      },
     );
 
     test('calls end.input.onChange with date updated in end.input.value', () => {

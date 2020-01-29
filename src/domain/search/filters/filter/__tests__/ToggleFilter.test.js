@@ -13,7 +13,7 @@ describe('ToggleFilter', () => {
       onChange: jest.fn(),
     };
     const wrapper = shallowWithIntl(
-      <ToggleFilter {...props} />
+      <ToggleFilter {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

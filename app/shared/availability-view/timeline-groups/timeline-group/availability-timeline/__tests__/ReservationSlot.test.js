@@ -158,7 +158,7 @@ describe('shared/availability-view/ReservationSlot', () => {
         const end = '2017-01-02T14:30:00Z';
         const resourceId = 'auuxn391';
         callHandleClick({}, {
-          begin, end, onClick, resourceId
+          begin, end, onClick, resourceId,
         });
         expect(onClick.callCount).toBe(1);
         expect(onClick.lastCall.args).toEqual([{ begin, end, resourceId }]);

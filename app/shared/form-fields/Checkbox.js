@@ -6,7 +6,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 function Checkbox({
-  controlProps = {}, help, id, label, validationState
+  controlProps = {}, help, id, label, validationState,
 }) {
   return (
     <FormGroup controlId={id} validationState={validationState}>

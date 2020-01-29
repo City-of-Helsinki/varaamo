@@ -15,11 +15,11 @@ describe('ResourceMap', () => {
       onGeolocationToggle: jest.fn(),
       units: [unit.build()],
       purposes: [purpose.build()],
-      filters: {}
+      filters: {},
     };
 
     const wrapper = shallowWithIntl(
-      <ISearchFilters {...props} />
+      <ISearchFilters {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

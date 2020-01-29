@@ -14,11 +14,11 @@ describe('ResourceReservationCalendar', () => {
       onDateChange: jest.fn(),
       onReserve: jest.fn(),
       t: jest.fn(),
-      locale: 'en'
+      locale: 'en',
     };
 
     const wrapper = shallowWithIntl(
-      <ResourceReservationCalendar {...props} />
+      <ResourceReservationCalendar {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

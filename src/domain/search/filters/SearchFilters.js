@@ -159,7 +159,7 @@ class SearchFilters extends React.Component {
                     onChange={(items) => {
                       this.onFilterChange(
                         'municipality',
-                        items ? items.map(item => item.value).join(',') : null
+                        items ? items.map(item => item.value).join(',') : null,
                       );
                     }}
                     options={searchUtils.getMunicipalityOptions()}

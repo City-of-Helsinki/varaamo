@@ -13,16 +13,16 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
     const extraProps = {
       t: jest.fn(),
       userId: 'foo',
-      users: { bar: 'bar' }
+      users: { bar: 'bar' },
     };
     const props = {
       onEditReservation: jest.fn(),
       parentToggle: jest.fn(),
       reservation: mockReservation,
-      toggleShow: mockBoolean
+      toggleShow: mockBoolean,
     };
     const wrapper = shallowWithIntl(
-      <UnconnectedReservationCancelModal {...props} {...extraProps} />
+      <UnconnectedReservationCancelModal {...props} {...extraProps} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

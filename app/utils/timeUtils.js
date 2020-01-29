@@ -93,7 +93,7 @@ function getTimeSlots(
   start, end,
   period = DEFAULT_SLOT_SIZE,
   reservations = [],
-  reservationsToEdit = []
+  reservationsToEdit = [],
 ) {
   if (!start || !end) {
     return [];
@@ -104,14 +104,14 @@ function getTimeSlots(
 
   const reservationRanges = map(
     reservations, reservation => moment.range(
-      moment(reservation.begin), moment(reservation.end)
-    )
+      moment(reservation.begin), moment(reservation.end),
+    ),
   );
 
   const editRanges = map(
     reservationsToEdit, reservation => moment.range(
-      moment(reservation.begin), moment(reservation.end)
-    )
+      moment(reservation.begin), moment(reservation.end),
+    ),
   );
 
   const slots = map(
@@ -119,13 +119,13 @@ function getTimeSlots(
       range.by(constants.FILTER.timePeriodType, {
         excludeEnd: true,
         step: duration.as(constants.FILTER.timePeriodType),
-      })
+      }),
     ),
     (startMoment) => {
       const endMoment = moment(startMoment).add(duration);
       const asISOString = `${startMoment.toISOString()}/${endMoment.toISOString()}`;
       const asString = `${startMoment.format(constants.TIME_FORMAT)}\u2013${endMoment.format(
-        constants.TIME_FORMAT
+        constants.TIME_FORMAT,
       )}`;
 
       const slotRange = moment.range(startMoment, endMoment);
@@ -157,7 +157,7 @@ function getTimeSlots(
         start: startMoment.toISOString(),
         end: endMoment.toISOString(),
       };
-    }
+    },
   );
 
   return slots;
@@ -201,5 +201,5 @@ export {
   getTimeSlots,
   isPastDate,
   prettifyHours,
-  periodToMinute
+  periodToMinute,
 };

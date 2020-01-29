@@ -78,8 +78,8 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           key: '2',
           type: 'reservation',
           data: {
-            begin: '', end: '', id: 12345, name: ''
-          }
+            begin: '', end: '', id: 12345, name: '',
+          },
         },
         {
           key: '3',

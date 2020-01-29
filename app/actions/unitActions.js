@@ -19,7 +19,7 @@ function fetchUnits() {
         getRequestTypeDescriptor(types.API.UNITS_GET_REQUEST),
         getSuccessTypeDescriptor(
           types.API.UNITS_GET_SUCCESS,
-          { schema: schemas.paginatedUnitsSchema }
+          { schema: schemas.paginatedUnitsSchema },
         ),
         getErrorTypeDescriptor(types.API.UNITS_GET_ERROR),
       ],

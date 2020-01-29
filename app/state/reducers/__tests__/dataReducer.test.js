@@ -325,7 +325,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const resourcesGetSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } })
+        resource => ({ entities: { resources: { [resource.id]: resource } } }),
       );
 
       test('adds resources to state', () => {
@@ -383,7 +383,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
       const searchResultsGetSuccess = createAction(
         types.API.SEARCH_RESULTS_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } })
+        resource => ({ entities: { resources: { [resource.id]: resource } } }),
       );
 
       test('adds resources to state', () => {
@@ -466,7 +466,7 @@ describe('state/reducers/dataReducer', () => {
       const unfavoriteResource = createAction(
         types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
         payload => payload,
-        () => ({ id: resource.id })
+        () => ({ id: resource.id }),
       );
 
       test('changes isFavorite attribute from resource', () => {
@@ -492,7 +492,7 @@ describe('state/reducers/dataReducer', () => {
       const unfavoriteResource = createAction(
         types.API.RESOURCE_FAVORITE_POST_SUCCESS,
         payload => payload,
-        () => ({ id: resource.id })
+        () => ({ id: resource.id }),
       );
 
       test('changes isFavorite attribute from resource', () => {

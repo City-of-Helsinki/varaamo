@@ -17,7 +17,7 @@ function Textarea({
       <label>
         {label}
         {input.name === 'reservationExtraQuestions' ? (
-          <TextareaAutosize {...input} onResize={(e) => {}} />
+          <TextareaAutosize {...input} onResize={() => {}} />
         ) : (
           <textarea {...input} />
         )}

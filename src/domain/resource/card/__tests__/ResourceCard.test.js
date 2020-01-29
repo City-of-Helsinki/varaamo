@@ -14,10 +14,10 @@ describe('ResourceCard', () => {
       onFavoriteClick: jest.fn(),
       onFilterClick: jest.fn(),
       resource: resource.build(),
-      unit: unit.build()
+      unit: unit.build(),
     };
     const wrapper = shallowWithIntl(
-      <UnconnectedResourceCard {...props} />
+      <UnconnectedResourceCard {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

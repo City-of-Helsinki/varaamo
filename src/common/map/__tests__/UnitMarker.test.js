@@ -9,7 +9,7 @@ describe('UnitMarker', () => {
     id: 'testUnit',
     location: {
       coordinates: [24.975634, 60.20843],
-    }
+    },
   };
 
   test('renders correctly', () => {
@@ -17,7 +17,7 @@ describe('UnitMarker', () => {
       <UnitMarker
         resources={[{ id: 'foo' }]}
         unit={unit}
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -27,11 +27,11 @@ describe('UnitMarker', () => {
     const wrapper = shallow(
       <UnitMarker
         resources={[
-          { id: 'foo', },
-          { id: 'bar', },
+          { id: 'foo' },
+          { id: 'bar' },
         ]}
         unit={unit}
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -43,10 +43,10 @@ describe('UnitMarker', () => {
       <UnitMarker
         onClick={onClick}
         resources={[
-          { id: 'foo', },
+          { id: 'foo' },
         ]}
         unit={unit}
-      />
+      />,
     );
 
     wrapper

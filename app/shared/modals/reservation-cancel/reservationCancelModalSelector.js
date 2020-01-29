@@ -14,7 +14,7 @@ function reservationSelector(state) {
 
 const resourceIdSelector = createSelector(
   reservationSelector,
-  reservation => reservation.resource
+  reservation => reservation.resource,
 );
 
 const cancelAllowedSelector = createSelector(
@@ -25,13 +25,13 @@ const cancelAllowedSelector = createSelector(
     isAdmin
     || (!reservation.needManualConfirmation && !hasProducts(resource))
     || (reservation.state !== 'confirmed' && !hasProducts(resource))
-  )
+  ),
 );
 
 const reservationCancelModalSelector = createStructuredSelector({
   cancelAllowed: cancelAllowedSelector,
   isCancellingReservations: requestIsActiveSelectorFactory(
-    ActionTypes.API.RESERVATION_DELETE_REQUEST
+    ActionTypes.API.RESERVATION_DELETE_REQUEST,
   ),
   reservation: reservationSelector,
   resource: createResourceSelector(resourceIdSelector),

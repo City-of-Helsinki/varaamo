@@ -14,7 +14,7 @@ describe('SearchMapResults', () => {
         onFiltersChange={() => null}
         resources={[resource.build()]}
         units={[unit.build()]}
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

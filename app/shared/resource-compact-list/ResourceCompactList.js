@@ -44,7 +44,7 @@ export class UnconnectedResourceCompactList extends React.Component {
   render() {
     const { resourcePosition } = this.state;
     const {
-      resourceIds, location, history, date
+      resourceIds, location, history, date,
     } = this.props;
     const resourceIdsLength = resourceIds.length;
     return (

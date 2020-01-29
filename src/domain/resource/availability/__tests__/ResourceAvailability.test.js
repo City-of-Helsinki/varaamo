@@ -12,7 +12,7 @@ describe('ResourceAvailability', () => {
       resource: resource.build(),
     };
     const wrapper = shallowWithIntl(
-      <ResourceAvailability {...props} />
+      <ResourceAvailability {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

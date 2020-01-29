@@ -117,7 +117,7 @@ describe('pages/resource/ResourcePage', () => {
           resource: {},
         }).find(NotFoundPage);
         expect(notFoundPage).toHaveLength(1);
-      }
+      },
     );
 
     describe('handleBackButton', () => {

@@ -9,7 +9,7 @@ import resource from '../../../../../common/data/fixtures/resource';
 describe('ManageReservationsPincode', () => {
   function getWrapper(props) {
     return shallow(
-      <ManageReservationsPincode {...props} />
+      <ManageReservationsPincode {...props} />,
     );
   }
 
@@ -22,7 +22,7 @@ describe('ManageReservationsPincode', () => {
 
   test('show Icon when accessCode pending', () => {
     const wrapper = getWrapper({
-      reservation: reservation.build({ resource: pendingCodeResource.build() })
+      reservation: reservation.build({ resource: pendingCodeResource.build() }),
     });
     expect(wrapper.debug()).toContain('img');
   });

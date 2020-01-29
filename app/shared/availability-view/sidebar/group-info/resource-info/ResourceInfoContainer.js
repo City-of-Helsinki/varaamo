@@ -17,7 +17,7 @@ ResourceInfo.propTypes = {
   name: PropTypes.string.isRequired,
   peopleCapacity: PropTypes.number,
   public: PropTypes.bool.isRequired,
-  unitName: PropTypes.string
+  unitName: PropTypes.string,
 };
 export function ResourceInfo(props) {
   return (
@@ -48,12 +48,12 @@ export function selector() {
   const resourceSelector = createSelector(
     resourcesSelector,
     idSelector,
-    (resources, id) => resources[id]
+    (resources, id) => resources[id],
   );
   const unitSelector = createSelector(
     resourceSelector,
     unitsSelector,
-    (resource, units) => units[resource.unit]
+    (resource, units) => units[resource.unit],
   );
   return createSelector(
     resourceSelector,
@@ -62,8 +62,8 @@ export function selector() {
       name: resource.name,
       peopleCapacity: resource.peopleCapacity,
       public: resource.public,
-      unitName: unit ? unit.name : ''
-    })
+      unitName: unit ? unit.name : '',
+    }),
   );
 }
 

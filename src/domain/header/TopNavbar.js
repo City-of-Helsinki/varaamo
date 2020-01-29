@@ -25,7 +25,7 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      changeLocale, currentLanguage, isLoggedIn, t, userName
+      changeLocale, currentLanguage, isLoggedIn, t, userName,
     } = this.props;
 
     return (

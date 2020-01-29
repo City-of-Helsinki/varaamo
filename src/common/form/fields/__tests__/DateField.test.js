@@ -12,13 +12,13 @@ describe('DateField', () => {
       label: 'foo',
       id: 'foo',
       value: new Date(2019, 8, 9),
-      locale: 'en'
+      locale: 'en',
     };
 
     globalDateMock();
 
     const wrapper = shallow(
-      <DateField {...props} />
+      <DateField {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

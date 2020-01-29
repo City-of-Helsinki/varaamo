@@ -8,7 +8,7 @@ import CreateNotificationsList from '../CreateNotificationsList';
 describe('CreateNotificationList', () => {
   const defaultProps = {
     notifications: [],
-    onClick: simple.stub()
+    onClick: simple.stub(),
   };
   const getWrapper = props => shallow(<CreateNotificationsList {...defaultProps} {...props} />);
 

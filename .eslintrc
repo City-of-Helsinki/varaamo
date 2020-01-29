@@ -7,10 +7,6 @@
     "jest": true
   },
 
-  "globals": {
-    "SETTINGS": true
-  },
-
   "parser": "babel-eslint",
 
   "plugins": ["import", "react"],
@@ -90,8 +86,6 @@
     "jsx-a11y/no-noninteractive-tabindex": "off",
     
     "react/no-array-index-key": "off",
-
-    "comma-dangle": "off",
 
     "max-len": ["warn", { "code":  120}],
 

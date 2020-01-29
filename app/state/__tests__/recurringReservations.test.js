@@ -250,7 +250,7 @@ describe('state/recurringReservations', () => {
             };
             const actual = reducer(state, removeReservation('2017-04-17T15:00:00.000Z'));
             expect(actual.reservations).toEqual(reservations);
-          }
+          },
         );
       });
 
@@ -403,7 +403,7 @@ describe('state/recurringReservations', () => {
           recurringReservations: { baseTime: { begin: '', end: '' } },
         };
         expect(
-          recurringReservations.selectBaseTime(state)
+          recurringReservations.selectBaseTime(state),
         ).toEqual(state.recurringReservations.baseTime);
       });
     });
@@ -414,7 +414,7 @@ describe('state/recurringReservations', () => {
           recurringReservations: { frequency: 'days' },
         };
         expect(
-          recurringReservations.selectFrequency(state)
+          recurringReservations.selectFrequency(state),
         ).toBe(state.recurringReservations.frequency);
       });
     });
@@ -425,7 +425,7 @@ describe('state/recurringReservations', () => {
           recurringReservations: { numberOfOccurrences: 12 },
         };
         expect(
-          recurringReservations.selectNumberOfOccurrences(state)
+          recurringReservations.selectNumberOfOccurrences(state),
         ).toBe(state.recurringReservations.numberOfOccurrences);
       });
     });
@@ -438,7 +438,7 @@ describe('state/recurringReservations', () => {
           },
         };
         expect(
-          recurringReservations.selectReservations(state)
+          recurringReservations.selectReservations(state),
         ).toEqual(state.recurringReservations.reservations);
       });
     });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 function ResourceCardInfoCell({
-  className, alt, icon, onClick, children
+  className, alt, icon, onClick, children,
 }) {
   return (
     <Button className={classNames('app-ResourceCard__info-cell', className)} onClick={onClick}>

@@ -29,7 +29,7 @@ class MainNavbar extends React.Component {
 
   render() {
     const {
-      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
+      activeLink, clearSearchResults, isAdmin, isLoggedIn, t,
     } = this.props;
 
     return (

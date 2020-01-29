@@ -21,7 +21,7 @@ describe('state/reducers/notificationReducer', () => {
       const mockNotification = {
         message: 'successMessage',
         type: 'success',
-        timeOut: 5000
+        timeOut: 5000,
       };
 
       const initialState = Immutable([]);
@@ -64,12 +64,12 @@ describe('state/reducers/notificationReducer', () => {
       const initialState = Immutable([{
         message: 'foo',
         id: 1,
-        hidden: false
+        hidden: false,
       }]);
 
       test('hide current notification', () => {
         const action = hideNotification({
-          id: initialState[0].id
+          id: initialState[0].id,
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
@@ -79,7 +79,7 @@ describe('state/reducers/notificationReducer', () => {
 
       test('will not delete current notification', () => {
         const action = hideNotification({
-          id: initialState[0].id
+          id: initialState[0].id,
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
@@ -89,7 +89,7 @@ describe('state/reducers/notificationReducer', () => {
 
       test('will not do anything if id was provided wrong', () => {
         const action = hideNotification({
-          id: 'foo'
+          id: 'foo',
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
@@ -111,7 +111,7 @@ describe('state/reducers/notificationReducer', () => {
 
       test('will return default error message if no status', () => {
         const action = errorAction({
-          message: 'System error'
+          message: 'System error',
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
@@ -121,7 +121,7 @@ describe('state/reducers/notificationReducer', () => {
       test('show login message when status is 401', () => {
         const action = errorAction({
           message: 'System error',
-          status: 401
+          status: 401,
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
@@ -131,7 +131,7 @@ describe('state/reducers/notificationReducer', () => {
       test('show detail message when response is specified', () => {
         const action = errorAction({
           response: {
-            detail: 'System error'
+            detail: 'System error',
           },
           status: 500,
         });

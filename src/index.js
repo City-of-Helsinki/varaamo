@@ -14,21 +14,22 @@ import '../app/assets/styles/customization/vantaa/customization.scss';
 import store from './store';
 import getRoutes from './routes';
 import BrowserWarning from '../app/pages/browser-warning/BrowserWarning';
+import settings from '../config/settings';
 
 const isIEBrowser = browserName === 'IE';
 
 /* eslint-disable no-undef */
 // Initialize firebase project from .env variables
-if (FIREBASE.API_KEY && FIREBASE.API_KEY.length > 0) {
+if (settings.FIREBASE.API_KEY && settings.FIREBASE.API_KEY.length > 0) {
   firebase.initializeApp({
-    apiKey: FIREBASE.API_KEY,
-    authDomain: FIREBASE.AUTH_DOMAIN,
-    databaseURL: FIREBASE.DATABASE_URL,
-    projectId: FIREBASE.PROJECT_ID,
-    storageBucket: FIREBASE.STORAGE_BUCKET,
-    messagingSenderId: FIREBASE.MESSAGING_SENDER_ID,
-    appId: FIREBASE.APP_ID,
-    measurementId: FIREBASE.MEASUREMENT_ID
+    apiKey: settings.FIREBASE.API_KEY,
+    authDomain: settings.FIREBASE.AUTH_DOMAIN,
+    databaseURL: settings.FIREBASE.DATABASE_URL,
+    projectId: settings.FIREBASE.PROJECT_ID,
+    storageBucket: settings.FIREBASE.STORAGE_BUCKET,
+    messagingSenderId: settings.FIREBASE.MESSAGING_SENDER_ID,
+    appId: settings.FIREBASE.APP_ID,
+    measurementId: settings.FIREBASE.MEASUREMENT_ID,
   });
 }
 
@@ -40,5 +41,5 @@ render(
         <Router>{getRoutes()}</Router>
       </Provider>
     ),
-  document.getElementById('root')
+  document.getElementById('root'),
 );

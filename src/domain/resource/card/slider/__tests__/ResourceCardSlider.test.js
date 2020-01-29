@@ -16,10 +16,10 @@ describe('ResourceCardSlider', () => {
       unit: unit.build(),
       date: '30-07-2019',
       onFavoriteClick: jest.fn(),
-      onFilterClick: jest.fn()
+      onFilterClick: jest.fn(),
     };
     const wrapper = shallow(
-      <UnconnectedResourceCardSlider {...props} />
+      <UnconnectedResourceCardSlider {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

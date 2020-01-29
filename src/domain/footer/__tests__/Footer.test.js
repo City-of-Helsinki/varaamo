@@ -18,7 +18,7 @@ describe('domain/footer/Footer', () => {
   });
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <Footer />
+      <Footer />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
@@ -37,7 +37,7 @@ describe('domain/footer/Footer', () => {
 
     test('renders correctly', () => {
       const wrapper = shallowWithIntl(
-        <Footer />
+        <Footer />,
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
     });

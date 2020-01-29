@@ -18,7 +18,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       fetchUnits,
     },
     location: {
-      search: ''
+      search: '',
     },
     reservationsFetchCount: 1,
     resourcesLoaded: true,

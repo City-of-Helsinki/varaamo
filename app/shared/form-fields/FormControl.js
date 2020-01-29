@@ -9,7 +9,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import InfoPopover from '../info-popover/InfoPopover';
 
 function FormControl({
-  controlProps = {}, help, id, info, label, type, validationState
+  controlProps = {}, help, id, info, label, type, validationState,
 }) {
   return (
     <FormGroup controlId={id} validationState={validationState}>

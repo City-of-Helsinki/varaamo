@@ -15,12 +15,12 @@ const reservationIsEditableSelector = createSelector(
   (reservation) => {
     const isPastReservation = moment(reservation.end).isBefore(moment());
     return !isPastReservation && reservation.state !== 'cancelled';
-  }
+  },
 );
 
 const resourceIdSelector = createSelector(
   reservationSelector,
-  reservation => reservation.resource
+  reservation => reservation.resource,
 );
 
 const resourceSelector = createResourceSelector(resourceIdSelector);

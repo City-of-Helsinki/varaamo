@@ -44,7 +44,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
 
   handleReservation = (values = {}) => {
     const {
-      actions, recurringReservations, resource, selectedReservations
+      actions, recurringReservations, resource, selectedReservations,
     } = this.props;
     const orderedReservations = orderBy(selectedReservations, 'begin');
     const selectedReservation = Object.assign({}, first(orderedReservations));
@@ -117,5 +117,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(reservationConfirmationSelector, mapDispatchToProps)(
-  UnconnectedReservationConfirmationContainer
+  UnconnectedReservationConfirmationContainer,
 );

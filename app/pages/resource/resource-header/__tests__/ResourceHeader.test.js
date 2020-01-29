@@ -29,7 +29,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
     describe('Back button', () => {
       test('renders when enabled', () => {
         const backButton = getWrapper({ showBackButton: true }).find(
-          '.app-ResourceHeader__back-button'
+          '.app-ResourceHeader__back-button',
         );
 
         expect(backButton).toHaveLength(1);
@@ -38,7 +38,7 @@ describe('pages/resource/resource-header/ResourceHeader', () => {
 
       test('does not render when not enabled', () => {
         const backButton = getWrapper({ showBackButton: false }).find(
-          '.app-ResourceHeader__back-button'
+          '.app-ResourceHeader__back-button',
         );
 
         expect(backButton).toHaveLength(0);

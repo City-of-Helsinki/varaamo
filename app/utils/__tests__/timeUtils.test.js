@@ -17,7 +17,7 @@ import {
   getTimeSlots,
   isPastDate,
   prettifyHours,
-  periodToMinute
+  periodToMinute,
 } from '../timeUtils';
 
 const moment = extendMoment(Moment);
@@ -63,7 +63,7 @@ describe('Utils: timeUtils', () => {
         expect(actual.availableBetween).toBeFalsy();
         expect(actual.end).toBeDefined();
         expect(actual.start).toBeDefined();
-      }
+      },
     );
 
     test(
@@ -81,7 +81,7 @@ describe('Utils: timeUtils', () => {
         expect(actual.availableBetween).toBe(expected);
         expect(actual.end).toBe(`${date}T23:59:59Z`);
         expect(actual.start).toBe(`${date}T00:00:00Z`);
-      }
+      },
     );
 
     test('default timezone is your local timezone', () => {
@@ -106,7 +106,7 @@ describe('Utils: timeUtils', () => {
         expect(actual.availableBetween).toBe(expected);
         expect(actual.end).toBe(`${date}T23:59:59Z`);
         expect(actual.start).toBe(`${date}T00:00:00Z`);
-      }
+      },
     );
 
     test(
@@ -122,7 +122,7 @@ describe('Utils: timeUtils', () => {
         expect(actual.availableBetween).not.toBeDefined();
         expect(actual.end).toBe(`${date}T23:59:59Z`);
         expect(actual.start).toBe(`${date}T00:00:00Z`);
-      }
+      },
     );
   });
 
@@ -171,7 +171,7 @@ describe('Utils: timeUtils', () => {
       () => {
         const duration = undefined;
         expect(getDurationHours(duration)).toBe(0.5);
-      }
+      },
     );
 
     test('returns default duration in hours if duration parameter is 0', () => {
@@ -193,7 +193,7 @@ describe('Utils: timeUtils', () => {
         const end = '18:00';
         const start = '10:00';
         expect(calculateDuration(duration, start, end)).toBe(duration);
-      }
+      },
     );
 
     test(
@@ -203,7 +203,7 @@ describe('Utils: timeUtils', () => {
         const end = '12:00';
         const start = '10:00';
         expect(calculateDuration(duration, start, end)).toBe(120);
-      }
+      },
     );
 
     test(
@@ -213,7 +213,7 @@ describe('Utils: timeUtils', () => {
         const end = '23:30';
         const start = '10:00';
         expect(calculateDuration(duration, start, end)).toBe(duration);
-      }
+      },
     );
   });
 
@@ -309,7 +309,7 @@ describe('Utils: timeUtils', () => {
           timeSlots.forEach((timeSlot) => {
             expect(timeSlot.reserved).toBe(false);
           });
-        }
+        },
       );
     });
 
@@ -415,7 +415,7 @@ describe('Utils: timeUtils', () => {
           'slot is not marked reserved if reservation starts when slot ends',
           () => {
             expect(slots[0].reserved).toBe(false);
-          }
+          },
         );
 
         test('marks all the slots that are during reservation as reserved', () => {
@@ -427,7 +427,7 @@ describe('Utils: timeUtils', () => {
           'slot is not marked reserved if slots starts when reservation ends',
           () => {
             expect(slots[3].reserved).toBe(false);
-          }
+          },
         );
       });
 
@@ -497,7 +497,7 @@ describe('Utils: timeUtils', () => {
           'slot is not marked as editing if reservation starts when slot ends',
           () => {
             expect(slots[0].editing).toBe(false);
-          }
+          },
         );
 
         test('marks all the slots that are during reservation as editing', () => {
@@ -509,7 +509,7 @@ describe('Utils: timeUtils', () => {
           'slot is not marked editing if slots starts when reservation ends',
           () => {
             expect(slots[3].editing).toBe(false);
-          }
+          },
         );
       });
 
