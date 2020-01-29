@@ -9,7 +9,7 @@
 
   "parser": "babel-eslint",
 
-  "plugins": ["import", "react"],
+  "plugins": ["import", "react", "react-hooks"],
 
   "settings": {
     "import/resolver": {
@@ -64,6 +64,10 @@
     "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
 
     "react/prefer-stateless-function": "off",
+
+    "react-hooks/rules-of-hooks": "error",
+
+    "react-hooks/exhaustive-deps": "warn",
 
     "linebreak-style": 0,
 
