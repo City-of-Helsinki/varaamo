@@ -4,8 +4,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import serialize from 'serialize-javascript';
 import isPlainObject from 'lodash/isPlainObject';
+import pick from 'lodash/pick';
 
 import settings, { ENV_NAMESPACE } from '../config/settings';
+
+const CLIENT_ENV = [
+  'API_URL',
+  'SHOW_TEST_SITE_MESSAGE',
+  'TRACKING',
+  'CUSTOM_MUNICIPALITY_OPTIONS',
+  'TIME_ZONE',
+  'FIREBASE',
+];
 
 class Html extends Component {
   getInitialStateHtml(initialState) {
@@ -79,7 +89,7 @@ class Html extends Component {
           <div id="root" />
           <script
             dangerouslySetInnerHTML={{
-              __html: stringifyStateIntoWindow(ENV_NAMESPACE, settings),
+              __html: stringifyStateIntoWindow(ENV_NAMESPACE, pick(settings, CLIENT_ENV)),
             }}
           />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />
