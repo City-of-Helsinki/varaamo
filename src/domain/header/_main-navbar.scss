@@ -36,4 +36,13 @@ $externalIconMarginLeft: 5px;
   .app-fontAwesome {
     margin-left: $externalIconMarginLeft;
   }
+
+  // These styles set the active and focus state for MainNavbar's child
+  // links and buttons.
+  a:focus,
+  a:active,
+  button:focus,
+  button:active {
+    outline: 2px solid $theme-primary-light;
+  }
 }
