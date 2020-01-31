@@ -1,0 +1,18 @@
+.accessibility-shortcuts {
+  text-align: center;
+  background-color: $theme-info-light;
+  
+  .skip-link {
+    &:focus,
+    &:active {
+      position: relative;
+      left: 0;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      padding: 2px; 
+
+      color: $theme-highlight-dark;
+    }
+  }
+}

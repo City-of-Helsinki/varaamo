@@ -4,6 +4,7 @@ import simple from 'simple-mock';
 import { Helmet } from 'react-helmet';
 
 import Header from '../../../src/domain/header/Header';
+import AccessibilityShortcuts from '../../shared/accessibility-shortcuts/AccessibilityShortcuts';
 import { getState } from '../../utils/testUtils';
 import * as customizationUtils from '../../utils/customizationUtils';
 import { selector, UnconnectedAppContainer as AppContainer } from '../AppContainer';
@@ -74,6 +75,10 @@ describe('pages/AppContainer', () => {
       expect(getWrapper().find(Header)).toHaveLength(1);
     });
 
+    test('renders accessibility shortcuts', () => {
+      expect(getWrapper().find(AccessibilityShortcuts)).toHaveLength(1);
+    });
+
     test('renders props.children', () => {
       const children = wrapper.find('#child-div');
       expect(children).toHaveLength(1);
@@ -101,12 +106,14 @@ describe('pages/AppContainer', () => {
       simple.restore();
     });
 
-    test('have custom classname for Espoo when specified in config', () => {
-      expect(getWrapper().prop('className')).toContain(mockCity);
-    });
+    const getAppWrapper = props => getWrapper(props).find('.app');
 
     test('render app className normally', () => {
-      expect(getWrapper().prop('className')).toContain('app');
+      expect(getAppWrapper().length).toBeGreaterThan(0);
+    });
+
+    test('have custom classname for Espoo when specified in config', () => {
+      expect(getAppWrapper().prop('className')).toContain(mockCity);
     });
   });
 
