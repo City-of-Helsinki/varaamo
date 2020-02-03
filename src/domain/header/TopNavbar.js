@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import Nav from 'react-bootstrap/lib/Nav';
 
 import injectT from '../../../app/i18n/injectT';
+import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
+import TabbableNavItem from '../../../app/shared/tabbable-nav-dropdown/TabbableNavItem';
 
 class TopNavbar extends Component {
   static propTypes = {
@@ -18,6 +18,10 @@ class TopNavbar extends Component {
     userName: PropTypes.string.isRequired,
   };
 
+  onLanguageItemClick(nextLocale) {
+    this.props.changeLocale(nextLocale);
+  }
+
   handleLoginClick() {
     const next = encodeURIComponent(window.location.href);
     window.location.assign(`${window.location.origin}/login?next=${next}`);
@@ -25,7 +29,7 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      changeLocale, currentLanguage, isLoggedIn, t, userName,
+      currentLanguage, isLoggedIn, t, userName,
     } = this.props;
 
     return (
@@ -39,31 +43,41 @@ class TopNavbar extends Component {
         </Navbar.Header>
 
         <Nav activeKey="none" pullRight>
-          <NavDropdown
+          <TabbableNavDropdown
+            as="li"
             className="app-TopNavbar__language"
-            eventKey="lang"
             id="language-nav-dropdown"
-            noCaret
-            onSelect={changeLocale}
-            title={currentLanguage}
+            renderToggle={props => <LinkButton {...props}>{currentLanguage.toUpperCase()}</LinkButton>}
           >
-            {currentLanguage !== 'en' && <MenuItem eventKey="en">EN</MenuItem>}
-            {currentLanguage !== 'fi' && <MenuItem eventKey="fi">FI</MenuItem>}
-            {currentLanguage !== 'sv' && <MenuItem eventKey="sv">SV</MenuItem>}
-          </NavDropdown>
+            {({ closeMenu }) => ['en', 'fi', 'sv'].filter(language => language !== currentLanguage).map(language => (
+              <TabbableNavItem
+                href="#"
+                key={language}
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.onLanguageItemClick(language);
+                  closeMenu();
+                }}
+              >
+                {language.toUpperCase()}
+
+              </TabbableNavItem>
+            ))}
+          </TabbableNavDropdown>
 
           {isLoggedIn && (
-            <NavDropdown
+            <TabbableNavDropdown
+              as="li"
               className="app-TopNavbar__name"
-              eventKey="lang"
               id="user-nav-dropdown"
-              noCaret
-              title={userName}
+              renderToggle={props => <LinkButton {...props}>{userName}</LinkButton>}
             >
-              <MenuItem eventKey="logout" href={`/logout?next=${window.location.origin}`}>
-                {t('Navbar.logout')}
-              </MenuItem>
-            </NavDropdown>
+              {({ closeMenu }) => (
+                <TabbableNavItem href={`/logout?next=${window.location.origin}`} onClick={closeMenu}>
+                  {t('Navbar.logout')}
+                </TabbableNavItem>
+              )}
+            </TabbableNavDropdown>
           )}
 
           {!isLoggedIn && (
@@ -76,5 +90,15 @@ class TopNavbar extends Component {
     );
   }
 }
+
+// Due to style rules, which expect an a element, we have to use an anchor
+// instead of a button.
+const LinkButton = ({ children, ...props }) => (
+  <a href="#" type="button" {...props}>{children}</a>
+);
+
+LinkButton.propTypes = {
+  children: PropTypes.node,
+};
 
 export default injectT(TopNavbar);
