@@ -21,6 +21,7 @@ class TimeRangeFilter extends React.Component {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
+    date: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -79,6 +80,7 @@ class TimeRangeFilter extends React.Component {
   };
 
   getValueString = () => {
+    const { date } = this.props;
     const {
       startTime,
       endTime,
@@ -88,12 +90,12 @@ class TimeRangeFilter extends React.Component {
     const format = 'YYYY-MM-DD[T]HH:mmZ';
 
     const startTimeParts = startTime.split(':');
-    const start = moment()
+    const start = moment(date)
       .hours(startTimeParts[0])
       .minutes(startTimeParts[1]);
 
     const endTimeParts = endTime.split(':');
-    const end = moment()
+    const end = moment(date)
       .hours(endTimeParts[0])
       .minutes(endTimeParts[1]);
 
