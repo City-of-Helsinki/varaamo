@@ -196,7 +196,7 @@ exports[`DateFilter render normally 1`] = `
               >
                 <DatePickerWrapper
                   aria-hidden="true"
-                  tab-index={-1}
+                  tabIndex={-1}
                 >
                   <DayPicker
                     canChangeMonth={true}
@@ -361,7 +361,7 @@ exports[`DateFilter render normally 1`] = `
   >
     <DatePickerWrapper
       aria-hidden="true"
-      tab-index={-1}
+      tabIndex={-1}
     >
       <DayPicker
         canChangeMonth={true}

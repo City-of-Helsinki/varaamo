@@ -117,7 +117,7 @@ describe('DateFilter', () => {
       const wrapper = findDatepickerWrapper(getWrapper());
 
       // is not focusable
-      expect(wrapper.prop('tab-index')).toEqual(-1);
+      expect(wrapper.prop('tabIndex')).toEqual(-1);
       // is hidden
       expect(wrapper.prop('aria-hidden')).toEqual('true');
     });
