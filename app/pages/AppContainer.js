@@ -20,6 +20,7 @@ import TestSiteMessage from '../shared/test-site-message/TestSiteMessage';
 import { getCustomizationClassName } from '../utils/customizationUtils';
 import Notifications from '../shared/notifications/NotificationsContainer';
 import UserNotificator from '../../src/common/notificator/user/UserNotificator';
+import AccessibilityShortcuts from '../shared/accessibility-shortcuts/AccessibilityShortcuts';
 
 const userIdSelector = state => state.auth.userId;
 const languageSelector = state => state.intl && state.intl.locale;
@@ -61,33 +62,36 @@ export class UnconnectedAppContainer extends Component {
 
   render() {
     const { isStaff, language } = this.props;
-    return (
-      <div className={classNames('app', getCustomizationClassName())}>
-        <Helmet htmlAttributes={{ lang: this.props.language }}>
-          <title>Varaamo</title>
-        </Helmet>
+    const mainContentId = 'main-content';
 
-        <Header location={this.props.location}>
-          <Favicon />
-          <TestSiteMessage />
-          {firebase.apps.length > 0
-            && (
-            <UserNotificator
-              isStaff={isStaff}
-              language={language}
-            />
-            )
-          }
-        </Header>
-        <div className="app-content">
-          <Grid>
-            <Notifications />
-            <NotificationContainer />
-          </Grid>
-          {this.props.children}
+    return (
+      <>
+        <AccessibilityShortcuts mainContentId={mainContentId} />
+        <div className={classNames('app', getCustomizationClassName())}>
+          <Helmet htmlAttributes={{ lang: this.props.language }}>
+            <title>Varaamo</title>
+          </Helmet>
+
+          <Header location={this.props.location}>
+            <Favicon />
+            <TestSiteMessage />
+            {firebase.apps.length > 0 && (
+              <UserNotificator
+                isStaff={isStaff}
+                language={language}
+              />
+            )}
+          </Header>
+          <div className="app-content" id={mainContentId}>
+            <Grid>
+              <Notifications />
+              <NotificationContainer />
+            </Grid>
+            {this.props.children}
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </>
     );
   }
 }

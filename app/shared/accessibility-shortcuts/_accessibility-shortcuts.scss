@@ -1,0 +1,20 @@
+.app-AccessibilityShortcuts {
+  text-align: center;
+  background-color: $theme-info-light;
+  
+  &__skip-link {
+    &:focus,
+    &:active {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+
+      padding: 2px; 
+
+      color: $theme-highlight-dark;
+    }
+  }
+}
