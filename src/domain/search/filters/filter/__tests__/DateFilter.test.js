@@ -124,6 +124,18 @@ describe('DateFilter', () => {
   });
 
   describe('datepicker dropdown toggle button', () => {
+    test('should toggle datepicker', () => {
+      const wrapper = getWrapper();
+
+      findDatepickerDropdownToggleButton(wrapper).prop('onClick')();
+
+      expect(findOverlay(wrapper).prop('show')).toEqual(true);
+
+      findDatepickerDropdownToggleButton(wrapper).prop('onClick')();
+
+      expect(findOverlay(wrapper).prop('show')).toEqual(false);
+    });
+
     test('should be hidden from assistive technology', () => {
       const wrapper = findDatepickerDropdownToggleButton(getWrapper());
 

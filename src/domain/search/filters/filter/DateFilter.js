@@ -100,6 +100,10 @@ class UntranslatedDateFilter extends React.Component {
     this.setState({ inputTouched: true });
   }
 
+  handleDateButtonClick = () => {
+    this.setState(state => ({ isOpen: !state.isOpen }));
+  }
+
   render() {
     const {
       locale,

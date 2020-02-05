@@ -40,6 +40,7 @@ exports[`DateFilter render normally 1`] = `
           bsStyle="default"
           className="app-DatePickerControl__button"
           disabled={false}
+          onClick={[Function]}
           tabIndex={-1}
         >
           <img
@@ -56,6 +57,7 @@ exports[`DateFilter render normally 1`] = `
     container={
       UntranslatedDateFilter {
         "context": Object {},
+        "handleDateButtonClick": [Function],
         "handleInputBlur": [Function],
         "handleInputChange": [Function],
         "handleInputKeydown": [Function],
@@ -175,6 +177,7 @@ exports[`DateFilter render normally 1`] = `
                       bsStyle="default"
                       className="app-DatePickerControl__button"
                       disabled={false}
+                      onClick={[Function]}
                       tabIndex={-1}
                     >
                       <img
