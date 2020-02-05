@@ -113,13 +113,11 @@ describe('DateFilter', () => {
   });
 
   describe('datepicker dropdown', () => {
-    test('should be hidden from assistive technology', () => {
+    test('should not be hidden from assistive technology', () => {
       const wrapper = findDatepickerWrapper(getWrapper());
 
-      // is not focusable
-      expect(wrapper.prop('tabIndex')).toEqual(-1);
-      // is hidden
-      expect(wrapper.prop('aria-hidden')).toEqual('true');
+      expect(wrapper.prop('tabIndex')).toEqual(undefined);
+      expect(wrapper.prop('aria-hidden')).toEqual(undefined);
     });
   });
 

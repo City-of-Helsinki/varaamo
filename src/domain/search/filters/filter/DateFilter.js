@@ -14,16 +14,14 @@ import constants from '../../../../../app/constants/AppConstants';
 import injectT from '../../../../../app/i18n/injectT';
 import iconCalendar from './images/calendar.svg';
 
-const DatePickerWrapper = ({ children, tabIndex, ...rest }) => (
-  <div aria-hidden={rest['aria-hidden']} className="app-DateFilter__datePicker" tabIndex={tabIndex}>
+const DatePickerWrapper = ({ children }) => (
+  <div className="app-DateFilter__datePicker">
     {children}
   </div>
 );
 
 DatePickerWrapper.propTypes = {
   children: PropTypes.any,
-  ariaHidden: PropTypes.string,
-  tabIndex: PropTypes.number,
 };
 
 class UntranslatedDateFilter extends React.Component {
@@ -168,9 +166,7 @@ class UntranslatedDateFilter extends React.Component {
           rootClose
           show={isOpen}
         >
-          {/* This element is not accessible so we hide it from */}
-          {/* assistive tech. */}
-          <DatePickerWrapper aria-hidden="true" tabIndex={-1}>
+          <DatePickerWrapper>
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
               initialMonth={date}
