@@ -44,6 +44,7 @@ exports[`ResourceMap renders correctly 1`] = `
           <InjectT(UntranslatedDateFilter)
             date={2017-12-09T21:59:59.999Z}
             label="SearchFilters.dateLabel"
+            name="date-filter"
             onChange={[Function]}
           />
           <Button

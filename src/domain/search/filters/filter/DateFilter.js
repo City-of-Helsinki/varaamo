@@ -5,21 +5,25 @@ import DayPicker from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
 import Overlay from 'react-bootstrap/lib/Overlay';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import Button from 'react-bootstrap/lib/Button';
 
+import constants from '../../../../../app/constants/AppConstants';
 import injectT from '../../../../../app/i18n/injectT';
 import iconCalendar from './images/calendar.svg';
 
-const DatePickerWrapper = ({ children }) => (
-  <div className="app-DateFilter__datePicker">
+const DatePickerWrapper = ({ children, ...rest }) => (
+  <div aria-hidden={rest['aria-hidden']} className="app-DateFilter__datePicker" tab-index={rest['tab-index']}>
     {children}
   </div>
 );
 
 DatePickerWrapper.propTypes = {
   children: PropTypes.any,
+  ariaHidden: PropTypes.string,
+  tabIndex: PropTypes.number,
 };
 
 class UntranslatedDateFilter extends React.Component {
@@ -28,6 +32,8 @@ class UntranslatedDateFilter extends React.Component {
     locale: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    t: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -35,8 +41,36 @@ class UntranslatedDateFilter extends React.Component {
 
     this.state = {
       isOpen: false,
+      inputValue: moment(this.props.date).format('L'),
+      inputTouched: false,
     };
   }
+
+  handleInputKeydown = (event) => {
+    switch (event.key) {
+      case 'Enter':
+        this.setState({ inputTouched: true });
+
+        const inputDateIsValid = this.isValidDate(this.state.inputValue);
+        const propsDateIsValid = this.isValidDate(this.props.date, constants.DATE_FORMAT);
+
+        if (!inputDateIsValid || !propsDateIsValid) {
+          break;
+        }
+
+        const formattedInputDate = moment(this.state.inputValue, 'L', true).format();
+        const formattedPropsDate = moment(this.props.date, constants.DATE_FORMAT, true).format();
+
+        if (formattedInputDate === formattedPropsDate) {
+          this.setState({ isOpen: false });
+        }
+
+        break;
+      default:
+        break;
+    }
+  }
+
 
   onChange = (newDate) => {
     const { onChange } = this.props;
@@ -48,26 +82,78 @@ class UntranslatedDateFilter extends React.Component {
     onChange(newDate);
   };
 
+  isValidDate = (date, format = 'L') => {
+    return moment(date, format, true).isValid();
+  }
+
+  handleInputChange = (event) => {
+    const value = event.target.value;
+
+    this.setState({ inputValue: value });
+
+    if (value && this.isValidDate(value)) {
+      this.props.onChange(moment(value, 'L', true));
+    }
+  }
+
+  handleInputBlur = () => {
+    this.setState({ inputTouched: true });
+  }
+
   render() {
     const {
       locale,
       label,
       date,
+      name,
+      t,
     } = this.props;
-    const { isOpen } = this.state;
+    const { isOpen, inputValue, inputTouched } = this.state;
+    const inputError = inputTouched && !this.isValidDate(inputValue);
+    const errorMessageId = `${name}-error`;
 
     return (
       <div className="app-DateFilter">
-        <ControlLabel>{label}</ControlLabel>
-        <FormGroup onClick={() => this.setState({ isOpen: !isOpen })}>
+        <FormGroup controlId={name}>
+          <ControlLabel>{label}</ControlLabel>
+          {/* Apply error here so that it doesn't end up under the overlay */}
+          {inputError && (
+            <span
+              className="app-DateFilter__calendar_error"
+              id={errorMessageId}
+              role="alert"
+            >
+                {t('DatePickerControl.form.error.feedback')}
+            </span>
+          )}
           <InputGroup>
-            <InputGroup.Addon className="app-DateFilter__title">
-              <img alt="" className="app-DateFilter__icon" src={iconCalendar} />
-              <span>{moment(date).format('L')}</span>
-            </InputGroup.Addon>
-            <InputGroup.Addon className="app-DateFilter__triangle">
-              <Glyphicon glyph="triangle-bottom" />
-            </InputGroup.Addon>
+            <FormControl
+              aria-describedby={errorMessageId}
+              className="app-DateFilter__input"
+              onBlur={this.handleInputBlur}
+              onChange={this.handleInputChange}
+              onClick={() => this.setState({ isOpen: !isOpen })}
+              onKeyDown={this.handleInputKeydown}
+              type="text"
+              value={inputValue}
+            />
+            <InputGroup.Button>
+              {/* We are setting tab-index as -1 in order to skip */}
+              {/* the button controlling the date picker dropdown. */}
+              {/* Because it's not keyboard accessible, it's better */}
+              {/* to help users avoid it */}
+              <Button
+                aria-hidden="true"
+                className="app-DatePickerControl__button"
+                onClick={this.handleDateButtonClick}
+                tabIndex={-1}
+              >
+                {/* This image is hidden from screen readers so the */}
+                {/* alt text is here to help seeing mouse using */}
+                {/* users */}
+                <img alt={t('DatePickerControl.button.imageAlt')} className="app-DateFilter__icon" src={iconCalendar} />
+              </Button>
+            </InputGroup.Button>
           </InputGroup>
         </FormGroup>
         <Overlay
@@ -78,7 +164,9 @@ class UntranslatedDateFilter extends React.Component {
           rootClose
           show={isOpen}
         >
-          <DatePickerWrapper>
+          {/* This element is not accessible so we hide it from */}
+          {/* assistive tech. */}
+          <DatePickerWrapper aria-hidden="true" tab-index={-1}>
             <DayPicker
               disabledDays={day => moment(day).isBefore(moment(), 'date')}
               initialMonth={date}
