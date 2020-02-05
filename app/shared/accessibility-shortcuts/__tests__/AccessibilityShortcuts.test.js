@@ -13,7 +13,7 @@ describe('<AccessibilityShortcuts />', () => {
   test('div container exists', () => {
     const element = getWrapper().find('div');
     expect(element).toHaveLength(1);
-    expect(element.prop('className')).toBe('accessibility-shortcuts');
+    expect(element.prop('className')).toBe('app-AccessibilityShortcuts');
   });
 
   describe('AccessibilityShortcuts', () => {
@@ -27,7 +27,7 @@ describe('<AccessibilityShortcuts />', () => {
     });
 
     test('renders with correct props', () => {
-      expect(element.prop('className')).toBe('sr-only skip-link');
+      expect(element.prop('className')).toBe('sr-only app-AccessibilityShortcuts__skip-link');
       expect(element.prop('href')).toBe(`#${mainContentId}`);
     });
 

@@ -1,8 +1,8 @@
-.accessibility-shortcuts {
+.app-AccessibilityShortcuts {
   text-align: center;
   background-color: $theme-info-light;
   
-  .skip-link {
+  &__skip-link {
     &:focus,
     &:active {
       position: relative;

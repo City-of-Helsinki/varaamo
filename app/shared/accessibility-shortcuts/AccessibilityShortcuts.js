@@ -7,9 +7,9 @@ function AccessibilityShortcuts({ t, mainContentId }) {
   const mainContentHref = `#${mainContentId}`;
 
   return (
-    <div className="accessibility-shortcuts">
+    <div className="app-AccessibilityShortcuts">
       <a
-        className="sr-only skip-link"
+        className="sr-only app-AccessibilityShortcuts__skip-link"
         href={mainContentHref}
       >
         {t('AccessibilityShortcuts.skipToContent')}
