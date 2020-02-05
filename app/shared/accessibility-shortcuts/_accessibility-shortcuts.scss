@@ -5,11 +5,13 @@
   &__skip-link {
     &:focus,
     &:active {
-      position: relative;
-      left: 0;
+      position: static;
       width: auto;
       height: auto;
+      margin: 0;
       overflow: visible;
+      clip: auto;
+
       padding: 2px; 
 
       color: $theme-highlight-dark;
