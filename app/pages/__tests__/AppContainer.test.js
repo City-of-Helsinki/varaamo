@@ -89,7 +89,7 @@ describe('pages/AppContainer', () => {
 
       languages.forEach((code) => {
         expect(
-          getWrapper({ language: code }).find(Helmet).props().htmlAttributes
+          getWrapper({ language: code }).find(Helmet).props().htmlAttributes,
         ).toEqual({ lang: code });
       });
     });
