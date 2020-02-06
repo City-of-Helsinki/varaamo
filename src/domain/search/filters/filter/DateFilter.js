@@ -69,12 +69,12 @@ class UntranslatedDateFilter extends React.Component {
     }
   }
 
-
   onChange = (newDate) => {
     const { onChange } = this.props;
 
     this.setState({
       isOpen: false,
+      inputValue: moment(newDate).format('L'),
     });
 
     onChange(newDate);

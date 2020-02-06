@@ -3,9 +3,9 @@ import toJSON from 'enzyme-to-json';
 import { shallow } from 'enzyme';
 import Overlay from 'react-bootstrap/lib/Overlay';
 import Button from 'react-bootstrap/lib/Button';
+import DayPicker from 'react-day-picker';
 
 import { UntranslatedDateFilter as DateFilter } from '../DateFilter';
-import { globalDateMock } from '../../../../../../app/utils/testUtils';
 
 const defaultProps = {
   name: 'test',
@@ -21,18 +21,24 @@ const findInput = wrapper => wrapper.find(`[aria-describedby="${defaultProps.nam
 const clickInput = wrapper => findInput(wrapper).simulate('click');
 const findDatepickerWrapper = wrapper => wrapper.find(Overlay).children().first().dive();
 const findDatepickerDropdownToggleButton = wrapper => wrapper.find(Button);
+const findDayPicker = wrapper => wrapper.find(DayPicker);
 
 describe('DateFilter', () => {
-  globalDateMock();
-
   const getWrapper = props => shallow(<DateFilter {...defaultProps} {...props} />);
 
   test('render normally', () => {
+    const mockDate = new Date(2017, 11, 10);
+    const originalDate = Date;
+
+    global.Date = () => mockDate;
+
     const wrapper = shallow(
       <DateFilter {...defaultProps} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
+
+    global.Date = originalDate;
   });
 
   describe('input', () => {
@@ -139,6 +145,17 @@ describe('DateFilter', () => {
 
       expect(wrapper.prop('aria-hidden')).toEqual('true');
       expect(wrapper.prop('tabIndex')).toEqual(-1);
+    });
+  });
+
+  describe('datepicker', () => {
+    test('should set input value when date is selected', () => {
+      const selectedDate = new Date('2017-07-07');
+      const wrapper = getWrapper();
+
+      findDayPicker(wrapper).prop('onDayClick')(selectedDate);
+
+      expect(findInput(wrapper).prop('value')).toEqual('07.07.2017');
     });
   });
 });
