@@ -20,6 +20,10 @@ const DatePickerWrapper = ({ children }) => (
   </div>
 );
 
+function formatDate(date) {
+  return moment(date).format('L');
+}
+
 DatePickerWrapper.propTypes = {
   children: PropTypes.any,
 };
@@ -39,9 +43,25 @@ class UntranslatedDateFilter extends React.Component {
 
     this.state = {
       isOpen: false,
-      inputValue: moment(this.props.date).format('L'),
+      inputValue: formatDate(this.props.date),
       inputTouched: false,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const currentDate = moment(this.props.date).format(constants.DATE_FORMAT);
+    const previousDate = moment(prevProps.date).format(constants.DATE_FORMAT);
+
+    // Moving the logic for keeping the input date value up to date
+    // higher up in the hierarchy would make the usage of this component
+    // too cumbersome. Hence we are using an ugly hack here that allows
+    // us to use a sort of cached value for the input.
+    if (currentDate !== previousDate) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        inputValue: formatDate(this.props.date),
+      });
+    }
   }
 
   handleInputKeydown = (event) => {
@@ -50,14 +70,14 @@ class UntranslatedDateFilter extends React.Component {
         this.setState({ inputTouched: true });
 
         const inputDateIsValid = this.isValidDate(this.state.inputValue);
-        const propsDateIsValid = this.isValidDate(this.props.date, constants.DATE_FORMAT);
+        const propsDateIsValid = this.isValidDate(this.props.date);
 
         if (!inputDateIsValid || !propsDateIsValid) {
           break;
         }
 
-        const formattedInputDate = moment(this.state.inputValue, 'L', true).format();
-        const formattedPropsDate = moment(this.props.date, constants.DATE_FORMAT, true).format();
+        const formattedInputDate = moment(this.state.inputValue, 'L', true).format(constants.DATE_FORMAT);
+        const formattedPropsDate = moment(this.props.date).format(constants.DATE_FORMAT);
 
         if (formattedInputDate === formattedPropsDate) {
           this.setState({ isOpen: false });

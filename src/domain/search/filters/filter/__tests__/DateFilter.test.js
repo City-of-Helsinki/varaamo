@@ -82,6 +82,22 @@ describe('DateFilter', () => {
 
       expect(findOverlay(wrapper).prop('show')).toEqual(true);
     });
+
+    test('value changes when date prop changes', () => {
+      const date0 = new Date('2017-07-07');
+      const date1 = new Date('2017-07-08');
+      const wrapper = getWrapper({ date: date0 });
+
+      expect(findInput(wrapper).prop('value')).toEqual('07.07.2017');
+
+      // Here we are simulating a prop change. Quite ugly, but this
+      // seems to be a known issue with Enzyme.
+      const prevProps = wrapper.props();
+      wrapper.setProps({ date: date1 });
+      wrapper.instance().componentDidUpdate(prevProps);
+
+      expect(findInput(wrapper).prop('value')).toEqual('08.07.2017');
+    });
   });
 
   describe('when is in errorenous state', () => {
