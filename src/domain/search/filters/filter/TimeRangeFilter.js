@@ -21,7 +21,6 @@ class TimeRangeFilter extends React.Component {
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
-    date: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -44,12 +43,12 @@ class TimeRangeFilter extends React.Component {
   }
 
   splitValueString = (value) => {
-    const valueParts = value.split(',');
+    const [startTime, endTime, duration] = value.split(',');
 
     return {
-      startTime: valueParts[0] ? moment(valueParts[0]).format('HH:mm') : this.getDefaultValue('startTime'),
-      endTime: valueParts[1] ? moment(valueParts[1]).format('HH:mm') : this.getDefaultValue('endTime'),
-      duration: valueParts[2] ? Number(valueParts[2]) : this.getDefaultValue('duration'),
+      startTime: startTime || this.getDefaultValue('startTime'),
+      endTime: endTime || this.getDefaultValue('endTime'),
+      duration: duration ? Number(duration) : this.getDefaultValue('duration'),
     };
   };
 
@@ -80,26 +79,13 @@ class TimeRangeFilter extends React.Component {
   };
 
   getValueString = () => {
-    const { date } = this.props;
     const {
       startTime,
       endTime,
       duration,
     } = this.state;
 
-    const format = 'YYYY-MM-DD[T]HH:mmZ';
-
-    const startTimeParts = startTime.split(':');
-    const start = moment(date)
-      .hours(startTimeParts[0])
-      .minutes(startTimeParts[1]);
-
-    const endTimeParts = endTime.split(':');
-    const end = moment(date)
-      .hours(endTimeParts[0])
-      .minutes(endTimeParts[1]);
-
-    return `${start.format(format)},${end.format(format)},${duration}`;
+    return `${startTime},${endTime},${duration}`;
   };
 
   /**

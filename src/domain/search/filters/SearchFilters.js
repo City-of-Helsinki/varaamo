@@ -23,6 +23,22 @@ import TimeRangeFilter from './filter/TimeRangeFilter';
 import PositionControl from '../../../../app/pages/search/controls/PositionControl';
 import iconTimes from './images/times.svg';
 
+function timeToDatetime(time, date) {
+  const [hours, minutes] = time.split(':');
+
+  // ignore timezone by using utc time
+  return moment.utc(date).startOf('day').hours(hours).minutes(minutes)
+    .format(constants.DATETIME_FORMAT);
+}
+
+function injectDateIntoAvailableBetween(availableBetween, date) {
+  const [startTime, endTime, duration] = availableBetween.split(',');
+  const startDatetime = timeToDatetime(startTime, date);
+  const endDatetime = timeToDatetime(endTime, date);
+
+  return [startDatetime, endDatetime, duration].join(',');
+}
+
 class SearchFilters extends React.Component {
   static propTypes = {
     filters: PropTypes.object,
@@ -41,7 +57,7 @@ class SearchFilters extends React.Component {
     super(props);
 
     this.state = {
-      filters: props.filters,
+      filters: this.parseFilters(props.filters),
     };
   }
 
@@ -52,9 +68,52 @@ class SearchFilters extends React.Component {
     if (!isEqual(filters, prevProps.filters)) {
       // eslint-disable-next-line
       this.setState({
-        filters,
+        filters: this.parseFilters(filters),
       });
     }
+  }
+
+  parseAvailableBetweenFilter = (availableBetween) => {
+    const [startDatetime, endDatetime, duration] = availableBetween.split(',');
+    const startTime = moment(startDatetime, constants.DATETIME_FORMAT).format('HH:mm');
+    const endTime = moment(endDatetime, constants.DATETIME_FORMAT).format('HH:mm');
+
+    return [startTime, endTime, duration].join(',');
+  }
+
+  // We use date and availableBetween at the same time in our searches.
+  // This causes a conflict of interest--both of them use the same
+  // medium, time, to filter the results. Date targets a specific date
+  // and availableBetween targets a starting date and time plus and
+  // ending date and time. As far as I understand, availableBetween
+  // takes precedence.
+
+  // This means that when the user has selected a time and a date we
+  // need to make sure that the date(s) in availableBetween are in sync
+  // with the selected date value. If not, the user will face unexpected
+  // behaviour when changing the date while a time range is selected. In
+  // this kind of an instance, the results wouldn't be shown from the
+  // selected date, but instead from the date(s) that are defined in
+  // availableBetween.
+
+  // To avoid this issue, availableBetween is represented as only time
+  // values within this component. Its date portion is discarded when it
+  // is read into this component's state. The selected date is injected
+  // back into availableBetween before sending it in a callback in order
+  // to create sound data that matches user expectations.
+  parseFilters = (filters) => {
+    const { availableBetween } = filters;
+
+    if (!availableBetween) {
+      return filters;
+    }
+
+    const nextFilters = {
+      ...filters,
+      availableBetween: this.parseAvailableBetweenFilter(availableBetween),
+    };
+
+    return nextFilters;
   }
 
   onFilterChange = (filterName, filterValue) => {
@@ -75,9 +134,17 @@ class SearchFilters extends React.Component {
 
   onSearch = () => {
     const { onChange } = this.props;
-    const { filters } = this.state;
+    const { filters, filters: { availableBetween, date } } = this.state;
+    const nextFilters = {
+      ...omit(filters, 'page'),
+    };
 
-    onChange(omit(filters, 'page'));
+    // Inject date back into availableBetween before sending the filter.
+    if (availableBetween) {
+      nextFilters.availableBetween = injectDateIntoAvailableBetween(availableBetween, date);
+    }
+
+    onChange(nextFilters);
   };
 
   onReset = () => {
@@ -218,7 +285,6 @@ class SearchFilters extends React.Component {
                 </Col>
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <TimeRangeFilter
-                    date={date}
                     label={t('TimeRangeControl.timeRangeTitle')}
                     onChange={value => this.onFilterChange('availableBetween', value)}
                     value={availableBetween}

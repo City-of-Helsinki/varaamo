@@ -212,7 +212,7 @@ exports[`TimeRangeFilter render normally 1`] = `
           },
         ]
       }
-      value="17:48"
+      value="12:48"
     />
     <div
       className="app-TimeRangeFilter__range-separator"
@@ -228,6 +228,46 @@ exports[`TimeRangeFilter render normally 1`] = `
       onChange={[Function]}
       options={
         Array [
+          Object {
+            "label": "13:18",
+            "value": "13:18",
+          },
+          Object {
+            "label": "13:48",
+            "value": "13:48",
+          },
+          Object {
+            "label": "14:18",
+            "value": "14:18",
+          },
+          Object {
+            "label": "14:48",
+            "value": "14:48",
+          },
+          Object {
+            "label": "15:18",
+            "value": "15:18",
+          },
+          Object {
+            "label": "15:48",
+            "value": "15:48",
+          },
+          Object {
+            "label": "16:18",
+            "value": "16:18",
+          },
+          Object {
+            "label": "16:48",
+            "value": "16:48",
+          },
+          Object {
+            "label": "17:18",
+            "value": "17:18",
+          },
+          Object {
+            "label": "17:48",
+            "value": "17:48",
+          },
           Object {
             "label": "18:18",
             "value": "18:18",
@@ -275,7 +315,7 @@ exports[`TimeRangeFilter render normally 1`] = `
         ]
       }
       searchable={false}
-      value="17:48"
+      value="14:48"
     />
     <InjectT(SelectFilter)
       className="app-TimeRangeFilter__range-duration"
@@ -284,7 +324,26 @@ exports[`TimeRangeFilter render normally 1`] = `
       isClearable={false}
       isSearchable={false}
       onChange={[Function]}
-      options={Array []}
+      options={
+        Array [
+          Object {
+            "label": "0.5 h",
+            "value": 30,
+          },
+          Object {
+            "label": "1 h",
+            "value": 60,
+          },
+          Object {
+            "label": "1.5 h",
+            "value": 90,
+          },
+          Object {
+            "label": "2 h",
+            "value": 120,
+          },
+        ]
+      }
       value={30}
     />
   </div>

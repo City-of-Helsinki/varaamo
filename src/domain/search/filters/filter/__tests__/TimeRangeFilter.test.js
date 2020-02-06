@@ -1,6 +1,5 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import moment from 'moment';
 
 import TimeRangeFilter from '../TimeRangeFilter';
 import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
@@ -8,11 +7,13 @@ import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
 const defaultProps = {
   label: 'foo',
   onChange: jest.fn(),
-  value: '2011-10-05T14:48:00.000Z,2011-10-05T14:48:00.000Z',
+  value: '12:48,14:48',
   date: '2011-10-05',
 };
 
 const findStartSelect = wrapper => wrapper.find('#time-filter-start-select');
+const findEndSelect = wrapper => wrapper.find('#time-filter-end-select');
+const findDurationSelect = wrapper => wrapper.find('#time-filter-duration-select');
 
 describe('TimeRangeFilter', () => {
   const getWrapper = props => shallowWithIntl(<TimeRangeFilter {...defaultProps} {...props} />);
@@ -23,24 +24,37 @@ describe('TimeRangeFilter', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  test('should use date when building duration parameter', () => {
-    const date = '2017-07-07';
-    // To simplify the expect row, we are doing a bit of "filtering" the
-    // actual return to ignore time parameters.
-    const onChange = jest.fn((string) => {
-      const [firstDate, secondDate] = string.split(',').slice(0, 2);
-      const genericFirstDate = moment(firstDate).startOf('day').toISOString();
-      const genericSecondDate = moment(secondDate).startOf('day').toISOString();
+  test('should parse value string into values correctly', () => {
+    const startTime = '12:00';
+    const endTime = '14:00';
+    const duration = 30;
+    const value = [
+      startTime,
+      endTime,
+      duration,
+    ].join(',');
+    const wrapper = getWrapper({ value });
 
-      return [genericFirstDate, genericSecondDate];
-    });
-    const wrapper = getWrapper({ date, onChange });
+    expect(findStartSelect(wrapper).prop('value')).toEqual(startTime);
+    expect(findEndSelect(wrapper).prop('value')).toEqual(endTime);
+    expect(findDurationSelect(wrapper).prop('value')).toEqual(duration);
+  });
 
-    findStartSelect(wrapper).prop('onChange')({ value: '12:00' });
+  test('should send time values without date information', () => {
+    const startTime = '12:00';
+    const endTime = '14:00';
+    const duration = 30;
+    const onChange = jest.fn(value => value);
+    const wrapper = getWrapper({ onChange });
 
-    expect(onChange).toHaveReturnedWith([
-      moment(date).startOf('day').toISOString(),
-      moment(date).startOf('day').toISOString(),
-    ]);
+    findStartSelect(wrapper).prop('onChange')({ value: startTime });
+    findEndSelect(wrapper).prop('onChange')({ value: endTime });
+    findDurationSelect(wrapper).prop('onChange')({ value: duration });
+
+    expect(onChange).toHaveLastReturnedWith([
+      startTime,
+      endTime,
+      duration,
+    ].join(','));
   });
 });

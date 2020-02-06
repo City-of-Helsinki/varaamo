@@ -9,6 +9,7 @@ export default {
     'varaamotest-vantaa.hel.ninja': 'VANTAA',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
+  DATETIME_FORMAT: 'YYYY-MM-DD[T]HH:mm',
   DEFAULT_LOCALE: 'fi',
   FEEDBACK_URL: 'https://app.helmet-kirjasto.fi/forms/?site=varaamopalaute',
   FILTER: {

@@ -280,7 +280,6 @@ exports[`ResourceMap renders correctly 1`] = `
             sm={6}
           >
             <TimeRangeFilter
-              date="2017-12-10"
               label="TimeRangeControl.timeRangeTitle"
               onChange={[Function]}
               value=""
