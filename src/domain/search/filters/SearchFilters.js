@@ -130,6 +130,7 @@ class SearchFilters extends React.Component {
                 <DateFilter
                   date={moment(get(filters, 'date', new Date())).toDate()}
                   label={t('SearchFilters.dateLabel')}
+                  name="date-filter"
                   onChange={(newValue) => {
                     this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));
                   }}

@@ -12,21 +12,6 @@
     width: 22px;
   }
 
-  &__title {
-    border-right-width: 0;
-    text-align: left;
-    vertical-align: middle;
-
-    img {
-      margin-right: 6px;
-    }
-
-    img,
-    span {
-      vertical-align: middle;
-    }
-  }
-
   &__triangle {
     text-align: right;
   }
@@ -41,6 +26,17 @@
     top: 100% !important;
     z-index: 2;
     padding: 20px;
+  }
+
+  &__calendar_error {
+    margin-left: $app-SearchPage-margin;
+
+    // The error color defined within the theme doesn't have enough
+    // contrast against the greenish background used on the search page.
+    // This colour is the closest colour value from $theme-danger that
+    // has enough contrast against the greenish background.
+    color: #8c2d01;
+    font-weight: $font-weight-bold;
   }
 
   .DayPicker {
