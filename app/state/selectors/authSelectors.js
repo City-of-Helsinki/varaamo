@@ -23,13 +23,43 @@ function isLoggedInSelector(state) {
 }
 
 /**
- * Check if a user has admin permission for a unit.
- * TODO: Find a better name for this.
+ * Check if the user has admin level permissions for the resource. I.e.
+ * if they are a unit admin for the resource in question.
  */
-function createIsStaffSelector(resourceSelector) {
+function createIsUnitAdminSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
     resource => Boolean(get(resource, 'userPermissions.isAdmin', false)),
+  );
+}
+
+/**
+ * Check if the user has manager level permissions for the resource.
+ * I.e. if they are a unit manager for the resource in question.
+ */
+function createIsUnitManagerSelector(resourceSelector) {
+  return createSelector(
+    resourceSelector,
+    resource => Boolean(get(resource, 'userPermissions.isManager', false)),
+  );
+}
+
+/**
+ * Check if a user has admin or manager permission for a unit.
+ * TODO: Find a better name for this.
+ *
+ * 2020/02/07
+ * I added support for the manager role. According to the spec, the
+ * unit manager should have the exact same permissions as the unit admin
+ * has. I couldn't get a good sense of the permission management
+ * architecture, but it seems like this selector is the easiest way to
+ * add support for this role
+ */
+function createIsStaffSelector(resourceSelector) {
+  return createSelector(
+    createIsUnitAdminSelector(resourceSelector),
+    createIsUnitManagerSelector(resourceSelector),
+    (isAdmin, isManager) => isAdmin || isManager,
   );
 }
 
