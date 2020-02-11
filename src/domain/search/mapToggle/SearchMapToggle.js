@@ -41,15 +41,19 @@ function SearchMapToggle({
           <Col sm={6}>
             <div className="pull-right">
               {BUTTONS.map((button) => {
+                const isSelected = active === button.key;
+
                 return (
                   <Button
+                    aria-selected={isSelected}
                     className={classNames(
                       'app-SearchMapToggle__button',
                       `app-SearchMapToggle__button-${button.key}`,
+                      { 'app-SearchMapToggle__button--selected': isSelected },
                     )}
-                    disabled={active === button.key}
                     key={button.key}
                     onClick={() => onClick(button.key)}
+                    role="tab"
                   >
                     {t(button.label)}
                   </Button>

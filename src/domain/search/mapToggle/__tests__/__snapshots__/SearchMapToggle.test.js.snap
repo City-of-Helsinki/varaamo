@@ -34,18 +34,21 @@ exports[`SearchMapToggle renders correctly 1`] = `
         >
           <Button
             active={false}
+            aria-selected={true}
             block={false}
             bsClass="btn"
             bsStyle="default"
-            className="app-SearchMapToggle__button app-SearchMapToggle__button-list"
-            disabled={true}
+            className="app-SearchMapToggle__button app-SearchMapToggle__button-list app-SearchMapToggle__button--selected"
+            disabled={false}
             key="list"
             onClick={[Function]}
+            role="tab"
           >
             MapToggle.showList
           </Button>
           <Button
             active={false}
+            aria-selected={false}
             block={false}
             bsClass="btn"
             bsStyle="default"
@@ -53,6 +56,7 @@ exports[`SearchMapToggle renders correctly 1`] = `
             disabled={false}
             key="map"
             onClick={[Function]}
+            role="tab"
           >
             MapToggle.showMap
           </Button>
