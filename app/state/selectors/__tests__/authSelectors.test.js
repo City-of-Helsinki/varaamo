@@ -6,7 +6,14 @@ import {
   isAdminSelector,
   isLoggedInSelector,
   createIsStaffSelector,
+  createIsUnitViewerSelector,
 } from '../authSelectors';
+
+const getMockResource = overrides => ({
+  ...Resource.build(),
+  ...overrides,
+});
+const mockResourceSelector = overrides => () => getMockResource(overrides);
 
 describe('state/selectors/authSelectors', () => {
   describe('currentUserSelector', () => {
@@ -86,12 +93,6 @@ describe('state/selectors/authSelectors', () => {
   });
 
   describe('createIsStaffSelector', () => {
-    const getMockResource = overrides => ({
-      ...Resource.build(),
-      ...overrides,
-    });
-    const mockResourceSelector = overrides => () => getMockResource(overrides);
-
     test('returns true when the user has unit admin permission for resource', () => {
       const selector = createIsStaffSelector(mockResourceSelector({ userPermissions: { isAdmin: true } }));
 
@@ -100,6 +101,14 @@ describe('state/selectors/authSelectors', () => {
 
     test('returns true when the user has unit manager permission for resource', () => {
       const selector = createIsStaffSelector(mockResourceSelector({ userPermissions: { isManager: true } }));
+
+      expect(selector()).toEqual(true);
+    });
+  });
+
+  describe('createIsUnitViewerSelector', () => {
+    test('returns true when the user has unit admin permission for the resource', () => {
+      const selector = createIsUnitViewerSelector(mockResourceSelector({ userPermissions: { isViewer: true } }));
 
       expect(selector()).toEqual(true);
     });

@@ -45,6 +45,17 @@ function createIsUnitManagerSelector(resourceSelector) {
 }
 
 /**
+ * Check if the user has manager level permissions for the resource.
+ * I.e. if they are a unit manager for the resource in question.
+ */
+function createIsUnitViewerSelector(resourceSelector) {
+  return createSelector(
+    resourceSelector,
+    resource => Boolean(get(resource, 'userPermissions.isViewer', false)),
+  );
+}
+
+/**
  * Check if a user has admin or manager permission for a unit.
  * TODO: Find a better name for this.
  *
@@ -65,6 +76,7 @@ function createIsStaffSelector(resourceSelector) {
 
 export {
   createIsStaffSelector,
+  createIsUnitViewerSelector,
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
