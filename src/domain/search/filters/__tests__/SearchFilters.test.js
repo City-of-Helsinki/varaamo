@@ -1,5 +1,6 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import moment from 'moment';
 
 import { ISearchFilters } from '../SearchFilters';
 import { shallowWithIntl } from '../../../../../app/utils/testUtils';
@@ -20,7 +21,8 @@ const findDateFilter = wrapper => wrapper.find(DateFilter);
 const findTimeRangeFilter = wrapper => wrapper.find(TimeRangeFilter);
 // This selector breaks easily
 const findSubmitButton = wrapper => wrapper.find({ children: 'SearchFilters.searchButton' });
-const makeDatetime = (dateVal, timeVal) => `${dateVal}T${timeVal}`;
+const makeDatetime = (dateVal, timeVal) => moment(`${dateVal} ${timeVal}`, 'YYYY-MM-DD HH:mm')
+  .format('YYYY-MM-DD[T]HH:mmZZ');
 const availableBetweenFilter = value => value.availableBetween;
 
 const startTime = '11:00';
@@ -62,7 +64,7 @@ describe('ResourceMap', () => {
     expect(wrapper.state().filters.availableBetween).toEqual([startTime, endTime, duration].join(','));
   });
 
-  test('makes searches with an availableBetween value that includes current selected date', () => {
+  test('makes searches with an availableBetween value that includes current selected date and timezone offset', () => {
     const date = '2017-07-07';
     const timeRange = ['12:00', '14:00', 30];
     const onChange = jest.fn(availableBetweenFilter);

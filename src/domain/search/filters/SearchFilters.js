@@ -26,8 +26,7 @@ import iconTimes from './images/times.svg';
 function timeToDatetime(time, date) {
   const [hours, minutes] = time.split(':');
 
-  // ignore timezone by using utc time
-  return moment.utc(date).startOf('day').hours(hours).minutes(minutes)
+  return moment(date).startOf('day').hours(hours).minutes(minutes)
     .format(constants.DATETIME_FORMAT);
 }
 
