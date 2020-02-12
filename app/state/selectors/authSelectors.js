@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import { get } from 'lodash';
 
+import { roleMapper } from '../../../src/domain/resource/permissions/utils';
+
 const userIdSelector = state => state.auth.userId;
 const usersSelector = state => state.data.users;
 
@@ -56,6 +58,18 @@ function createIsUnitViewerSelector(resourceSelector) {
 }
 
 /**
+ * Returns user's role in unit.
+ */
+function createUserUnitRoleSelector(resourceSelector) {
+  return createSelector(
+    createIsUnitAdminSelector(resourceSelector),
+    createIsUnitManagerSelector(resourceSelector),
+    createIsUnitViewerSelector(resourceSelector),
+    (isUnitAdmin, isUnitManager, isUnitViewer) => roleMapper(isUnitAdmin, isUnitManager, isUnitViewer),
+  );
+}
+
+/**
  * Check if a user has admin or manager permission for a unit.
  * TODO: Find a better name for this.
  *
@@ -78,6 +92,7 @@ export {
   createIsStaffSelector,
   createIsUnitViewerSelector,
   currentUserSelector,
+  createUserUnitRoleSelector,
   isAdminSelector,
   isLoggedInSelector,
 };

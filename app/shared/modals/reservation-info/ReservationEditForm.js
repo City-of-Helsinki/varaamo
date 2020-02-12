@@ -10,7 +10,10 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
+import moment from 'moment';
 
+import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/resource/permissions/constants';
+import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
@@ -97,9 +100,36 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t,
+      isEditing, reservation, resource, t, userUnitRole,
     } = this.props;
+
     if (isEditing) {
+      const canIgnoreOpeningHours = hasPermissionForResource(
+        userUnitRole,
+        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
+      );
+      const reservationDate = moment(reservation.begin).format('YYYY-MM-DD');
+      // We have a generic utility function with the same purpose, but
+      // for some reason the fields on the resource object are in
+      // camelCase when we access them here. The generic utility
+      // function assumes snake_case.
+      const getOpenHours = (resource0, reservationDate0) => {
+        const openHours = resource0.openingHours || [];
+
+        return openHours.find(openHour => openHour.date === reservationDate0);
+      };
+      const openingHoursForReservationDate = getOpenHours(resource, reservationDate);
+      const getConstraints = (openingHours) => {
+        if (!openingHours || canIgnoreOpeningHours) {
+          return undefined;
+        }
+
+        return {
+          startTime: moment(openingHours.opens).format('HH:mm'),
+          endTime: moment(openingHours.closes).format('HH:mm'),
+        };
+      };
+
       return (
         <FormGroup id="reservation-time">
           <Col sm={3}>
@@ -108,6 +138,8 @@ class UnconnectedReservationEditForm extends Component {
           <Col sm={9}>
             <Fields
               component={ReservationTimeControls}
+              constraints={getConstraints(openingHoursForReservationDate)}
+              disabled={!canIgnoreOpeningHours && !openingHoursForReservationDate}
               names={['begin', 'end']}
               period={resource.slotSize}
             />
@@ -125,7 +157,7 @@ class UnconnectedReservationEditForm extends Component {
       isAdmin,
       isEditing,
       isSaving,
-      isStaff,
+      userUnitRole,
       onCancelEditClick,
       onStartEditClick,
       reservation,
@@ -142,6 +174,10 @@ class UnconnectedReservationEditForm extends Component {
       price,
       tax,
     };
+    const canViewExtraFields = hasPermissionForResource(
+      userUnitRole,
+      resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS,
+    );
 
     const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
 
@@ -174,7 +210,7 @@ class UnconnectedReservationEditForm extends Component {
           && price > 0
         // eslint-disable-next-line max-len
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
-        {isStaff && this.renderStaticInfoRow('reserverId')}
+        {canViewExtraFields && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
         {this.renderAddressRow('reserverAddress')}
@@ -223,7 +259,7 @@ UnconnectedReservationEditForm.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
+  userUnitRole: PropTypes.oneOf([...Object.values(resourceRoles), null]),
   onCancelEditClick: PropTypes.func.isRequired,
   onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
