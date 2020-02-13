@@ -70,27 +70,23 @@ function createUserUnitRoleSelector(resourceSelector) {
 }
 
 /**
- * Check if a user has admin or manager permission for a unit.
- * TODO: Find a better name for this.
+ * Check if the user is either admin, manager or viewer in the unit the
+ * resource belongs to.
  *
- * 2020/02/07
- * I added support for the manager role. According to the spec, the
- * unit manager should have the exact same permissions as the unit admin
- * has. I couldn't get a good sense of the permission management
- * architecture, but it seems like this selector is the easiest way to
- * add support for this role
+ * For more fine grained control, use the hasPermissionForResource
+ * utility function.
  */
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     createIsUnitAdminSelector(resourceSelector),
     createIsUnitManagerSelector(resourceSelector),
-    (isAdmin, isManager) => isAdmin || isManager,
+    createIsUnitViewerSelector(resourceSelector),
+    (isUnitAdmin, isUnitManager, isUnitViewer) => isUnitAdmin || isUnitManager || isUnitViewer,
   );
 }
 
 export {
   createIsStaffSelector,
-  createIsUnitViewerSelector,
   currentUserSelector,
   createUserUnitRoleSelector,
   isAdminSelector,
