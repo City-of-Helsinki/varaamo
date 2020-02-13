@@ -155,4 +155,31 @@ describe('shared/availability-view/Reservation', () => {
       expect(getReserverName(props)).toBe('dv@dark.side');
     });
   });
+
+  describe('when products prop does not include products of type RENT', () => {
+    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+
+    test('price should not be rendered', () => {
+      const wrapper = findPrice(getWrapper({ products: [] }));
+
+      expect(wrapper.length).toEqual(0);
+    });
+  });
+
+  describe('when products prop includes products of type RENT', () => {
+    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+
+    test('price should not be rendered', () => {
+      const wrapper = findPrice(getWrapper({
+        products: [{
+          type: 'rent',
+          price: {
+            price_type: 'fixed',
+          },
+        }],
+      }));
+
+      expect(wrapper.length).toEqual(1);
+    });
+  });
 });
