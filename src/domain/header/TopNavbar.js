@@ -6,6 +6,7 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import Nav from 'react-bootstrap/lib/Nav';
 
 import injectT from '../../../app/i18n/injectT';
+import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
 import TabbableNavItem from '../../../app/shared/tabbable-nav-dropdown/TabbableNavItem';
 
@@ -47,22 +48,28 @@ class TopNavbar extends Component {
             as="li"
             className="app-TopNavbar__language"
             id="language-nav-dropdown"
-            renderToggle={props => <LinkButton {...props}>{currentLanguage.toUpperCase()}</LinkButton>}
+            renderToggle={props => (
+              <LinkButton {...props} aria-label={t(`common.language.${currentLanguage}`)}>
+                {currentLanguage.toUpperCase()}
+              </LinkButton>
+            )}
           >
-            {({ closeMenu }) => ['en', 'fi', 'sv'].filter(language => language !== currentLanguage).map(language => (
-              <TabbableNavItem
-                href="#"
-                key={language}
-                onClick={(e) => {
-                  e.preventDefault();
-                  this.onLanguageItemClick(language);
-                  closeMenu();
-                }}
-              >
-                {language.toUpperCase()}
-
-              </TabbableNavItem>
-            ))}
+            {({ closeMenu }) => Object
+              .values(SUPPORTED_LANGUAGES)
+              .filter(language => language !== currentLanguage).map(language => (
+                <TabbableNavItem
+                  href="#"
+                  key={language}
+                  lang={language}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    this.onLanguageItemClick(language);
+                    closeMenu();
+                  }}
+                >
+                  {t(`common.language.${language}`)}
+                </TabbableNavItem>
+              ))}
           </TabbableNavDropdown>
 
           {isLoggedIn && (
