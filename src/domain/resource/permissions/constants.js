@@ -35,7 +35,9 @@ const UNIT_MANAGER_PERMISSIONS = [
   resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
   resourcePermissionTypes.CAN_VIEW_RESERVATIONS_ACCESS_CODE,
   resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS,
+  resourcePermissionTypes.CAN_VIEW_RESERVATION_USER,
   resourcePermissionTypes.CAN_ACCESS_RESERVATION_COMMENTS,
+  resourcePermissionTypes.CAN_COMMENT_RESERVATIONS,
   resourcePermissionTypes.CAN_VIEW_RESERVATION_CATERING_ORDERS,
   resourcePermissionTypes.CAN_BYPASS_PAYMENT,
 ];
