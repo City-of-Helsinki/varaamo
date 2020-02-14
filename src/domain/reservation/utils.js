@@ -76,7 +76,7 @@ export const cancelReservation = (reservation) => {
  */
 export const getEditReservationUrl = (reservation) => {
   const {
-    begin, end, id, resource
+    begin, end, id, resource,
   } = reservation;
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');

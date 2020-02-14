@@ -76,7 +76,7 @@ describe('shared/availability-view/Reservation', () => {
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
       expect(element).toHaveLength(1);
-    }
+    },
   );
 
   test(
@@ -90,7 +90,7 @@ describe('shared/availability-view/Reservation', () => {
       };
       const element = getOuterWrapper({ ...reservation }).find('.with-comments');
       expect(element).toHaveLength(0);
-    }
+    },
   );
 
   test(
@@ -98,7 +98,7 @@ describe('shared/availability-view/Reservation', () => {
     () => {
       const element = getWrapper({ state: 'requested' }).find('.requested');
       expect(element).toHaveLength(1);
-    }
+    },
   );
 
   test(
@@ -106,7 +106,7 @@ describe('shared/availability-view/Reservation', () => {
     () => {
       const element = getWrapper({ state: 'approved' }).find('.requested');
       expect(element).toHaveLength(0);
-    }
+    },
   );
 
   test('has correct width', () => {
@@ -153,6 +153,33 @@ describe('shared/availability-view/Reservation', () => {
     test('is rendered from email if no others', () => {
       const props = { reserverName: undefined, user: { email: 'dv@dark.side' } };
       expect(getReserverName(props)).toBe('dv@dark.side');
+    });
+  });
+
+  describe('when products prop does not include products of type RENT', () => {
+    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+
+    test('price should not be rendered', () => {
+      const wrapper = findPrice(getWrapper({ products: [] }));
+
+      expect(wrapper.length).toEqual(0);
+    });
+  });
+
+  describe('when products prop includes products of type RENT', () => {
+    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+
+    test('price should not be rendered', () => {
+      const wrapper = findPrice(getWrapper({
+        products: [{
+          type: 'rent',
+          price: {
+            price_type: 'fixed',
+          },
+        }],
+      }));
+
+      expect(wrapper.length).toEqual(1);
     });
   });
 });

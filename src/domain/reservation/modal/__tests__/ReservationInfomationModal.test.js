@@ -14,10 +14,10 @@ describe('ReservationInformationModal', () => {
       onHide: jest.fn(),
       onSaveComment: jest.fn(),
       isOpen: true,
-      onEditReservation: jest.fn()
+      onEditReservation: jest.fn(),
     };
     const wrapper = shallowWithIntl(
-      <ReservationInformationModal {...props} />
+      <ReservationInformationModal {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -49,11 +49,11 @@ function searchResources(filters = {}) {
                 ],
               },
             },
-          }
+          },
         ),
         getSuccessTypeDescriptor(
           types.API.SEARCH_RESULTS_GET_SUCCESS,
-          { schema: schemas.paginatedResourcesSchema }
+          { schema: schemas.paginatedResourcesSchema },
         ),
         getErrorTypeDescriptor(types.API.SEARCH_RESULTS_GET_ERROR),
       ],

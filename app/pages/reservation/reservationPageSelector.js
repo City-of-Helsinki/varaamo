@@ -34,7 +34,7 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 const unitSelector = createSelector(
   resourceSelector,
   unitsSelector,
-  (resource, units) => units[resource.unit] || {}
+  (resource, units) => units[resource.unit] || {},
 );
 
 const failedReservationsSelector = state => orderBy(state.ui.reservations.failed, 'begin');

@@ -166,7 +166,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const props = {
             fields: [fieldName],
             requiredFields: [fieldName],
-            isStaff: false
+            isStaff: false,
           };
           const input = getWrapper(props).find(Field);
           expect(input.props().label).toContain('*');
@@ -209,7 +209,7 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
               };
               const input = getWrapper(props).find(Field);
               expect(input.props().label).not.toContain('*');
-            }
+            },
           );
         });
       });

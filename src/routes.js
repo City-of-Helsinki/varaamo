@@ -14,6 +14,7 @@ import SearchPage from './domain/search/page/SearchPage';
 import AboutPage from './domain/about/AboutPage';
 import ManageReservationsPage from './domain/reservation/manage/page/ManageReservationsPage';
 import HomePage from './domain/home/HomePage';
+import CreateNotifications from './common/notificator/create/CreateNotifications';
 
 export default () => (
   <AppContainer>
@@ -43,6 +44,11 @@ export default () => (
         component={ReservationPaymentReturnPage}
         componentName="ReservationPaymentReturn"
         path="/reservation-payment-return"
+      />
+      <PrivateRoute
+        component={CreateNotifications}
+        componentName="CreateNotifications"
+        path="/create-notifications"
       />
 
       <Redirect from="/home" to="/" />

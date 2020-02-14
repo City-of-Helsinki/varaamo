@@ -125,11 +125,11 @@ describe('domain/common/api/client.js', () => {
     const dataWithEmptyField = {
       foo: 'bar',
       testi: '',
-      bar: ''
+      bar: '',
     };
 
     const expectTrimmedData = {
-      foo: 'bar'
+      foo: 'bar',
     };
 
     client.post('endpoint', dataWithEmptyField, config);

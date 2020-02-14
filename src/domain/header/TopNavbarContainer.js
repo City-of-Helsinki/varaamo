@@ -17,7 +17,7 @@ const userNameSelector = createSelector(
       return user.email;
     }
     return user.emails && user.emails.length ? user.emails[0].value : '';
-  }
+  },
 );
 
 export const selector = createStructuredSelector({

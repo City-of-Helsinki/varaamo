@@ -1,3 +1,23 @@
+# Unreleased
+
+# 0.9.0
+  **MINOR CHANGES**
+  - Changed `eslint` rules to require comma dangle
+  - Added `eslint-plugin-react-hooks`
+  - Changed language and sign out menus to be navigable with tab instead of arrow keys
+  - HTML's `lang` attribute is now synchronized with currently selected language
+  - Fixed illogical tab order on mobile version of main menu
+  - Added a skip to content link for screen reader and keyboard users
+  - Changed date control on the search page to allow date to be written in an input
+
+  **CHANGELOG**
+  - [#1095](https://github.com/City-of-Helsinki/varaamo/pull/1095) Display extra question field on reservation form
+  - [#1096](https://github.com/City-of-Helsinki/varaamo/pull/1096) Added ResourcePanel for genericTerms. Added react-autosize-textarea for reservationExtraQuestions.
+  - [#1098](https://github.com/City-of-Helsinki/varaamo/pull/1098) Added user notificator system.
+  - [#1099](https://github.com/City-of-Helsinki/varaamo/pull/1099) Changed into using runtime environment
+  - [#1106](https://github.com/City-of-Helsinki/varaamo/pull/1106) Fixed searches only targeting current date
+  - [#1110](https://github.com/City-of-Helsinki/varaamo/pull/1110) Fixed price being displayed for resources that don't support online payment
+
 # 0.8.1
   **MINOR CHANGES**
   - Fixed bug in reservation details where under "Reservation must be made xx days in advance" actually displays data from "Reservations can be made a xxx in advance".

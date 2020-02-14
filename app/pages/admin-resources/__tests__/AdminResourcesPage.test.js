@@ -15,6 +15,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   const selectAdminResourceType = simple.stub();
   const openConfirmReservationModal = simple.stub();
   const unselectAdminResourceType = simple.stub();
+  const myPremisessSetSelectedTimeSlots = simple.stub();
 
   const defaultProps = {
     actions: {
@@ -25,6 +26,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       selectAdminResourceType,
       openConfirmReservationModal,
       unselectAdminResourceType,
+      myPremisessSetSelectedTimeSlots,
     },
     date: '2017-01-10',
     selectedResourceTypes: [],
@@ -77,7 +79,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
             const props = { isFetchingResources: true, resources: [] };
             const loader = getIsAdminWrapper(props).find(Loader);
             expect(loader.prop('loaded')).toBe(false);
-          }
+          },
         );
 
         test('is loaded if not fetching resource', () => {

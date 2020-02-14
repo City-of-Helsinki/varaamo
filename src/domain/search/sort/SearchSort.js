@@ -33,7 +33,7 @@ UntranslatedSearchSort.propTypes = {
   t: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  locale: PropTypes.string
+  locale: PropTypes.string,
 };
 
 export { UntranslatedSearchSort };

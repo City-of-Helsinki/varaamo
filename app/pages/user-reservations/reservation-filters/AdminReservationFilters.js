@@ -32,9 +32,9 @@ class AdminReservationFilters extends Component {
           (value, key) => ({
             label: t(value.labelTextId),
             value: key,
-          })
+          }),
         ),
-        'label'
+        'label',
       ),
     ];
 

@@ -42,7 +42,7 @@ const OPENING_HOURS = [
 describe('domain resource utility function', () => {
   describe('getResourcePageLink', () => {
     const resource = {
-      id: 'foo'
+      id: 'foo',
     };
 
     test('should return link with resource as part of url', () => {
@@ -70,7 +70,7 @@ describe('domain resource utility function', () => {
     const unit = {
       street_address: {
         en: 'foo',
-        fi: 'bar'
+        fi: 'bar',
       },
     };
     const mockLocale = 'en';
@@ -104,7 +104,7 @@ describe('domain resource utility function', () => {
 
   describe('getResourceDistance', () => {
     const resource = {
-      distance: 2000
+      distance: 2000,
     };
     const distance = resourceUtils.getResourceDistance(resource);
 
@@ -133,7 +133,7 @@ describe('domain resource utility function', () => {
 
     test('return free text if price is 0', () => {
       const price = resourceUtils.getPrice({
-        min_price_per_hour: '0'
+        min_price_per_hour: '0',
       }, fakeT);
 
       expect(price).toContain('free');
@@ -141,7 +141,7 @@ describe('domain resource utility function', () => {
 
     test('return price even if there is 1 price', () => {
       const price = resourceUtils.getPrice({
-        min_price_per_hour: '123'
+        min_price_per_hour: '123',
       }, fakeT);
 
       expect(price).toContain('123');
@@ -150,7 +150,7 @@ describe('domain resource utility function', () => {
     test('return price range if both min and max price included', () => {
       const price = resourceUtils.getPrice({
         min_price_per_hour: '123',
-        max_price_per_hour: '234'
+        max_price_per_hour: '234',
       }, fakeT);
 
       expect(price).toEqual('123 - 234 €/h');
@@ -158,7 +158,7 @@ describe('domain resource utility function', () => {
 
     test('return null if price exist but not number', () => {
       const price = resourceUtils.getPrice({
-        min_price_per_hour: 'foo'
+        min_price_per_hour: 'foo',
       });
       expect(price).toBeNull();
     });
@@ -172,7 +172,7 @@ describe('domain resource utility function', () => {
 
     test('return true if price is 0', () => {
       const price = resourceUtils.isFree({
-        min_price_per_hour: '0'
+        min_price_per_hour: '0',
       });
 
       expect(price).toBeTruthy();
@@ -180,7 +180,7 @@ describe('domain resource utility function', () => {
 
     test('return false even if there is 1 price', () => {
       const price = resourceUtils.isFree({
-        min_price_per_hour: '123'
+        min_price_per_hour: '123',
       });
 
       expect(price).toBeFalsy();
@@ -189,7 +189,7 @@ describe('domain resource utility function', () => {
     test('return false if both min and max price included', () => {
       const price = resourceUtils.isFree({
         min_price_per_hour: '123',
-        max_price_per_hour: '234'
+        max_price_per_hour: '234',
       });
 
       expect(price).toBeFalsy();
@@ -239,7 +239,7 @@ describe('domain resource utility function', () => {
       { daysOfWeek: [4], startTime: '08:00', endTime: '20:00' },
       { daysOfWeek: [5], startTime: '08:00', endTime: '20:00' },
       { daysOfWeek: [6], startTime: '10:00', endTime: '17:00' },
-      { daysOfWeek: [0], startTime: '10:00', endTime: '17:00' }
+      { daysOfWeek: [0], startTime: '10:00', endTime: '17:00' },
     ]);
   });
 
@@ -366,7 +366,7 @@ describe('domain resource utility function', () => {
     test('return the correct price when the period is one hour', () => {
       const resource = resourceFixture.build({
         products: [{
-          price: { amount: 20, type: 'per_period', period: '01:00:00' }
+          price: { amount: 20, type: 'per_period', period: '01:00:00' },
 
         }],
       });
@@ -378,7 +378,7 @@ describe('domain resource utility function', () => {
     test('return the correct price when the supplied period is more than an hour', () => {
       const resource = resourceFixture.build({
         products: [{
-          price: { amount: 20, type: 'per_period', period: '02:00:00' }
+          price: { amount: 20, type: 'per_period', period: '02:00:00' },
 
         }],
       });
@@ -390,7 +390,7 @@ describe('domain resource utility function', () => {
     test('return the correct price when the supplied period is less than an hour', () => {
       const resource = resourceFixture.build({
         products: [{
-          price: { amount: 20, type: 'per_period', period: '00:30:00' }
+          price: { amount: 20, type: 'per_period', period: '00:30:00' },
 
         }],
       });
@@ -402,7 +402,7 @@ describe('domain resource utility function', () => {
     test('return 0 if the supplied period is 0', () => {
       const resource = resourceFixture.build({
         products: [{
-          price: { amount: 20, type: 'per_period', period: '00:00:00' }
+          price: { amount: 20, type: 'per_period', period: '00:00:00' },
 
         }],
       });

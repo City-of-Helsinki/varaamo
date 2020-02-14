@@ -34,7 +34,7 @@ const CalendarLegend = (props) => {
 };
 
 CalendarLegend.propTypes = {
-  t: PropTypes.func.isRequired
+  t: PropTypes.func.isRequired,
 };
 
 export default injectT(CalendarLegend);

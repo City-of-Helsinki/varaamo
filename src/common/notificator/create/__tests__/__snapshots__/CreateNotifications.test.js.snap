@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNotifications Snapshot test 1`] = `
+<div
+  className="app-CreateNotifications"
+>
+  <Component
+    component="div"
+    loaded={false}
+    loadedClassName="loadedContent"
+    parentClassName="loader"
+  >
+    <Grid
+      bsClass="container"
+      componentClass="div"
+      fluid={false}
+    />
+  </Component>
+  <CreateNotificationModal
+    addElement={[Function]}
+    isOpen={false}
+    onDelete={[Function]}
+    onFieldChange={[Function]}
+    onHide={[Function]}
+    save={[Function]}
+    selectedNotification={Object {}}
+  />
+</div>
+`;

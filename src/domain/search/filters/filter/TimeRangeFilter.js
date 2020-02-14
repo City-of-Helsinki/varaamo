@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Moment from 'moment';
-import classNames from 'classnames';
 import { extendMoment } from 'moment-range';
 
 import ToggleFilter from './ToggleFilter';
@@ -44,12 +43,12 @@ class TimeRangeFilter extends React.Component {
   }
 
   splitValueString = (value) => {
-    const valueParts = value.split(',');
+    const [startTime, endTime, duration] = value.split(',');
 
     return {
-      startTime: valueParts[0] ? moment(valueParts[0]).format('HH:mm') : this.getDefaultValue('startTime'),
-      endTime: valueParts[1] ? moment(valueParts[1]).format('HH:mm') : this.getDefaultValue('endTime'),
-      duration: valueParts[2] ? Number(valueParts[2]) : this.getDefaultValue('duration'),
+      startTime: startTime || this.getDefaultValue('startTime'),
+      endTime: endTime || this.getDefaultValue('endTime'),
+      duration: duration ? Number(duration) : this.getDefaultValue('duration'),
     };
   };
 
@@ -86,19 +85,7 @@ class TimeRangeFilter extends React.Component {
       duration,
     } = this.state;
 
-    const format = 'YYYY-MM-DD[T]HH:mmZ';
-
-    const startTimeParts = startTime.split(':');
-    const start = moment()
-      .hours(startTimeParts[0])
-      .minutes(startTimeParts[1]);
-
-    const endTimeParts = endTime.split(':');
-    const end = moment()
-      .hours(endTimeParts[0])
-      .minutes(endTimeParts[1]);
-
-    return `${start.format(format)},${end.format(format)},${duration}`;
+    return `${startTime},${endTime},${duration}`;
   };
 
   /**
@@ -214,7 +201,7 @@ class TimeRangeFilter extends React.Component {
     // Duration can't be more than the difference of the start time and end time.
     const updatedDuration = Math.min(
       getMomentFromTime(updatedEndTime).diff(start, 'minutes'),
-      duration
+      duration,
     );
 
     this.setState({
@@ -241,7 +228,7 @@ class TimeRangeFilter extends React.Component {
     // Duration can't be more than the difference of the start time and end time.
     const updatedDuration = Math.min(
       end.diff(start, 'minutes'),
-      duration
+      duration,
     );
 
     this.setState({

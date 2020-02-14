@@ -26,7 +26,7 @@ const TooltipOverlay = ({
 TooltipOverlay.propTypes = {
   children: PropTypes.element.isRequired,
   content: PropTypes.element.isRequired,
-  placement: PropTypes.string
+  placement: PropTypes.string,
 };
 
 export default TooltipOverlay;

@@ -7,7 +7,7 @@ const usersSelector = state => state.data.users;
 const currentUserSelector = createSelector(
   userIdSelector,
   usersSelector,
-  (userId, users) => users[userId] || {}
+  (userId, users) => users[userId] || {},
 );
 
 /**
@@ -15,7 +15,7 @@ const currentUserSelector = createSelector(
  */
 const isAdminSelector = createSelector(
   currentUserSelector,
-  currentUser => Boolean(currentUser.isStaff)
+  currentUser => Boolean(currentUser.isStaff),
 );
 
 function isLoggedInSelector(state) {
@@ -29,7 +29,7 @@ function isLoggedInSelector(state) {
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     resourceSelector,
-    resource => Boolean(get(resource, 'userPermissions.isAdmin', false))
+    resource => Boolean(get(resource, 'userPermissions.isAdmin', false)),
   );
 }
 

@@ -73,5 +73,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedReservationTermsModal };
 export default connect(reservationTermsModalSelector, mapDispatchToProps)(
-  UnconnectedReservationTermsModal
+  UnconnectedReservationTermsModal,
 );

@@ -119,7 +119,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       const postReservationError = createAction(
         types.API.RESERVATION_POST_ERROR,
         () => ({ response: { non_field_errors: [`['${failReason}']`] } }),
-        reservation => ({ reservation })
+        reservation => ({ reservation }),
       );
 
       test('adds the reservation in meta info to failed', () => {

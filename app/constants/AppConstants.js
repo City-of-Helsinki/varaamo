@@ -1,5 +1,7 @@
+import settings from '../../config/settings';
+
 export default {
-  API_URL: SETTINGS.API_URL,
+  API_URL: settings.API_URL,
   CUSTOMIZATIONS: {
     'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',
@@ -7,6 +9,7 @@ export default {
     'varaamotest-vantaa.hel.ninja': 'VANTAA',
   },
   DATE_FORMAT: 'YYYY-MM-DD',
+  DATETIME_FORMAT: 'YYYY-MM-DD[T]HH:mmZZ',
   DEFAULT_LOCALE: 'fi',
   FEEDBACK_URL: 'https://app.helmet-kirjasto.fi/forms/?site=varaamopalaute',
   FILTER: {
@@ -15,11 +18,15 @@ export default {
     timePeriodType: 'minutes',
   },
   REQUIRED_API_HEADERS: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Accept-Language': 'fi',
     'Content-Type': 'application/json',
   },
-  REQUIRED_STAFF_EVENT_FIELDS: ['eventDescription', 'reserverName'],
+  REQUIRED_STAFF_EVENT_FIELDS: [
+    'eventDescription',
+    'reserverName',
+    'reservationExtraQuestions',
+  ],
   RESERVATION_STATE_LABELS: {
     cancelled: {
       labelBsStyle: 'default',
@@ -41,24 +48,24 @@ export default {
   RESERVATION_PAYMENT_LABELS: {
     confirmed: {
       labelBsStyle: 'success',
-      labelTextId: 'payment.success'
+      labelTextId: 'payment.success',
     },
     waiting: {
       labelBsStyle: 'warning',
-      labelTextId: 'payment.processing'
+      labelTextId: 'payment.processing',
     },
     rejected: {
       labelBsStyle: 'danger',
-      labelTextId: 'payment.failed'
+      labelTextId: 'payment.failed',
     },
     cancelled: {
       labelBsStyle: 'danger',
-      labelTextId: 'payment.cancelled'
+      labelTextId: 'payment.cancelled',
     },
   },
   SEARCH_PAGE_SIZE: 30,
   DEFAULT_MUNICIPALITY_OPTIONS: ['Helsinki', 'Espoo', 'Vantaa'],
-  SHOW_TEST_SITE_MESSAGE: SETTINGS.SHOW_TEST_SITE_MESSAGE,
+  SHOW_TEST_SITE_MESSAGE: settings.SHOW_TEST_SITE_MESSAGE,
   SUPPORTED_LANGUAGES: ['en', 'fi', 'sv'],
   SUPPORTED_SEARCH_FILTERS: {
     freeOfCharge: '',
@@ -76,12 +83,12 @@ export default {
     availableBetween: '',
   },
   TIME_FORMAT: 'H:mm',
-  TIME_ZONE: SETTINGS.TIME_ZONE,
-  TRACKING: SETTINGS.TRACKING,
+  TIME_ZONE: settings.TIME_ZONE,
+  TRACKING: settings.TRACKING,
   SORT_BY_OPTIONS: {
     NAME: 'resource_name_lang',
     TYPE: 'type_name_lang',
     PREMISES: 'unit_name_lang',
     PEOPLE: 'people_capacity',
-  }
+  },
 };

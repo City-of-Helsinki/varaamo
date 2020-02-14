@@ -235,7 +235,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           const wrapper = doSelect(
             {},
             { resourceId, begin: '2016-01-01T10:00:00Z' },
-            { resourceId, begin: '2016-01-01T10:00:00Z', end: '2016-01-01T10:30:00Z' }
+            { resourceId, begin: '2016-01-01T10:00:00Z', end: '2016-01-01T10:30:00Z' },
           );
           expect(wrapper.state()).toEqual({ hoverSelection: null, selection: null });
         });
@@ -246,7 +246,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           doSelect(
             { onSelect },
             { resourceId, begin: '2016-01-01T10:30:00Z', end: '2016-01-01T11:00:00Z' },
-            { resourceId, begin: '2016-01-01T11:00:00Z', end: '2016-01-01T11:30:00Z' }
+            { resourceId, begin: '2016-01-01T11:00:00Z', end: '2016-01-01T11:30:00Z' },
           );
           expect(onSelect.callCount).toBe(1);
           expect(onSelect.lastCall.args).toEqual([{
@@ -269,7 +269,7 @@ describe('shared/availability-view/AvailabilityView', () => {
           const resourceId = 'resource';
           checkInvalid(
             { resourceId, begin: '2016-01-01T10:00:00Z' },
-            { resourceId, begin: '2016-01-01T09:30:00Z', end: '2016-01-01T10:00:00Z' }
+            { resourceId, begin: '2016-01-01T09:30:00Z', end: '2016-01-01T10:00:00Z' },
           );
         });
 
@@ -279,8 +279,8 @@ describe('shared/availability-view/AvailabilityView', () => {
             {
               resourceId: 'r2',
               begin: '2016-01-01T10:30:00Z',
-              end: '2016-01-01T11:00:00Z'
-            }
+              end: '2016-01-01T11:00:00Z',
+            },
           );
         });
       });

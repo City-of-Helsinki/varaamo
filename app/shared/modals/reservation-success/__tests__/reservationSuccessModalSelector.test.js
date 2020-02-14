@@ -109,7 +109,7 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
           'ui.modals.open': [],
         });
         expect(selected.show).toBe(false);
-      }
+      },
     );
   });
 

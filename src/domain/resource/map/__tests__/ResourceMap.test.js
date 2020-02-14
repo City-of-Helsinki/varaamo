@@ -14,14 +14,14 @@ describe('ResourceMap', () => {
         location: {
           coordinates: [
             24.975634,
-            60.20843
-          ]
-        }
+            60.20843,
+          ],
+        },
       }),
-      resource: resource.build()
+      resource: resource.build(),
     };
     const wrapper = shallow(
-      <ResourceMap {...props} />
+      <ResourceMap {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

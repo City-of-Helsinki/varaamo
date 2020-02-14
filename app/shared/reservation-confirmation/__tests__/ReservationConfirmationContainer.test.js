@@ -55,7 +55,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
         expect(actualProps.isEditing).toBeDefined();
         expect(actualProps.isMakingReservations).toBe(defaultProps.isMakingReservations);
         expect(
-          actualProps.isPreliminaryReservation
+          actualProps.isPreliminaryReservation,
         ).toBe(defaultProps.resource.needManualConfirmation);
         expect(actualProps.isStaff).toBeDefined();
         expect(actualProps.onCancel).toBe(defaultProps.actions.cancelReservationEdit);
@@ -113,7 +113,7 @@ describe('pages/resource/reservation-calendar/ReservationConfirmationContainer',
       () => {
         instance.handleReservation();
         expect(defaultProps.actions.postReservation.callCount).toBe(2);
-      }
+      },
     );
 
     test('calls postReservation with correct arguments', () => {

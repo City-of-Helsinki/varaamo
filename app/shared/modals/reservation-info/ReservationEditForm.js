@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
@@ -46,7 +45,7 @@ class UnconnectedReservationEditForm extends Component {
     const value = this.getAddress(
       reservation[`${addressType}Street`],
       reservation[`${addressType}Zip`],
-      reservation[`${addressType}City`]
+      reservation[`${addressType}City`],
     );
     return this.renderInfoRow(label, value);
   }
@@ -98,7 +97,7 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t
+      isEditing, reservation, resource, t,
     } = this.props;
     if (isEditing) {
       return (
@@ -141,7 +140,7 @@ class UnconnectedReservationEditForm extends Component {
     const tax = getTaxPercentage(resource);
     const tVariables = {
       price,
-      tax
+      tax,
     };
 
     const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
@@ -173,6 +172,7 @@ class UnconnectedReservationEditForm extends Component {
 
         {!reservation.staffEvent
           && price > 0
+        // eslint-disable-next-line max-len
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
         {isStaff && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
@@ -180,6 +180,7 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('reserverAddress')}
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
+        {this.renderStaticInfoRow('reservationExtraQuestions')}
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
         {isAdmin && reservationIsEditable && (
           <div className="form-controls">

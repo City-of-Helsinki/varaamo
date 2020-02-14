@@ -29,7 +29,7 @@ class MainNavbar extends React.Component {
 
   render() {
     const {
-      activeLink, clearSearchResults, isAdmin, isLoggedIn, t
+      activeLink, clearSearchResults, isAdmin, isLoggedIn, t,
     } = this.props;
 
     return (
@@ -40,10 +40,10 @@ class MainNavbar extends React.Component {
         onToggle={() => this.toggleCollapse()}
       >
         <Navbar.Header>
-          <Navbar.Toggle />
           <Navbar.Brand>
             <Link to="/">Varaamo</Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav activeKey={activeLink}>

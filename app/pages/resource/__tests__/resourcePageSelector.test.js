@@ -120,7 +120,7 @@ describe('pages/resource/resourcePageSelector', () => {
       const selected = resourcePageSelector(state, props);
 
       expect(selected.unit).toEqual({});
-    }
+    },
   );
 
   test('returns an empty object as the unit if resource is not fetched', () => {

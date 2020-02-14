@@ -26,7 +26,7 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     resource: Resource.build(),
     selectedReservation: Reservation.build(),
     unit: Unit.build(),
-    date: ''
+    date: '',
   };
 
   function getWrapper(extraProps) {

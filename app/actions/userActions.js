@@ -22,7 +22,7 @@ function fetchUser(id, params = {}) {
                 args: ['User', 'user-get', id],
               },
             },
-          }
+          },
         ),
         getSuccessTypeDescriptor(types.API.USER_GET_SUCCESS),
         getErrorTypeDescriptor(types.API.USER_GET_ERROR),

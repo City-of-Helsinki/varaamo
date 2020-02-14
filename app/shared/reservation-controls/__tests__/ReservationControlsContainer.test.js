@@ -6,7 +6,9 @@ import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
 import { getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationControls from '../ReservationControls';
-import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from '../ReservationControlsContainer';
+import {
+  UnconnectedReservationControlsContainer as ReservationControlsContainer,
+} from '../ReservationControlsContainer';
 
 describe('shared/reservation-controls/ReservationControlsContainer', () => {
   const resource = Resource.build();
@@ -69,7 +71,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       () => {
         expect(props.actions.selectReservationToCancel.callCount).toBe(1);
         expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(props.reservation);
-      }
+      },
     );
 
     test('calls the props.actions.openReservationCancelModal function', () => {
@@ -97,7 +99,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
           reservation: props.reservation,
           slotSize: props.resource.slotSize,
         });
-      }
+      },
     );
 
     test('calls history.push with correct path', () => {
@@ -119,7 +121,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       () => {
         expect(props.actions.showReservationInfoModal.callCount).toBe(1);
         expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(props.reservation);
-      }
+      },
     );
   });
 });

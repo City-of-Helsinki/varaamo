@@ -34,7 +34,7 @@ class ManageReservationsPage extends React.Component {
     history: PropTypes.object,
     location: PropTypes.object,
     actions: PropTypes.object,
-    userFavoriteResources: PropTypes.array
+    userFavoriteResources: PropTypes.array,
   };
 
   constructor(props) {
@@ -49,7 +49,7 @@ class ManageReservationsPage extends React.Component {
       isModalOpen: false,
       selectedReservation: {},
       showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY],
-      isReservationCancelModalOpen: false
+      isReservationCancelModalOpen: false,
     };
   }
 
@@ -81,7 +81,7 @@ class ManageReservationsPage extends React.Component {
     const params = {
       ...filters,
       page_size: PAGE_SIZE,
-      include: 'resource_detail'
+      include: 'resource_detail',
     };
 
     client.get('reservation', params)
@@ -118,7 +118,7 @@ class ManageReservationsPage extends React.Component {
 
   onShowOnlyFiltersChange = (filters) => {
     this.setState({
-      showOnlyFilters: filters
+      showOnlyFilters: filters,
     });
   }
 
@@ -137,7 +137,7 @@ class ManageReservationsPage extends React.Component {
   onInfoClick = (reservation) => {
     this.setState(prevState => ({
       isModalOpen: !prevState.isModalOpen,
-      selectedReservation: reservation
+      selectedReservation: reservation,
     }));
   }
 
@@ -150,7 +150,7 @@ class ManageReservationsPage extends React.Component {
           await this.setState((prevState) => {
             return {
               isReservationCancelModalOpen: !prevState.isReservationCancelModalOpen,
-              selectedReservation: reservation
+              selectedReservation: reservation,
             };
           });
         } else {
@@ -217,7 +217,7 @@ class ManageReservationsPage extends React.Component {
 
   parentToggle = (bool) => {
     this.setState(() => ({
-      isReservationCancelModalOpen: bool
+      isReservationCancelModalOpen: bool,
     }));
   }
 
@@ -236,7 +236,7 @@ class ManageReservationsPage extends React.Component {
       isModalOpen,
       selectedReservation,
       showOnlyFilters,
-      isReservationCancelModalOpen
+      isReservationCancelModalOpen,
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -323,12 +323,12 @@ class ManageReservationsPage extends React.Component {
 export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
 
 const selector = createStructuredSelector({
-  userFavoriteResources: userFavouriteResourcesSelector
+  userFavoriteResources: userFavouriteResourcesSelector,
 });
 
 const mapDispatchToProps = (dispatch) => {
   const actionCreators = {
-    editReservation: selectReservationToEdit
+    editReservation: selectReservationToEdit,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

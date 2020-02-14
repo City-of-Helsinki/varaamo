@@ -263,7 +263,7 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
           expect(accessCode.length).toBe(1);
           expect(accessCode.prop('reservation')).toEqual(reservationsToShow[0]);
-        }
+        },
       );
     });
 

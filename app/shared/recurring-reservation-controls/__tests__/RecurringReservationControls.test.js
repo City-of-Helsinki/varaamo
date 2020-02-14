@@ -7,7 +7,7 @@ import { shallowWithIntl } from '../../../utils/testUtils';
 import SelectControl from '../../../pages/search/controls/SelectControl';
 import {
   UnconnectedRecurringReservationControls as
-  RecurringReservationControls
+  RecurringReservationControls,
 } from '../RecurringReservationControls';
 
 function getWrapper(props) {

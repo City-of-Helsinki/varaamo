@@ -15,7 +15,7 @@ describe('shared/header/Header', () => {
     return shallow(
       <Header {...defaults}>
         <div id="child-div" />
-      </Header>
+      </Header>,
     );
   }
 

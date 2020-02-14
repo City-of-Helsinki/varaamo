@@ -9,7 +9,7 @@ describe('/shared/resource-card/info/ResourceCardInfoCell', () => {
     className: 'app-ResourceCard__info-cell',
     alt: 'foo',
     icon: 'bar',
-    onClick: () => {}
+    onClick: () => {},
   };
 
   function getWrapper(props) {

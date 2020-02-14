@@ -1,4 +1,3 @@
-import forEach from 'lodash/forEach';
 import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Immutable from 'seamless-immutable';
@@ -10,7 +9,6 @@ import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import ConfirmReservationModal from '../ConfirmReservationModal';
-import ReservationForm from '../ReservationForm';
 
 describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
   const defaultProps = {
@@ -104,7 +102,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
 
         test('renders RecurringReservationControls if user is admin', () => {
           expect(
-            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls)
+            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls),
           ).toHaveLength(1);
         });
 
@@ -112,9 +110,9 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
           'does not render RecurringReservationControls if user is not admin',
           () => {
             expect(
-              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls)
+              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls),
             ).toHaveLength(0);
-          }
+          },
         );
       });
 
@@ -136,7 +134,7 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
             const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
             expect(list).toHaveLength(1);
             expect(list.prop('reservations')).toEqual(defaultProps.selectedReservations);
-          }
+          },
         );
 
         test('does not render RecurringReservationControls', () => {

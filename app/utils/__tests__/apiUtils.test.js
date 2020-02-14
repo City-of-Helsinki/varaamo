@@ -175,7 +175,7 @@ describe('Utils: apiUtils', () => {
             const expected = Object.assign(
               {},
               constants.REQUIRED_API_HEADERS,
-              authorizationHeader
+              authorizationHeader,
             );
 
             expect(creator(state)).toEqual(expected);
@@ -192,7 +192,7 @@ describe('Utils: apiUtils', () => {
               {},
               constants.REQUIRED_API_HEADERS,
               additionalHeaders,
-              authorizationHeader
+              authorizationHeader,
             );
 
             expect(creator(state)).toEqual(expected);

@@ -12,7 +12,7 @@ import Equipment from '../resource-equipment/ResourceEquipment';
 import ResourcePanel from './ResourcePanel';
 
 function ResourceInfo({
-  isLoggedIn, resource, unit, t
+  isLoggedIn, resource, unit, t,
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
 
@@ -29,6 +29,12 @@ function ResourceInfo({
       {resource.specificTerms && (
         <ResourcePanel header={t('ResourcePage.specificTerms')}>
           <p>{resource.specificTerms}</p>
+        </ResourcePanel>
+      )}
+
+      {resource.genericTerms && (
+        <ResourcePanel defaultExpanded={false} header={t('ResourcePage.genericTermsHeader')}>
+          <p>{resource.genericTerms}</p>
         </ResourcePanel>
       )}
 

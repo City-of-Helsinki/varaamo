@@ -12,7 +12,7 @@ const showMapSelector = state => state.ui.resourceMap.showMap;
 const unitSelector = createSelector(
   resourceSelector,
   unitsSelector,
-  (resource, units) => units[resource.unit] || {}
+  (resource, units) => units[resource.unit] || {},
 );
 
 const resourcePageSelector = createStructuredSelector({

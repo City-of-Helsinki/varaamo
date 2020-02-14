@@ -8,7 +8,7 @@ const resourceSelector = createResourceSelector(resourceIdSelector);
 const unitSelector = createSelector(
   unitsSelector,
   resourceSelector,
-  (units, resource) => units[resource.unit] || {}
+  (units, resource) => units[resource.unit] || {},
 );
 
 const ResourceCardSelector = createStructuredSelector({

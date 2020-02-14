@@ -11,7 +11,7 @@ describe('Pagination', () => {
         onChange={() => null}
         page={1}
         pages={10}
-      />
+      />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe('Pagination', () => {
         onChange={onChange}
         page={2}
         pages={10}
-      />
+      />,
     );
 
     wrapper.find('.app-SearchPagination__prev').simulate('click');

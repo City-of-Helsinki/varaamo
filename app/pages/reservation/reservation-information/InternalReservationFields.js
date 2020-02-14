@@ -4,19 +4,20 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import camelCase from 'lodash/camelCase';
 
 import { RESERVATION_TYPE } from '../../../../src/domain/reservation/constants';
 import injectT from '../../../i18n/injectT';
 import FormTypes from '../../../constants/FormTypes';
+import { toCamelCase } from '../../../../src/common/data/utils';
 
 class InternalReservationFields extends Component {
   render() {
     const {
       t,
       commentsMaxLengths,
-      valid
+      valid,
     } = this.props;
+
     return (
       <div className="app-ReservationDetails">
         <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
@@ -89,37 +90,32 @@ class InternalReservationFields extends Component {
 InternalReservationFields.propTypes = {
   t: PropTypes.func.isRequired,
   commentsMaxLengths: PropTypes.number.isRequired,
-  valid: PropTypes.bool.isRequired
-};
-
-const toCamelCase = (obj) => {
-  if (!obj) return {};
-
-  const camelCasedObj = {};
-
-  Object.keys(obj).forEach((key) => {
-    const camelCasedKey = camelCase(key);
-    camelCasedObj[camelCasedKey] = obj[key];
-  });
-
-  return camelCasedObj;
+  valid: PropTypes.bool.isRequired,
 };
 
 // eslint-disable-next-line import/no-mutable-exports
 let ConnectedReservationFields = InternalReservationFields;
 
 ConnectedReservationFields = injectT(reduxForm({
-  form: FormTypes.RESERVATION
+  form: FormTypes.RESERVATION,
 })(ConnectedReservationFields));
 
 ConnectedReservationFields = connect(
-  state => ({
-    initialValues: {
-      staffEvent: true,
-      type: RESERVATION_TYPE.NORMAL,
-      ...toCamelCase(state.ui.reservations.toEdit[0]),
-    }
-  })
+  (state) => {
+    const resource = state.ui.reservations.toEdit.length > 0
+      ? state.ui.reservations.toEdit[0].resource
+      : state.ui.reservations.selected[0].resource;
+
+    return {
+      initialValues: {
+        staffEvent: true,
+        type: RESERVATION_TYPE.NORMAL,
+        reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
+        reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
+        ...toCamelCase(state.ui.reservations.toEdit[0]),
+      },
+    };
+  },
 )(ConnectedReservationFields);
 
 export default ConnectedReservationFields;

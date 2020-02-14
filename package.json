@@ -1,6 +1,6 @@
 {
   "name": "varaamo",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/City-of-Helsinki/varaamo"
@@ -30,6 +30,7 @@
     "dotenv": "7.0.0",
     "dragscroll": "0.0.8",
     "enzyme-to-json": "^3.3.5",
+    "firebase": "^7.5.2",
     "hash-file": "3.0.0",
     "hel-bootstrap-3": "1.0.0-beta.4",
     "hel-icons": "1.0.0-beta.2",
@@ -52,11 +53,13 @@
     "rc-slider": "8.3.1",
     "react": "16.8.4",
     "react-app-polyfill": "^0.2.2",
+    "react-autosize-textarea": "^7.0.0",
     "react-bootstrap": "0.32.3",
     "react-day-picker": "7.3.0",
     "react-device-detect": "^1.6.2",
     "react-dom": "16.8.4",
     "react-helmet": "5.2.1",
+    "react-html-parser": "^2.0.2",
     "react-intl": "2.8.0",
     "react-intl-redux": "2.1.0",
     "react-leaflet": "2.2.1",
@@ -106,6 +109,7 @@
     "eslint-plugin-jest": "^22.3.0",
     "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-react": "7.12.4",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "express": "4.16.4",
     "file-loader": "3.0.1",
     "html-webpack-plugin": "3.2.0",

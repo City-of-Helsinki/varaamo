@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
+import settings from '../../../config/settings';
 
 export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORTED_SEARCH_FILTERS) => {
   const query = new URLSearchParams(location.search);
@@ -91,9 +92,11 @@ export const getClosestPeopleCapacityValue = (value) => {
 export const getMunicipalityOptions = () => {
   let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
 
-  if (Array.isArray(SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS)
-    && SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS.length) {
-    municipalities = SETTINGS.CUSTOM_MUNICIPALITY_OPTIONS;
+  if (
+    Array.isArray(settings.CUSTOM_MUNICIPALITY_OPTIONS)
+    && settings.CUSTOM_MUNICIPALITY_OPTIONS.length
+  ) {
+    municipalities = settings.CUSTOM_MUNICIPALITY_OPTIONS;
   }
 
   return municipalities.map((municipality) => {

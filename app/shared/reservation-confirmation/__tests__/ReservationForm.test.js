@@ -129,8 +129,6 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     });
 
     describe('form fields', () => {
-      const fieldName = 'reserverName';
-
       test('does not render a field if it is not included in props.fields', () => {
         const fields = [];
         const input = getWrapper({ fields }).find(Field);
@@ -162,7 +160,7 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
 
             expect(wrappedText.length).toBe(1);
             expect(wrappedText.prop('text')).toBe(termsAndConditions);
-          }
+          },
         );
 
         test('renders terms and conditions input wrapper', () => {

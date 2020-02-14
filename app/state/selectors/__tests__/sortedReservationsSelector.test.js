@@ -150,7 +150,7 @@ describe('Selector: sortedReservationsSelector', () => {
         const actual = sortedReservationsSelector(state, props);
 
         expect(actual).toEqual([reservations[0]]);
-      }
+      },
     );
 
     test('returns only regular reservations when filter is "regular"', () => {

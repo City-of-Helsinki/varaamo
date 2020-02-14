@@ -7,7 +7,7 @@ import injectT from '../../i18n/injectT';
 
 function PaymentFailed({
   t,
-  resourceId
+  resourceId,
 }) {
   return (
     <div className="app-ReservationFailedPage__contentbox">

@@ -51,7 +51,7 @@ function createTranslatedSelector(toTranslateSelector) {
         return toTranslate.map(item => translateItem(item, language));
       }
       return mapValues(toTranslate, item => translateItem(item, language));
-    }
+    },
   );
 }
 

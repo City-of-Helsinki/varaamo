@@ -25,7 +25,7 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
         const state = getState({ [requestActionType]: 1 });
 
         expect(selector(state)).toBe(true);
-      }
+      },
     );
 
     test(
@@ -35,7 +35,7 @@ describe('Selector factory: requestIsActiveSelectorFactory', () => {
         const state = getState({ [requestActionType]: 0 });
 
         expect(selector(state)).toBe(false);
-      }
+      },
     );
 
     test('returns false if given request is not in activeRequests', () => {

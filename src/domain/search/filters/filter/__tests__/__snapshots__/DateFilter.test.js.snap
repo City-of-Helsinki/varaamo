@@ -4,41 +4,52 @@ exports[`DateFilter render normally 1`] = `
 <div
   className="app-DateFilter"
 >
-  <ControlLabel
-    bsClass="control-label"
-    srOnly={false}
-  >
-    foo
-  </ControlLabel>
   <FormGroup
     bsClass="form-group"
-    onClick={[Function]}
+    controlId="test"
   >
+    <ControlLabel
+      bsClass="control-label"
+      srOnly={false}
+    >
+      foo
+    </ControlLabel>
     <InputGroup
       bsClass="input-group"
     >
-      <InputGroupAddon
-        bsClass="input-group-addon"
-        className="app-DateFilter__title"
+      <FormControl
+        aria-describedby="test-error"
+        bsClass="form-control"
+        className="app-DateFilter__input"
+        componentClass="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value="10.12.2017"
+      />
+      <InputGroupButton
+        bsClass="input-group-btn"
       >
-        <img
-          alt=""
-          className="app-DateFilter__icon"
-          src="test-file-stub"
-        />
-        <span>
-          10.12.2017
-        </span>
-      </InputGroupAddon>
-      <InputGroupAddon
-        bsClass="input-group-addon"
-        className="app-DateFilter__triangle"
-      >
-        <Glyphicon
-          bsClass="glyphicon"
-          glyph="triangle-bottom"
-        />
-      </InputGroupAddon>
+        <Button
+          active={false}
+          aria-hidden="true"
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          className="app-DatePickerControl__button"
+          disabled={false}
+          onClick={[Function]}
+          tabIndex={-1}
+        >
+          <img
+            alt="DatePickerControl.button.imageAlt"
+            className="app-DateFilter__icon"
+            src="test-file-stub"
+          />
+        </Button>
+      </InputGroupButton>
     </InputGroup>
   </FormGroup>
   <Overlay
@@ -46,16 +57,36 @@ exports[`DateFilter render normally 1`] = `
     container={
       UntranslatedDateFilter {
         "context": Object {},
+        "handleDateButtonClick": [Function],
+        "handleInputBlur": [Function],
+        "handleInputChange": [Function],
+        "handleInputKeydown": [Function],
+        "isValidDate": [Function],
         "onChange": [Function],
         "props": Object {
           "date": 2017-12-09T22:00:00.000Z,
           "label": "foo",
           "locale": "en",
+          "name": "test",
           "onChange": [MockFunction],
-          "t": [MockFunction],
+          "t": [MockFunction] {
+            "calls": Array [
+              Array [
+                "DatePickerControl.button.imageAlt",
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": "DatePickerControl.button.imageAlt",
+              },
+            ],
+          },
         },
         "refs": Object {},
         "state": Object {
+          "inputTouched": false,
+          "inputValue": "10.12.2017",
           "isOpen": false,
         },
         "updater": Updater {
@@ -81,8 +112,23 @@ exports[`DateFilter render normally 1`] = `
               date={2017-12-09T22:00:00.000Z}
               label="foo"
               locale="en"
+              name="test"
               onChange={[MockFunction]}
-              t={[MockFunction]}
+              t={
+                [MockFunction] {
+                  "calls": Array [
+                    Array [
+                      "DatePickerControl.button.imageAlt",
+                    ],
+                  ],
+                  "results": Array [
+                    Object {
+                      "type": "return",
+                      "value": "DatePickerControl.button.imageAlt",
+                    },
+                  ],
+                }
+              }
             />,
             "_firstWorkInProgressHook": null,
             "_forcedUpdate": false,
@@ -95,41 +141,52 @@ exports[`DateFilter render normally 1`] = `
             "_rendered": <div
               className="app-DateFilter"
             >
-              <ControlLabel
-                bsClass="control-label"
-                srOnly={false}
-              >
-                foo
-              </ControlLabel>
               <FormGroup
                 bsClass="form-group"
-                onClick={[Function]}
+                controlId="test"
               >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  foo
+                </ControlLabel>
                 <InputGroup
                   bsClass="input-group"
                 >
-                  <InputGroupAddon
-                    bsClass="input-group-addon"
-                    className="app-DateFilter__title"
+                  <FormControl
+                    aria-describedby="test-error"
+                    bsClass="form-control"
+                    className="app-DateFilter__input"
+                    componentClass="input"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    type="text"
+                    value="10.12.2017"
+                  />
+                  <InputGroupButton
+                    bsClass="input-group-btn"
                   >
-                    <img
-                      alt=""
-                      className="app-DateFilter__icon"
-                      src="test-file-stub"
-                    />
-                    <span>
-                      10.12.2017
-                    </span>
-                  </InputGroupAddon>
-                  <InputGroupAddon
-                    bsClass="input-group-addon"
-                    className="app-DateFilter__triangle"
-                  >
-                    <Glyphicon
-                      bsClass="glyphicon"
-                      glyph="triangle-bottom"
-                    />
-                  </InputGroupAddon>
+                    <Button
+                      active={false}
+                      aria-hidden="true"
+                      block={false}
+                      bsClass="btn"
+                      bsStyle="default"
+                      className="app-DatePickerControl__button"
+                      disabled={false}
+                      onClick={[Function]}
+                      tabIndex={-1}
+                    >
+                      <img
+                        alt="DatePickerControl.button.imageAlt"
+                        className="app-DateFilter__icon"
+                        src="test-file-stub"
+                      />
+                    </Button>
+                  </InputGroupButton>
                 </InputGroup>
               </FormGroup>
               <Overlay

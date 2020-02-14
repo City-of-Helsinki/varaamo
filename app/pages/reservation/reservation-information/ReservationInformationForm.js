@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
+import { connect } from 'react-redux';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -14,6 +15,7 @@ import injectT from '../../../i18n/injectT';
 import { hasProducts } from '../../../utils/resourceUtils';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
+import { toCamelCase } from '../../../../src/common/data/utils';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -27,7 +29,7 @@ const validators = {
       return t('ReservationForm.emailError');
     }
     return null;
-  }
+  },
 };
 
 const maxLengths = {
@@ -47,7 +49,7 @@ const maxLengths = {
   reserverId: 30,
   reserverName: 100,
   reserverPhoneNumber: 30,
-  comments: 1500
+  comments: 1500,
 };
 
 function isTermsAndConditionsField(field) {
@@ -231,6 +233,14 @@ class UnconnectedReservationInformationForm extends Component {
           <p>
             {this.getAsteriskExplanation()}
           </p>
+          {includes(fields, 'reservationExtraQuestions')
+          && this.renderField(
+            'reservationExtraQuestions',
+            'textarea',
+            t('common.reservationExtraQuestions'),
+            { rows: 5 },
+          )
+          }
           { includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
@@ -342,13 +352,13 @@ class UnconnectedReservationInformationForm extends Component {
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 }
+            { rows: 5 },
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' }
+            { min: '0' },
           )}
           {termsAndConditions
           && (
@@ -423,8 +433,41 @@ UnconnectedReservationInformationForm.propTypes = {
 UnconnectedReservationInformationForm = injectT(UnconnectedReservationInformationForm);  // eslint-disable-line
 
 export { UnconnectedReservationInformationForm };
-export default injectT(reduxForm({
+
+// eslint-disable-next-line import/no-mutable-exports
+let ConnectedReservationInformationForm = UnconnectedReservationInformationForm;
+
+ConnectedReservationInformationForm = injectT(reduxForm({
   form: FormTypes.RESERVATION,
-  initialValues: { internalReservation: true },
-  validate
-})(UnconnectedReservationInformationForm));
+})(ConnectedReservationInformationForm));
+
+ConnectedReservationInformationForm = connect(
+  (state) => {
+    const resource = state.ui.reservations.toEdit.length > 0
+      ? state.ui.reservations.toEdit[0].resource
+      : state.ui.reservations.selected[0].resource;
+
+    return {
+      initialValues: {
+        internalReservation: true,
+        reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
+        reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
+        ...toCamelCase(state.ui.reservations.toEdit[0]),
+      },
+      onChange: (obj) => {
+        /**
+         * We separate creating new reservation and editing existing reservation with !obj.resource check.
+         * If we clear reservationExtraQuestions in the first place default reservationExtraQuestions is returned.
+         * We can override default value when editing existing reservation.
+         */
+        if (obj.reservationExtraQuestions === '' && !obj.resource) {
+          // eslint-disable-next-line no-param-reassign
+          obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
+        }
+      },
+      validate,
+    };
+  },
+)(ConnectedReservationInformationForm);
+
+export default ConnectedReservationInformationForm;

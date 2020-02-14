@@ -26,7 +26,7 @@ class ReservationTime extends Component {
     unit: PropTypes.object.isRequired,
     addNotification: PropTypes.func.isRequired,
     isStaff: PropTypes.bool.isRequired,
-    date: PropTypes.string.isRequired
+    date: PropTypes.string.isRequired,
   };
 
   handleDateChange = (newDate) => {
@@ -46,7 +46,7 @@ class ReservationTime extends Component {
       unit,
       isStaff,
       addNotification,
-      date
+      date,
     } = this.props;
 
     const shownDate = moment(selectedReservation.begin).isSame(date, 'day')
@@ -55,7 +55,7 @@ class ReservationTime extends Component {
     const decamelizedResource = decamelizeKeys(resource);
     const reservations = get(decamelizedResource, 'reservations', []);
     const filteredReservations = filter(
-      reservations, res => (selectedReservation && res.id !== selectedReservation.id)
+      reservations, res => (selectedReservation && res.id !== selectedReservation.id),
     );
     const resourceToEdit = { ...decamelizedResource, reservations: filteredReservations };
 

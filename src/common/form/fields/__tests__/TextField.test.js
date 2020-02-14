@@ -14,7 +14,7 @@ describe('ButtonGroupField', () => {
     };
 
     const wrapper = shallowWithIntl(
-      <TextField {...props} />
+      <TextField {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -41,8 +41,8 @@ function getState(resources = [], units = [], user = defaultUser) {
       },
     }),
     recurringReservations: {
-      reservations: []
-    }
+      reservations: [],
+    },
   };
 }
 

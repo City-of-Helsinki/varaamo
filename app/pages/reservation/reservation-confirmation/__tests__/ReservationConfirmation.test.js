@@ -16,7 +16,7 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
     failedReservations: [],
     isEdited: false,
     location: {
-      search: ''
+      search: '',
     },
     reservation: Immutable(Reservation.build({ user: User.build() })),
     resource: Immutable(Resource.build()),

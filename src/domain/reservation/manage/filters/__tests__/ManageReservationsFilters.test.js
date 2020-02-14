@@ -14,7 +14,7 @@ describe('ManageReservationsFilters', () => {
       onShowOnlyFiltersChange: jest.fn(),
     };
     const wrapper = shallowWithIntl(
-      <UnwrappedManageReservationsFilters {...props} />
+      <UnwrappedManageReservationsFilters {...props} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

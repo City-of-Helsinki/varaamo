@@ -21,13 +21,13 @@ describe('common/data/utils.js', () => {
     const data = {
       foo: 'Foo Bar',
       bar: '',
-      foobar: 0
+      foobar: 0,
     };
 
     test('All empty and 0 value will be trimmed', () => {
       const actual = dataUtils.parseData(data);
       expect(actual).toMatchObject({
-        foo: 'Foo Bar'
+        foo: 'Foo Bar',
       });
     });
 

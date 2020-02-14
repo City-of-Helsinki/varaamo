@@ -44,19 +44,19 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       id: 1,
       name: { fi: 'Tatooine' },
       type: { name: 'school' },
-      unitName: 'Tatooine'
+      unitName: 'Tatooine',
     };
     const resource2 = {
       id: 2,
       name: { fi: 'Dantooine' },
       type: { name: 'library' },
-      unitName: 'Dantooine'
+      unitName: 'Dantooine',
     };
     const resource3 = {
       id: 3,
       name: { fi: 'Alderaan' },
       type: { name: 'printer' },
-      unitName: 'Alderaan'
+      unitName: 'Alderaan',
     };
     const extraState = {
       'data.resources': {
@@ -107,6 +107,6 @@ describe('pages/admin-resources/adminResourcesPageSelector', () => {
       const selected = getSelected(extraState);
       expect(selected.selectedResourceTypes).toEqual(['school']);
       expect(selected.resources).toEqual([1]);
-    }
+    },
   );
 });

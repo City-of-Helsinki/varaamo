@@ -24,7 +24,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
 
   componentDidMount() {
     const {
-      resource
+      resource,
     } = this.props;
 
     hasProducts(resource)
@@ -172,5 +172,5 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedReservationCancelModalContainer };
 export default connect(reservationCancelModalSelector, mapDispatchToProps)(
-  UnconnectedReservationCancelModalContainer
+  UnconnectedReservationCancelModalContainer,
 );

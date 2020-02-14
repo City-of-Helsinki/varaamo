@@ -25,7 +25,7 @@ const ManageReservationsList = ({
   reservations = [],
   onInfoClick,
   onEditClick,
-  onEditReservation
+  onEditReservation,
 }) => {
   return (
     <div className="app-ManageReservationsList">
@@ -58,7 +58,7 @@ const ManageReservationsList = ({
                 <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), locale) || '-'}</td>
                 <td>
                   {dataUtils.getLocalizedFieldValue(
-                    get(reservation, 'resource.unit.name'), locale
+                    get(reservation, 'resource.unit.name'), locale,
                   ) || '-'}
                 </td>
                 <td>{getDateAndTime(reservation)}</td>
@@ -92,7 +92,7 @@ ManageReservationsList.propTypes = {
   onInfoClick: PropTypes.func,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
-  locale: PropTypes.string.isRequired
+  locale: PropTypes.string.isRequired,
 };
 
 export const UnwrappedManageReservationsList = injectT(ManageReservationsList);

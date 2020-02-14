@@ -31,7 +31,7 @@ class ConfirmReservationModal extends Component {
     selectedReservations: PropTypes.array.isRequired,
     show: PropTypes.bool.isRequired,
     showTimeControls: PropTypes.bool,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
   };
 
   onConfirm = (values) => {
@@ -109,7 +109,7 @@ class ConfirmReservationModal extends Component {
 
   getRequiredFormFields(resource, termsAndConditions) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field)
+      field => camelCase(field),
     )];
 
     if (termsAndConditions) {
@@ -185,7 +185,7 @@ class ConfirmReservationModal extends Component {
       showTimeControls,
       t,
       isStaff,
-      selectedReservations
+      selectedReservations,
     } = this.props;
 
     return (

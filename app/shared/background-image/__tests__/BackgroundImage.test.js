@@ -10,7 +10,7 @@ describe('shared/background-image/BackgroundImage', () => {
 
   function getWrapper(extraProps) {
     return shallow(
-      <BackgroundImage {...defaultProps} {...extraProps} />
+      <BackgroundImage {...defaultProps} {...extraProps} />,
     );
   }
 
@@ -37,7 +37,7 @@ describe('shared/background-image/BackgroundImage', () => {
         const div = getWrapper().find('.image-container');
         const expected = 'url(some/image.jpg)';
         expect(div.prop('style').backgroundImage).toBe(expected);
-      }
+      },
     );
 
     test(
@@ -46,7 +46,7 @@ describe('shared/background-image/BackgroundImage', () => {
         const div = getWrapper({ height: 400, width: 600 }).find('.image-container');
         const expected = 'url(some/image.jpg?dim=600x400)';
         expect(div.prop('style').backgroundImage).toBe(expected);
-      }
+      },
     );
   });
 });

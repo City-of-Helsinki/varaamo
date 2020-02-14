@@ -30,7 +30,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return default end if end time argument already fulfill the min_period', () => {
       const minPeriod = calendarUtils.getMinPeriodTimeRange(
-        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end
+        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end,
       );
 
       expect(minPeriod).toEqual(selectionLargerThanMinPeriod);
@@ -38,7 +38,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return new end time fulfill min_period if selected end time is smaller than that', () => {
       const minPeriod = calendarUtils.getMinPeriodTimeRange(
-        resourceWithMinPeriod, selection.start, selection.end
+        resourceWithMinPeriod, selection.start, selection.end,
       );
 
       expect(minPeriod).toEqual(selectionMinPeriodExpect);
@@ -54,7 +54,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return default selected if end time argument already smaller than the max_period', () => {
       const maxPeriod = calendarUtils.getMaxPeriodTimeRange(
-        resourceWithMaxPeriod, selectionSmallerThanMaxPeriod.start, selectionSmallerThanMaxPeriod.end
+        resourceWithMaxPeriod, selectionSmallerThanMaxPeriod.start, selectionSmallerThanMaxPeriod.end,
       );
 
       expect(maxPeriod).toEqual(selectionSmallerThanMaxPeriod);
@@ -62,7 +62,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return new end time fulfill max_period if selected end time is bigger than that', () => {
       const maxPeriod = calendarUtils.getMaxPeriodTimeRange(
-        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z')
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'),
       );
 
       expect(maxPeriod).toEqual(selectionMaxPeriodExpect);
@@ -70,7 +70,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return default even when its bigger than max_period when user is staff', () => {
       const maxPeriod = calendarUtils.getMaxPeriodTimeRange(
-        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true,
       );
 
       expect(maxPeriod.end).toEqual(new Date('2019-08-16T04:30:00Z'));
@@ -86,7 +86,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return false if end time already >= min_period', () => {
       const isUnder = calendarUtils.isTimeRangeUnderMinPeriod(
-        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end
+        resourceWithMinPeriod, selectionLargerThanMinPeriod.start, selectionLargerThanMinPeriod.end,
       );
 
       expect(isUnder).toBeFalsy();
@@ -94,7 +94,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return true if end time < min_period', () => {
       const isUnder = calendarUtils.isTimeRangeUnderMinPeriod(
-        resourceWithMinPeriod, selection.start, selection.end
+        resourceWithMinPeriod, selection.start, selection.end,
       );
 
       expect(isUnder).toBeTruthy();
@@ -110,7 +110,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return false if end time already <= max_period', () => {
       const isOver = calendarUtils.isTimeRangeOverMaxPeriod(
-        resourceWithMaxPeriod, selectionSmallerThanMaxPeriod.start, selectionSmallerThanMaxPeriod.end
+        resourceWithMaxPeriod, selectionSmallerThanMaxPeriod.start, selectionSmallerThanMaxPeriod.end,
       );
 
       expect(isOver).toBeFalsy();
@@ -118,7 +118,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return true if end time > max_period', () => {
       const isOver = calendarUtils.isTimeRangeOverMaxPeriod(
-        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z')
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'),
       );
 
       expect(isOver).toBeTruthy();
@@ -126,7 +126,7 @@ describe('TimePickerCalendar utils ', () => {
 
     test('should return false if end time > max_period, user is staff', () => {
       const isOver = calendarUtils.isTimeRangeOverMaxPeriod(
-        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true
+        resourceWithMaxPeriod, selection.start, new Date('2019-08-16T04:30:00Z'), true,
       );
 
       expect(isOver).toBeFalsy();

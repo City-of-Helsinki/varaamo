@@ -77,7 +77,7 @@ describe('pages/reservation/ReservationPage', () => {
 
         expect(pageWrapper).toHaveLength(1);
         expect(pageWrapper.prop('title')).toBe('ReservationPage.newReservationTitle');
-      }
+      },
     );
 
     test('renders edit reservation title when reservationToEdit not empty', () => {
@@ -186,7 +186,7 @@ describe('pages/reservation/ReservationPage', () => {
       () => {
         const reservationInformation = getWrapper().find(ReservationInformation);
         expect(reservationInformation).toHaveLength(1);
-      }
+      },
     );
 
     test(
@@ -196,7 +196,7 @@ describe('pages/reservation/ReservationPage', () => {
           reservationToEdit: Reservation.build(),
         }).find(ReservationInformation);
         expect(reservationInformation).toHaveLength(0);
-      }
+      },
     );
   });
 
@@ -308,7 +308,7 @@ describe('pages/reservation/ReservationPage', () => {
         };
         instance.componentWillUpdate(nextProps);
         expect(instance.state.view).toBe('confirmation');
-      }
+      },
     );
 
     test(
@@ -320,7 +320,7 @@ describe('pages/reservation/ReservationPage', () => {
         };
         instance.componentWillUpdate(nextProps);
         expect(instance.state.view).toBe('confirmation');
-      }
+      },
     );
   });
   describe('componentWillUnmount', () => {
@@ -406,7 +406,7 @@ describe('pages/reservation/ReservationPage', () => {
 
         expect(historyMock.callCount).toBe(1);
         expect(historyMock.lastCall.args).toEqual([expectedPath]);
-      }
+      },
     );
 
     test(
@@ -421,7 +421,7 @@ describe('pages/reservation/ReservationPage', () => {
 
         expect(historyMock.callCount).toBe(1);
         expect(historyMock.lastCall.args).toEqual([expectedPath]);
-      }
+      },
     );
   });
 

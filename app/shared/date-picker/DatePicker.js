@@ -15,7 +15,7 @@ const defaultDateFormat = 'YYYY-MM-DD';
 const localizedDateFormat = 'D.M.YYYY';
 
 export function UnconnectedDatePicker({
-  dateFormat, onChange, currentLocale, value, rest
+  dateFormat, onChange, currentLocale, value, rest,
 }) {
   const pickerDateFormat = dateFormat || localizedDateFormat;
 
@@ -28,7 +28,7 @@ export function UnconnectedDatePicker({
       dayPickerProps={{
         showOutsideDays: true,
         localeUtils: MomentLocaleUtils,
-        locale: currentLocale
+        locale: currentLocale,
       }}
       format={pickerDateFormat}
       formatDate={formatDate}
@@ -46,15 +46,15 @@ UnconnectedDatePicker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   currentLocale: PropTypes.string,
-  rest: PropTypes.object
+  rest: PropTypes.object,
 };
 
 UnconnectedDatePicker.defaultProps = {
-  currentLocale: AppConstants.DEFAULT_LOCALE
+  currentLocale: AppConstants.DEFAULT_LOCALE,
 };
 
 const languageSelector = createStructuredSelector({
-  currentLocale: currentLanguageSelector
+  currentLocale: currentLanguageSelector,
 });
 
 export default connect(languageSelector)(UnconnectedDatePicker);

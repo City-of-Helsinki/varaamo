@@ -159,7 +159,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           'renders reservation user email when reserverEmailAddress is empty',
           () => {
             expect(getData({ reservation: userReservation })).toContain(user.email);
-          }
+          },
         );
       });
     });

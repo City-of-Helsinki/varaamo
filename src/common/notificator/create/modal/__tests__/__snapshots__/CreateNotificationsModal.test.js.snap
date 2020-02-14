@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNotificationsModal Renders correcly 1`] = `
+<Fragment>
+  <Modal
+    animation={true}
+    autoFocus={true}
+    backdrop={true}
+    bsClass="modal"
+    className="app-CreateNotificationModal"
+    dialogComponentClass={[Function]}
+    enforceFocus={true}
+    keyboard={true}
+    manager={
+      ModalManager {
+        "add": [Function],
+        "containers": Array [],
+        "data": Array [],
+        "handleContainerOverflow": true,
+        "hideSiblingNodes": true,
+        "isTopModal": [Function],
+        "modals": Array [],
+        "remove": [Function],
+      }
+    }
+    onHide={[Function]}
+    renderBackdrop={[Function]}
+    restoreFocus={true}
+    show={false}
+  >
+    <ModalHeader
+      bsClass="modal-header"
+      closeButton={false}
+      closeLabel="Close"
+    >
+      <ModalTitle
+        bsClass="modal-title"
+        componentClass="h4"
+      >
+        Edit notification
+      </ModalTitle>
+    </ModalHeader>
+    <ModalBody
+      bsClass="modal-body"
+      componentClass="div"
+    >
+      <div
+        className="modal-container"
+      >
+        <CreateNotificationsForm
+          addElement={[Function]}
+          addNew={[Function]}
+          isEditing={true}
+          newNotification={Object {}}
+          onFieldChange={[Function]}
+        />
+      </div>
+    </ModalBody>
+    <ModalFooter
+      bsClass="modal-footer"
+      className="modal-footer"
+      componentClass="div"
+    >
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Delete
+      </button>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Close
+      </button>
+      <button
+        onClick={[Function]}
+        type="button"
+      >
+        Save
+      </button>
+    </ModalFooter>
+  </Modal>
+  <DeleteConfirmationDialog
+    deleteConfirm={[Function]}
+    isOpen={false}
+    onHide={[Function]}
+  />
+</Fragment>
+`;

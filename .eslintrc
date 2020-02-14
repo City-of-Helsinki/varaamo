@@ -7,13 +7,9 @@
     "jest": true
   },
 
-  "globals": {
-    "SETTINGS": true
-  },
-
   "parser": "babel-eslint",
 
-  "plugins": ["import", "react"],
+  "plugins": ["import", "react", "react-hooks"],
 
   "settings": {
     "import/resolver": {
@@ -69,6 +65,10 @@
 
     "react/prefer-stateless-function": "off",
 
+    "react-hooks/rules-of-hooks": "error",
+
+    "react-hooks/exhaustive-deps": "warn",
+
     "linebreak-style": 0,
 
     "no-restricted-globals": ["error", "history"],
@@ -90,8 +90,6 @@
     "jsx-a11y/no-noninteractive-tabindex": "off",
     
     "react/no-array-index-key": "off",
-
-    "comma-dangle": "off",
 
     "max-len": ["warn", { "code":  120}],
 

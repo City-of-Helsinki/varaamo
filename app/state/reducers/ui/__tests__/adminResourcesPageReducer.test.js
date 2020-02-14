@@ -51,7 +51,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         });
         const state = adminResourcesPageReducer(
           initialState,
-          selectAdminResourceType(resourceType)
+          selectAdminResourceType(resourceType),
         );
         expect(state.selectedResourceTypes).toEqual([resourceType]);
       });
@@ -66,7 +66,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
         });
         const state = adminResourcesPageReducer(
           initialState,
-          unselectAdminResourceType(removedResourceType)
+          unselectAdminResourceType(removedResourceType),
         );
         expect(state.selectedResourceTypes).toEqual([resourceType]);
       });
@@ -76,7 +76,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
       const getResourceSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,
         payload => payload,
-        (payload, meta) => meta
+        (payload, meta) => meta,
       );
       const resourcesList = [
         Resource.build(),
@@ -97,7 +97,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             {
               entities: { resources },
             },
-            { source: 'adminResourcesPage' }
+            { source: 'adminResourcesPage' },
           );
         });
 
@@ -145,7 +145,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
             const nextState = adminResourcesPageReducer(initialState, action);
 
             expect(nextState.resourceIds).toEqual([]);
-          }
+          },
         );
       });
 
@@ -164,7 +164,7 @@ describe('state/reducers/ui/adminResourcesPageReducer', () => {
                 },
               },
             },
-            { source: 'adminResourcesPage' }
+            { source: 'adminResourcesPage' },
           );
         });
 

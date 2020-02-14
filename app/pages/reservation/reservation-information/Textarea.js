@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
+import TextareaAutosize from 'react-autosize-textarea';
 
 import Error from './Error';
 import injectT from '../../../i18n/injectT';
@@ -15,7 +16,11 @@ function Textarea({
     <div className="app-ReservationPage__formfield">
       <label>
         {label}
-        <textarea {...input} />
+        {input.name === 'reservationExtraQuestions' ? (
+          <TextareaAutosize {...input} onResize={() => {}} />
+        ) : (
+          <textarea {...input} />
+        )}
       </label>
       {touched && error && <Error error={t(error)} />}
     </div>

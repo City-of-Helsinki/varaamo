@@ -5,7 +5,7 @@ import Checkbox from './Checkbox';
 import FormControl from './FormControl';
 
 function ReduxFormField({
-  controlProps = {}, help, info, input, label, meta, type
+  controlProps = {}, help, info, input, label, meta, type,
 }) {
   const showError = meta.error && meta.touched;
   const props = {

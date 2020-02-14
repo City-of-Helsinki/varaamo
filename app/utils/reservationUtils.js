@@ -40,7 +40,7 @@ function isStaffEvent(reservation, resource) {
 function getCurrentReservation(reservations) {
   const now = moment();
   return find(
-    reservations, reservation => moment(reservation.begin) < now && now < moment(reservation.end)
+    reservations, reservation => moment(reservation.begin) < now && now < moment(reservation.end),
   );
 }
 
@@ -73,7 +73,7 @@ function getNextReservation(reservations) {
 
 function getEditReservationUrl(reservation) {
   const {
-    begin, end, id, resource
+    begin, end, id, resource,
   } = reservation;
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNotificationList Renders correctly 1`] = `
+<div
+  className="notification-list"
+>
+  <h4>
+    Notifications list
+  </h4>
+  <Table
+    bordered={false}
+    bsClass="table"
+    condensed={false}
+    hover={false}
+    responsive={false}
+    striped={false}
+  >
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Created
+        </th>
+        <th>
+          Until
+        </th>
+        <th>
+          Target
+        </th>
+        <th>
+          Urgency
+        </th>
+        <th>
+          Active
+        </th>
+      </tr>
+    </thead>
+    <tbody />
+  </Table>
+</div>
+`;

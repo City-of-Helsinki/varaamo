@@ -8,7 +8,7 @@ const reservationsLoadingSelector = state => state.api.activeRequests.RESERVATIO
 const userReservationsPageSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
   resourcesLoaded: resourcesLoadedSelector,
-  reservationsLoading: reservationsLoadingSelector
+  reservationsLoading: reservationsLoadingSelector,
 });
 
 export default userReservationsPageSelector;

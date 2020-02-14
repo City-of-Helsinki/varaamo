@@ -53,7 +53,7 @@ describe('shared/top-navbar/TopNavbarContainer', () => {
           const user = { emails: [{ value: 'luke@skywalker.com' }] };
           const selected = selector(getState(null, user));
           expect(selected.userName).toBe('luke@skywalker.com');
-        }
+        },
       );
     });
   });

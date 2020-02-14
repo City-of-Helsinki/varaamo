@@ -62,7 +62,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
       () => {
         const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
         expect(resourceCard.prop('stacked')).toBe(false);
-      }
+      },
     );
 
     test('renders left arrow if resourcePosition state is not 0', () => {
@@ -115,7 +115,7 @@ describe('shared/resource-list/ResourceCompactList', () => {
         wrapper.update();
         const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
         expect(rightArrow.length).toBe(1);
-      }
+      },
     );
 
     test('right arrow has correct onClick prop', () => {

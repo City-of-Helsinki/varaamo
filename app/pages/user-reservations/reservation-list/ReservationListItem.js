@@ -25,7 +25,7 @@ class ReservationListItem extends Component {
 
   render() {
     const {
-      isAdmin, isStaff, reservation, resource, t, unit
+      isAdmin, isStaff, reservation, resource, t, unit,
     } = this.props;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
@@ -34,7 +34,7 @@ class ReservationListItem extends Component {
     const vat = getTaxPercentage(resource);
     const tVariables = {
       price,
-      vat
+      vat,
     };
 
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
