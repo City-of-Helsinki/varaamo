@@ -20,6 +20,8 @@ exports[`SearchMapToggle renders correctly 1`] = `
       >
         <div
           className="app-SearchMapToggle__results-count"
+          data-testid="result-count"
+          role="status"
         >
           MapToggle.resultsText
         </div>

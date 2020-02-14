@@ -34,7 +34,7 @@ function SearchMapToggle({
       <Grid>
         <Row>
           <Col sm={6}>
-            <div className="app-SearchMapToggle__results-count">
+            <div className="app-SearchMapToggle__results-count" data-testid="result-count" role="status">
               {resultCount ? t('MapToggle.resultsText', { count: resultCount }) : t('MapToggle.noResultsText')}
             </div>
           </Col>
