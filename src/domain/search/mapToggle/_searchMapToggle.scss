@@ -9,31 +9,29 @@
     padding-top: 8px;
   }
 
-  button {
+  &__button {
     background-color: $hel-copper;
     border-color: $hel-copper;
     color: $black;
+
+    &:hover,
+    &:active {
+      background-color: darken($hel-copper, 5);
+      border-color: darken($hel-copper, 5);
+      box-shadow: none;
+    }
   }
 
-  button:hover,
-  button:active {
-    background-color: darken($hel-copper, 5);
-    border-color: darken($hel-copper, 5);
-    box-shadow: none;
-  }
-
-  .btn.disabled,
-  .btn[disabled] {
+  &__button--selected.btn {
     background-color: $hel-silver;
     border-color: $hel-silver;
     opacity: 1;
     cursor: default;
-  }
 
-  .btn.disabled:hover,
-  .btn[disabled]:hover,
-  .btn.disabled:active,
-  .btn[disabled]:active {
-    border-color: $hel-silver;
+    &:hover,
+    &:active {
+      background-color: $hel-silver;
+      border-color: $hel-silver;  
+    }
   }
 }
