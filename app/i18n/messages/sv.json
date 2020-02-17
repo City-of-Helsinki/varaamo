@@ -346,6 +346,7 @@
   "SearchSort.typeLabel": "Typ",
   "SearchSort.premiseLabel": "Lokal",
   "SearchSort.peopleLabel": "Antal personer",
+  "SearchSort.sortingStyle": "Sökresultaten är sorterade enligt ",
   "TestSiteMessage.text": "Detta är Varaamo testversion",
   "TimeRangeControl.timeRangeTitle": "Tidsurval och minsta reserveringstid",
   "TimeRangeControl.title": "{date} kl. {start}-{end} {hours}h bokning",

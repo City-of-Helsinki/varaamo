@@ -70,7 +70,7 @@ class SearchListResults extends React.Component {
             <Col md={4} mdOffset={8} sm={6}>
               <SearchSort
                 onChange={sort => this.onSortChange(sort)}
-                value={get(filters, 'order_by', '')}
+                value={get(filters, 'orderBy', '')}
               />
             </Col>
           </Row>
