@@ -16,6 +16,7 @@ import WrappedText from '../wrapped-text/WrappedText';
 import ReduxFormField from '../form-fields/ReduxFormField';
 import injectT from '../../i18n/injectT';
 import TimeControls from './TimeControls';
+import { INPUT_PURPOSES } from '../../../src/constants/InputPurposes';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -181,16 +182,19 @@ class UnconnectedReservationForm extends Component {
                 'reserverAddressStreet',
                 'text',
                 t('common.addressStreetLabel'),
+                { name: 'street-address', autoComplete: INPUT_PURPOSES.STREET_ADDRESS },
               )}
               {this.renderField(
                 'reserverAddressZip',
                 'text',
                 t('common.addressZipLabel'),
+                { name: 'zip', autoComplete: INPUT_PURPOSES.POSTAL_CODE },
               )}
               {this.renderField(
                 'reserverAddressCity',
                 'text',
                 t('common.addressCityLabel'),
+                { name: 'city', autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2 },
               )}
             </Well>
           )}
@@ -201,16 +205,19 @@ class UnconnectedReservationForm extends Component {
                 'billingAddressStreet',
                 'text',
                 t('common.addressStreetLabel'),
+                { name: 'billing-street-address', autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(' ') },
               )}
               {this.renderField(
                 'billingAddressZip',
                 'text',
                 t('common.addressZipLabel'),
+                { name: 'billing-zip', autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(' ') },
               )}
               {this.renderField(
                 'billingAddressCity',
                 'text',
                 t('common.addressCityLabel'),
+                { name: 'billing-city', autoComplete: ['billing', INPUT_PURPOSES.ADDRESS_LEVEL_2].join(' ') },
               )}
             </Well>
           )}
