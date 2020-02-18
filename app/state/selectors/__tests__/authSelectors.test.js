@@ -1,9 +1,11 @@
 import User from '../../../utils/fixtures/User';
+import Resource from '../../../utils/fixtures/Resource';
 import { getState } from '../../../utils/testUtils';
 import {
   currentUserSelector,
   isAdminSelector,
   isLoggedInSelector,
+  createIsStaffSelector,
 } from '../authSelectors';
 
 describe('state/selectors/authSelectors', () => {
@@ -80,6 +82,26 @@ describe('state/selectors/authSelectors', () => {
 
     test('returns true if both token and userId are defined', () => {
       expect(getSelected({ token: 'mock-token', userId: 'u-1' })).toBe(true);
+    });
+  });
+
+  describe('createIsStaffSelector', () => {
+    const getMockResource = overrides => ({
+      ...Resource.build(),
+      ...overrides,
+    });
+    const mockResourceSelector = overrides => () => getMockResource(overrides);
+
+    test('returns true when the user has unit admin permission for resource', () => {
+      const selector = createIsStaffSelector(mockResourceSelector({ userPermissions: { isAdmin: true } }));
+
+      expect(selector()).toEqual(true);
+    });
+
+    test('returns true when the user has unit manager permission for resource', () => {
+      const selector = createIsStaffSelector(mockResourceSelector({ userPermissions: { isManager: true } }));
+
+      expect(selector()).toEqual(true);
     });
   });
 });
