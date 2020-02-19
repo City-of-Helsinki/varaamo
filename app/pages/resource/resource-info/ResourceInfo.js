@@ -28,13 +28,13 @@ function ResourceInfo({
 
       {resource.specificTerms && (
         <ResourcePanel header={t('ResourcePage.specificTerms')}>
-          <p>{resource.specificTerms}</p>
+          <WrappedText text={resource.specificTerms} />
         </ResourcePanel>
       )}
 
       {resource.genericTerms && (
         <ResourcePanel defaultExpanded={false} header={t('ResourcePage.genericTermsHeader')}>
-          <p>{resource.genericTerms}</p>
+          <WrappedText text={resource.genericTerms} />
         </ResourcePanel>
       )}
 

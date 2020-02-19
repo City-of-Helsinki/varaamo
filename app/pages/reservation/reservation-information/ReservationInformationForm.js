@@ -385,7 +385,7 @@ class UnconnectedReservationInformationForm extends Component {
           {resource.specificTerms && (
             <div>
               <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
-              <p className="specificTermsContent">{resource.specificTerms}</p>
+              <WrappedText className="specificTermsContent" text={resource.specificTerms} />
             </div>
           )}
           <div>
