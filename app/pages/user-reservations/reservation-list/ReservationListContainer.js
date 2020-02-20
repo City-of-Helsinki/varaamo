@@ -19,19 +19,16 @@ class UnconnectedReservationListContainer extends Component {
   renderReservationListItem(reservation) {
     const {
       isAdmin,
-      units,
     } = this.props;
     const staffUnits = [];
-    const resourceUnit = reservation.resource.unit;
-    const unit = resourceUnit ? get(units, resourceUnit.id, {}) : {};
+    const unitId = get(reservation, 'resource.unit.id', null);
 
     return (
       <ReservationListItem
         isAdmin={isAdmin}
-        isStaff={includes(staffUnits, unit.id)}
+        isStaff={includes(staffUnits, unitId)}
         key={reservation.url}
         reservation={reservation}
-        unit={unit}
       />
     );
   }
@@ -74,7 +71,6 @@ UnconnectedReservationListContainer.propTypes = {
   loading: PropTypes.bool.isRequired,
   reservations: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  units: PropTypes.object.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   pages: PropTypes.number.isRequired,

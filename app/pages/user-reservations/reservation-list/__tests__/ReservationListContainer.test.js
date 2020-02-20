@@ -31,7 +31,6 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       loading: false,
       reservations: [],
       staffUnits: [],
-      units: {},
       onPageChange: () => {},
       page: 0,
       pages: 0,
@@ -48,9 +47,6 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
         makeReservation({ resource }),
         makeReservation({ resource: 'unfetched-resource' }),
       ]),
-      units: Immutable({
-        [unit.id]: unit,
-      }),
     };
 
     function getWithReservationsWrapper() {
@@ -75,8 +71,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
           expect(actualProps.isAdmin).toBe(props.isAdmin);
           expect(actualProps.isStaff).toBe(false);
           expect(reservationListItems.at(0).prop('reservation')).toEqual(props.reservations[0]);
-          expect(reservationListItems.at(0).prop('unit')).toEqual(unit);
-          expect(reservationListItems.at(1).prop('unit')).toEqual({});
+          expect(reservationListItems.at(1).prop('reservation')).toEqual(props.reservations[1]);
         });
       });
     });

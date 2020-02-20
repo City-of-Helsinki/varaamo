@@ -48,14 +48,12 @@ class UnconnectedUserReservationsPage extends Component {
         ...this.initialModelState,
         count: 0,
       },
-      unit: this.initialModelState,
       tab: TABS.UPCOMING,
     };
   }
 
   componentDidMount() {
     this.loadUpcomingReservations();
-    this.loadModel('unit', { page_size: 500, unit_has_resource: true });
   }
 
   get initialModelState() {
@@ -64,10 +62,10 @@ class UnconnectedUserReservationsPage extends Component {
 
   get isLoading() {
     const {
-      upcomingReservation, pastReservation, unit,
+      upcomingReservation, pastReservation,
     } = this.state;
 
-    return upcomingReservation.loading || pastReservation.loading || unit.loading;
+    return upcomingReservation.loading || pastReservation.loading;
   }
 
   get filters() {
@@ -254,7 +252,6 @@ class UnconnectedUserReservationsPage extends Component {
       t,
     } = this.props;
 
-    const unitsAsObject = this.getModelDataAsObject('unit');
     const upcomingReservationLoading = this.state.upcomingReservation.loading;
     const upcomingReservationCount = this.state.upcomingReservation.count;
 
@@ -303,7 +300,6 @@ class UnconnectedUserReservationsPage extends Component {
                 page={this.page}
                 pages={this.pages}
                 reservations={this.reservations}
-                units={unitsAsObject}
               />
             </Loader>
           </div>

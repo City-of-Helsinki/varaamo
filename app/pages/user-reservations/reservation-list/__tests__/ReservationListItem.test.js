@@ -47,7 +47,9 @@ const makeImage = (...args) => snakeCaseKeys(injectTranslations(Image.build(...a
 const makeUnit = (...args) => snakeCaseKeys(injectTranslations(Unit.build(...args), ['name']));
 
 describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
+  const unit = Immutable(makeUnit());
   const resource = Immutable(makeResource({
+    unit,
     images: [makeImage()],
     type: { name: 'test_type' },
   }));
@@ -55,7 +57,6 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     isAdmin: false,
     isStaff: false,
     reservation: Immutable(makeReservation({ resource })),
-    unit: Immutable(makeUnit()),
   };
   const hydratedResource = {
     loading: false,
@@ -104,7 +105,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     });
 
     test('displays the name of the given unit in props', () => {
-      const expected = props.unit.name.fi;
+      const expected = props.reservation.resource.unit.name.fi;
 
       expect(component.find('.unit-name').text()).toContain(expected);
     });
