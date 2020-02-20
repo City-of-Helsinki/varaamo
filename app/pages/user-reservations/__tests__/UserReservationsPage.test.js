@@ -52,7 +52,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
 
       wrapperInstance.componentDidMount();
 
-      expect(loadModelMock).toHaveBeenCalledTimes(3);
+      expect(loadModelMock).toHaveBeenCalledTimes(2);
       expect(loadModelMock).toHaveBeenCalledWith(
         'reservation',
         {
@@ -65,7 +65,6 @@ describe('pages/user-reservations/UserReservationsPage', () => {
         expect.any(Function),
         'upcomingReservation',
       );
-      expect(loadModelMock).toHaveBeenCalledWith('resource', { page_size: 500 });
       expect(loadModelMock).toHaveBeenCalledWith('unit', { page_size: 500, unit_has_resource: true });
     });
   });

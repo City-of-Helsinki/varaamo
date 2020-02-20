@@ -1,6 +1,5 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import simple from 'simple-mock';
 import snakeCaseKeys from 'snakecase-keys';
 
 import Reservation from '../../../../utils/fixtures/Reservation';
@@ -26,14 +25,11 @@ const makeResource = (...args) => snakeCaseKeys(Resource.build(...args));
 const makeUnit = (...args) => snakeCaseKeys(Unit.build(...args));
 
 describe('pages/user-reservations/reservation-list/ReservationListContainer', () => {
-  const fetchReservations = simple.stub();
   function getWrapper(props) {
     const defaults = {
-      fetchReservations,
       isAdmin: false,
       loading: false,
       reservations: [],
-      resources: {},
       staffUnits: [],
       units: {},
       onPageChange: () => {},
@@ -52,9 +48,6 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
         makeReservation({ resource }),
         makeReservation({ resource: 'unfetched-resource' }),
       ]),
-      resources: Immutable({
-        [resource.id]: resource,
-      }),
       units: Immutable({
         [unit.id]: unit,
       }),
@@ -81,8 +74,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
           const actualProps = reservationListItem.props();
           expect(actualProps.isAdmin).toBe(props.isAdmin);
           expect(actualProps.isStaff).toBe(false);
-          expect(reservationListItems.at(0).prop('resource')).toEqual(resource);
-          expect(reservationListItems.at(1).prop('resource')).toEqual({});
+          expect(reservationListItems.at(0).prop('reservation')).toEqual(props.reservations[0]);
           expect(reservationListItems.at(0).prop('unit')).toEqual(unit);
           expect(reservationListItems.at(1).prop('unit')).toEqual({});
         });
