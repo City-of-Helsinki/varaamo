@@ -18,6 +18,8 @@ import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/re
 import ResourceHydrator from './ResourceHydrator';
 
 class ReservationListItem extends Component {
+  wrapperRef = React.createRef();
+
   localize(translationObject) {
     return dataUtils.getLocalizedFieldValue(translationObject, this.props.locale, true);
   }
@@ -49,9 +51,9 @@ class ReservationListItem extends Component {
     const statusLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
 
     return (
-      <ResourceHydrator id={reservation.resource.id}>
+      <ResourceHydrator id={reservation.resource.id} wrappingRef={this.wrapperRef}>
         {hydratedResource => (
-          <li className="reservation">
+          <li className="reservation" ref={this.wrapperRef}>
             <div className="col-md-3 col-lg-2 image-container">
               {hydratedResource.data !== null && (
                 <Link
@@ -129,7 +131,6 @@ class ReservationListItem extends Component {
             </div>
           </li>
         )}
-
       </ResourceHydrator>
     );
   }
