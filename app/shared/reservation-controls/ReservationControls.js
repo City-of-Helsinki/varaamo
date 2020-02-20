@@ -60,7 +60,7 @@ class ReservationControls extends Component {
   }
 
   renderButtons(buttons, isAdmin, isStaff, reservation) {
-    if (!reservation.needManualConfirmation) {
+    if (!reservation.need_manual_confirmation) {
       if (reservation.state === 'cancelled') {
         return null;
       }

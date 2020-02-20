@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
+import snakeCaseKeys from 'snakecase-keys';
 
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
@@ -11,6 +12,19 @@ import {
 } from '../ReservationListContainer';
 import ReservationListItem from '../ReservationListItem';
 
+// This project handles API responses differently based on the method
+// that is used for fetching. Data in the redux store is in camelCase,
+// but data fetched through the apiClient is in snake_case. This
+// component was previously used in a context where API data
+// originated from the redux store, but now lives in a context where
+// this data comes directly from the apiClient.
+
+// To be able to use the same test tooling, we are transforming the
+// camelCase mock objects into snake_case mock objects.
+const makeReservation = (...args) => snakeCaseKeys(Reservation.build(...args));
+const makeResource = (...args) => snakeCaseKeys(Resource.build(...args));
+const makeUnit = (...args) => snakeCaseKeys(Unit.build(...args));
+
 describe('pages/user-reservations/reservation-list/ReservationListContainer', () => {
   const fetchReservations = simple.stub();
   function getWrapper(props) {
@@ -18,43 +32,26 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       fetchReservations,
       isAdmin: false,
       loading: false,
-      location: {
-        search: '',
-      },
       reservations: [],
       resources: {},
       staffUnits: [],
-      paginatedReservations: {},
-      pageSize: 0,
       units: {},
+      onPageChange: () => {},
+      page: 0,
+      pages: 0,
     };
     return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
   }
 
   describe('with reservations', () => {
-    const unit = Unit.build();
-    const resource = Resource.build({ unit: unit.id });
+    const unit = makeUnit();
+    const resource = makeResource({ unit });
     const props = {
       isAdmin: false,
-      location: {
-        search: '',
-      },
       reservations: Immutable([
-        Reservation.build({ resource: resource.id }),
-        Reservation.build({ resource: 'unfetched-resource' }),
+        makeReservation({ resource }),
+        makeReservation({ resource: 'unfetched-resource' }),
       ]),
-      paginatedReservations: {
-        count: 0,
-        comingReservations: Immutable([
-          Reservation.build({ resource: resource.id }),
-          Reservation.build({ resource: 'unfetched-resource' }),
-        ]),
-        pastReservations: Immutable([
-          Reservation.build({ resource: resource.id }),
-          Reservation.build({ resource: 'unfetched-resource' }),
-        ]),
-      },
-      pageSize: 10,
       resources: Immutable({
         [resource.id]: resource,
       }),
@@ -75,8 +72,7 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
     describe('rendering individual reservations', () => {
       test('renders a ReservationListItem for every reservation in props', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
-        const { comingReservations, pastReservations } = props.paginatedReservations;
-        expect(reservationListItems).toHaveLength(comingReservations.length + pastReservations.length);
+        expect(reservationListItems).toHaveLength(props.reservations.length);
       });
 
       test('passes isAdmin, isStaff and reservation', () => {

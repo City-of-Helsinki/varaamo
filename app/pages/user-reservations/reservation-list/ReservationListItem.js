@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import iconHome from 'hel-icons/dist/shapes/home.svg';
 
+import * as dataUtils from '../../../../src/common/data/utils';
 import InfoLabel from '../../../../src/common/label/InfoLabel';
 import constants from '../../../constants/AppConstants';
 import iconCalendar from '../../../assets/icons/calendar.svg';
@@ -16,9 +17,13 @@ import { getResourcePageUrl, hasProducts } from '../../../utils/resourceUtils';
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 
 class ReservationListItem extends Component {
+  localize(translationObject) {
+    return dataUtils.getLocalizedFieldValue(translationObject, this.props.locale, true);
+  }
+
   renderImage(image) {
     if (image && image.url) {
-      return <img alt={image.caption} className="resourceImg" src={image.url} />;
+      return <img alt={this.localize(image.caption)} className="resourceImg" src={image.url} />;
     }
     return null;
   }
@@ -54,23 +59,31 @@ class ReservationListItem extends Component {
         <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
           <div className="reservation-state-label-container">
             {hasProducts(resource)
-              && !reservation.staffEvent
+              && !reservation.staff_event
               && price > 0 && (
                 <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
             )}
             <InfoLabel labelStyle={statusLabel.labelBsStyle} labelText={t(statusLabel.labelTextId)} />
           </div>
           <Link to={getResourcePageUrl(resource)}>
-            <h4>{resource.name}</h4>
+            <h4>{this.localize(resource.name)}</h4>
           </Link>
           <div>
-            <img alt={resource.type.name} className="location" src={iconHome} />
-            <span className="unit-name">{unit.name}</span>
+            <img
+              alt={this.localize(resource.type.name)}
+              className="location"
+              src={iconHome}
+            />
+            <span className="unit-name">{this.localize(unit.name)}</span>
             {nameSeparator}
-            <span>{unit.streetAddress}</span>
+            <span>{this.localize(unit.street_address)}</span>
           </div>
           <div>
-            <img alt={resource.type.name} className="timeslot" src={iconCalendar} />
+            <img
+              alt={this.localize(resource.type.name)}
+              className="timeslot"
+              src={iconCalendar}
+            />
             <TimeRange begin={reservation.begin} end={reservation.end} />
           </div>
           <ReservationAccessCode
@@ -79,7 +92,7 @@ class ReservationListItem extends Component {
             text={t('ReservationListItem.accessCodeText')}
           />
           {hasProducts(resource)
-            && !reservation.staffEvent
+            && !reservation.staff_event
             && price > 0 && (
             <div>
               <span className="price">{`${t('common.totalPriceLabel')}: `}</span>
@@ -106,6 +119,7 @@ ReservationListItem.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired,
   unit: PropTypes.object.isRequired,
 };
 

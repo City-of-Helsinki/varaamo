@@ -1,5 +1,4 @@
 import React from 'react';
-import simple from 'simple-mock';
 
 import PageWrapper from '../../PageWrapper';
 import { shallowWithIntl } from '../../../utils/testUtils';
@@ -7,21 +6,14 @@ import { UnconnectedUserReservationsPage as UserReservationsPage } from '../User
 import ReservationList from '../reservation-list/ReservationListContainer';
 
 describe('pages/user-reservations/UserReservationsPage', () => {
-  const fetchReservations = simple.stub();
-  const fetchResources = simple.stub();
-  const fetchUnits = simple.stub();
-
   const defaultProps = {
-    actions: {
-      fetchReservations,
-      fetchResources,
-      fetchUnits,
-    },
     location: {
       search: '',
     },
-    reservationsFetchCount: 1,
-    resourcesLoaded: true,
+    history: {
+      push: () => {},
+    },
+    t: path => path,
   };
 
   function getWrapper(extraProps = {}) {
@@ -54,24 +46,91 @@ describe('pages/user-reservations/UserReservationsPage', () => {
   });
 
   describe('componentDidMount', () => {
-    beforeAll(() => {
-      fetchReservations.reset();
-      fetchResources.reset();
-      fetchUnits.reset();
-      getWrapper().instance().componentDidMount();
+    test('fetches expected data', () => {
+      const wrapperInstance = getWrapper().instance();
+      const loadModelMock = jest.spyOn(wrapperInstance, 'loadModel');
+
+      wrapperInstance.componentDidMount();
+
+      expect(loadModelMock).toHaveBeenCalledTimes(3);
+      expect(loadModelMock).toHaveBeenCalledWith(
+        'reservation',
+        {
+          'date': undefined,
+          'include': 'resource_detail',
+          'is_own': true,
+          'ordering': 'begin',
+          'page_size': 10,
+        },
+        expect.any(Function),
+        'upcomingReservation',
+      );
+      expect(loadModelMock).toHaveBeenCalledWith('resource', { page_size: 500 });
+      expect(loadModelMock).toHaveBeenCalledWith('unit', { page_size: 500, unit_has_resource: true });
+    });
+  });
+
+  describe('tabs', () => {
+    const findTabs = wrapper => wrapper.find('[role="tab"]');
+    const findUpcomingTab = wrapper => findTabs(wrapper).at(0);
+    const findPastTab = wrapper => findTabs(wrapper).at(1);
+
+    test('should render upcoming and past tabs', () => {
+      expect(findTabs(getWrapper()).length).toEqual(2);
     });
 
-    test('fetches resources', () => {
-      expect(fetchResources.callCount).toBe(1);
+    test('should render upcoming tab with count when loading is done', () => {
+      const count = 2;
+      const wrapper = getWrapper();
+
+      wrapper.setState({
+        upcomingReservation: {
+          loading: false,
+          count,
+        },
+      });
+
+      expect(findUpcomingTab(wrapper).prop('children')).toContain(`(${count})`);
     });
 
-    test('fetches units', () => {
-      expect(fetchUnits.callCount).toBe(1);
+    test('should render upcoming tab as active by default', () => {
+      expect(findUpcomingTab(getWrapper()).prop('aria-selected')).toEqual(true);
     });
 
-    test('fetches only user\'s own reservations', () => {
-      expect(fetchReservations.callCount).toBe(1);
-      expect(fetchReservations.lastCall.args[0].isOwn).toBe(true);
+    test('should change tab on tab click if it is not current tab', () => {
+      const wrapper = getWrapper();
+      const pastTab = findPastTab(wrapper); // unselected by default
+      const wrapperInstance = wrapper.instance();
+      const setStateSpy = jest.spyOn(wrapperInstance, 'setState');
+
+      pastTab.prop('onClick')();
+
+      expect(setStateSpy).toHaveBeenCalledWith({ tab: 'past' });
+    });
+
+    test('should not do anything on tab click if it is current tab', () => {
+      const wrapper = getWrapper();
+      const upcomingTab = findUpcomingTab(wrapper); // selected by default
+      const wrapperInstance = wrapper.instance();
+      const setStateSpy = jest.spyOn(wrapperInstance, 'setState');
+
+      upcomingTab.prop('onClick')();
+
+      expect(setStateSpy).not.toHaveBeenCalled();
+    });
+
+    test('should render tabs with proper aria attributes', () => {
+      const wrapper = getWrapper();
+      const tabs = findTabs(wrapper);
+
+      tabs.forEach((tab) => {
+        expect(tab.prop('role')).toEqual('tab');
+      });
+      expect(
+        tabs
+          .map(tab => tab.prop('aria-selected'))
+          .some(ariaSelected => ariaSelected),
+      ).toEqual(true);
     });
   });
 });

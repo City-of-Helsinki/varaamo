@@ -10,7 +10,7 @@ const ReservationAccessCode = ({ reservation, resource, text }) => {
     return <span />;
   }
   if (isAccessCodeGenerated(reservation)) {
-    return <GeneratedAccessCode accessCode={reservation.accessCode} text={text} />;
+    return <GeneratedAccessCode accessCode={reservation.access_code} text={text} />;
   }
   if (resource && isAccessCodePending(reservation, resource)) {
     return <PendingAccessCode />;
