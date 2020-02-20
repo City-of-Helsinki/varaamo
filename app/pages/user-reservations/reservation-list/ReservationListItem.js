@@ -23,7 +23,7 @@ class ReservationListItem extends Component {
 
   renderImage(image) {
     if (image && image.url) {
-      return <img alt={this.localize(image.caption)} className="resourceImg" src={image.url} />;
+      return <img alt={this.localize(image.caption)} className="resourceImg" src={`${image.url}?dim=700x420`} />;
     }
     return null;
   }

@@ -74,7 +74,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
 
       expect(image).toHaveLength(1);
       expect(image.props().alt).toBe(props.resource.images[0].caption.fi);
-      expect(image.props().src).toBe(props.resource.images[0].url);
+      expect(image.props().src).toBe(`${props.resource.images[0].url}?dim=700x420`);
     });
 
     test('contains two links to resource page with correct props', () => {
