@@ -10,12 +10,13 @@ function Input({
   meta: { error, touched },
   t,
   label,
+  autoComplete,
 }) {
   return (
     <div className="app-ReservationPage__formfield">
       <label>
         {label}
-        <input {...input} />
+        <input {...input} autoComplete={autoComplete} />
       </label>
       {touched && error && <Error error={t(error)} />}
     </div>
@@ -27,6 +28,7 @@ Input.propTypes = {
   meta: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  autoComplete: PropTypes.string,
 };
 
 export default injectT(Input);
