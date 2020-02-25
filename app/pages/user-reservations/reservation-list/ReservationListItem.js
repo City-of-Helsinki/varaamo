@@ -52,85 +52,86 @@ class ReservationListItem extends Component {
 
     return (
       <ResourceHydrator id={reservation.resource.id} wrappingRef={this.wrapperRef}>
-        {hydratedResource => (
-          <li className="reservation" ref={this.wrapperRef}>
-            <div className="col-md-3 col-lg-2 image-container">
-              {hydratedResource.data !== null && (
-                <Link
-                  aria-hidden="true"
-                  tabIndex="-1"
-                  to={getResourcePageUrl(hydratedResource.data)}
-                >
-                  {this.renderImage(getMainImage(hydratedResource.data.images))}
-                </Link>
-              )}
-            </div>
-            <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
-              <div className="reservation-state-label-container">
-                {hydratedResource.data !== null && (
-                  hasProducts(resource)
-                    && !hydratedResource.data.staff_event
+        {(result) => {
+          const hasCompleteResource = result.data !== null;
+          const completeResource = result.data;
+
+          return (
+            <li className="reservation" ref={this.wrapperRef}>
+              <div className="col-md-3 col-lg-2 image-container">
+                {hasCompleteResource && (
+                  <Link
+                    aria-hidden="true"
+                    tabIndex="-1"
+                    to={getResourcePageUrl(completeResource)}
+                  >
+                    {this.renderImage(getMainImage(completeResource.images))}
+                  </Link>
+                )}
+              </div>
+              <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
+                <div className="reservation-state-label-container">
+                  {hasCompleteResource && (
+                    hasProducts(completeResource)
+                    && !completeResource.data.staff_event
                     && price > 0 && (
                       <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
-                  )
-                )}
-                <InfoLabel labelStyle={statusLabel.labelBsStyle} labelText={t(statusLabel.labelTextId)} />
-              </div>
-              <Link to={getResourcePageUrl(resource)}>
-                <h4>{this.localize(resource.name)}</h4>
-              </Link>
-              <div>
-                {hydratedResource.data !== null && (
+                    )
+                  )}
+                  <InfoLabel labelStyle={statusLabel.labelBsStyle} labelText={t(statusLabel.labelTextId)} />
+                </div>
+                <Link to={getResourcePageUrl(resource)}>
+                  <h4>{this.localize(resource.name)}</h4>
+                </Link>
+                <div>
                   <img
-                    alt={this.localize(hydratedResource.data.type.name)}
+                    alt={hasCompleteResource ? this.localize(completeResource.type.name) : ''}
                     className="location"
                     src={iconHome}
                   />
-                )}
-                <span className="unit-name">{this.localize(unit.name)}</span>
-                {nameSeparator}
-                <span>{this.localize(unit.street_address)}</span>
-              </div>
-              <div>
-                {hydratedResource.data !== null && (
+                  <span className="unit-name">{this.localize(unit.name)}</span>
+                  {nameSeparator}
+                  <span>{this.localize(unit.street_address)}</span>
+                </div>
+                <div>
                   <img
-                    alt={this.localize(hydratedResource.data.type.name)}
+                    alt={hasCompleteResource ? this.localize(completeResource.type.name) : ''}
                     className="timeslot"
                     src={iconCalendar}
                   />
+                  <TimeRange begin={reservation.begin} end={reservation.end} />
+                </div>
+                {hasCompleteResource && (
+                  <ReservationAccessCode
+                    reservation={reservation}
+                    resource={completeResource}
+                    text={t('ReservationListItem.accessCodeText')}
+                  />
                 )}
-                <TimeRange begin={reservation.begin} end={reservation.end} />
+                {hasCompleteResource && (
+                  hasProducts(completeResource)
+                  && !completeResource.staff_event
+                  && price > 0 && (
+                    <div>
+                      <span className="price">{`${t('common.totalPriceLabel')}: `}</span>
+                      <span>{t('common.priceWithVAT', tVariables)}</span>
+                    </div>
+                  )
+                )}
               </div>
-              {hydratedResource.data !== null && (
-                <ReservationAccessCode
-                  reservation={reservation}
-                  resource={hydratedResource.data}
-                  text={t('ReservationListItem.accessCodeText')}
-                />
-              )}
-              {hydratedResource.data !== null && (
-                hasProducts(hydratedResource.data)
-                && !hydratedResource.data.staff_event
-                && price > 0 && (
-                  <div>
-                    <span className="price">{`${t('common.totalPriceLabel')}: `}</span>
-                    <span>{t('common.priceWithVAT', tVariables)}</span>
-                  </div>
-                )
-              )}
-            </div>
-            <div className="col-xs-4 col-md-3 col-lg-3 action-container">
-              {hydratedResource.data !== null && (
-                <ReservationControls
-                  isAdmin={isAdmin}
-                  isStaff={isStaff}
-                  reservation={reservation}
-                  resource={hydratedResource.data}
-                />
-              )}
-            </div>
-          </li>
-        )}
+              <div className="col-xs-4 col-md-3 col-lg-3 action-container">
+                {hasCompleteResource && (
+                  <ReservationControls
+                    isAdmin={isAdmin}
+                    isStaff={isStaff}
+                    reservation={reservation}
+                    resource={completeResource}
+                  />
+                )}
+              </div>
+            </li>
+          );
+        }}
       </ResourceHydrator>
     );
   }
