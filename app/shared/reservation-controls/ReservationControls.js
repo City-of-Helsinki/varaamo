@@ -7,25 +7,24 @@ import injectT from '../../i18n/injectT';
 import { hasProducts } from '../../utils/resourceUtils';
 
 class ReservationControls extends Component {
-  constructor(props) {
-    super(props);
-    this.buttons = {
+  get buttons() {
+    return {
       cancel: (
         <Button
           bsStyle="danger"
           key="cancelButton"
-          onClick={props.onCancelClick}
+          onClick={this.props.onCancelClick}
         >
-          {props.t('ReservationControls.cancel')}
+          {this.props.t('ReservationControls.cancel')}
         </Button>
       ),
       confirm: (
         <Button
           bsStyle="success"
           key="confirmButton"
-          onClick={props.onConfirmClick}
+          onClick={this.props.onConfirmClick}
         >
-          {props.t('ReservationControls.confirm')}
+          {this.props.t('ReservationControls.confirm')}
         </Button>
       ),
       deny: (
@@ -34,26 +33,31 @@ class ReservationControls extends Component {
           key="denyButton"
           onClick={this.props.onDenyClick}
         >
-          {props.t('ReservationControls.deny')}
+          {this.props.t('ReservationControls.deny')}
         </Button>
       ),
       edit: (
         <Button
           bsStyle="primary"
-          disabled={!this.props.isStaff && !this.props.isAdmin && hasProducts(this.props.resource)}
+          disabled={(
+            !this.props.isStaff
+            && !this.props.isAdmin
+            && hasProducts(this.props.resource))
+            || this.props.resource !== null
+          }
           key="editButton"
-          onClick={props.onEditClick}
+          onClick={this.props.onEditClick}
         >
-          {props.t('ReservationControls.edit')}
+          {this.props.t('ReservationControls.edit')}
         </Button>
       ),
       info: (
         <Button
           bsStyle="default"
           key="infoButton"
-          onClick={props.onInfoClick}
+          onClick={this.props.onInfoClick}
         >
-          {props.t('ReservationControls.info')}
+          {this.props.t('ReservationControls.info')}
         </Button>
       ),
     };

@@ -120,14 +120,12 @@ class ReservationListItem extends Component {
                 )}
               </div>
               <div className="col-xs-4 col-md-3 col-lg-3 action-container">
-                {hasCompleteResource && (
-                  <ReservationControls
-                    isAdmin={isAdmin}
-                    isStaff={isStaff}
-                    reservation={reservation}
-                    resource={completeResource}
-                  />
-                )}
+                <ReservationControls
+                  isAdmin={isAdmin}
+                  isStaff={isStaff}
+                  reservation={reservation}
+                  resource={completeResource}
+                />
               </div>
             </li>
           );
