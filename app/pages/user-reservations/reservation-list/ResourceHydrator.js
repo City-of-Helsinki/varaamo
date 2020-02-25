@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {
-  useState, useEffect, useCallback,
+  useState, useEffect, useCallback, useRef,
 } from 'react';
 import get from 'lodash/get';
 
@@ -26,6 +26,7 @@ const useIntersectionObserver = (root, target, onIntersect, threshold = 1.0, roo
 };
 
 const useHydratedResource = () => {
+  const isMounted = useRef(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -35,13 +36,29 @@ const useHydratedResource = () => {
 
     client.get(`resource/${resourceId}`)
       .then((response) => {
+        if (!isMounted.current) {
+          return;
+        }
+
         setLoading(false);
         setData(get(response, 'data', null));
       })
       .catch((e) => {
+        if (!isMounted.current) {
+          return;
+        }
+
         setError(e);
       });
   }, []);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  });
 
   return [fetch, {
     loading,
