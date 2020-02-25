@@ -43,7 +43,11 @@ class ReservationListItem extends Component {
     return (
       <li className="reservation">
         <div className="col-md-3 col-lg-2 image-container">
-          <Link to={getResourcePageUrl(resource)}>
+          <Link
+            aria-hidden="true"
+            tabIndex="-1"
+            to={getResourcePageUrl(resource)}
+          >
             {this.renderImage(getMainImage(resource.images))}
           </Link>
         </div>
