@@ -1,4 +1,12 @@
 # Unreleased
+  **MINOR CHANGES**
+  - Changed search count to be announced when a search is made
+  - Changed search results sort order to be announced when sort order is changed
+  - Fixed illegible icon names in toggles being read out loud by screen readers
+  - Fixed missing line breaks in generic terms and specific terms
+
+  **CHANGELOG**
+  - [#1118](https://github.com/City-of-Helsinki/varaamo/pull/1118) Added support for unit manager role; unit managers now have the same permissions as unit admins do
 
 # 0.9.0
   **MINOR CHANGES**
