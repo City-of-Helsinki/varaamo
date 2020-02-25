@@ -40,13 +40,6 @@ class ReservationListItem extends Component {
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 
-    const price = getReservationPrice(reservation.begin, reservation.end, resource);
-    const vat = getTaxPercentage(resource);
-    const tVariables = {
-      price,
-      vat,
-    };
-
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const statusLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
 
@@ -55,6 +48,12 @@ class ReservationListItem extends Component {
         {(result) => {
           const hasCompleteResource = result.data !== null;
           const completeResource = result.data;
+          const price = getReservationPrice(reservation.begin, reservation.end, resource);
+          const vat = getTaxPercentage(resource);
+          const tVariables = {
+            price,
+            vat,
+          };
 
           return (
             <li className="reservation" ref={this.wrapperRef}>
