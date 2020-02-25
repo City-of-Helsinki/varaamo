@@ -110,19 +110,6 @@ class UnconnectedUserReservationsPage extends Component {
     return [];
   }
 
-  getModelDataAsObject = (name, idKey = 'id') => {
-    const models = this.state[name].data;
-    const dataAsObject = {};
-
-    models.forEach((model) => {
-      const id = get(model, idKey);
-
-      dataAsObject[id] = model;
-    });
-
-    return dataAsObject;
-  }
-
   setModel = (name, data, cb) => {
     const currentState = get(this.state, name, {});
 
