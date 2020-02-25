@@ -100,13 +100,11 @@ class ReservationListItem extends Component {
                   />
                   <TimeRange begin={reservation.begin} end={reservation.end} />
                 </div>
-                {hasCompleteResource && (
-                  <ReservationAccessCode
-                    reservation={reservation}
-                    resource={completeResource}
-                    text={t('ReservationListItem.accessCodeText')}
-                  />
-                )}
+                <ReservationAccessCode
+                  reservation={reservation}
+                  resource={completeResource}
+                  text={t('ReservationListItem.accessCodeText')}
+                />
                 {hasCompleteResource && (
                   hasProducts(completeResource)
                   && !completeResource.staff_event
