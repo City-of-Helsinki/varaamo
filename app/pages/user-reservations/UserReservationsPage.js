@@ -15,6 +15,7 @@ import userReservationsPageSelector from './userReservationsPageSelector';
 import ReservationList from './reservation-list/ReservationListContainer';
 import * as searchUtils from '../../../src/domain/search/utils';
 import client from '../../../src/common/api/client';
+import constants from '../../constants/AppConstants';
 
 const PAGE_SIZE = 10;
 // We request past reservations from the API by using the start and end
@@ -172,7 +173,7 @@ class UnconnectedUserReservationsPage extends Component {
 
   loadPastReservations = (getFilters) => {
     const getFilterWithDefaults = (defaultFilters) => {
-      const now = moment().format('YYYY-MM-DD[T]HH:mmZZ');
+      const now = moment().format(constants.DATETIME_FORMAT);
       const filters = {
         ...defaultFilters,
         all: true,
@@ -182,7 +183,7 @@ class UnconnectedUserReservationsPage extends Component {
         // common heuristics these should not be considered to be in the
         // past, but I could not find a more efficient way to find past
         // reservations.
-        start: moment(ARBITRARY_START_DATETIME, 'YYYY-MM-DD[T]HH:mm').format('YYYY-MM-DD[T]HH:mmZZ'),
+        start: moment(ARBITRARY_START_DATETIME, 'YYYY-MM-DD[T]HH:mm').format(constants.DATETIME_FORMAT),
         end: now,
       };
 
