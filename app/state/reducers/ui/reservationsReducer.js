@@ -6,6 +6,7 @@ import moment from 'moment';
 import types from '../../../constants/ActionTypes';
 import ModalTypes from '../../../constants/ModalTypes';
 import { getTimeSlots } from '../../../utils/timeUtils';
+import { getReservationResourceId } from '../../../utils/reservationUtils';
 
 const initialState = Immutable({
   adminReservationFilters: {
@@ -24,11 +25,12 @@ function selectReservationToEdit(state, action) {
   const { slotSize, reservation } = action.payload;
   const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
   const firstSlot = first(slots);
+  const resourceId = getReservationResourceId(reservation.resource);
   const selected = [
     {
       begin: firstSlot.start,
       end: firstSlot.end,
-      resource: reservation.resource,
+      resource: resourceId,
     },
   ];
   if (slots.length > 1) {
@@ -36,12 +38,16 @@ function selectReservationToEdit(state, action) {
     selected.push({
       begin: lastSlot.start,
       end: lastSlot.end,
-      resource: reservation.resource,
+      resource: resourceId,
     });
   }
   return state.merge({
     selected,
-    toEdit: [reservation],
+    // Make sure that we do not pass an inlined resource. The UI will
+    // attempt to use the inlined incomplete resource, but it assumes it
+    // to be complete, which will result in errors when fields are
+    // missing unexpectedly.
+    toEdit: [{ ...reservation, resource: resourceId }],
   });
 }
 
