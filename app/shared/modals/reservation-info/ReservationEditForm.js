@@ -20,6 +20,7 @@ import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
+import constants from '../../../constants/AppConstants';
 
 // We have a generic utility function with the same purpose, but it has
 // been developed to be snake_case compatible. In this view we are still
@@ -117,7 +118,7 @@ class UnconnectedReservationEditForm extends Component {
         userUnitRole,
         resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
       );
-      const reservationDate = moment(reservation.begin).format('YYYY-MM-DD');
+      const reservationDate = moment(reservation.begin).format(constants.DATE_FORMAT);
       const openingHoursForReservationDate = getReservationOpeningHoursByDate(resource, reservationDate);
       const getConstraints = (openingHours) => {
         if (!openingHours || canIgnoreOpeningHours) {
