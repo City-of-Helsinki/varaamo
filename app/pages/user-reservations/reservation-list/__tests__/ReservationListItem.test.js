@@ -131,7 +131,6 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       const actualProps = component.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).toBe(false);
-      expect(actualProps.isStaff).toBe(false);
       expect(actualProps.reservation).toBe(props.reservation);
       expect(actualProps.resource).toBe(hydratedResource.data);
     });

@@ -62,13 +62,13 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       const actualProps = container.find(ReservationControls).props();
 
       expect(actualProps.isAdmin).toBe(props.isAdmin);
-      expect(actualProps.isStaff).toBe(props.isStaff);
       expect(actualProps.onCancelClick).toBe(instance.handleCancelClick);
       expect(actualProps.onConfirmClick).toBe(instance.handleConfirmClick);
       expect(actualProps.onDenyClick).toBe(instance.handleDenyClick);
       expect(actualProps.onEditClick).toBe(instance.handleEditClick);
       expect(actualProps.onInfoClick).toBe(instance.handleInfoClick);
       expect(actualProps.reservation).toBe(props.reservation);
+      expect(actualProps.resource).toBe(props.resource);
     });
   });
 

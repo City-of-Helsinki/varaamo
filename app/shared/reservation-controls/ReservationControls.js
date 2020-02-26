@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../i18n/injectT';
 import { hasProducts } from '../../utils/resourceUtils';
+import { getUnitRoleFromResource, getIsUnitStaff } from '../../../src/domain/resource/permissions/utils';
 
 class ReservationControls extends Component {
   get buttons() {
@@ -40,7 +41,7 @@ class ReservationControls extends Component {
         <Button
           bsStyle="primary"
           disabled={(
-            !this.props.isStaff
+            !this.isStaff
             && !this.props.isAdmin
             && hasProducts(this.props.resource))
             || this.props.resource !== null
@@ -61,6 +62,18 @@ class ReservationControls extends Component {
         </Button>
       ),
     };
+  }
+
+  get isStaff() {
+    const { resource } = this.props;
+
+    if (!resource) {
+      return false;
+    }
+
+    const isUnitStaff = getIsUnitStaff(getUnitRoleFromResource(resource));
+
+    return isUnitStaff;
   }
 
   renderButtons(buttons, isAdmin, isStaff, reservation) {
@@ -111,7 +124,7 @@ class ReservationControls extends Component {
   }
 
   render() {
-    const { isAdmin, isStaff, reservation } = this.props;
+    const { isAdmin, reservation } = this.props;
 
     if (!reservation || moment() > moment(reservation.end)) {
       return null;
@@ -119,7 +132,7 @@ class ReservationControls extends Component {
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, isStaff, reservation)}
+        {this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
       </div>
     );
   }
@@ -127,7 +140,6 @@ class ReservationControls extends Component {
 
 ReservationControls.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,

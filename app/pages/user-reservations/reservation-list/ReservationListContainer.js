@@ -1,9 +1,7 @@
-import includes from 'lodash/includes';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
-import get from 'lodash/get';
 
 import Pagination from '../../../../src/common/pagination/Pagination';
 import injectT from '../../../i18n/injectT';
@@ -20,13 +18,10 @@ class UnconnectedReservationListContainer extends Component {
     const {
       isAdmin,
     } = this.props;
-    const staffUnits = [];
-    const unitId = get(reservation, 'resource.unit.id', null);
 
     return (
       <ReservationListItem
         isAdmin={isAdmin}
-        isStaff={includes(staffUnits, unitId)}
         key={reservation.url}
         reservation={reservation}
       />

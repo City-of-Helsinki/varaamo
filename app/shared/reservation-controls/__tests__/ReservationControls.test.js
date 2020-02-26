@@ -5,6 +5,7 @@ import simple from 'simple-mock';
 import snakeCaseKeys from 'snakecase-keys';
 
 import Reservation from '../../../utils/fixtures/Reservation';
+import Resource from '../../../utils/fixtures/Resource';
 import { makeButtonTests, shallowWithIntl } from '../../../utils/testUtils';
 import ReservationControls from '../ReservationControls';
 
@@ -18,6 +19,7 @@ import ReservationControls from '../ReservationControls';
 // To be able to use the same test tooling, we are transforming the
 // camelCase mock objects into snake_case mock objects.
 const makeReservation = (...args) => snakeCaseKeys(Reservation.build(...args));
+const makeResource = (...args) => snakeCaseKeys(Resource.build(...args));
 
 describe('shared/reservation-controls/ReservationControls', () => {
   const onCancelClick = simple.stub();
@@ -27,15 +29,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
   const onInfoClick = simple.stub();
 
   function getWrapper(reservation, isAdmin = false, isStaff = false) {
+    const defaultResource = makeResource();
+    const resource = {
+      ...defaultResource,
+      user_permissions: { ...defaultResource.user_permissions, is_admin: isStaff },
+    };
     const props = {
       isAdmin,
-      isStaff,
       onCancelClick,
       onConfirmClick,
       onDenyClick,
       onEditClick,
       onInfoClick,
       reservation: Immutable(reservation),
+      resource,
     };
     return shallowWithIntl(<ReservationControls {...props} />);
   }

@@ -64,12 +64,11 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
         expect(reservationListItems).toHaveLength(props.reservations.length);
       });
 
-      test('passes isAdmin, isStaff and reservation', () => {
+      test('passes isAdmin and reservation', () => {
         const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
         reservationListItems.forEach((reservationListItem) => {
           const actualProps = reservationListItem.props();
           expect(actualProps.isAdmin).toBe(props.isAdmin);
-          expect(actualProps.isStaff).toBe(false);
           expect(reservationListItems.at(0).prop('reservation')).toEqual(props.reservations[0]);
           expect(reservationListItems.at(1).prop('reservation')).toEqual(props.reservations[1]);
         });

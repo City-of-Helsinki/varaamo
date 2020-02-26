@@ -33,7 +33,7 @@ class ReservationListItem extends Component {
 
   render() {
     const {
-      isAdmin, isStaff, reservation, t,
+      isAdmin, reservation, t,
     } = this.props;
     const resource = reservation.resource;
     const unit = reservation.resource.unit;
@@ -119,7 +119,6 @@ class ReservationListItem extends Component {
               <div className="col-xs-4 col-md-3 col-lg-3 action-container">
                 <ReservationControls
                   isAdmin={isAdmin}
-                  isStaff={isStaff}
                   reservation={reservation}
                   resource={completeResource}
                 />
@@ -134,7 +133,6 @@ class ReservationListItem extends Component {
 
 ReservationListItem.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
