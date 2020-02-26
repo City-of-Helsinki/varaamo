@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import camelCaseKeys from 'camelcase-keys';
 
 import {
   confirmPreliminaryReservation,
@@ -30,47 +31,55 @@ export class UnconnectedReservationControlsContainer extends Component {
     this.handleInfoClick = this.handleInfoClick.bind(this);
   }
 
+  // This component may send the reservation it receives as a prop into
+  // redux state. The reservation prop this component receives may be in
+  // snake_case. To ensure that we do not send a snake_cased object into
+  // redux state, we are camelCasing the reservation object here.
+  get reservation() {
+    return camelCaseKeys(this.props.reservation);
+  }
+
   handleCancelClick() {
-    const { actions, reservation } = this.props;
-    actions.selectReservationToCancel(reservation);
+    const { actions } = this.props;
+    actions.selectReservationToCancel(this.reservation);
     actions.openReservationCancelModal();
   }
 
   handleConfirmClick() {
-    const { actions, isAdmin, reservation } = this.props;
+    const { actions, isAdmin } = this.props;
 
-    if (isAdmin && reservation.state === 'requested') {
-      actions.confirmPreliminaryReservation(reservation);
+    if (isAdmin && this.reservation.state === 'requested') {
+      actions.confirmPreliminaryReservation(this.reservation);
     }
   }
 
   handleDenyClick() {
-    const { actions, isAdmin, reservation } = this.props;
+    const { actions, isAdmin } = this.props;
 
-    if (isAdmin && reservation.state === 'requested') {
-      actions.denyPreliminaryReservation(reservation);
+    if (isAdmin && this.reservation.state === 'requested') {
+      actions.denyPreliminaryReservation(this.reservation);
     }
   }
 
   handleEditClick() {
     const {
-      actions, reservation, resource, history,
+      actions, resource, history,
     } = this.props;
 
     if (!resource === null) {
       return;
     }
 
-    const nextUrl = getEditReservationUrl(reservation);
+    const nextUrl = getEditReservationUrl(this.reservation);
 
-    actions.selectReservationToEdit({ reservation, slotSize: resource.slot_size });
+    actions.selectReservationToEdit({ reservation: this.reservation, slotSize: resource.slot_size });
     history.push(nextUrl);
   }
 
   handleInfoClick() {
-    const { actions, reservation } = this.props;
+    const { actions } = this.props;
 
-    actions.showReservationInfoModal(reservation);
+    actions.showReservationInfoModal(this.reservation);
   }
 
   render() {

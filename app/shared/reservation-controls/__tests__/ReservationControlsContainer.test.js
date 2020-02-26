@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 import snakeCaseKeys from 'snakecase-keys';
+import camelCaseKeys from 'camelcase-keys';
 
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
@@ -81,7 +82,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       'calls props.actions.selectReservationToCancel with this reservation',
       () => {
         expect(props.actions.selectReservationToCancel.callCount).toBe(1);
-        expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(props.reservation);
+        expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(camelCaseKeys(props.reservation));
       },
     );
 
@@ -107,7 +108,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       () => {
         expect(props.actions.selectReservationToEdit.callCount).toBe(1);
         expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
-          reservation: props.reservation,
+          reservation: camelCaseKeys(props.reservation),
           slotSize: props.resource.slot_size,
         });
       },
@@ -131,7 +132,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       'calls the props.actions.showReservationInfoModal function with this reservation',
       () => {
         expect(props.actions.showReservationInfoModal.callCount).toBe(1);
-        expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(props.reservation);
+        expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(camelCaseKeys(props.reservation));
       },
     );
   });
