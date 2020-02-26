@@ -13,7 +13,7 @@ import { hasPermissionForResource } from '../../../../src/domain/resource/permis
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
 import InfoLabel from '../../../../src/common/label/InfoLabel';
-import { isStaffEvent } from '../../../utils/reservationUtils';
+import { isStaffEvent, getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 import { hasProducts } from '../../../utils/resourceUtils';
 
@@ -24,6 +24,7 @@ class ReservationInfoModal extends Component {
 
     this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
+    this.handleStartEditClick = this.handleStartEditClick.bind(this);
   }
 
   handleEditFormSubmit(values) {
@@ -37,6 +38,21 @@ class ReservationInfoModal extends Component {
     this.props.onSaveCommentsClick(comments);
   }
 
+  handleStartEditClick() {
+    const {
+      selectReservationToEdit, reservation, resource, history,
+    } = this.props;
+
+    if (!resource === null) {
+      return;
+    }
+
+    const nextUrl = getEditReservationUrl(reservation);
+
+    selectReservationToEdit({ reservation, slotSize: resource.slot_size });
+    history.push(nextUrl);
+  }
+
   render() {
     const {
       hideReservationInfoModal,
@@ -48,7 +64,6 @@ class ReservationInfoModal extends Component {
       onCancelEditClick,
       onConfirmClick,
       onDenyClick,
-      onStartEditClick,
       reservation,
       reservationIsEditable,
       resource,
@@ -57,16 +72,16 @@ class ReservationInfoModal extends Component {
     } = this.props;
 
     const disabled = isSaving || isEditing;
-    const showCancelButton = reservationIsEditable && (
-      reservation.state === 'confirmed'
-      || (reservation.state === 'requested' && !isAdmin)
-    );
     const canComment = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_COMMENT_RESERVATIONS);
     const canViewComment = hasPermissionForResource(
       userUnitRole,
       resourcePermissionTypes.CAN_ACCESS_RESERVATION_COMMENTS,
     );
     const canModify = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_MODIFY_RESERVATIONS);
+    const showCancelButton = reservationIsEditable && (
+      reservation.state === 'confirmed'
+      || (reservation.state === 'requested' && !isAdmin)
+    );
 
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
@@ -103,7 +118,7 @@ class ReservationInfoModal extends Component {
                 isEditing={isEditing}
                 isSaving={isSaving}
                 onCancelEditClick={onCancelEditClick}
-                onStartEditClick={onStartEditClick}
+                onStartEditClick={this.handleStartEditClick}
                 onSubmit={this.handleEditFormSubmit}
                 reservation={reservation}
                 reservationIsEditable={reservationIsEditable}
@@ -199,12 +214,13 @@ ReservationInfoModal.propTypes = {
   onDenyClick: PropTypes.func.isRequired,
   onEditFormSubmit: PropTypes.func.isRequired,
   onSaveCommentsClick: PropTypes.func.isRequired,
-  onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default injectT(ReservationInfoModal);

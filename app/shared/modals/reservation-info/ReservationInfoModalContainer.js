@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { reset as resetForm } from 'redux-form';
+import { withRouter } from 'react-router-dom';
 
 import FormTypes from '../../../constants/FormTypes';
 import {
@@ -14,6 +15,7 @@ import {
   openReservationCancelModal,
   selectReservationToCancel,
   startReservationEditInInfoModal,
+  selectReservationToEdit,
 } from '../../../actions/uiActions';
 import ReservationInfoModal from './ReservationInfoModal';
 import reservationInfoModalSelector from './reservationInfoModalSelector';
@@ -29,6 +31,7 @@ const actions = {
   putReservation,
   selectReservationToCancel,
   startReservationEditInInfoModal,
+  selectReservationToEdit,
 };
 
 export function mergeProps(stateProps, dispatchProps) {
@@ -50,8 +53,8 @@ export function mergeProps(stateProps, dispatchProps) {
     onSaveCommentsClick: (comments) => {
       dispatchProps.commentReservation(reservation, resource, comments);
     },
-    onStartEditClick: dispatchProps.startReservationEditInInfoModal,
+    selectReservationToEdit: dispatchProps.selectReservationToEdit,
   };
 }
 
-export default connect(reservationInfoModalSelector, actions, mergeProps)(ReservationInfoModal);
+export default connect(reservationInfoModalSelector, actions, mergeProps)(withRouter(ReservationInfoModal));
