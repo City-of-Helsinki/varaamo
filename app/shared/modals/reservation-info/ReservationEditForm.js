@@ -21,6 +21,15 @@ import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
 
+// We have a generic utility function with the same purpose, but it has
+// been developed to be snake_case compatible. In this view we are still
+// using resource objects from the redux state, and those use camelCase.
+const getReservationOpeningHoursByDate = (resource, reservationDate) => {
+  const openHours = resource.openingHours || [];
+
+  return openHours.find(openHour => openHour.date === reservationDate);
+};
+
 class UnconnectedReservationEditForm extends Component {
   constructor(props) {
     super(props);
@@ -109,16 +118,7 @@ class UnconnectedReservationEditForm extends Component {
         resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
       );
       const reservationDate = moment(reservation.begin).format('YYYY-MM-DD');
-      // We have a generic utility function with the same purpose, but
-      // for some reason the fields on the resource object are in
-      // camelCase when we access them here. The generic utility
-      // function assumes snake_case.
-      const getOpenHours = (resource0, reservationDate0) => {
-        const openHours = resource0.openingHours || [];
-
-        return openHours.find(openHour => openHour.date === reservationDate0);
-      };
-      const openingHoursForReservationDate = getOpenHours(resource, reservationDate);
+      const openingHoursForReservationDate = getReservationOpeningHoursByDate(resource, reservationDate);
       const getConstraints = (openingHours) => {
         if (!openingHours || canIgnoreOpeningHours) {
           return undefined;
