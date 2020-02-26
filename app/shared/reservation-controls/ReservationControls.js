@@ -88,33 +88,29 @@ class ReservationControls extends Component {
 
     switch (reservation.state) {
       case 'cancelled': {
-        return isAdmin
-          ? [buttons.info]
-          : [buttons.info];
+        return [];
       }
 
       case 'confirmed': {
         if (isAdmin) {
           return isStaff
-            ? [buttons.info, buttons.cancel, buttons.edit]
-            : [buttons.info, buttons.cancel];
+            ? [buttons.cancel, buttons.edit]
+            : [buttons.cancel];
         }
-        return [buttons.info, buttons.cancel];
+        return [buttons.cancel];
       }
 
       case 'denied': {
-        return isAdmin
-          ? [buttons.info]
-          : [buttons.info];
+        return [];
       }
 
       case 'requested': {
         if (isAdmin) {
           return isStaff
-            ? [buttons.info, buttons.confirm, buttons.deny, buttons.edit]
-            : [buttons.info, buttons.edit];
+            ? [buttons.confirm, buttons.deny, buttons.edit]
+            : [buttons.edit];
         }
-        return [buttons.info, buttons.edit, buttons.cancel];
+        return [buttons.edit, buttons.cancel];
       }
 
       default: {
@@ -125,14 +121,12 @@ class ReservationControls extends Component {
 
   render() {
     const { isAdmin, reservation } = this.props;
-
-    if (!reservation || moment() > moment(reservation.end)) {
-      return null;
-    }
+    const reservationIsInThePast = !reservation || moment() > moment(reservation.end);
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
+        <div className="app-ReservationControls__info-button-wrapper">{this.buttons.info}</div>
+        {!reservationIsInThePast && this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
       </div>
     );
   }

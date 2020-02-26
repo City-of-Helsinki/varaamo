@@ -54,16 +54,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = makeReservation({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      test('renders two buttons', () => {
-        expect(buttons.length).toBe(2);
+      test('renders three buttons', () => {
+        expect(buttons.length).toBe(3);
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'edit', 'ReservationControls.edit', onEditClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+      });
+
+      describe('the third button', () => {
+        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
 
@@ -189,16 +193,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       const reservation = makeReservation({ needManualConfirmation: false, state: 'confirmed' });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
-      test('renders two buttons', () => {
-        expect(buttons.length).toBe(2);
+      test('renders three buttons', () => {
+        expect(buttons.length).toBe(3);
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'edit', 'ReservationControls.edit', onEditClick);
+        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+      });
+
+      describe('the third button', () => {
+        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
       });
     });
 

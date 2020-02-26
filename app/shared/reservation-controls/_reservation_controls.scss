@@ -1,0 +1,7 @@
+.app-ReservationControls {
+  &__info-button-wrapper {
+    &:not(:last-child) {
+      margin-bottom: 14px;
+    }
+  }
+}
