@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`domain resource permission utility functions hasPermissionForResource throws an error when requiredPermissions is not one of string or array 1`] = `"requiredPermissions has to be either a string or an array."`;
+
+exports[`domain resource permission utility functions hasPermissionForResource throws an error when resourceRole is not supported 1`] = `"resourceRole needs to be one of: UNIT_ADMINISTRATOR, UNIT_MANAGER, UNIT_VIEWER."`;
+
+exports[`domain resource permission utility functions hasPermissionForResource warns when the permissions targeted with requiredPermissions are unknown 1`] = `
+Array [
+  "Permission asked with unknown permission: IMAGINARY_PERMISSION.
+Permission needs to be on of: can_make_reservations, can_modify_reservations, can_ignore_opening_hours, can_view_reservation_access_code, can_view_reservation_extra_fields, can_view_reservation_user, can_access_reservation_comments, can_comment_reservations, can_view_reservation_catering_orders, can_bypass_payment.",
+]
+`;
+
+exports[`domain resource permission utility functions hasPermissionForResource warns when the permissions targeted with requiredPermissions are unknown 2`] = `
+Array [
+  "Permission asked with unknown permission: IMAGINARY_PERMISSION_0, IMAGINARY_PERMISSION_1.
+Permission needs to be on of: can_make_reservations, can_modify_reservations, can_ignore_opening_hours, can_view_reservation_access_code, can_view_reservation_extra_fields, can_view_reservation_user, can_access_reservation_comments, can_comment_reservations, can_view_reservation_catering_orders, can_bypass_payment.",
+]
+`;

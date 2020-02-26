@@ -62,6 +62,13 @@ describe('shared/form-fields/ReservationTimeControls', () => {
   });
 
   describe('getTimeOptions', () => {
+    const timeToNumber = (time) => {
+      const [hours, minutes] = time.split(':');
+
+      return Number(hours + minutes);
+    };
+    const optionsToNumber = options => options.map(({ value }) => timeToNumber(value));
+
     test(
       'returns time options using props.period as the duration between times ',
       () => {
@@ -97,6 +104,22 @@ describe('shared/form-fields/ReservationTimeControls', () => {
         expect(options).toEqual(expected);
       },
     );
+
+    test('when constraints.startTime is set, time options before startTime won\'t be listed', () => {
+      const startTime = '10:00';
+      const wrapper = getWrapper({ constraints: { startTime } });
+      const options = wrapper.instance().getTimeOptions();
+
+      expect(optionsToNumber(options).filter(option => option < timeToNumber(startTime)).length).toEqual(0);
+    });
+
+    test('when constraints.endTime is set, time options after endTime won\'t be listed', () => {
+      const endTime = '17:00';
+      const wrapper = getWrapper({ constraints: { endTime } });
+      const options = wrapper.instance().getTimeOptions();
+
+      expect(optionsToNumber(options).filter(option => option > timeToNumber(endTime)).length).toEqual(0);
+    });
   });
 
   describe('handleBeginTimeChange', () => {

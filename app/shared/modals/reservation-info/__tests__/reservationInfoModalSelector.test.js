@@ -44,8 +44,8 @@ describe('shared/modals/reservation-info/reservationInfoModalSelector', () => {
     });
   });
 
-  test('returns isStaff', () => {
-    expect(getSelected().isStaff).toBeDefined();
+  test('returns userUnitRole', () => {
+    expect(getSelected().userUnitRole).toBeDefined();
   });
 
   test('returns correct reservation from the state', () => {
