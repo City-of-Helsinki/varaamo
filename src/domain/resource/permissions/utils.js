@@ -24,7 +24,7 @@ const allValuesInArray = (subset, superset) => difference(subset, superset).leng
 
 export function hasPermissionForResource(resourceRole, requiredPermissions) {
   // undefined roles don't receive any permissions implicitly
-  if (resourceRole === undefined || resourceRole === null) {
+  if (!resourceRole) {
     return false;
   }
 
