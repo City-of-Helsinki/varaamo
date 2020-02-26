@@ -1,6 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import { Link } from 'react-router-dom';
+import snakeCaseKeys from 'snakecase-keys';
 
 import InfoLabel from '../../../../../src/common/label/InfoLabel';
 import TimeRange from '../../../../shared/time-range/TimeRange';
@@ -13,22 +14,62 @@ import { getResourcePageUrl } from '../../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ReservationListItem from '../ReservationListItem';
 
+const makeTranslationObject = value => ({
+  fi: value,
+  en: value,
+  sv: value,
+});
+
+const injectTranslations = (obj, fields) => {
+  const nextObj = { ...obj };
+
+  fields.forEach((field) => {
+    const value = nextObj[field];
+
+    nextObj[field] = makeTranslationObject(value);
+  });
+
+  return nextObj;
+};
+
+// This project handles API responses differently based on the method
+// that is used for fetching. Data in the redux store is in camelCase,
+// but data fetched through the apiClient is in snake_case. This
+// component was previously used in a context where API data
+// originated from the redux store, but now lives in a context where
+// this data comes directly from the apiClient.
+
+// To be able to use the same test tooling, we are transforming the
+// camelCase mock objects into snake_case mock objects.
+const makeReservation = (...args) => snakeCaseKeys(Reservation.build(...args));
+const makeResource = (...args) => snakeCaseKeys(injectTranslations(Resource.build(...args), ['name']));
+const makeImage = (...args) => snakeCaseKeys(injectTranslations(Image.build(...args), ['caption']));
+const makeUnit = (...args) => snakeCaseKeys(injectTranslations(Unit.build(...args), ['name']));
+
 describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
+  const unit = Immutable(makeUnit());
+  const resource = Immutable(makeResource({
+    unit,
+    images: [makeImage()],
+    type: { name: 'test_type' },
+  }));
   const props = {
     isAdmin: false,
     isStaff: false,
-    reservation: Immutable(Reservation.build()),
-    resource: Immutable(Resource.build({
-      images: [Image.build()],
-      type: { name: 'test_type' },
-    })),
-    unit: Immutable(Unit.build()),
+    reservation: Immutable(makeReservation({ resource })),
+  };
+  const hydratedResource = {
+    loading: false,
+    data: resource,
+    error: null,
   };
 
   let component;
 
   beforeAll(() => {
-    component = shallowWithIntl(<ReservationListItem {...props} />);
+    const resourceHydratorChildren = shallowWithIntl(<ReservationListItem {...props} />).prop('children');
+
+    component = shallowWithIntl(resourceHydratorChildren(hydratedResource));
   });
 
   describe('rendering', () => {
@@ -40,12 +81,12 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       const image = component.find('.resourceImg');
 
       expect(image).toHaveLength(1);
-      expect(image.props().alt).toBe(props.resource.images[0].caption);
-      expect(image.props().src).toBe(props.resource.images[0].url);
+      expect(image.props().alt).toBe(hydratedResource.data.images[0].caption.fi);
+      expect(image.props().src).toBe(`${hydratedResource.data.images[0].url}?dim=700x420`);
     });
 
     test('contains two links to resource page with correct props', () => {
-      const expectedUrl = getResourcePageUrl(props.resource);
+      const expectedUrl = getResourcePageUrl(hydratedResource.data);
       const links = component.find(Link);
 
       expect(links.length).toBe(2);
@@ -58,13 +99,13 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     });
 
     test('displays the name of the resource', () => {
-      const expected = props.resource.name;
+      const expected = props.reservation.resource.name.fi;
 
       expect(component.find('h4').text()).toContain(expected);
     });
 
     test('displays the name of the given unit in props', () => {
-      const expected = props.unit.name;
+      const expected = props.reservation.resource.unit.name.fi;
 
       expect(component.find('.unit-name').text()).toContain(expected);
     });
@@ -92,7 +133,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       expect(actualProps.isAdmin).toBe(false);
       expect(actualProps.isStaff).toBe(false);
       expect(actualProps.reservation).toBe(props.reservation);
-      expect(actualProps.resource).toBe(props.resource);
+      expect(actualProps.resource).toBe(hydratedResource.data);
     });
   });
 });

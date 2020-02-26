@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
+import snakeCaseKeys from 'snakecase-keys';
 
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
@@ -11,8 +12,18 @@ import {
 } from '../ReservationControlsContainer';
 
 describe('shared/reservation-controls/ReservationControlsContainer', () => {
-  const resource = Resource.build();
-  const reservation = Reservation.build({ resource: resource.id });
+  // This project handles API responses differently based on the method
+  // that is used for fetching. Data in the redux store is in camelCase,
+  // but data fetched through the apiClient is in snake_case. This
+  // component was previously used in a context where API data
+  // originated from the redux store, but now lives in a context where
+  // this data comes directly from the apiClient.
+
+  // To be able to use the same test tooling, we are transforming the
+  // camelCase mock objects into snake_case mock objects.
+  const resource = snakeCaseKeys(Resource.build());
+  const reservation = snakeCaseKeys(Reservation.build({ resource: resource.id }));
+
   const history = {
     push: () => {},
   };
@@ -97,7 +108,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
         expect(props.actions.selectReservationToEdit.callCount).toBe(1);
         expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
           reservation: props.reservation,
-          slotSize: props.resource.slotSize,
+          slotSize: props.resource.slot_size,
         });
       },
     );

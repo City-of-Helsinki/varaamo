@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loader from 'react-loader';
 import { connect } from 'react-redux';
+import get from 'lodash/get';
 
 import Pagination from '../../../../src/common/pagination/Pagination';
 import injectT from '../../../i18n/injectT';
 import ReservationListItem from './ReservationListItem';
 import reservationListSelector from './reservationListSelector';
-import { getFiltersFromUrl, getSearchFromFilters } from '../../../../src/domain/search/utils';
 
 class UnconnectedReservationListContainer extends Component {
   constructor(props) {
@@ -16,47 +16,19 @@ class UnconnectedReservationListContainer extends Component {
     this.renderReservationListItem = this.renderReservationListItem.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const { fetchReservations, location, pageSize } = this.props;
-
-    if (prevProps.location !== location) {
-      const filters = getFiltersFromUrl(location, false);
-      fetchReservations({
-        page: filters && filters.page ? Number(filters.page) : 1,
-        pageSize,
-        all: true,
-        isOwn: true,
-        ordering: '-begin',
-      });
-    }
-  }
-
-  onPageChange = (newPage) => {
-    const { history, location } = this.props;
-    const filters = getFiltersFromUrl(location, false);
-    history.push({
-      search: getSearchFromFilters({ ...filters, page: newPage }),
-    });
-  };
-
   renderReservationListItem(reservation) {
     const {
       isAdmin,
-      resources,
-      staffUnits,
-      units,
     } = this.props;
-    const resource = resources[reservation.resource] || {};
-    const unit = resource.unit ? units[resource.unit] || {} : {};
+    const staffUnits = [];
+    const unitId = get(reservation, 'resource.unit.id', null);
 
     return (
       <ReservationListItem
         isAdmin={isAdmin}
-        isStaff={includes(staffUnits, resource.unit)}
+        isStaff={includes(staffUnits, unitId)}
         key={reservation.url}
         reservation={reservation}
-        resource={resource}
-        unit={unit}
       />
     );
   }
@@ -65,32 +37,24 @@ class UnconnectedReservationListContainer extends Component {
     const {
       emptyMessage,
       loading,
-      location,
       reservations,
-      paginatedReservations,
-      pageSize,
+      page,
+      pages,
       t,
     } = this.props;
 
-    const { comingReservations, pastReservations, count } = paginatedReservations;
-
-    const filters = getFiltersFromUrl(location, false);
-
     return (
       <Loader loaded={!loading}>
-        {reservations.length
+        {reservations.length > 0
           ? (
             <div>
               <ul className="reservation-list">
-                {comingReservations.length > 1 && <h1>{t('ReservationListContainer.comingReservations')}</h1>}
-                {comingReservations.map(this.renderReservationListItem)}
-                {pastReservations.length > 1 && <h1>{t('ReservationListContainer.pastReservations')}</h1>}
-                {pastReservations.map(this.renderReservationListItem)}
+                {reservations.map(this.renderReservationListItem)}
               </ul>
               <Pagination
-                onChange={this.onPageChange}
-                page={filters && filters.page ? Number(filters.page) : 1}
-                pages={Math.round(count / pageSize)}
+                onChange={this.props.onPageChange}
+                page={page}
+                pages={pages}
               />
             </div>
           )
@@ -103,19 +67,13 @@ class UnconnectedReservationListContainer extends Component {
 
 UnconnectedReservationListContainer.propTypes = {
   emptyMessage: PropTypes.string,
-  filter: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  fetchReservations: PropTypes.func.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  history: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  location: PropTypes.object,
-  paginatedReservations: PropTypes.object.isRequired,
-  pageSize: PropTypes.number.isRequired,
   reservations: PropTypes.array.isRequired,
-  resources: PropTypes.object.isRequired,
-  staffUnits: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  units: PropTypes.object.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  pages: PropTypes.number.isRequired,
 };
 UnconnectedReservationListContainer = injectT(UnconnectedReservationListContainer);  // eslint-disable-line
 
