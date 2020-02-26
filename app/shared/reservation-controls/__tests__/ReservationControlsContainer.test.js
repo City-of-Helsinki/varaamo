@@ -22,7 +22,7 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
   // To be able to use the same test tooling, we are transforming the
   // camelCase mock objects into snake_case mock objects.
   const resource = snakeCaseKeys(Resource.build());
-  const reservation = snakeCaseKeys(Reservation.build({ resource: resource.id }));
+  const reservation = snakeCaseKeys(Reservation.build({ resource }));
 
   const history = {
     push: () => {},

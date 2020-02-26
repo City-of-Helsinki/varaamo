@@ -78,8 +78,11 @@ function getEditReservationUrl(reservation) {
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');
   const endStr = moment(end).format('HH:mm');
+  // A reservation may be requested with the resource inlined. In these
+  // instances the id is contained in `resource.id` field.
+  const resourceId = resource && typeof resource === 'string' ? resource : resource.id;
 
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource}`;
+  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resourceId}`;
 }
 /**
  * Get reservation price from resource. Get time conver
