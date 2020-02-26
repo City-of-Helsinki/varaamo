@@ -44,7 +44,7 @@ class ReservationControls extends Component {
             !this.isStaff
             && !this.props.isAdmin
             && hasProducts(this.props.resource))
-            || this.props.resource !== null
+            || this.props.resource === null
           }
           key="editButton"
           onClick={this.props.onEditClick}
