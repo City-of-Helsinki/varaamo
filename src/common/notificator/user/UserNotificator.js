@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import { firestore } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import ReactHtmlWrapper from 'react-html-parser';
 import classNames from 'classnames';
 import orderBy from 'lodash/orderBy';
@@ -20,7 +21,7 @@ class UserNotificator extends Component {
   };
 
   componentDidMount() {
-    this.unsubscribeNotificationListener = firestore()
+    this.unsubscribeNotificationListener = firebase.firestore()
       .collection('notifications')
       .where('active', '==', true)
       .onSnapshot(this.onNotificationSnapshot);

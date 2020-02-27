@@ -15,6 +15,7 @@ function ResourceInfo({
   isLoggedIn, resource, unit, t,
 }) {
   const serviceMapUrl = getServiceMapUrl(unit);
+  const hasProducts = resource.products && resource.products.length > 0;
 
   return (
     <section className="app-ResourceInfo">
@@ -35,6 +36,12 @@ function ResourceInfo({
       {resource.genericTerms && (
         <ResourcePanel defaultExpanded={false} header={t('ResourcePage.genericTermsHeader')}>
           <WrappedText text={resource.genericTerms} />
+        </ResourcePanel>
+      )}
+
+      {hasProducts && resource.paymentTerms && (
+        <ResourcePanel defaultExpanded={false} header={t('paymentTerms.title')}>
+          <WrappedText text={resource.paymentTerms} />
         </ResourcePanel>
       )}
 

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { auth } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import Select from 'react-select';
 import { Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -32,7 +33,7 @@ const CreateNotificationsForm = (props) => {
       {!isEditing && (
         <React.Fragment>
           <div className="button-row">
-            <button onClick={() => auth().signOut()} type="button">Sign out</button>
+            <button onClick={() => firebase.auth().signOut()} type="button">Sign out</button>
           </div>
           <h4>Create new notification</h4>
         </React.Fragment>

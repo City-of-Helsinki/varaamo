@@ -415,7 +415,7 @@ class UnconnectedReservationInformationForm extends Component {
             <React.Fragment>
               <h2 className="app-ReservationPage__title">{t('paymentTerms.title')}</h2>
               <div className="terms-box">
-                {t('paymentTerms.terms')}
+                <WrappedText text={resource.paymentTerms} />
               </div>
               {this.renderPaymentTermsField()}
             </React.Fragment>

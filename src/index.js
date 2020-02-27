@@ -5,7 +5,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-intl-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import '../app/assets/styles/main.scss';
 import '../app/assets/styles/customization/espoo/customization.scss';
