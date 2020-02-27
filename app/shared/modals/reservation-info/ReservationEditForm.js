@@ -180,7 +180,11 @@ class UnconnectedReservationEditForm extends Component {
       resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS,
     );
 
-    const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
+    const {
+      billingFirstName, billingLastName, billingEmailAddress, isOwn, user,
+    } = reservation;
+
+    const isAdminOrOwner = (isAdmin || isOwn);
 
     return (
       <Form
@@ -188,10 +192,12 @@ class UnconnectedReservationEditForm extends Component {
         horizontal
         onSubmit={handleSubmit}
       >
-        <Well>
-          {this.renderUserInfoRow('displayName', 'userName')}
-          {this.renderUserInfoRow('email', 'userEmail')}
-        </Well>
+        {user && (
+          <Well>
+            {this.renderUserInfoRow('displayName', 'userName')}
+            {this.renderUserInfoRow('email', 'userEmail')}
+          </Well>
+        )}
         { billingFirstName
         && billingLastName
         && this.renderInfoRow(t('common.paymentNameLabel'), `${billingFirstName} ${billingLastName}`)}
@@ -219,9 +225,9 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderStaticInfoRow('accessCode')}
         {this.renderStaticInfoRow('reservationExtraQuestions')}
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
-        {isAdmin && reservationIsEditable && (
+        {isAdminOrOwner && reservationIsEditable && (
           <div className="form-controls">
-            {!isEditing && (
+            {isAdminOrOwner && !isEditing && (
               <Button
                 bsStyle="primary"
                 disabled={isSaving}
@@ -230,7 +236,7 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.startEdit')}
               </Button>
             )}
-            {isEditing && (
+            {isAdmin && isEditing && (
               <Button
                 bsStyle="default"
                 disabled={isSaving}
@@ -239,7 +245,7 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.cancelEdit')}
               </Button>
             )}
-            {isEditing && (
+            {isAdmin && isEditing && (
               <Button
                 bsStyle="primary"
                 disabled={isSaving}
