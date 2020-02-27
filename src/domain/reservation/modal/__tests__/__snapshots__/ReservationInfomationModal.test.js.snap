@@ -56,7 +56,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
           "its_own": false,
           "resource": 1,
           "staff_event": false,
-          "state": "requested",
+          "state": "confirmed",
           "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
           "user": Object {},
           "user_permissions": null,
@@ -194,7 +194,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
             "its_own": false,
             "resource": 1,
             "staff_event": false,
-            "state": "requested",
+            "state": "confirmed",
             "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
             "user": Object {},
             "user_permissions": null,
@@ -274,26 +274,6 @@ exports[`ReservationInformationModal renders correctly 1`] = `
     >
       ReservationInfoModal.cancelButton
     </Button>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="danger"
-      disabled={false}
-      onClick={[Function]}
-    >
-      ReservationInfoModal.denyButton
-    </Button>
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="success"
-      disabled={false}
-      onClick={[Function]}
-    >
-      ReservationInfoModal.approveButton
-    </Button>
   </ModalFooter>
   <Connect(InjectT(UnconnectedReservationCancelModal))
     onEditReservation={[MockFunction]}
@@ -310,7 +290,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         "its_own": false,
         "resource": 1,
         "staff_event": false,
-        "state": "requested",
+        "state": "confirmed",
         "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
         "user": Object {},
         "user_permissions": null,
