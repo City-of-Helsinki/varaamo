@@ -5,11 +5,48 @@ import { UntranslatedManageReservationsDropdown as ManageReservationsDropdown } 
 import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
 import reservation from '../../../../../common/data/fixtures/reservation';
 
+const findButtonByLabel = (wrapper, label) => wrapper.find({ children: `ManageReservationsList.actionLabel.${label}` });
+
 describe('ManageReservationsDropdown', () => {
+  const defaultProps = {
+    reservation: reservation.build({ state: null }),
+    t: path => path,
+    userCanModify: true,
+  };
+  const getWrapper = props => shallowWithIntl(
+    <ManageReservationsDropdown {...defaultProps} {...props} />,
+  );
+
   test('renders correctly', () => {
-    const wrapper = shallowWithIntl(
-      <ManageReservationsDropdown reservation={reservation.build()} t={() => 'foo'} userCanModify />,
-    );
-    expect(toJSON(wrapper)).toMatchSnapshot();
+    expect(toJSON(getWrapper())).toMatchSnapshot();
+  });
+
+  test('show information, edit and cancel buttons', () => {
+    const wrapper = getWrapper();
+
+    expect(findButtonByLabel(wrapper, 'information').length).toEqual(1);
+    expect(findButtonByLabel(wrapper, 'edit').length).toEqual(1);
+  });
+
+  test('do not show approve, deny and cancel buttons', () => {
+    const wrapper = getWrapper();
+
+    expect(findButtonByLabel(wrapper, 'approve').length).toEqual(0);
+    expect(findButtonByLabel(wrapper, 'deny').length).toEqual(0);
+    expect(findButtonByLabel(wrapper, 'cancel').length).toEqual(0);
+  });
+
+  describe('when state is requested', () => {
+    const getWrapperInRequestedState = props => getWrapper({
+      reservation: { ...defaultProps.reservation, state: 'requested' },
+      ...props,
+    });
+
+    test('show approve and deny button', () => {
+      const wrapper = getWrapperInRequestedState();
+
+      expect(findButtonByLabel(wrapper, 'approve').length).toEqual(1);
+      expect(findButtonByLabel(wrapper, 'deny').length).toEqual(1);
+    });
   });
 });
