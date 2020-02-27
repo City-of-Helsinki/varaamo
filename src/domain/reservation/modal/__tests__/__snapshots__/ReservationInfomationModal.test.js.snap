@@ -292,7 +292,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       disabled={false}
       onClick={[Function]}
     >
-      ReservationInfoModal.confirmButton
+      ReservationInfoModal.approveButton
     </Button>
   </ModalFooter>
   <Connect(InjectT(UnconnectedReservationCancelModal))

@@ -133,7 +133,7 @@ const ReservationInformationModal = ({
           bsStyle="success"
           onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.CONFIRMED)}
         >
-          {t('ReservationInfoModal.confirmButton')}
+          {t('ReservationInfoModal.approveButton')}
         </Button>
       </Modal.Footer>
       <ConnectedReservationCancelModal

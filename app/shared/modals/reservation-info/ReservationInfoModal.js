@@ -167,7 +167,7 @@ class ReservationInfoModal extends Component {
               disabled={disabled}
               onClick={onConfirmClick}
             >
-              {t('ReservationInfoModal.confirmButton')}
+              {t('ReservationInfoModal.approveButton')}
             </Button>
           )}
           {showCancelButton && (
