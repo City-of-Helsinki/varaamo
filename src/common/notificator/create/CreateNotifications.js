@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Grid } from 'react-bootstrap';
-import { auth, firestore } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import Loader from 'react-loader';
 import moment from 'moment';
 
@@ -39,11 +41,11 @@ class CreateNotifications extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribeAuthListener = auth().onAuthStateChanged((user) => {
+    this.unsubscribeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       this.setState({ superuser: !!user, loading: false });
     });
 
-    this.unsubscribeNotificationsListener = firestore().collection('notifications').onSnapshot((querySnap) => {
+    this.unsubscribeNotificationsListener = firebase.firestore().collection('notifications').onSnapshot((querySnap) => {
       const notifications = [];
       querySnap.forEach((doc) => {
         const notification = formatValuesForUse(doc.data());
@@ -61,7 +63,7 @@ class CreateNotifications extends Component {
 
   logIn = () => {
     const { email, password } = this.state;
-    auth().signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
     // eslint-disable-next-line no-console
       .catch(err => console.log('ERROR', err));
   };
@@ -111,7 +113,7 @@ class CreateNotifications extends Component {
     // Modify data so it will be saved correctly
     newNotification = formatValuesForDatabase(newNotification);
 
-    firestore().collection('notifications').add(newNotification)
+    firebase.firestore().collection('notifications').add(newNotification)
       .then(() => {
         // Reset values
         this.setState({
@@ -126,7 +128,7 @@ class CreateNotifications extends Component {
     let selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
     selectedNotification = formatValuesForDatabase(selectedNotification);
 
-    firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
+    firebase.firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
       .then(() => {
         this.setState({
           selectedNotification: {},
@@ -138,7 +140,7 @@ class CreateNotifications extends Component {
 
   deleteNotification = () => {
     const { selectedNotification } = this.state;
-    firestore().collection('notifications').doc(selectedNotification.id).delete()
+    firebase.firestore().collection('notifications').doc(selectedNotification.id).delete()
       .then(() => {
         this.setState({
           selectedNotification: {},
