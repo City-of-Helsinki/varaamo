@@ -16,6 +16,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
         description: 'Some description',
         genericTerms: 'some generic terms',
         specificTerms: 'some specific terms',
+        paymentTerms: 'some payment terms',
         maxPricePerHour: '30',
         peopleCapacity: '16',
         type: {
@@ -117,5 +118,23 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       .find('a');
 
     expect(link).toHaveLength(0);
+  });
+
+  test('renders payment terms when resource has products and a paymentTerms field', () => {
+    const resource = Resource.build({
+      description: 'Some description',
+      genericTerms: 'some generic terms',
+      specificTerms: 'some specific terms',
+      paymentTerms: 'some payment terms',
+      products: [{}],
+      maxPricePerHour: '30',
+      peopleCapacity: '16',
+      type: {
+        name: 'workplace',
+      },
+    });
+    const wrapper = getWrapper({ resource });
+
+    expect(wrapper.find({ header: 'paymentTerms.title' }).length).toEqual(1);
   });
 });
