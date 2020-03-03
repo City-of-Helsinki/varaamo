@@ -20,6 +20,7 @@ import {
 } from '../../actions/uiActions';
 import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ReservationControls from './ReservationControls';
+import { RESERVATION_STATE } from '../../../src/constants/ReservationState';
 
 export class UnconnectedReservationControlsContainer extends Component {
   constructor(props) {
@@ -35,29 +36,38 @@ export class UnconnectedReservationControlsContainer extends Component {
   // redux state. The reservation prop this component receives may be in
   // snake_case. To ensure that we do not send a snake_cased object into
   // redux state, we are camelCasing the reservation object here.
-  get reservation() {
-    return camelCaseKeys(this.props.reservation);
+
+  // The redux state also expects a normalized reservation object. This
+  // is why we need to replace the inlined resource object wiht its id.
+  get reduxReservation() {
+    const reservation = this.props.reservation;
+    const resourceId = reservation.resource ? reservation.resource.id : undefined;
+
+    return camelCaseKeys({
+      ...reservation,
+      resource: resourceId,
+    });
   }
 
   handleCancelClick() {
     const { actions } = this.props;
-    actions.selectReservationToCancel(this.reservation);
+    actions.selectReservationToCancel(this.reduxReservation);
     actions.openReservationCancelModal();
   }
 
   handleConfirmClick() {
-    const { actions, isAdmin } = this.props;
+    const { actions, isAdmin, reservation } = this.props;
 
-    if (isAdmin && this.reservation.state === 'requested') {
-      actions.confirmPreliminaryReservation(this.reservation);
+    if (isAdmin && reservation.state === RESERVATION_STATE.REQUESTED) {
+      actions.confirmPreliminaryReservation(this.reduxReservation);
     }
   }
 
   handleDenyClick() {
-    const { actions, isAdmin } = this.props;
+    const { actions, isAdmin, reservation } = this.props;
 
-    if (isAdmin && this.reservation.state === 'requested') {
-      actions.denyPreliminaryReservation(this.reservation);
+    if (isAdmin && reservation.state === RESERVATION_STATE.REQUESTED) {
+      actions.denyPreliminaryReservation(this.reduxReservation);
     }
   }
 
@@ -70,16 +80,16 @@ export class UnconnectedReservationControlsContainer extends Component {
       return;
     }
 
-    const nextUrl = getEditReservationUrl(this.reservation);
+    const nextUrl = getEditReservationUrl(this.reduxReservation);
 
-    actions.selectReservationToEdit({ reservation: this.reservation, slotSize: resource.slot_size });
+    actions.selectReservationToEdit({ reservation: this.reduxReservation, slotSize: resource.slot_size });
     history.push(nextUrl);
   }
 
   handleInfoClick() {
     const { actions } = this.props;
 
-    actions.showReservationInfoModal(this.reservation);
+    actions.showReservationInfoModal(this.reduxReservation);
   }
 
   render() {
