@@ -14,6 +14,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       push: () => {},
     },
     t: path => path,
+    reduxReservations: {},
   };
 
   function getWrapper(extraProps = {}) {

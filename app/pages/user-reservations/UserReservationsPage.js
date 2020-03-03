@@ -35,6 +35,34 @@ const TABS = Object.freeze({
   PAST: 'past',
 });
 
+// This view uses its internal state to keep track of reservations.
+// However, some components like modals or action buttons still make
+// updates into the redux state. For a low area integration, we are
+// preferring a version of the reservation object existing within the
+// redux state. This way the actions targeting the redux state end up
+// being reflected within the list. At the same time, we are still able
+// to control the logic of the list (pagination, filtering, etc.)
+// outside of the redux state, which is in line with the architectural
+// trend in this repo.
+
+// This approach may introduce some "cache" invalidation issues in the
+// long run.
+function injectReservationFromReduxState(naiveReservations = [], reduxReservations = {}) {
+  return naiveReservations.map((reservation) => {
+    const reduxReservation = reduxReservations[reservation.url];
+
+    if (!reduxReservation) {
+      return reservation;
+    }
+
+    return {
+      ...reservation,
+      ...reduxReservation,
+      resource: reservation.resource,
+    };
+  });
+}
+
 class UnconnectedUserReservationsPage extends Component {
   constructor(props) {
     super(props);
@@ -100,12 +128,14 @@ class UnconnectedUserReservationsPage extends Component {
   }
 
   get reservations() {
+    const { reduxReservations } = this.props;
+
     if (this.tab === TABS.UPCOMING) {
-      return this.state.upcomingReservation.data;
+      return injectReservationFromReduxState(this.state.upcomingReservation.data, reduxReservations);
     }
 
     if (this.tab === TABS.PAST) {
-      return this.state.pastReservation.data;
+      return injectReservationFromReduxState(this.state.pastReservation.data, reduxReservations);
     }
 
     return [];
@@ -303,6 +333,7 @@ UnconnectedUserReservationsPage.propTypes = {
   history: PropTypes.object,
   location: PropTypes.object,
   t: PropTypes.func.isRequired,
+  reduxReservations: PropTypes.object.isRequired,
 };
 UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
 
