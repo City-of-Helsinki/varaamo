@@ -12,6 +12,8 @@ const UntranslatedManageReservationsDropdown = ({
   userCanModify,
   userCanCancel,
 }) => {
+  const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
+
   return (
     <div className="app-ManageReservationDropdown">
       {userCanModify && (
@@ -23,16 +25,20 @@ const UntranslatedManageReservationsDropdown = ({
             {t('ManageReservationsList.actionLabel.information')}
           </MenuItem>
 
-          <MenuItem
-            onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
-          >
-            {t('ManageReservationsList.actionLabel.approve')}
-          </MenuItem>
-          <MenuItem
-            onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
-          >
-            {t('ManageReservationsList.actionLabel.deny')}
-          </MenuItem>
+          {isRequestedReservation && (
+            <>
+              <MenuItem
+                onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
+              >
+                {t('ManageReservationsList.actionLabel.approve')}
+              </MenuItem>
+              <MenuItem
+                onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
+              >
+                {t('ManageReservationsList.actionLabel.deny')}
+              </MenuItem>
+            </>
+          )}
 
           <MenuItem
             onClick={onEditClick}

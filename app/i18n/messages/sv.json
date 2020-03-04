@@ -244,7 +244,7 @@
   "ReservationInfo.reservationEarliestDays": "Bokning måste göras {time} i förväg",
   "ReservationInfo.reservationLatestDays": "Bokningar kan göras {time} i förväg, fram tills {date}",
   "ReservationInfoModal.cancelButton": "Annulera evenmanget",
-  "ReservationInfoModal.confirmButton": "Bekräfta reserveringen",
+  "ReservationInfoModal.approveButton": "Bekräfta reserveringen",
   "ReservationInfoModal.denyButton": "Förneka reserveringen",
   "ReservationInfoModal.saveComment": "Spara kommentar",
   "ReservationInfoModal.title": "Uppgifter om bokningen",

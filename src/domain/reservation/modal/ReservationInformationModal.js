@@ -46,6 +46,7 @@ const ReservationInformationModal = ({
   const payerFirstName = get(reservation, 'billing_first_name', '');
   const payerLastName = get(reservation, 'billing_last_name', '');
   const payerEmail = get(reservation, 'billing_email_address', '');
+  const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
 
   return (
     <Modal
@@ -122,19 +123,23 @@ const ReservationInformationModal = ({
           {t('ReservationInfoModal.cancelButton')}
         </Button>
 
-        <Button
-          bsStyle="danger"
-          onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.DENIED)}
-        >
-          {t('ReservationInfoModal.denyButton')}
-        </Button>
+        {isRequestedReservation && (
+          <>
+            <Button
+              bsStyle="danger"
+              onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.DENIED)}
+            >
+              {t('ReservationInfoModal.denyButton')}
+            </Button>
 
-        <Button
-          bsStyle="success"
-          onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.CONFIRMED)}
-        >
-          {t('ReservationInfoModal.confirmButton')}
-        </Button>
+            <Button
+              bsStyle="success"
+              onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.CONFIRMED)}
+            >
+              {t('ReservationInfoModal.approveButton')}
+            </Button>
+          </>
+        )}
       </Modal.Footer>
       <ConnectedReservationCancelModal
         onEditReservation={onEditReservation}

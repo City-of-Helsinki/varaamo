@@ -242,7 +242,7 @@
   "ReservationInfo.reservationEarliestDays": "Varattava vähintään {time} etukäteen",
   "ReservationInfo.reservationLatestDays": "Varauksen voi tehdä {time} etukäteen, {date} asti",
   "ReservationInfoModal.cancelButton": "Peru varaus",
-  "ReservationInfoModal.confirmButton": "Hyväksy varaus",
+  "ReservationInfoModal.approveButton": "Hyväksy varaus",
   "ReservationInfoModal.denyButton": "Hylkää varaus",
   "ReservationInfoModal.saveComment": "Tallenna kommentti",
   "ReservationInfoModal.title": "Varauksen tiedot",
