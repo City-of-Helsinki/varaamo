@@ -71,9 +71,7 @@ class ReservationControls extends Component {
       return false;
     }
 
-    const isUnitStaff = getIsUnitStaff(getUnitRoleFromResource(resource));
-
-    return isUnitStaff;
+    return getIsUnitStaff(getUnitRoleFromResource(resource));
   }
 
   renderButtons(buttons, isAdmin, isStaff, reservation) {
