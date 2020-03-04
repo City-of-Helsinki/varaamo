@@ -72,7 +72,7 @@ class ReservationListItem extends Component {
                 <div className="reservation-state-label-container">
                   {hasCompleteResource && (
                     hasProducts(completeResource)
-                    && !completeResource.data.staff_event
+                    && !completeResource.staff_event
                     && price > 0 && (
                       <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
                     )
