@@ -1,4 +1,4 @@
-import { hasPermissionForResource, roleMapper } from '../utils';
+import { hasPermissionForResource, getUnitRoleFromResource, getIsUnitStaff } from '../utils';
 import { resourceRoles, resourcePermissionTypes } from '../constants';
 
 describe('domain resource permission utility functions', () => {
@@ -73,21 +73,72 @@ describe('domain resource permission utility functions', () => {
     });
   });
 
-  describe('roleMapper', () => {
-    test('returns UNIT_ADMINISTRATOR when isAdmin is true', () => {
-      expect(roleMapper(true)).toEqual(resourceRoles.UNIT_ADMINISTRATOR);
+  describe('getUnitRoleFromResource', () => {
+    const doTestCases = (caseType) => {
+      const isSnake = caseType === 'snake_case';
+      const caseMap = {
+        userPermissions: isSnake ? 'user_permissions' : 'userPermissions',
+        isAdmin: isSnake ? 'is_admin' : 'isAdmin',
+        isManager: isSnake ? 'is_manager' : 'isManager',
+        isViewer: isSnake ? 'is_viewer' : 'isViewer',
+      };
+      const getTestResource = (isAdmin, isManager, isViewer) => {
+        return {
+          [caseMap.userPermissions]: {
+            [caseMap.isAdmin]: isAdmin,
+            [caseMap.isManager]: isManager,
+            [caseMap.isViewer]: isViewer,
+          },
+        };
+      };
+
+      test(`returns null when ${caseMap.userPermissions} is not found`, () => {
+        expect(getUnitRoleFromResource({})).toEqual(null);
+      });
+
+      test(`returns UNIT_ADMINISTRATOR when ${caseMap.isAdmin} is true`, () => {
+        expect(getUnitRoleFromResource(getTestResource(true)))
+          .toEqual(resourceRoles.UNIT_ADMINISTRATOR);
+      });
+
+      test(`returns UNIT_MANAGER when ${caseMap.isAdmin} is falsy and ${caseMap.isManager} is true`, () => {
+        expect(getUnitRoleFromResource(getTestResource(false, true)))
+          .toEqual(resourceRoles.UNIT_MANAGER);
+      });
+
+      // eslint-disable-next-line max-len
+      test(`returns UNIT_MANAGER when ${caseMap.isAdmin} is falsy, ${caseMap.isManager} is falsy and ${caseMap.isViewer} is true`, () => {
+        expect(getUnitRoleFromResource(getTestResource(false, false, true)))
+          .toEqual(resourceRoles.UNIT_VIEWER);
+      });
+
+      test('returns null otherwise', () => {
+        expect(getUnitRoleFromResource(getTestResource(false, false, false)))
+          .toEqual(null);
+      });
+    };
+
+    describe('when using snake_case', () => {
+      doTestCases('snake_case');
     });
 
-    test('returns UNIT_MANAGER when isAdmin is falsy and isManager is true', () => {
-      expect(roleMapper(false, true)).toEqual(resourceRoles.UNIT_MANAGER);
+    describe('when using camelCase', () => {
+      doTestCases('camelCase');
+    });
+  });
+
+  describe('getIsUnitStaff', () => {
+    test('returns true for UNIT_ADMINISTRATOR, UNIT_MANAGER, UNIT_VIEWER', () => {
+      expect(getIsUnitStaff(resourceRoles.UNIT_ADMINISTRATOR)).toEqual(true);
+      expect(getIsUnitStaff(resourceRoles.UNIT_MANAGER)).toEqual(true);
+      expect(getIsUnitStaff(resourceRoles.UNIT_VIEWER)).toEqual(true);
     });
 
-    test('returns UNIT_MANAGER when isAdmin is falsy, isManager is falsy and isViewer is true', () => {
-      expect(roleMapper(false, false, true)).toEqual(resourceRoles.UNIT_VIEWER);
-    });
-
-    test('returns null when all parameters are falsy', () => {
-      expect(roleMapper(false, false, false)).toEqual(null);
+    test('returns false otherwise', () => {
+      expect(getIsUnitStaff('UNIT_RESERVER')).toEqual(false);
+      expect(getIsUnitStaff(null)).toEqual(false);
+      expect(getIsUnitStaff(undefined)).toEqual(false);
+      expect(getIsUnitStaff(0)).toEqual(false);
     });
   });
 });

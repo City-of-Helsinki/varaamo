@@ -78,10 +78,10 @@ const ResourceHydrator = ({ id, children, wrappingRef }) => {
 
   useIntersectionObserver(window, wrappingRef, handleOnIntersect, 0);
   useEffect(() => {
-    if (isIntersecting) {
+    if (isIntersecting && res.data === null) {
       fetch(id);
     }
-  }, [fetch, id, isIntersecting]);
+  }, [fetch, id, isIntersecting, res.data]);
 
 
   return children(res);

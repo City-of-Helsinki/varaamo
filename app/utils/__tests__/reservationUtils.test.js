@@ -12,6 +12,7 @@ import {
   getMissingValues,
   getNextAvailableTime,
   getNextReservation,
+  getReservationResourceId,
   getReservationPrice,
 } from '../reservationUtils';
 
@@ -301,6 +302,22 @@ describe('Utils: reservationUtils', () => {
 
     test('returns the next reservation from a list of reservations', () => {
       expect(getNextReservation(unorderedReservations)).toEqual(nextReservation);
+    });
+  });
+
+  describe('getReservationResourceId', () => {
+    const resourceId = 'example-id';
+
+    test('should return id for inlined resource', () => {
+      expect(getReservationResourceId({ id: resourceId })).toEqual(resourceId);
+    });
+
+    test('should return id when resource field contains only the id', () => {
+      expect(getReservationResourceId(resourceId)).toEqual(resourceId);
+    });
+
+    test('should return undefined when resource is undefined', () => {
+      expect(getReservationResourceId()).toEqual(undefined);
     });
   });
 

@@ -1,23 +1,9 @@
 import difference from 'lodash/difference';
+import get from 'lodash/get';
 
-import { resourceRoles, resourcePermissionTypes, resourcePermissionsByRole } from './constants';
-
-// Returns the role with the most permissions or null.
-export function roleMapper(isAdmin, isManager, isViewer) {
-  if (isAdmin) {
-    return resourceRoles.UNIT_ADMINISTRATOR;
-  }
-
-  if (isManager) {
-    return resourceRoles.UNIT_MANAGER;
-  }
-
-  if (isViewer) {
-    return resourceRoles.UNIT_VIEWER;
-  }
-
-  return null;
-}
+import {
+  resourceRoles, resourcePermissionTypes, resourcePermissionsByRole, UI_UNIT_STAFF_ROLES,
+} from './constants';
 
 const permissionOptions = Object.values(resourcePermissionTypes);
 const allValuesInArray = (subset, superset) => difference(subset, superset).length === 0;
@@ -64,4 +50,36 @@ export function hasPermissionForResource(resourceRole, requiredPermissions) {
   }
 
   return rolePermissions.includes(requiredPermissions);
+}
+
+const getUserPermissions = resource => (
+  get(resource, 'user_permissions', false)
+  || get(resource, 'userPermissions', undefined)
+);
+
+// Returns the role with the most permissions or null.
+export function getUnitRoleFromResource(resource) {
+  const userPermissions = getUserPermissions(resource);
+
+  if (!userPermissions) {
+    return null;
+  }
+
+  if (userPermissions.is_admin || userPermissions.isAdmin) {
+    return resourceRoles.UNIT_ADMINISTRATOR;
+  }
+
+  if (userPermissions.is_manager || userPermissions.isManager) {
+    return resourceRoles.UNIT_MANAGER;
+  }
+
+  if (userPermissions.is_viewer || userPermissions.isViewer) {
+    return resourceRoles.UNIT_VIEWER;
+  }
+
+  return null;
+}
+
+export function getIsUnitStaff(unitRole) {
+  return UI_UNIT_STAFF_ROLES.includes(unitRole);
 }

@@ -17,6 +17,12 @@ export const resourceRoles = Object.freeze({
   UNIT_VIEWER: 'UNIT_VIEWER',
 });
 
+export const UI_UNIT_STAFF_ROLES = [
+  resourceRoles.UNIT_ADMINISTRATOR,
+  resourceRoles.UNIT_MANAGER,
+  resourceRoles.UNIT_VIEWER,
+];
+
 const UNIT_ADMINISTRATOR_PERMISSIONS = [
   resourcePermissionTypes.CAN_MAKE_RESERVATIONS,
   resourcePermissionTypes.CAN_MODIFY_RESERVATIONS,

@@ -42,11 +42,14 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     onDenyClick: () => null,
     onEditFormSubmit: () => null,
     onSaveCommentsClick: () => null,
-    onStartEditClick: () => null,
     reservation: Immutable(reservation),
     reservationIsEditable: false,
     resource: Immutable(resource),
     show: true,
+    selectReservationToEdit: () => null,
+    history: {
+      push: jest.fn(),
+    },
   };
 
   function getWrapper(extraProps = {}) {

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import camelCaseKeys from 'camelcase-keys';
 
 import {
   confirmPreliminaryReservation,
@@ -19,6 +20,7 @@ import {
 } from '../../actions/uiActions';
 import { getEditReservationUrl } from '../../utils/reservationUtils';
 import ReservationControls from './ReservationControls';
+import { RESERVATION_STATE } from '../../../src/constants/ReservationState';
 
 export class UnconnectedReservationControlsContainer extends Component {
   constructor(props) {
@@ -30,53 +32,69 @@ export class UnconnectedReservationControlsContainer extends Component {
     this.handleInfoClick = this.handleInfoClick.bind(this);
   }
 
+  // This component may send the reservation it receives as a prop into
+  // redux state. The reservation prop this component receives may be in
+  // snake_case. To ensure that we do not send a snake_cased object into
+  // redux state, we are camelCasing the reservation object here.
+
+  // The redux state also expects a normalized reservation object. This
+  // is why we need to replace the inlined resource object wiht its id.
+  get reduxReservation() {
+    const reservation = this.props.reservation;
+    const resourceId = reservation.resource ? reservation.resource.id : undefined;
+
+    return camelCaseKeys({
+      ...reservation,
+      resource: resourceId,
+    });
+  }
+
   handleCancelClick() {
-    const { actions, reservation } = this.props;
-    actions.selectReservationToCancel(reservation);
+    const { actions } = this.props;
+    actions.selectReservationToCancel(this.reduxReservation);
     actions.openReservationCancelModal();
   }
 
   handleConfirmClick() {
     const { actions, isAdmin, reservation } = this.props;
 
-    if (isAdmin && reservation.state === 'requested') {
-      actions.confirmPreliminaryReservation(reservation);
+    if (isAdmin && reservation.state === RESERVATION_STATE.REQUESTED) {
+      actions.confirmPreliminaryReservation(this.reduxReservation);
     }
   }
 
   handleDenyClick() {
     const { actions, isAdmin, reservation } = this.props;
 
-    if (isAdmin && reservation.state === 'requested') {
-      actions.denyPreliminaryReservation(reservation);
+    if (isAdmin && reservation.state === RESERVATION_STATE.REQUESTED) {
+      actions.denyPreliminaryReservation(this.reduxReservation);
     }
   }
 
   handleEditClick() {
     const {
-      actions, reservation, resource, history,
+      actions, resource, history,
     } = this.props;
 
     if (!resource === null) {
       return;
     }
 
-    const nextUrl = getEditReservationUrl(reservation);
+    const nextUrl = getEditReservationUrl(this.reduxReservation);
 
-    actions.selectReservationToEdit({ reservation, slotSize: resource.slot_size });
+    actions.selectReservationToEdit({ reservation: this.reduxReservation, slotSize: resource.slot_size });
     history.push(nextUrl);
   }
 
   handleInfoClick() {
-    const { actions, reservation } = this.props;
+    const { actions } = this.props;
 
-    actions.showReservationInfoModal(reservation);
+    actions.showReservationInfoModal(this.reduxReservation);
   }
 
   render() {
     const {
       isAdmin,
-      isStaff,
       reservation,
       resource,
     } = this.props;
@@ -85,7 +103,6 @@ export class UnconnectedReservationControlsContainer extends Component {
     return (
       <ReservationControls
         isAdmin={isAdmin}
-        isStaff={isStaff}
         onCancelClick={this.handleCancelClick}
         onConfirmClick={this.handleConfirmClick}
         onDenyClick={this.handleDenyClick}
@@ -101,7 +118,6 @@ export class UnconnectedReservationControlsContainer extends Component {
 UnconnectedReservationControlsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object,
   history: PropTypes.object.isRequired,
