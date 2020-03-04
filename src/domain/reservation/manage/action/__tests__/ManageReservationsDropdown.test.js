@@ -21,7 +21,7 @@ describe('ManageReservationsDropdown', () => {
     expect(toJSON(getWrapper())).toMatchSnapshot();
   });
 
-  test('show information, edit and cancel buttons', () => {
+  test('show information and edit buttons', () => {
     const wrapper = getWrapper();
 
     expect(findButtonByLabel(wrapper, 'information').length).toEqual(1);
@@ -47,6 +47,14 @@ describe('ManageReservationsDropdown', () => {
 
       expect(findButtonByLabel(wrapper, 'approve').length).toEqual(1);
       expect(findButtonByLabel(wrapper, 'deny').length).toEqual(1);
+    });
+  });
+
+  describe('when props.userCanCancel is true', () => {
+    test('show cancel button', () => {
+      const wrapper = getWrapper({ userCanCancel: true });
+
+      expect(findButtonByLabel(wrapper, 'cancel').length).toEqual(1);
     });
   });
 });
