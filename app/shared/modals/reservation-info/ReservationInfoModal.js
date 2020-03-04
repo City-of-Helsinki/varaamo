@@ -16,6 +16,7 @@ import InfoLabel from '../../../../src/common/label/InfoLabel';
 import { isStaffEvent, getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 import { hasProducts } from '../../../utils/resourceUtils';
+import { RESERVATION_STATE } from '../../../../src/constants/ReservationState';
 
 class ReservationInfoModal extends Component {
   constructor(props) {
@@ -79,8 +80,8 @@ class ReservationInfoModal extends Component {
     );
     const canModify = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_MODIFY_RESERVATIONS);
     const showCancelButton = reservationIsEditable && (
-      reservation.state === 'confirmed'
-      || (reservation.state === 'requested' && !isAdmin)
+      reservation.state === RESERVATION_STATE.CONFIRMED
+      || (reservation.state === RESERVATION_STATE.REQUESTED && !isAdmin)
     );
 
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
