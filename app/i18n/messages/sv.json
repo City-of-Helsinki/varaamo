@@ -414,6 +414,7 @@
   "TimePickerCalendar.info.minPeriodText": "Bokningen måste vara minst {duration} timmar lång.",
   "TimePickerCalendar.info.maxPeriodText": "Bokningen får vara högst {duration} timmar lång.",
   "TimePickerCalendar.info.today": "Idag",
+  "TimePickerCalendar.info.displayedMessage": "För tillfället kan resursen inte bokas",
 
   "CalendarLegend.closed": "Inte tillgänglig",
   "CalendarLegend.selection": "Vald",

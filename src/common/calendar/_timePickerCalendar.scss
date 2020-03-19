@@ -1,4 +1,8 @@
 .app-TimePickerCalendar {
+  &--disabled {
+    position: relative;
+  }
+
   &__event {
     color: $hel-coat !important;
     border-radius: 0 !important;
@@ -35,6 +39,29 @@
 
   &__maxDuration {
     font-size: 1.25rem;
+  }
+
+  &__blocker {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(29, 27, 49, 0.3);
+
+    cursor: not-allowed;
+  }
+
+  &__inline-modal {
+    padding: 16px 18px;
+
+    box-shadow: 4px 4px 14px 4px rgba(29, 27, 49, 0.4);
+    background: $white;
   }
 
   & .fc-time-grid {
