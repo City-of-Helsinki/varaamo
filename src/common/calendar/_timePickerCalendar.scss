@@ -65,7 +65,7 @@
 
       &::before {
         width: 80px;
-        height: 80px;
+        max-height: 80px;
         top: 0;
         left: 0;
         margin-left: -40px;
