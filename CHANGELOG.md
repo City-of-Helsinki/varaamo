@@ -6,6 +6,7 @@
   - Fixed missing line breaks in generic terms and specific terms
   - Changed approve and deny buttons to be hidden when irrelevant in the manage reservations view
   - Fixed translation error in the English version that caused confusion when approving reservations
+  - Fixed missing results in search results
 
   **CHANGELOG**
   - [#1118](https://github.com/City-of-Helsinki/varaamo/pull/1118) Added support for unit manager role; unit managers now have the same permissions as unit admins do
