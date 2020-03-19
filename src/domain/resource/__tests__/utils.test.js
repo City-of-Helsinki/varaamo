@@ -255,16 +255,31 @@ describe('domain resource utility function', () => {
     expect(minTimeWeek).toBe('06:00:00');
   });
 
-  test('getFullCalendarMaxTime', () => {
-    const resource = resourceFixture.build({
-      opening_hours: OPENING_HOURS,
+  describe('getFullCalendarMaxTime', () => {
+    test('acts properly with basic cases', () => {
+      const resource = resourceFixture.build({
+        opening_hours: OPENING_HOURS,
+      });
+
+      const minTimeDay = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridDay', 3);
+      expect(minTimeDay).toBe('23:00:00');
+
+      const minTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek', 2);
+      expect(minTimeWeek).toBe('22:00:00');
     });
 
-    const minTimeDay = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridDay', 3);
-    expect(minTimeDay).toBe('23:00:00');
+    test('does not overflow date when opening hours end at 23', () => {
+      const resource = resourceFixture.build({
+        opening_hours: [{
+          date: DATE,
+          opens: `${DATE}T08:00:00+03:00`,
+          closes: `${DATE}T23:00:00+03:00`,
+        }],
+      });
+      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek', 2);
 
-    const minTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek', 2);
-    expect(minTimeWeek).toBe('22:00:00');
+      expect(maxTimeWeek).toBe('23:00:00');
+    });
   });
 
   test('getFullCalendarBusinessHoursForDate', () => {

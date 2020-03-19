@@ -10,6 +10,7 @@
   - Fixed missing results in search results
   - Fixed scrollbar flickering in reservation calendar when business hours were of short duration
   - Fixed premise dropdown returning empty labels
+  - Fixed resource calendar not rendering anything when closing time was 23:00 or later
 
   **CHANGELOG**
   - [#1118](https://github.com/City-of-Helsinki/varaamo/pull/1118) Added support for unit manager role; unit managers now have the same permissions as unit admins do

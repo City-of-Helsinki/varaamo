@@ -293,13 +293,30 @@ export const getFullCalendarMaxTime = (resource, date, viewType, buffer = 1) => 
   });
 
   if (max) {
-    // Add the buffer into the max value.
-    max.add(buffer, 'hour');
+    const hasTimeUntilEndOfDay = (momentDate, time) => {
+      const maxWithBuffer = momentDate.clone().add(time, 'hour').valueOf();
+      const startOfDate = momentDate.clone().startOf('day').valueOf();
+      const currentLength = maxWithBuffer - startOfDate;
+      const dayInMilliseconds = 86400000;
+
+      return currentLength < dayInMilliseconds;
+    };
+
+    // Add the buffer into the max value if it doesn't cause the day
+    // to overflow to tomorrow. That would cause a situation where
+    // maxTime could equal less than minTime and the calendar would not
+    // render properly.
+    if (hasTimeUntilEndOfDay(max, buffer)) {
+      max.add(buffer, 'hour');
+    }
 
     // Make sure that the max value is an even hour.
     if (max.minutes() > 0) {
       max.minutes(0);
-      max.add(1, 'hour');
+
+      if (hasTimeUntilEndOfDay(max, 1)) {
+        max.add(1, 'hour');
+      }
     }
 
     return max
