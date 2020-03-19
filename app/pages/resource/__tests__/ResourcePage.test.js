@@ -61,6 +61,26 @@ describe('pages/resource/ResourcePage', () => {
     return shallowWithIntl(<ResourcePage {...defaultProps} {...props} />);
   }
 
+  test('renders without error without window', () => {
+    const originalWindow = window;
+    global.window = undefined;
+
+    expect(() => {
+      getWrapper();
+    }).not.toThrowError();
+
+    global.window = originalWindow;
+  });
+
+  test('resets its scroll positions on mount', () => {
+    window.scrollTo(10, 10);
+
+    getWrapper();
+
+    expect(window.scrollX).toEqual(0);
+    expect(window.scrollY).toEqual(0);
+  });
+
   describe('render', () => {
     test('renders PageWrapper with correct props', () => {
       const pageWrapper = getWrapper().find(PageWrapper);
