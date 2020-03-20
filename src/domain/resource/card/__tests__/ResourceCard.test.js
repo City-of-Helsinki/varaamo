@@ -15,6 +15,7 @@ describe('ResourceCard', () => {
       onFilterClick: jest.fn(),
       resource: resource.build(),
       unit: unit.build(),
+      t: () => {},
     };
     const wrapper = shallowWithIntl(
       <UnconnectedResourceCard {...props} />,

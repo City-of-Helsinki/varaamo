@@ -7,7 +7,7 @@ import round from 'lodash/round';
 
 import injectT from '../../../i18n/injectT';
 import FavoriteButton from '../../../shared/favorite-button/FavoriteButtonContainer';
-import { getHourlyPrice, getMaxPeriodText } from '../../../utils/resourceUtils';
+import { getPrice, getMaxPeriodText } from '../../../utils/resourceUtils';
 import iconHome from '../../../assets/icons/home.svg';
 import iconMapMarker from '../../../assets/icons/map-marker.svg';
 import iconTicket from '../../../assets/icons/ticket.svg';
@@ -42,7 +42,7 @@ function ResourceHeader({
 
   const peopleCapacityText = t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity });
   const maxPeriodText = getMaxPeriodText(t, resource);
-  const priceText = getHourlyPrice(t, resource);
+  const priceText = getPrice(t, resource);
   const typeName = resource.type ? resource.type.name : '\u00A0';
   const distance = formatDistance(resource.distance);
 

@@ -11,6 +11,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
+import { resourcePriceTypes } from './constants';
 
 /**
  * getResourcePageLink();
@@ -52,31 +53,61 @@ export const getResourceDistance = (resource) => {
   return km ? `${round(km, km < 10 ? 1 : null)} km` : '';
 };
 
+function getPriceUnit(resourcePriceType) {
+  switch (resourcePriceType) {
+    case resourcePriceTypes.HOURLY:
+      return 'hour';
+    case resourcePriceTypes.DAILY:
+      return 'day';
+    case resourcePriceTypes.WEEKLY:
+      return 'week';
+    case resourcePriceTypes.FIXED:
+    default:
+      return null;
+  }
+}
+
+export const getPrice = (minPriceString, maxPriceString, priceType, t) => {
+  const minPrice = !isNaN(minPriceString)
+    ? Number(minPriceString)
+    : minPriceString;
+  const maxPrice = !isNaN(maxPriceString)
+    ? Number(maxPriceString)
+    : maxPriceString;
+
+  if (!(minPrice || maxPrice)) {
+    return t('ResourceIcons.free');
+  }
+
+  const priceUnit = getPriceUnit(priceType);
+  const translatedPriceUnit = priceUnit ? t(`common.unit.time.${priceUnit}`) : null;
+  const priceEnding = priceUnit ? `€/${translatedPriceUnit}` : '€';
+
+  if (minPrice && maxPrice && minPrice !== maxPrice) {
+    return `${Number(minPrice)} - ${Number(maxPrice)} ${priceEnding}`;
+  }
+
+  const priceString = maxPrice || minPrice;
+  const price = priceString !== 0 ? Number(priceString) : 0;
+
+  if (price === 0) {
+    return t('ResourceIcons.free');
+  }
+
+  return price ? `${price} ${priceEnding}` : null;
+};
+
 /**
  * Getter for price string used in resource cards.
  * @param resource {object} Resource object.
  * @param t {function}
  * @returns {string|*}
  */
-export const getPrice = (resource, t) => {
-  const minPricePerHour = resource.min_price_per_hour;
-  const maxPricePerHour = resource.max_price_per_hour;
+export const getPriceFromSnakeCaseResource = (resource, t) => {
+  // eslint-disable-next-line camelcase
+  const { min_price, max_price, price_type } = resource;
 
-  if (!(minPricePerHour || maxPricePerHour)) {
-    return t('ResourceIcons.free');
-  }
-
-  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
-    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
-  }
-
-  const priceString = maxPricePerHour || minPricePerHour;
-  const price = priceString !== 0 ? Number(priceString) : 0;
-  if (price === 0) {
-    return t('ResourceIcons.free');
-  }
-
-  return price ? `${price} €/h` : null;
+  return getPrice(min_price, max_price, price_type, t);
 };
 
 /**
