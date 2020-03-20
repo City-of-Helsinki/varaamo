@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
+import { Notification } from 'hds-react';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -380,6 +381,16 @@ class UnconnectedReservationInformationForm extends Component {
             )
           }
           <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
+          {includes(fields, 'eventSubject') && (
+            <Notification
+              closeButtonLabelText="dismiss"
+              labelText={t('ReservationForm.publicFieldsNoticeLabel')}
+              onClose={() => {}}
+              type="warning"
+            >
+              {t('ReservationForm.publicFieldsNotice')}
+            </Notification>
+          )}
           {this.renderField(
             'eventSubject',
             'text',

@@ -7,8 +7,10 @@ import resource from '../../../../common/data/fixtures/resource';
 import unit from '../../../../common/data/fixtures/unit';
 import { globalDateMock } from '../../../../../app/utils/testUtils';
 import SearchSort from '../../sort/SearchSort';
+import Pagination from '../../../../common/pagination/Pagination';
 
 const findSearchSort = wrapper => wrapper.find(SearchSort);
+const findPagination = wrapper => wrapper.find(Pagination);
 
 describe('SearchListResults', () => {
   globalDateMock();
@@ -37,5 +39,11 @@ describe('SearchListResults', () => {
     const wrapper = getWrapper({ location });
 
     expect(findSearchSort(wrapper).prop('value')).toEqual(orderBy);
+  });
+
+  test('correctly passes pages to Pagination', () => {
+    const wrapper = getWrapper({ totalCount: 67 });
+
+    expect(findPagination(wrapper).prop('pages')).toEqual(3);
   });
 });
