@@ -8,6 +8,7 @@
   - Fixed translation error in the English version that caused confusion when approving reservations
   - Fixed resource page sometimes being scrolled to its end after it had been opened
   - Fixed missing results in search results
+  - Fixed scrollbar flickering in reservation calendar when business hours were of short duration
 
   **CHANGELOG**
   - [#1118](https://github.com/City-of-Helsinki/varaamo/pull/1118) Added support for unit manager role; unit managers now have the same permissions as unit admins do
