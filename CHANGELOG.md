@@ -6,6 +6,7 @@
   - Fixed missing line breaks in generic terms and specific terms
   - Changed approve and deny buttons to be hidden when irrelevant in the manage reservations view
   - Fixed translation error in the English version that caused confusion when approving reservations
+  - Fixed resource page sometimes being scrolled to its end after it had been opened
   - Fixed missing results in search results
 
   **CHANGELOG**

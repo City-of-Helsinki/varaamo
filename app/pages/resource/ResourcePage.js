@@ -54,6 +54,11 @@ class UnconnectedResourcePage extends Component {
   };
 
   componentDidMount() {
+    // Scroll to top of page if we are on client side.
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+
     this.props.actions.clearReservations();
     this.fetchResource();
   }
