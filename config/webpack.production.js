@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
+const getCssLoaders = require('./getCssLoaders');
 
 module.exports = merge(common, {
   entry: ['@babel/polyfill', path.resolve(__dirname, '../src/index.js')],
@@ -26,14 +27,7 @@ module.exports = merge(common, {
           presets: ['@babel/preset-env', '@babel/preset-react'],
         },
       },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
-        ],
-      },
+      ...getCssLoaders(true),
       {
         test: /\.scss$/,
         use: [

@@ -12,6 +12,7 @@
   - [#1125](https://github.com/City-of-Helsinki/varaamo/pull/1125) Added support for unit viewer role; unit viewers are allowed to complete the same actions as unit admins or unit managers in the UI, but Respa may block some requests for users with this role
   - [#1127](https://github.com/City-of-Helsinki/varaamo/pull/1127) Added support for resource payment terms
   - [#1126](https://github.com/City-of-Helsinki/varaamo/pull/1126) Fixed my reservation crashing on some devices and improved performance
+  - [#1131](https://github.com/City-of-Helsinki/varaamo/pull/1131) Changed labelling for event name field to distinct it as public instead of private
 
 # 0.9.0
   **MINOR CHANGES**
