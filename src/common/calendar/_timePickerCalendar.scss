@@ -2,6 +2,21 @@
   &--disabled {
     position: relative;
   }
+  
+  /* These hacks change slot sizes so that a slot size of 3 hours is
+     greater than that of 1 hour. If these styles are problematic, i.e.
+     they break resizing or dragging, feel free to remove them. */
+  &--big-slots {
+    .fc-slats td { 
+      height: 4.5em !important; 
+    } 
+  }
+
+  &--huge-slots {
+    .fc-slats td { 
+      height: 9em !important; 
+    } 
+  }
 
   &__event {
     color: $hel-coat !important;
@@ -74,7 +89,7 @@
        spanned the final hour visible in the calendar in the week view.
       */
     margin-bottom: 12px;
-  }
+  } 
 
   .fc-event,
   .fc-event:hover {
