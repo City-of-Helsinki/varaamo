@@ -350,15 +350,6 @@ export const getFullCalendarMaxTime = (resource, date, viewType, buffer = 1) => 
       max.add(buffer, 'hour');
     }
 
-    // Make sure that the max value is an even hour.
-    if (max.minutes() > 0) {
-      max.minutes(0);
-
-      if (hasTimeUntilEndOfDay(max, 1)) {
-        max.add(1, 'hour');
-      }
-    }
-
     return max
       .format('HH:mm:ss');
   }
