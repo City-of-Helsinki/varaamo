@@ -135,12 +135,15 @@ async function getReservationPrice(apiClient, begin, end, products) {
 function getReservationPricePerPeriod(resource) {
   const price = get(resource, 'products[0].price.amount');
   const pricePeriod = get(resource, 'products[0].price.period');
+  const priceType = get(resource, 'products[0].price.type');
   const duration = moment.duration(pricePeriod);
   const hours = duration.asHours();
   const period = hours >= 1
     ? `${hours} h`
     : `${duration.asMinutes()} min`;
-  return `${price}€ / ${period}`;
+  const priceEnding = priceType === 'fixed' ? '' : ` / ${period}`;
+
+  return `${price}€${priceEnding}`;
 }
 
 export {

@@ -67,6 +67,13 @@ function getPriceUnit(resourcePriceType) {
   }
 }
 
+function getPriceEnding(resourcePriceType, labels) {
+  const resourcePriceUnit = getPriceUnit(resourcePriceType);
+  const translatedPriceUnit = resourcePriceUnit ? labels[resourcePriceUnit] : null;
+
+  return resourcePriceUnit ? `€/${translatedPriceUnit}` : '€';
+}
+
 export const getPrice = (minPriceString, maxPriceString, priceType, t) => {
   const minPrice = !isNaN(minPriceString)
     ? Number(minPriceString)
@@ -79,9 +86,11 @@ export const getPrice = (minPriceString, maxPriceString, priceType, t) => {
     return t('ResourceIcons.free');
   }
 
-  const priceUnit = getPriceUnit(priceType);
-  const translatedPriceUnit = priceUnit ? t(`common.unit.time.${priceUnit}`) : null;
-  const priceEnding = priceUnit ? `€/${translatedPriceUnit}` : '€';
+  const priceEnding = getPriceEnding(priceType, {
+    hour: t('common.unit.time.hour'),
+    day: t('common.unit.time.day'),
+    week: t('common.unit.time.week'),
+  });
 
   if (minPrice && maxPrice && minPrice !== maxPrice) {
     return `${Number(minPrice)} - ${Number(maxPrice)} ${priceEnding}`;
