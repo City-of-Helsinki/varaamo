@@ -652,7 +652,7 @@ export const getTaxPercentage = (resource) => {
 };
 
 export const getSlotTallness = (resource) => {
-  const [hours, minutes, seconds] = get(resource, 'slot_size', '00:03:00').split(':').map(val => Number(val));
+  const [hours, minutes, seconds] = get(resource, 'slot_size', '00:30:00').split(':').map(val => Number(val));
   const startOfTodayTime = new Date().setHours(0, 0, 0, 0);
   const slotSizeTime = new Date().setHours(hours, minutes, seconds, 0);
   const slotSizeDurationTime = slotSizeTime - startOfTodayTime;
