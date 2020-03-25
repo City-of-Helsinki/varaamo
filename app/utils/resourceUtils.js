@@ -7,6 +7,7 @@ import queryString from 'query-string';
 
 import constants from '../constants/AppConstants';
 import { getCurrentReservation, getNextAvailableTime } from './reservationUtils';
+import { getPrice as genericGetPrice } from '../../src/domain/resource/utils';
 
 function hasMaxReservations(resource) {
   let isMaxReservations = false;
@@ -96,19 +97,8 @@ function getAvailabilityDataForWholeDay(resource = {}, date = null) {
   };
 }
 
-function getHourlyPrice(t, { minPricePerHour, maxPricePerHour }) {
-  if (!(minPricePerHour || maxPricePerHour)) {
-    return t('ResourceIcons.free');
-  }
-  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
-    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
-  }
-  const priceString = maxPricePerHour || minPricePerHour;
-  const price = priceString !== 0 ? Number(priceString) : 0;
-  if (price === 0) {
-    return t('ResourceIcons.free');
-  }
-  return price ? `${price} €/h` : null;
+function getPrice(t, { minPrice, maxPrice, priceType }) {
+  return genericGetPrice(minPrice, maxPrice, priceType, t);
 }
 
 function getHumanizedPeriod(period) {
@@ -214,7 +204,7 @@ export {
   hasMaxReservations,
   getAvailabilityDataForNow,
   getAvailabilityDataForWholeDay,
-  getHourlyPrice,
+  getPrice,
   getHumanizedPeriod,
   getMaxPeriodText,
   getOpeningHours,

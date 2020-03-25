@@ -126,7 +126,7 @@ class ResourceCard extends React.Component {
           <ResourceCardInfoCell
             icon={iconTicket}
             onClick={resourceUtils.isFree(resource) ? () => onFilterClick('freeOfCharge', true) : null}
-            text={resourceUtils.getPrice(resource, t)}
+            text={resourceUtils.getPriceFromSnakeCaseResource(resource, t)}
           />
           <ResourceCardInfoCell
             icon={iconMap}

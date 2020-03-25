@@ -31,7 +31,8 @@ describe('shared/resource-card/ResourceCard', () => {
           },
         ],
         images: [Image.build()],
-        maxPricePerHour: '30',
+        maxPrice: '30',
+        priceType: 'hourly',
         peopleCapacity: '16',
         type: {
           name: 'workplace',
@@ -209,15 +210,16 @@ describe('shared/resource-card/ResourceCard', () => {
       const hourlyPriceSpan = getWrapper().find('.app-ResourceCard__hourly-price');
 
       expect(hourlyPriceSpan.is('span')).toBe(true);
-      expect(hourlyPriceSpan.text()).toContain('30 €/h');
+      expect(hourlyPriceSpan.text()).toContain('30 €/common.unit.time.hour');
     });
 
     test(
-      'renders correct text if minPricePerHourand maxPricePerHour are 0',
+      'renders correct text if minPrice and maxPrice are 0 and priceType is hourly',
       () => {
         const resource = getResource({
-          maxPricePerHour: 0,
-          minPricePerHour: 0,
+          maxPrice: 0,
+          minPrice: 0,
+          priceType: 'hourly',
         });
         const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
@@ -227,11 +229,11 @@ describe('shared/resource-card/ResourceCard', () => {
     );
 
     test(
-      'renders correct text if resource minPricePerHour and maxPricePerHour is empty',
+      'renders correct text if resource minPrice and maxPrice is empty',
       () => {
         const resource = getResource({
-          maxPricePerHour: '',
-          minPricePerHour: '',
+          maxPrice: '',
+          minPrice: '',
         });
         const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
 
