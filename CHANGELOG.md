@@ -19,6 +19,8 @@
   - [#1127](https://github.com/City-of-Helsinki/varaamo/pull/1127) Added support for resource payment terms
   - [#1126](https://github.com/City-of-Helsinki/varaamo/pull/1126) Fixed my reservation crashing on some devices and improved performance
   - [#1131](https://github.com/City-of-Helsinki/varaamo/pull/1131) Changed labelling for event name field to distinct it as public instead of private
+  - [#1137](https://github.com/City-of-Helsinki/varaamo/pull/1137) Added support for daily, weekly and fixed resource prices
+  - [#1138](https://github.com/City-of-Helsinki/varaamo/pull/1138) Added support for longer slot sizes
 
 # 0.9.0
   **MINOR CHANGES**

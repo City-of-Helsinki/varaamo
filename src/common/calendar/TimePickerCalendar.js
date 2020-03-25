@@ -370,11 +370,13 @@ class TimePickerCalendar extends Component {
     } = this.props;
     const { viewType, header } = this.state;
     const addValue = viewType === 'timeGridWeek' ? 'w' : 'd';
+    const slotTallness = resourceUtils.getSlotTallness(resource);
+
     return (
-      <div className={classNames([
-        'app-TimePickerCalendar',
-        { 'app-TimePickerCalendar--disabled': disabled },
-      ])}
+      <div className={classNames(['app-TimePickerCalendar', {
+        'app-TimePickerCalendar--disabled': disabled,
+        [`app-TimePickerCalendar--${slotTallness}-slots`]: slotTallness,
+      }])}
       >
         <FullCalendar
           {...this.getCalendarOptions()}
