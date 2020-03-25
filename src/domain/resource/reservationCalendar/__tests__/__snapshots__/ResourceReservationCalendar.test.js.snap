@@ -6,6 +6,7 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
 >
   <InjectT(TimePickerCalendar)
     date="2019-08-15"
+    disabled={true}
     onDateChange={[MockFunction]}
     onTimeChange={[Function]}
     resource={

@@ -416,6 +416,7 @@
   "TimePickerCalendar.info.minPeriodText": "Reservation must be at least {duration}h long",
   "TimePickerCalendar.info.maxPeriodText": "Reservation must be shorter than {duration}h",
   "TimePickerCalendar.info.today": "Today",
+  "TimePickerCalendar.info.displayedMessage": "The resource cannot be reserved at this time",
 
   "CalendarLegend.closed": "Unavailable",
   "CalendarLegend.selection": "Selected",
