@@ -107,7 +107,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       selected,
     } = this.state;
 
-    const canMakeReservations = get('resource.user_permissions.can_make_reservations', false);
+    const canMakeReservations = get(resource, 'user_permissions.can_make_reservations', false);
 
     return (
       <div className="app-ResourceReservationCalendar">
