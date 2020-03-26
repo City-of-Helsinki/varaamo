@@ -57,7 +57,7 @@
     "react-app-polyfill": "^0.2.2",
     "react-autosize-textarea": "^7.0.0",
     "react-bootstrap": "0.32.3",
-    "react-day-picker": "7.3.0",
+    "react-day-picker": "7.4.0",
     "react-device-detect": "^1.6.2",
     "react-dom": "16.8.4",
     "react-helmet": "5.2.1",
