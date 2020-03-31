@@ -5,27 +5,27 @@ import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../i18n/injectT';
 import { hasProducts } from '../../utils/resourceUtils';
+import { getUnitRoleFromResource, getIsUnitStaff } from '../../../src/domain/resource/permissions/utils';
 
 class ReservationControls extends Component {
-  constructor(props) {
-    super(props);
-    this.buttons = {
+  get buttons() {
+    return {
       cancel: (
         <Button
           bsStyle="danger"
           key="cancelButton"
-          onClick={props.onCancelClick}
+          onClick={this.props.onCancelClick}
         >
-          {props.t('ReservationControls.cancel')}
+          {this.props.t('ReservationControls.cancel')}
         </Button>
       ),
       confirm: (
         <Button
           bsStyle="success"
           key="confirmButton"
-          onClick={props.onConfirmClick}
+          onClick={this.props.onConfirmClick}
         >
-          {props.t('ReservationControls.confirm')}
+          {this.props.t('ReservationControls.confirm')}
         </Button>
       ),
       deny: (
@@ -34,33 +34,48 @@ class ReservationControls extends Component {
           key="denyButton"
           onClick={this.props.onDenyClick}
         >
-          {props.t('ReservationControls.deny')}
+          {this.props.t('ReservationControls.deny')}
         </Button>
       ),
       edit: (
         <Button
           bsStyle="primary"
-          disabled={!this.props.isStaff && !this.props.isAdmin && hasProducts(this.props.resource)}
+          disabled={(
+            !this.isStaff
+            && !this.props.isAdmin
+            && hasProducts(this.props.resource))
+            || this.props.resource === null
+          }
           key="editButton"
-          onClick={props.onEditClick}
+          onClick={this.props.onEditClick}
         >
-          {props.t('ReservationControls.edit')}
+          {this.props.t('ReservationControls.edit')}
         </Button>
       ),
       info: (
         <Button
           bsStyle="default"
           key="infoButton"
-          onClick={props.onInfoClick}
+          onClick={this.props.onInfoClick}
         >
-          {props.t('ReservationControls.info')}
+          {this.props.t('ReservationControls.info')}
         </Button>
       ),
     };
   }
 
+  get isStaff() {
+    const { resource } = this.props;
+
+    if (!resource) {
+      return false;
+    }
+
+    return getIsUnitStaff(getUnitRoleFromResource(resource));
+  }
+
   renderButtons(buttons, isAdmin, isStaff, reservation) {
-    if (!reservation.needManualConfirmation) {
+    if (!reservation.need_manual_confirmation) {
       if (reservation.state === 'cancelled') {
         return null;
       }
@@ -71,33 +86,29 @@ class ReservationControls extends Component {
 
     switch (reservation.state) {
       case 'cancelled': {
-        return isAdmin
-          ? [buttons.info]
-          : [buttons.info];
+        return [];
       }
 
       case 'confirmed': {
         if (isAdmin) {
           return isStaff
-            ? [buttons.info, buttons.cancel, buttons.edit]
-            : [buttons.info, buttons.cancel];
+            ? [buttons.cancel, buttons.edit]
+            : [buttons.cancel];
         }
-        return [buttons.info, buttons.cancel];
+        return [buttons.cancel];
       }
 
       case 'denied': {
-        return isAdmin
-          ? [buttons.info]
-          : [buttons.info];
+        return [];
       }
 
       case 'requested': {
         if (isAdmin) {
           return isStaff
-            ? [buttons.info, buttons.confirm, buttons.deny, buttons.edit]
-            : [buttons.info, buttons.edit];
+            ? [buttons.confirm, buttons.deny, buttons.edit]
+            : [buttons.edit];
         }
-        return [buttons.info, buttons.edit, buttons.cancel];
+        return [buttons.edit, buttons.cancel];
       }
 
       default: {
@@ -107,15 +118,13 @@ class ReservationControls extends Component {
   }
 
   render() {
-    const { isAdmin, isStaff, reservation } = this.props;
-
-    if (!reservation || moment() > moment(reservation.end)) {
-      return null;
-    }
+    const { isAdmin, reservation } = this.props;
+    const reservationIsInThePast = !reservation || moment() > moment(reservation.end);
 
     return (
       <div className="buttons">
-        {this.renderButtons(this.buttons, isAdmin, isStaff, reservation)}
+        <div className="app-ReservationControls__info-button-wrapper">{this.buttons.info}</div>
+        {!reservationIsInThePast && this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
       </div>
     );
   }
@@ -123,7 +132,6 @@ class ReservationControls extends Component {
 
 ReservationControls.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
   onCancelClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,

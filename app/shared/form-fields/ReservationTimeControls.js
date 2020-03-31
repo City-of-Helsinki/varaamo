@@ -38,6 +38,10 @@ class ReservationTimeControls extends Component {
     end: PropTypes.object.isRequired,
     period: PropTypes.string,
     timeFormat: PropTypes.string,
+    constraints: PropTypes.shape({
+      startTime: PropTypes.string, // HH:mm
+      endTime: PropTypes.string, // HH:mm
+    }),
   };
 
   static defaultProps = {
@@ -52,10 +56,40 @@ class ReservationTimeControls extends Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
+  get startTime() {
+    const { constraints } = this.props;
+
+    if (constraints && constraints.startTime) {
+      const [hours, minutes] = constraints.startTime.split(':');
+
+      return moment().startOf('day').set({
+        hour: hours,
+        minute: minutes,
+      });
+    }
+
+    return moment().startOf('day');
+  }
+
+  get endTime() {
+    const { constraints } = this.props;
+
+    if (constraints && constraints.endTime) {
+      const [hours, minutes] = constraints.endTime.split(':');
+
+      return moment().endOf('day').set({
+        hour: hours,
+        minute: minutes,
+      });
+    }
+
+    return moment().endOf('day');
+  }
+
   getTimeOptions() {
     const { period, timeFormat } = this.props;
-    const start = moment().startOf('day');
-    const end = moment().endOf('day');
+    const start = this.startTime;
+    const end = this.endTime;
     const range = moment.range(moment(start), moment(end));
     const duration = moment.duration(period);
 

@@ -124,43 +124,71 @@ describe('domain resource utility function', () => {
     });
   });
 
-  describe('getPrice', () => {
+  describe('getPriceFromSnakeCaseResource', () => {
     const fakeT = foo => foo;
     test('return free text if there is no price', () => {
-      const price = resourceUtils.getPrice({}, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource({}, fakeT);
       expect(price).toContain('free');
     });
 
     test('return free text if price is 0', () => {
-      const price = resourceUtils.getPrice({
-        min_price_per_hour: '0',
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '0.00',
+        price_type: 'hourly',
       }, fakeT);
 
       expect(price).toContain('free');
     });
 
     test('return price even if there is 1 price', () => {
-      const price = resourceUtils.getPrice({
-        min_price_per_hour: '123',
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '123.00',
+        price_type: 'hourly',
       }, fakeT);
 
       expect(price).toContain('123');
     });
 
     test('return price range if both min and max price included', () => {
-      const price = resourceUtils.getPrice({
-        min_price_per_hour: '123',
-        max_price_per_hour: '234',
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '123.00',
+        max_price: '234.00',
+        price_type: 'hourly',
       }, fakeT);
 
-      expect(price).toEqual('123 - 234 €/h');
+      expect(price).toEqual('123 - 234 €/common.unit.time.hour');
     });
 
     test('return null if price exist but not number', () => {
-      const price = resourceUtils.getPrice({
-        min_price_per_hour: 'foo',
-      });
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: 'foo',
+        price_type: 'hourly',
+      }, fakeT);
       expect(price).toBeNull();
+    });
+
+    test('supports daily prices', () => {
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '100.00',
+        price_type: 'daily',
+      }, fakeT);
+      expect(price).toEqual('100 €/common.unit.time.day');
+    });
+
+    test('supports weekly prices', () => {
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '100.00',
+        price_type: 'weekly',
+      }, fakeT);
+      expect(price).toEqual('100 €/common.unit.time.week');
+    });
+
+    test('supports fixed prices', () => {
+      const price = resourceUtils.getPriceFromSnakeCaseResource({
+        min_price: '100.00',
+        price_type: 'fixed',
+      }, fakeT);
+      expect(price).toEqual('100 €');
     });
   });
 
@@ -248,23 +276,38 @@ describe('domain resource utility function', () => {
       opening_hours: OPENING_HOURS,
     });
 
-    const minTimeDay = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridDay', 3);
-    expect(minTimeDay).toBe('05:00:00');
+    const minTimeDay = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridDay');
+    expect(minTimeDay).toBe('06:00:00');
 
-    const minTimeWeek = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridWeek', 2);
+    const minTimeWeek = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridWeek');
     expect(minTimeWeek).toBe('06:00:00');
   });
 
-  test('getFullCalendarMaxTime', () => {
-    const resource = resourceFixture.build({
-      opening_hours: OPENING_HOURS,
+  describe('getFullCalendarMaxTime', () => {
+    test('acts properly with basic cases', () => {
+      const resource = resourceFixture.build({
+        opening_hours: OPENING_HOURS,
+      });
+
+      const maxTimeDay = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridDay');
+      expect(maxTimeDay).toBe('20:30:00');
+
+      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek');
+      expect(maxTimeWeek).toBe('20:30:00');
     });
 
-    const minTimeDay = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridDay', 3);
-    expect(minTimeDay).toBe('23:00:00');
+    test('does not overflow date when opening hours end at 23:59', () => {
+      const resource = resourceFixture.build({
+        opening_hours: [{
+          date: DATE,
+          opens: `${DATE}T08:00:00+03:00`,
+          closes: `${DATE}T23:59:00+03:00`,
+        }],
+      });
+      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek');
 
-    const minTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek', 2);
-    expect(minTimeWeek).toBe('22:00:00');
+      expect(maxTimeWeek).toBe('23:59:00');
+    });
   });
 
   test('getFullCalendarBusinessHoursForDate', () => {

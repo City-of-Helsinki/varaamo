@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/lib/Button';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 
 import injectT from '../../../../app/i18n/injectT';
 import TimePickerCalendar from '../../../common/calendar/TimePickerCalendar';
@@ -106,10 +107,13 @@ class UntranslatedResourceReservationCalendar extends React.Component {
       selected,
     } = this.state;
 
+    const canMakeReservations = get(resource, 'user_permissions.can_make_reservations', false);
+
     return (
       <div className="app-ResourceReservationCalendar">
         <TimePickerCalendar
           date={date}
+          disabled={!canMakeReservations}
           isStaff={isStaff}
           onDateChange={onDateChange}
           onTimeChange={selectedTime => this.setState({ selected: selectedTime })}
@@ -143,6 +147,7 @@ class UntranslatedResourceReservationCalendar extends React.Component {
             <Button
               bsStyle="primary"
               className="app-ResourceReservationCalendar__reserveButton"
+              disabled={!canMakeReservations}
               onClick={this.onReserveButtonClick}
             >
               {t('ResourceReservationCalendar.reserveButton')}

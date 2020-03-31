@@ -1,5 +1,29 @@
 # Unreleased
 
+# 0.10.0
+  **MINOR CHANGES**
+  - Changed search count to be announced when a search is made
+  - Changed search results sort order to be announced when sort order is changed
+  - Fixed illegible icon names in toggles being read out loud by screen readers
+  - Fixed missing line breaks in generic terms and specific terms
+  - Changed approve and deny buttons to be hidden when irrelevant in the manage reservations view
+  - Fixed translation error in the English version that caused confusion when approving reservations
+  - Fixed resource page sometimes being scrolled to its end after it had been opened
+  - Fixed missing results in search results
+  - Fixed scrollbar flickering in reservation calendar when business hours were of short duration
+  - Fixed premise dropdown returning empty labels
+  - Fixed resource calendar not rendering anything when closing time was 23:00 or later
+  - Changed calendar to be disabled when the user doesn't have privileges to make reservations to the resource
+
+  **CHANGELOG**
+  - [#1118](https://github.com/City-of-Helsinki/varaamo/pull/1118) Added support for unit manager role; unit managers now have the same permissions as unit admins do
+  - [#1125](https://github.com/City-of-Helsinki/varaamo/pull/1125) Added support for unit viewer role; unit viewers are allowed to complete the same actions as unit admins or unit managers in the UI, but Respa may block some requests for users with this role
+  - [#1127](https://github.com/City-of-Helsinki/varaamo/pull/1127) Added support for resource payment terms
+  - [#1126](https://github.com/City-of-Helsinki/varaamo/pull/1126) Fixed my reservation crashing on some devices and improved performance
+  - [#1131](https://github.com/City-of-Helsinki/varaamo/pull/1131) Changed labelling for event name field to distinct it as public instead of private
+  - [#1137](https://github.com/City-of-Helsinki/varaamo/pull/1137) Added support for daily, weekly and fixed resource prices
+  - [#1138](https://github.com/City-of-Helsinki/varaamo/pull/1138) Added support for longer slot sizes
+
 # 0.9.0
   **MINOR CHANGES**
   - Changed `eslint` rules to require comma dangle

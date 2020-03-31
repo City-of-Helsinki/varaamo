@@ -71,6 +71,28 @@ function getNextReservation(reservations) {
   return find(orderedReservations, reservation => now < moment(reservation.begin));
 }
 
+// A reservation may be requested with the resource inlined. In these
+// instances the id is contained in `resource.id` field.
+function getReservationResourceId(resource) {
+  if (!resource) {
+    return undefined;
+  }
+
+  const resourceIsString = typeof resource === 'string';
+  const isResourceId = resourceIsString;
+  const isInlinedResource = !resourceIsString;
+
+  if (isResourceId) {
+    return resource;
+  }
+
+  if (isInlinedResource) {
+    return resource.id;
+  }
+
+  return undefined;
+}
+
 function getEditReservationUrl(reservation) {
   const {
     begin, end, id, resource,
@@ -78,8 +100,9 @@ function getEditReservationUrl(reservation) {
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');
   const endStr = moment(end).format('HH:mm');
+  const resourceId = getReservationResourceId(resource);
 
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource}`;
+  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resourceId}`;
 }
 /**
  * Get reservation price from resource. Get time conver
@@ -112,12 +135,15 @@ async function getReservationPrice(apiClient, begin, end, products) {
 function getReservationPricePerPeriod(resource) {
   const price = get(resource, 'products[0].price.amount');
   const pricePeriod = get(resource, 'products[0].price.period');
+  const priceType = get(resource, 'products[0].price.type');
   const duration = moment.duration(pricePeriod);
   const hours = duration.asHours();
   const period = hours >= 1
     ? `${hours} h`
     : `${duration.asMinutes()} min`;
-  return `${price}€ / ${period}`;
+  const priceEnding = priceType === 'fixed' ? '' : ` / ${period}`;
+
+  return `${price}€${priceEnding}`;
 }
 
 export {
@@ -128,6 +154,7 @@ export {
   getMissingValues,
   getNextAvailableTime,
   getNextReservation,
+  getReservationResourceId,
   getReservationPrice,
   getReservationPricePerPeriod,
 };

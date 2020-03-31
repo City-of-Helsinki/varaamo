@@ -8,12 +8,15 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import constants from '../../../constants/AppConstants';
+import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/resource/permissions/constants';
+import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
 import InfoLabel from '../../../../src/common/label/InfoLabel';
-import { isStaffEvent } from '../../../utils/reservationUtils';
+import { isStaffEvent, getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 import { hasProducts } from '../../../utils/resourceUtils';
+import { RESERVATION_STATE } from '../../../../src/constants/ReservationState';
 
 class ReservationInfoModal extends Component {
   constructor(props) {
@@ -22,6 +25,7 @@ class ReservationInfoModal extends Component {
 
     this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
     this.handleSaveCommentsClick = this.handleSaveCommentsClick.bind(this);
+    this.handleStartEditClick = this.handleStartEditClick.bind(this);
   }
 
   handleEditFormSubmit(values) {
@@ -35,18 +39,32 @@ class ReservationInfoModal extends Component {
     this.props.onSaveCommentsClick(comments);
   }
 
+  handleStartEditClick() {
+    const {
+      selectReservationToEdit, reservation, resource, history,
+    } = this.props;
+
+    if (!resource === null) {
+      return;
+    }
+
+    const nextUrl = getEditReservationUrl(reservation);
+
+    selectReservationToEdit({ reservation, slotSize: resource.slot_size });
+    history.push(nextUrl);
+  }
+
   render() {
     const {
       hideReservationInfoModal,
       isAdmin,
       isEditing,
       isSaving,
-      isStaff,
+      userUnitRole,
       onCancelClick,
       onCancelEditClick,
       onConfirmClick,
       onDenyClick,
-      onStartEditClick,
       reservation,
       reservationIsEditable,
       resource,
@@ -55,13 +73,20 @@ class ReservationInfoModal extends Component {
     } = this.props;
 
     const disabled = isSaving || isEditing;
+    const canComment = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_COMMENT_RESERVATIONS);
+    const canViewComment = hasPermissionForResource(
+      userUnitRole,
+      resourcePermissionTypes.CAN_ACCESS_RESERVATION_COMMENTS,
+    );
+    const canModify = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_MODIFY_RESERVATIONS);
     const showCancelButton = reservationIsEditable && (
-      reservation.state === 'confirmed'
-      || (reservation.state === 'requested' && !isAdmin)
+      reservation.state === RESERVATION_STATE.CONFIRMED
+      || (reservation.state === RESERVATION_STATE.REQUESTED && !isAdmin)
     );
 
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
+
     return (
       <Modal
         className="reservation-info-modal"
@@ -93,42 +118,43 @@ class ReservationInfoModal extends Component {
                 isAdmin={isAdmin}
                 isEditing={isEditing}
                 isSaving={isSaving}
-                isStaff={isStaff}
                 onCancelEditClick={onCancelEditClick}
-                onStartEditClick={onStartEditClick}
+                onStartEditClick={this.handleStartEditClick}
                 onSubmit={this.handleEditFormSubmit}
                 reservation={reservation}
                 reservationIsEditable={reservationIsEditable}
                 resource={resource}
+                userUnitRole={userUnitRole}
               />
-              {isAdmin && reservationIsEditable && (
-              <form className="comments-form">
-                <FormGroup controlId="commentsTextarea">
-                  <ControlLabel>
-                    {t('common.commentsLabel')}
-
-:
-                  </ControlLabel>
-                  <FormControl
-                    componentClass="textarea"
-                    defaultValue={reservation.comments}
-                    disabled={disabled}
-                    // eslint-disable-next-line no-return-assign
-                    inputRef={ref => this.commentsInput = ref}
-                    placeholder={t('common.commentsPlaceholder')}
-                    rows={5}
-                  />
-                </FormGroup>
-                <div className="form-controls">
-                  <Button
-                    bsStyle="primary"
-                    disabled={disabled}
-                    onClick={this.handleSaveCommentsClick}
-                  >
-                    {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
-                  </Button>
-                </div>
-              </form>
+              {canViewComment && reservationIsEditable && (
+                <form className="comments-form">
+                  <FormGroup controlId="commentsTextarea">
+                    <ControlLabel>
+                      {t('common.commentsLabel')}
+  :
+                    </ControlLabel>
+                    <FormControl
+                      componentClass="textarea"
+                      defaultValue={reservation.comments}
+                      disabled={disabled || !canComment}
+                      // eslint-disable-next-line no-return-assign
+                      inputRef={ref => this.commentsInput = ref}
+                      placeholder={t('common.commentsPlaceholder')}
+                      rows={5}
+                    />
+                  </FormGroup>
+                  {canComment && (
+                    <div className="form-controls">
+                      <Button
+                        bsStyle="primary"
+                        disabled={disabled}
+                        onClick={this.handleSaveCommentsClick}
+                      >
+                        {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
+                      </Button>
+                    </div>
+                  )}
+                </form>
               )}
             </div>
             )
@@ -142,7 +168,7 @@ class ReservationInfoModal extends Component {
           >
             {t('common.back')}
           </Button>
-          {isStaff && reservationIsEditable && reservation.state === 'requested' && (
+          {canModify && reservationIsEditable && reservation.state === 'requested' && (
             <Button
               bsStyle="danger"
               disabled={disabled}
@@ -151,13 +177,13 @@ class ReservationInfoModal extends Component {
               {t('ReservationInfoModal.denyButton')}
             </Button>
           )}
-          {isStaff && reservationIsEditable && reservation.state === 'requested' && (
+          {canModify && reservationIsEditable && reservation.state === 'requested' && (
             <Button
               bsStyle="success"
               disabled={disabled}
               onClick={onConfirmClick}
             >
-              {t('ReservationInfoModal.confirmButton')}
+              {t('ReservationInfoModal.approveButton')}
             </Button>
           )}
           {showCancelButton && (
@@ -181,19 +207,21 @@ ReservationInfoModal.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
+  // this prop is null until the user selects a reservation
+  userUnitRole: PropTypes.oneOf([...Object.values(resourceRoles), null]),
   onCancelClick: PropTypes.func.isRequired,
   onCancelEditClick: PropTypes.func.isRequired,
   onConfirmClick: PropTypes.func.isRequired,
   onDenyClick: PropTypes.func.isRequired,
   onEditFormSubmit: PropTypes.func.isRequired,
   onSaveCommentsClick: PropTypes.func.isRequired,
-  onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   reservationIsEditable: PropTypes.bool.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
+  selectReservationToEdit: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default injectT(ReservationInfoModal);

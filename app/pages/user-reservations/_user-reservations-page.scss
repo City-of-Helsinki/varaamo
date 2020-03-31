@@ -14,4 +14,27 @@
   .app-PageWrapper {
     background-color: $hel-silver;
   }
+
+  &__tabs {
+    margin-bottom: 18px;
+  }
+
+  &__tab {
+    padding: 0;
+
+    color: $black;
+    font-weight: $font-weight-bold;
+    font-size: 30px;
+
+    border: none;
+    background: none;
+
+    &:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    &--active {
+      border-bottom: 4px solid $black;
+    }
+  }
 }

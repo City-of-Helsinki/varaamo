@@ -42,10 +42,15 @@ export const getApiParamsFromFilters = (filters) => {
 };
 
 export const getUnitOptions = (units, locale) => {
-  const options = units.map(unit => ({
-    value: unit.id,
-    label: get(unit, `name[${locale}]`, ''),
-  }));
+  const options = units.map((unit) => {
+    const finnishName = get(unit, 'name.fi');
+
+    return ({
+      value: unit.id,
+      // Use name in Finnish in case it doesn't exist for current locale
+      label: get(unit, `name[${locale}]`, finnishName),
+    });
+  });
 
   return sortBy(options, 'label');
 };

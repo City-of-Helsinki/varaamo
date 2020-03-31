@@ -11,6 +11,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
+import { resourcePriceTypes } from './constants';
 
 /**
  * getResourcePageLink();
@@ -52,31 +53,70 @@ export const getResourceDistance = (resource) => {
   return km ? `${round(km, km < 10 ? 1 : null)} km` : '';
 };
 
+function getPriceUnit(resourcePriceType) {
+  switch (resourcePriceType) {
+    case resourcePriceTypes.HOURLY:
+      return 'hour';
+    case resourcePriceTypes.DAILY:
+      return 'day';
+    case resourcePriceTypes.WEEKLY:
+      return 'week';
+    case resourcePriceTypes.FIXED:
+    default:
+      return null;
+  }
+}
+
+function getPriceEnding(resourcePriceType, labels) {
+  const resourcePriceUnit = getPriceUnit(resourcePriceType);
+  const translatedPriceUnit = resourcePriceUnit ? labels[resourcePriceUnit] : null;
+
+  return resourcePriceUnit ? `€/${translatedPriceUnit}` : '€';
+}
+
+export const getPrice = (minPriceString, maxPriceString, priceType, t) => {
+  const minPrice = !isNaN(minPriceString)
+    ? Number(minPriceString)
+    : minPriceString;
+  const maxPrice = !isNaN(maxPriceString)
+    ? Number(maxPriceString)
+    : maxPriceString;
+
+  if (!(minPrice || maxPrice)) {
+    return t('ResourceIcons.free');
+  }
+
+  const priceEnding = getPriceEnding(priceType, {
+    hour: t('common.unit.time.hour'),
+    day: t('common.unit.time.day'),
+    week: t('common.unit.time.week'),
+  });
+
+  if (minPrice && maxPrice && minPrice !== maxPrice) {
+    return `${Number(minPrice)} - ${Number(maxPrice)} ${priceEnding}`;
+  }
+
+  const priceString = maxPrice || minPrice;
+  const price = priceString !== 0 ? Number(priceString) : 0;
+
+  if (price === 0) {
+    return t('ResourceIcons.free');
+  }
+
+  return price ? `${price} ${priceEnding}` : null;
+};
+
 /**
  * Getter for price string used in resource cards.
  * @param resource {object} Resource object.
  * @param t {function}
  * @returns {string|*}
  */
-export const getPrice = (resource, t) => {
-  const minPricePerHour = resource.min_price_per_hour;
-  const maxPricePerHour = resource.max_price_per_hour;
+export const getPriceFromSnakeCaseResource = (resource, t) => {
+  // eslint-disable-next-line camelcase
+  const { min_price, max_price, price_type } = resource;
 
-  if (!(minPricePerHour || maxPricePerHour)) {
-    return t('ResourceIcons.free');
-  }
-
-  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
-    return `${Number(minPricePerHour)} - ${Number(maxPricePerHour)} €/h`;
-  }
-
-  const priceString = maxPricePerHour || minPricePerHour;
-  const price = priceString !== 0 ? Number(priceString) : 0;
-  if (price === 0) {
-    return t('ResourceIcons.free');
-  }
-
-  return price ? `${price} €/h` : null;
+  return getPrice(min_price, max_price, price_type, t);
 };
 
 /**
@@ -209,7 +249,7 @@ export const getFullCalendarBusinessHoursForDate = (resource, date) => {
  * @param buffer {number} buffer in hours.
  * @returns {string}
  */
-export const getFullCalendarMinTime = (resource, date, viewType, buffer = 1) => {
+export const getFullCalendarMinTime = (resource, date, viewType) => {
   const defaultMin = '07:00:00';
   let openingHours = null;
   switch (viewType) {
@@ -240,7 +280,8 @@ export const getFullCalendarMinTime = (resource, date, viewType, buffer = 1) => 
 
   if (min) {
     // Subtract the buffer from the min value.
-    min.subtract(buffer, 'hour');
+    const slotSize = moment.duration(get(resource, 'slot_size', '01:00:00'), 'hours');
+    min.subtract(slotSize, 'hour');
 
     // Make sure that the min value is an even hour.
     if (min.minutes() > 0) {
@@ -263,7 +304,7 @@ export const getFullCalendarMinTime = (resource, date, viewType, buffer = 1) => 
  * @param buffer {number} buffer in hours.
  * @returns {string}
  */
-export const getFullCalendarMaxTime = (resource, date, viewType, buffer = 1) => {
+export const getFullCalendarMaxTime = (resource, date, viewType) => {
   const defaultMax = '17:00:00';
   let openingHours = null;
   switch (viewType) {
@@ -293,13 +334,22 @@ export const getFullCalendarMaxTime = (resource, date, viewType, buffer = 1) => 
   });
 
   if (max) {
-    // Add the buffer into the max value.
-    max.add(buffer, 'hour');
+    const hasTimeUntilEndOfDay = (momentDate, time) => {
+      const maxWithBuffer = momentDate.clone().add(time, 'hour').valueOf();
+      const startOfDate = momentDate.clone().startOf('day').valueOf();
+      const currentLength = maxWithBuffer - startOfDate;
+      const dayInMilliseconds = 86400000;
 
-    // Make sure that the max value is an even hour.
-    if (max.minutes() > 0) {
-      max.minutes(0);
-      max.add(1, 'hour');
+      return currentLength < dayInMilliseconds;
+    };
+
+    // Add the buffer into the max value if it doesn't cause the day
+    // to overflow to tomorrow. That would cause a situation where
+    // maxTime could equal less than minTime and the calendar would not
+    // render properly.
+    const slotSize = moment.duration(get(resource, 'slot_size', '01:00:00'), 'hours');
+    if (hasTimeUntilEndOfDay(max, slotSize)) {
+      max.add(slotSize, 'hour');
     }
 
     return max
@@ -331,44 +381,10 @@ export const getFullCalendarSlotLabelInterval = (resource) => {
  * @param viewType {string} Type of a FullCalendar View Object (https://fullcalendar.io/docs/view-object).
  * @returns {string}
  */
-export const getFullCalendarSlotDuration = (resource, date, viewType) => {
-  const slotSize = get(resource, 'slot_size', null);
-  const slotSizeDuration = moment.duration(slotSize);
-  let durationMinutes = slotSizeDuration.hours() * 60 + slotSizeDuration.minutes();
+export const getFullCalendarSlotDuration = (resource) => {
+  const slotSize = get(resource, 'slot_size', '00:30:00');
 
-  const businessHours = viewType === 'timeGridWeek'
-    ? getFullCalendarBusinessHours(resource, date)
-    : [getFullCalendarBusinessHoursForDate(resource, date)];
-
-  // Make sure that slot duration is not bigger than business hour minutes.
-  // (e.g. it's not possible to reserve the last 30 minutes
-  // if slot size is 01:00:00 and business hours is 07:00 - 20:30).
-  let minutes = 60;
-  businessHours.forEach((item) => {
-    const startTimeMinutes = moment.duration(item.startTime).minutes();
-    const endTimeMinutes = moment.duration(item.endTime).minutes();
-
-    if (startTimeMinutes > 0) {
-      minutes = Math.min(minutes, startTimeMinutes);
-    }
-
-    if (endTimeMinutes > 0) {
-      minutes = Math.min(minutes, endTimeMinutes);
-    }
-  });
-
-  if (minutes < 60) {
-    durationMinutes = minutes;
-  }
-
-  let duration = '01:00:00';
-  if (durationMinutes < 30) {
-    duration = '00:15:00';
-  } else if (durationMinutes < 60) {
-    duration = '00:30:00';
-  }
-
-  return duration;
+  return slotSize;
 };
 
 /**
@@ -633,4 +649,30 @@ export const getTaxPercentage = (resource) => {
   }
 
   return '';
+};
+
+export const getSlotTallness = (resource) => {
+  const [hours, minutes, seconds] = get(resource, 'slot_size', '00:30:00').split(':').map(val => Number(val));
+  const startOfTodayTime = new Date().setHours(0, 0, 0, 0);
+  const slotSizeTime = new Date().setHours(hours, minutes, seconds, 0);
+  const slotSizeDurationTime = slotSizeTime - startOfTodayTime;
+  const hourTime = 3600000;
+
+  // if an hour or less
+  if (slotSizeDurationTime <= hourTime) {
+    return null;
+  }
+
+  // if six hours or less
+  if (slotSizeDurationTime <= (6 * hourTime)) {
+    return 'big';
+  }
+
+  // if more than six hours
+  if (slotSizeDurationTime > (6 * hourTime)) {
+    return 'huge';
+  }
+
+  // as a fallback return null
+  return null;
 };

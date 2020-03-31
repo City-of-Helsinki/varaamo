@@ -34,22 +34,26 @@ function SearchMapToggle({
       <Grid>
         <Row>
           <Col sm={6}>
-            <div className="app-SearchMapToggle__results-count">
+            <div className="app-SearchMapToggle__results-count" data-testid="result-count" role="status">
               {resultCount ? t('MapToggle.resultsText', { count: resultCount }) : t('MapToggle.noResultsText')}
             </div>
           </Col>
           <Col sm={6}>
             <div className="pull-right">
               {BUTTONS.map((button) => {
+                const isSelected = active === button.key;
+
                 return (
                   <Button
+                    aria-selected={isSelected}
                     className={classNames(
                       'app-SearchMapToggle__button',
                       `app-SearchMapToggle__button-${button.key}`,
+                      { 'app-SearchMapToggle__button--selected': isSelected },
                     )}
-                    disabled={active === button.key}
                     key={button.key}
                     onClick={() => onClick(button.key)}
+                    role="tab"
                   >
                     {t(button.label)}
                   </Button>

@@ -10,13 +10,26 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
+import moment from 'moment';
 
+import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/resource/permissions/constants';
+import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
+import constants from '../../../constants/AppConstants';
+
+// We have a generic utility function with the same purpose, but it has
+// been developed to be snake_case compatible. In this view we are still
+// using resource objects from the redux state, and those use camelCase.
+const getReservationOpeningHoursByDate = (resource, reservationDate) => {
+  const openHours = resource.openingHours || [];
+
+  return openHours.find(openHour => openHour.date === reservationDate);
+};
 
 class UnconnectedReservationEditForm extends Component {
   constructor(props) {
@@ -97,9 +110,27 @@ class UnconnectedReservationEditForm extends Component {
 
   renderReservationTime() {
     const {
-      isEditing, reservation, resource, t,
+      isEditing, reservation, resource, t, userUnitRole,
     } = this.props;
+
     if (isEditing) {
+      const canIgnoreOpeningHours = hasPermissionForResource(
+        userUnitRole,
+        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
+      );
+      const reservationDate = moment(reservation.begin).format(constants.DATE_FORMAT);
+      const openingHoursForReservationDate = getReservationOpeningHoursByDate(resource, reservationDate);
+      const getConstraints = (openingHours) => {
+        if (!openingHours || canIgnoreOpeningHours) {
+          return undefined;
+        }
+
+        return {
+          startTime: moment(openingHours.opens).format('HH:mm'),
+          endTime: moment(openingHours.closes).format('HH:mm'),
+        };
+      };
+
       return (
         <FormGroup id="reservation-time">
           <Col sm={3}>
@@ -108,6 +139,8 @@ class UnconnectedReservationEditForm extends Component {
           <Col sm={9}>
             <Fields
               component={ReservationTimeControls}
+              constraints={getConstraints(openingHoursForReservationDate)}
+              disabled={!canIgnoreOpeningHours && !openingHoursForReservationDate}
               names={['begin', 'end']}
               period={resource.slotSize}
             />
@@ -125,7 +158,7 @@ class UnconnectedReservationEditForm extends Component {
       isAdmin,
       isEditing,
       isSaving,
-      isStaff,
+      userUnitRole,
       onCancelEditClick,
       onStartEditClick,
       reservation,
@@ -142,8 +175,16 @@ class UnconnectedReservationEditForm extends Component {
       price,
       tax,
     };
+    const canViewExtraFields = hasPermissionForResource(
+      userUnitRole,
+      resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS,
+    );
 
-    const { billingFirstName, billingLastName, billingEmailAddress } = reservation;
+    const {
+      billingFirstName, billingLastName, billingEmailAddress, isOwn, user,
+    } = reservation;
+
+    const isAdminOrOwner = (isAdmin || isOwn);
 
     return (
       <Form
@@ -151,10 +192,12 @@ class UnconnectedReservationEditForm extends Component {
         horizontal
         onSubmit={handleSubmit}
       >
-        <Well>
-          {this.renderUserInfoRow('displayName', 'userName')}
-          {this.renderUserInfoRow('email', 'userEmail')}
-        </Well>
+        {user && (
+          <Well>
+            {this.renderUserInfoRow('displayName', 'userName')}
+            {this.renderUserInfoRow('email', 'userEmail')}
+          </Well>
+        )}
         { billingFirstName
         && billingLastName
         && this.renderInfoRow(t('common.paymentNameLabel'), `${billingFirstName} ${billingLastName}`)}
@@ -174,7 +217,7 @@ class UnconnectedReservationEditForm extends Component {
           && price > 0
         // eslint-disable-next-line max-len
           && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
-        {isStaff && this.renderStaticInfoRow('reserverId')}
+        {canViewExtraFields && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
         {this.renderAddressRow('reserverAddress')}
@@ -182,9 +225,9 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderStaticInfoRow('accessCode')}
         {this.renderStaticInfoRow('reservationExtraQuestions')}
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
-        {isAdmin && reservationIsEditable && (
+        {isAdminOrOwner && reservationIsEditable && (
           <div className="form-controls">
-            {!isEditing && (
+            {isAdminOrOwner && !isEditing && (
               <Button
                 bsStyle="primary"
                 disabled={isSaving}
@@ -193,7 +236,7 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.startEdit')}
               </Button>
             )}
-            {isEditing && (
+            {isAdmin && isEditing && (
               <Button
                 bsStyle="default"
                 disabled={isSaving}
@@ -202,7 +245,7 @@ class UnconnectedReservationEditForm extends Component {
                 {t('ReservationEditForm.cancelEdit')}
               </Button>
             )}
-            {isEditing && (
+            {isAdmin && isEditing && (
               <Button
                 bsStyle="primary"
                 disabled={isSaving}
@@ -223,7 +266,7 @@ UnconnectedReservationEditForm.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
-  isStaff: PropTypes.bool.isRequired,
+  userUnitRole: PropTypes.oneOf([...Object.values(resourceRoles), null]),
   onCancelEditClick: PropTypes.func.isRequired,
   onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,

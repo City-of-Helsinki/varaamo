@@ -70,7 +70,7 @@ class SearchListResults extends React.Component {
             <Col md={4} mdOffset={8} sm={6}>
               <SearchSort
                 onChange={sort => this.onSortChange(sort)}
-                value={get(filters, 'order_by', '')}
+                value={get(filters, 'orderBy', '')}
               />
             </Col>
           </Row>
@@ -102,7 +102,7 @@ class SearchListResults extends React.Component {
             search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
           })}
           page={filters && filters.page ? Number(filters.page) : 1}
-          pages={Math.round(totalCount / constants.SEARCH_PAGE_SIZE)}
+          pages={Math.ceil(totalCount / constants.SEARCH_PAGE_SIZE)}
         />
       </div>
     );

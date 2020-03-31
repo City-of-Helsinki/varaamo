@@ -30,6 +30,7 @@ class TimePickerCalendar extends Component {
 
   static propTypes = {
     date: PropTypes.string,
+    disabled: PropTypes.bool,
     isStaff: PropTypes.bool.isRequired,
     resource: PropTypes.object.isRequired,
     onDateChange: PropTypes.func.isRequired,
@@ -301,10 +302,12 @@ class TimePickerCalendar extends Component {
   }
 
   getCalendarOptions = () => {
+    const isDisabled = this.props.disabled;
+
     return {
       timeZone: constants.TIME_ZONE,
       height: 'auto',
-      editable: true,
+      editable: !isDisabled,
       eventConstraint: 'businessHours',
       eventOverlap: false,
       firstDay: 1,
@@ -312,7 +315,7 @@ class TimePickerCalendar extends Component {
       locales: [enLocale, svLocale, fiLocale],
       nowIndicator: true,
       plugins: [timeGridPlugin, momentTimezonePlugin, interactionPlugin],
-      selectable: true,
+      selectable: !isDisabled,
       selectOverlap: false,
       selectConstraint: 'businessHours',
       selectMirror: true,
@@ -363,11 +366,18 @@ class TimePickerCalendar extends Component {
       onDateChange,
       resource,
       t,
+      disabled,
     } = this.props;
     const { viewType, header } = this.state;
     const addValue = viewType === 'timeGridWeek' ? 'w' : 'd';
+    const slotTallness = resourceUtils.getSlotTallness(resource);
+
     return (
-      <div className="app-TimePickerCalendar">
+      <div className={classNames(['app-TimePickerCalendar', {
+        'app-TimePickerCalendar--disabled': disabled,
+        [`app-TimePickerCalendar--${slotTallness}-slots`]: slotTallness,
+      }])}
+      >
         <FullCalendar
           {...this.getCalendarOptions()}
           allDaySlot={false}
@@ -402,6 +412,11 @@ class TimePickerCalendar extends Component {
           slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
         />
         <CalendarLegend />
+        {disabled && (
+          <div className="app-TimePickerCalendar__blocker">
+            <div className="app-TimePickerCalendar__inline-modal">{t('TimePickerCalendar.info.displayedMessage')}</div>
+          </div>
+        )}
       </div>
     );
   }

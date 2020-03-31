@@ -35,18 +35,21 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
     isAdmin: false,
     isEditing: false,
     isSaving: false,
-    isStaff: false,
+    userUnitRole: null,
     onCancelClick: () => null,
     onCancelEditClick: () => null,
     onConfirmClick: () => null,
     onDenyClick: () => null,
     onEditFormSubmit: () => null,
     onSaveCommentsClick: () => null,
-    onStartEditClick: () => null,
     reservation: Immutable(reservation),
     reservationIsEditable: false,
     resource: Immutable(resource),
     show: true,
+    selectReservationToEdit: () => null,
+    history: {
+      push: jest.fn(),
+    },
   };
 
   function getWrapper(extraProps = {}) {
@@ -99,9 +102,9 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           return getWrapper(props).find('.comments-form');
         }
 
-        describe('if user has admin rights but reservation is not editable', () => {
+        describe('if user has comment viewing rights rights but reservation is not editable', () => {
           const props = {
-            isAdmin: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: false,
           };
 
@@ -110,9 +113,9 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           });
         });
 
-        describe('if user has admin rights and reservation is editable', () => {
+        describe('if user has comment viewing rights rights and reservation is editable', () => {
           const props = {
-            isAdmin: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: true,
           };
 
@@ -186,7 +189,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if user is not a staff member', () => {
           const props = {
-            isStaff: false,
+            userUnitRole: null,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'requested' },
           };
@@ -195,7 +198,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if reservation is not editable', () => {
           const props = {
-            isStaff: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: false,
             reservation: { ...reservation, state: 'requested' },
           };
@@ -204,7 +207,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if reservation state is not "requested"', () => {
           const props = {
-            isStaff: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'confirmed' },
           };
@@ -215,7 +218,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           'is rendered if user is staff, reservation is editable and in "requested" state',
           () => {
             const props = {
-              isStaff: true,
+              userUnitRole: 'UNIT_ADMINISTRATOR',
               reservationIsEditable: true,
               reservation: { ...reservation, state: 'requested' },
             };
@@ -234,7 +237,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if user is not a staff member', () => {
           const props = {
-            isStaff: false,
+            userUnitRole: null,
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'requested' },
           };
@@ -243,7 +246,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if reservation is not editable', () => {
           const props = {
-            isStaff: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: false,
             reservation: { ...reservation, state: 'requested' },
           };
@@ -252,7 +255,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
         test('is not rendered if reservation state is not "requested"', () => {
           const props = {
-            isStaff: true,
+            userUnitRole: 'UNIT_ADMINISTRATOR',
             reservationIsEditable: true,
             reservation: { ...reservation, state: 'confirmed' },
           };
@@ -263,7 +266,7 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           'is rendered if user is staff, reservation is editable and in "requested" state',
           () => {
             const props = {
-              isStaff: true,
+              userUnitRole: 'UNIT_ADMINISTRATOR',
               reservationIsEditable: true,
               reservation: { ...reservation, state: 'requested' },
             };

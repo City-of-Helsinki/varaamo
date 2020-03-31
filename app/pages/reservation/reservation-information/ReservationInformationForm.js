@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
+import { Notification } from 'hds-react';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -16,6 +17,7 @@ import { hasProducts } from '../../../utils/resourceUtils';
 import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
 import { toCamelCase } from '../../../../src/common/data/utils';
+import { INPUT_PURPOSES } from '../../../../src/constants/InputPurposes';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -110,7 +112,9 @@ class UnconnectedReservationInformationForm extends Component {
     return t('ReservationForm.reservationFieldsAsteriskNormal');
   };
 
-  renderField(name, type, label, help = null) {
+  renderField(name, type, label, help = null, extraProps = {}) {
+    const { autoComplete, externalName } = extraProps;
+
     if (!includes(this.props.fields, name)) {
       return null;
     }
@@ -122,6 +126,10 @@ class UnconnectedReservationInformationForm extends Component {
         help={help}
         label={`${label}${isRequired ? '*' : ''}`}
         name={name}
+        props={{
+          autoComplete,
+          externalName,
+        }}
         type={type}
       />
     );
@@ -250,6 +258,8 @@ class UnconnectedReservationInformationForm extends Component {
             'reserverName',
             'text',
             t('common.reserverNameLabel'),
+            null,
+            { autoComplete: INPUT_PURPOSES.NAME, externalName: 'name' },
           )}
           {this.renderField(
             'reserverId',
@@ -260,29 +270,39 @@ class UnconnectedReservationInformationForm extends Component {
             'reserverPhoneNumber',
             'text',
             t('common.reserverPhoneNumberLabel'),
+            null,
+            { autoComplete: INPUT_PURPOSES.TEL, externalName: 'phone' },
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
             t('common.reserverEmailAddressLabel'),
+            null,
+            { autoComplete: INPUT_PURPOSES.EMAIL, externalName: 'email' },
           )}
           {includes(fields, 'reserverAddressStreet')
             && this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
+              null,
+              { autoComplete: INPUT_PURPOSES.STREET_ADDRESS, externalName: 'address' },
             )}
           {includes(fields, 'reserverAddressZip')
             && this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
+              null,
+              { autoComplete: INPUT_PURPOSES.POSTAL_CODE, externalName: 'zip' },
             )}
           {includes(fields, 'reserverAddressCity')
             && this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
+              null,
+              { autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2, externalName: 'city' },
             )
           }
           {includes(fields, 'billingAddressStreet')
@@ -293,6 +313,8 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
+              null,
+              { autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(' '), externalName: 'billing-address' },
             )
           }
           {includes(fields, 'billingAddressZip')
@@ -300,6 +322,8 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
+              null,
+              { autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(' '), externalName: 'billing-zip' },
             )
           }
           {includes(fields, 'billingAddressCity')
@@ -307,6 +331,8 @@ class UnconnectedReservationInformationForm extends Component {
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
+              null,
+              { autoComplete: ['billing', INPUT_PURPOSES.ADDRESS_LEVEL_2].join(' '), externalName: 'billing-city' },
             )
           }
           {includes(fields, 'billingFirstName')
@@ -317,6 +343,8 @@ class UnconnectedReservationInformationForm extends Component {
               'billingFirstName',
               'text',
               t('common.billingFirstNameLabel'),
+              null,
+              { autoComplete: ['billing', INPUT_PURPOSES.GIVEN_NAME].join(' '), externalName: 'billing-fname' },
             )
           }
           {includes(fields, 'billingLastName')
@@ -324,6 +352,8 @@ class UnconnectedReservationInformationForm extends Component {
               'billingLastName',
               'text',
               t('common.billingLastNameLabel'),
+              null,
+              { autoComplete: ['billing', INPUT_PURPOSES.FAMILY_NAME].join(' '), externalName: 'billing-lname' },
             )
           }
           {includes(fields, 'billingPhoneNumber')
@@ -331,6 +361,11 @@ class UnconnectedReservationInformationForm extends Component {
               'billingPhoneNumber',
               'tel',
               t('common.billingPhoneNumberLabel'),
+              null,
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.TEL].join(' '),
+                externalName: ['billing', INPUT_PURPOSES.TEL].join('-'),
+              },
             )
           }
           {includes(fields, 'billingEmailAddress')
@@ -338,9 +373,24 @@ class UnconnectedReservationInformationForm extends Component {
               'billingEmailAddress',
               'email',
               t('common.billingEmailAddressLabel'),
+              null,
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.EMAIL].join(' '),
+                externalName: ['billing', INPUT_PURPOSES.EMAIL].join('-'),
+              },
             )
           }
           <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
+          {includes(fields, 'eventSubject') && (
+            <Notification
+              closeButtonLabelText="dismiss"
+              labelText={t('ReservationForm.publicFieldsNoticeLabel')}
+              onClose={() => {}}
+              type="warning"
+            >
+              {t('ReservationForm.publicFieldsNotice')}
+            </Notification>
+          )}
           {this.renderField(
             'eventSubject',
             'text',
@@ -376,7 +426,7 @@ class UnconnectedReservationInformationForm extends Component {
             <React.Fragment>
               <h2 className="app-ReservationPage__title">{t('paymentTerms.title')}</h2>
               <div className="terms-box">
-                {t('paymentTerms.terms')}
+                <WrappedText text={resource.paymentTerms} />
               </div>
               {this.renderPaymentTermsField()}
             </React.Fragment>
@@ -385,7 +435,7 @@ class UnconnectedReservationInformationForm extends Component {
           {resource.specificTerms && (
             <div>
               <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
-              <p className="specificTermsContent">{resource.specificTerms}</p>
+              <WrappedText className="specificTermsContent" text={resource.specificTerms} />
             </div>
           )}
           <div>

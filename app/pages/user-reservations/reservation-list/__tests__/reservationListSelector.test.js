@@ -11,20 +11,4 @@ describe('pages/user-reservations/reservation-list/reservationListSelector', () 
   test('returns isAdmin', () => {
     expect(getSelected().isAdmin).toBeDefined();
   });
-
-  test('returns isFetchingReservations', () => {
-    expect(getSelected().isFetchingReservations).toBeDefined();
-  });
-
-  test('returns reservations', () => {
-    expect(getSelected().reservations).toBeDefined();
-  });
-
-  test('returns resources from the state', () => {
-    expect(getSelected().resources).toBeDefined();
-  });
-
-  test('returns units from the state', () => {
-    expect(getSelected().units).toBeDefined();
-  });
 });

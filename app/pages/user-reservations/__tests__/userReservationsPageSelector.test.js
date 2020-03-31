@@ -10,12 +10,4 @@ describe('pages/user-reservations/userReservationsPageSelector', () => {
   test('returns isAdmin', () => {
     expect(getSelected().isAdmin).toBeDefined();
   });
-
-  test('returns resourcesLoaded', () => {
-    expect(getSelected().resourcesLoaded).toBeDefined();
-  });
-
-  test('returns reservationsLoading', () => {
-    expect(getSelected().reservationsLoading).toBeDefined();
-  });
 });

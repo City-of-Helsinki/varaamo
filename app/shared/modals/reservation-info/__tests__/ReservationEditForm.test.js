@@ -34,7 +34,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
     isAdmin: true,
     isEditing: false,
     isSaving: false,
-    isStaff: false,
+    userUnitRole: null,
     onCancelEditClick: () => null,
     onStartEditClick: () => null,
     reservation: Immutable(reservation),
@@ -123,12 +123,14 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       });
 
       describe('reserverId', () => {
-        test('is rendered if user has staff rights', () => {
-          expect(getData({ isStaff: true })).toContain(reservation.reserverId);
+        test('is rendered if user is UNIT_ADMINISTRATOR, UNIT_MANAGER or UNIT_VIEWER', () => {
+          expect(getData({ userUnitRole: 'UNIT_ADMINISTRATOR' })).toContain(reservation.reserverId);
+          expect(getData({ userUnitRole: 'UNIT_MANAGER' })).toContain(reservation.reserverId);
+          expect(getData({ userUnitRole: 'UNIT_VIEWER' })).toContain(reservation.reserverId);
         });
 
-        test('is not rendered if user does not have staff rights', () => {
-          expect(getData({ isStaff: false })).not.toContain(reservation.reserverId);
+        test('is not rendered if user has some other role', () => {
+          expect(getData({ userUnitRole: null })).not.toContain(reservation.reserverId);
         });
       });
 
@@ -188,11 +190,52 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           expect(field.prop('type')).toBe('number');
         });
 
-        test('renders ReservationTimeControls', () => {
-          const timeControls = getWrapper({ isEditing: true })
-            .find(Fields)
+        describe('ReservationTimeControls', () => {
+          const getTimeTestingWrapper = (
+            props,
+            openHoursDate = '2017-07-07',
+            reservationBegin = '2017-07-07T12:45',
+          ) => {
+            const resourceOpenHours = [{
+              date: openHoursDate,
+              opens: '2017-07-07T09:00',
+              closes: '2017-07-07T16:00',
+            }];
+            const resource0 = { ...resource, openingHours: resourceOpenHours };
+            const reservation0 = { ...reservation, begin: reservationBegin };
+
+            return getWrapper({
+              resource: resource0,
+              reservation: reservation0,
+              ...props,
+            });
+          };
+          const findTimeControls = wrapper => wrapper.find(Fields)
             .filter({ names: ['begin', 'end'] });
-          expect(timeControls).toHaveLength(1);
+
+          test('renders ReservationTimeControls', () => {
+            const timeControls = findTimeControls(getWrapper({ isEditing: true }));
+            expect(timeControls).toHaveLength(1);
+          });
+
+          describe('when user has role UNIT_VIEWER', () => {
+            test('time options are constrained to resource.openingHours on reservation.begin date', () => {
+              const timeControlProps = findTimeControls(getTimeTestingWrapper({
+                isEditing: true, userUnitRole: 'UNIT_VIEWER',
+              })).props();
+
+              expect(timeControlProps.constraints.startTime).toEqual('09:00');
+              expect(timeControlProps.constraints.endTime).toEqual('16:00');
+            });
+
+            test('time controls are disabled if no opening hours are found', () => {
+              const timeControlProps = findTimeControls(getTimeTestingWrapper({
+                isEditing: true, userUnitRole: 'UNIT_VIEWER',
+              }, undefined, '2017-07-08T12:45')).props();
+
+              expect(timeControlProps.disabled).toEqual(true);
+            });
+          });
         });
       });
 

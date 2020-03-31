@@ -6,7 +6,7 @@ exports[`ManageReservationsDropdown renders correctly 1`] = `
 >
   <DropdownButton
     id="app-ManageReservationDropdown"
-    title="foo"
+    title="ManageReservationsList.actionsHeader"
   >
     <MenuItem
       bsClass="dropdown"
@@ -14,25 +14,7 @@ exports[`ManageReservationsDropdown renders correctly 1`] = `
       divider={false}
       header={false}
     >
-      foo
-    </MenuItem>
-    <MenuItem
-      bsClass="dropdown"
-      disabled={false}
-      divider={false}
-      header={false}
-      onClick={[Function]}
-    >
-      foo
-    </MenuItem>
-    <MenuItem
-      bsClass="dropdown"
-      disabled={false}
-      divider={false}
-      header={false}
-      onClick={[Function]}
-    >
-      foo
+      ManageReservationsList.actionLabel.information
     </MenuItem>
     <MenuItem
       bsClass="dropdown"
@@ -40,7 +22,7 @@ exports[`ManageReservationsDropdown renders correctly 1`] = `
       divider={false}
       header={false}
     >
-      foo
+      ManageReservationsList.actionLabel.edit
     </MenuItem>
   </DropdownButton>
 </div>

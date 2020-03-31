@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 
 const common = require('./webpack.common');
+const getCssLoaders = require('./getCssLoaders');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -41,14 +42,7 @@ module.exports = merge(common, {
         },
         loader: 'babel-loader',
       },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
-        ],
-      },
+      ...getCssLoaders(),
       {
         test: /\.scss$/,
         use: [

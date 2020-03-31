@@ -22,22 +22,33 @@ describe('src/domain/search/utils.js', () => {
     expect(search).toBe(expectedSearch);
   });
 
-  test('getUnitOptions', () => {
-    const units = [
-      { id: 1, name: { fi: 'B' } },
-      { id: 2, name: { fi: 'C' } },
-      { id: 3, name: { fi: 'A' } },
-    ];
+  describe('getUnitOptions', () => {
+    test('behave well with common cases', () => {
+      const units = [
+        { id: 1, name: { fi: 'B' } },
+        { id: 2, name: { fi: 'C' } },
+        { id: 3, name: { fi: 'A' } },
+      ];
 
-    const options = searchUtils.getUnitOptions(units, 'fi');
+      const options = searchUtils.getUnitOptions(units, 'fi');
 
-    expect(Array.isArray(options)).toBe(true);
-    expect(options.length).toBe(3);
-    expect(Object.keys(options[0])).toContainEqual('value');
-    expect(Object.keys(options[0])).toContainEqual('label');
-    expect(options[0]).toMatchObject({ value: 3 });
-    expect(options[1]).toMatchObject({ value: 1 });
-    expect(options[2]).toMatchObject({ value: 2 });
+      expect(Array.isArray(options)).toBe(true);
+      expect(options.length).toBe(3);
+      expect(Object.keys(options[0])).toContainEqual('value');
+      expect(Object.keys(options[0])).toContainEqual('label');
+      expect(options[0]).toMatchObject({ value: 3 });
+      expect(options[1]).toMatchObject({ value: 1 });
+      expect(options[2]).toMatchObject({ value: 2 });
+    });
+
+    test('returns label in Finnish if current locale doesn\'t exist', () => {
+      const units = [
+        { id: 1, name: { fi: 'B' } },
+      ];
+      const [option] = searchUtils.getUnitOptions(units, 'en');
+
+      expect(option.label).toEqual(units[0].name.fi);
+    });
   });
 
   test('getPurposeOptions', () => {

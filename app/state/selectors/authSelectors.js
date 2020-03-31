@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { get } from 'lodash';
+
+import { getUnitRoleFromResource, getIsUnitStaff } from '../../../src/domain/resource/permissions/utils';
 
 const userIdSelector = state => state.auth.userId;
 const usersSelector = state => state.data.users;
@@ -23,19 +24,33 @@ function isLoggedInSelector(state) {
 }
 
 /**
- * Check if a user has admin permission for a unit.
- * TODO: Find a better name for this.
+ * Returns user's role in the unit the resource belongs to.
+ */
+function createUserUnitRoleSelector(resourceSelector) {
+  return createSelector(
+    resourceSelector,
+    resource => getUnitRoleFromResource(resource),
+  );
+}
+
+/**
+ * Check if the user is either admin, manager or viewer in the unit the
+ * resource belongs to.
+ *
+ * For more fine grained control, use the hasPermissionForResource
+ * utility function.
  */
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
-    resourceSelector,
-    resource => Boolean(get(resource, 'userPermissions.isAdmin', false)),
+    createUserUnitRoleSelector(resourceSelector),
+    uiUnitRole => getIsUnitStaff(uiUnitRole),
   );
 }
 
 export {
   createIsStaffSelector,
   currentUserSelector,
+  createUserUnitRoleSelector,
   isAdminSelector,
   isLoggedInSelector,
 };

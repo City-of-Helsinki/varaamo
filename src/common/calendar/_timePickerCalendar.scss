@@ -1,4 +1,23 @@
 .app-TimePickerCalendar {
+  &--disabled {
+    position: relative;
+  }
+  
+  /* These hacks change slot sizes so that a slot size of 3 hours is
+     greater than that of 1 hour. If these styles are problematic, i.e.
+     they break resizing or dragging, feel free to remove them. */
+  &--big-slots {
+    .fc-slats td { 
+      height: 4.5em !important; 
+    } 
+  }
+
+  &--huge-slots {
+    .fc-slats td { 
+      height: 9em !important; 
+    } 
+  }
+
   &__event {
     color: $hel-coat !important;
     border-radius: 0 !important;
@@ -37,6 +56,41 @@
     font-size: 1.25rem;
   }
 
+  &__blocker {
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(29, 27, 49, 0.3);
+
+    cursor: not-allowed;
+  }
+
+  &__inline-modal {
+    padding: 16px 18px;
+
+    box-shadow: 4px 4px 14px 4px rgba(29, 27, 49, 0.4);
+    background: $white;
+  }
+
+  & .fc-time-grid {
+    /* Add a fixed margin to the bottom of the calendar which allows
+       events to overflow the container by the margin's amount without
+       causing a scroll bar to appear. Previously the drag indicator on
+       an event could cause an overflow, whose amount would depend on
+       the hover state of the event. The change in the overflow amount 
+       would cause the position of the event to flicker when the event
+       spanned the final hour visible in the calendar in the week view.
+      */
+    margin-bottom: 12px;
+  } 
+
   .fc-event,
   .fc-event:hover {
     font-size: 1.75rem;
@@ -45,8 +99,6 @@
     border: 1px solid $hel-coat;
     color: $hel-coat;
   }
-
-
 
   .fc-event.fc-selected::after {
     background-color: #bddbf0;
@@ -65,7 +117,7 @@
 
       &::before {
         width: 80px;
-        height: 80px;
+        max-height: 80px;
         top: 0;
         left: 0;
         margin-left: -40px;

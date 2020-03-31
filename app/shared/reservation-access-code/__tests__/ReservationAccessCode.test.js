@@ -12,7 +12,7 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
 
   const defaultProps = {
     reservation: createReservation(),
-    resource: createResource({ generateAccessCodes: true }),
+    resource: createResource({ generate_access_codes: true }),
   };
 
   function getWrapper(extraProps) {
@@ -20,13 +20,13 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
   }
 
   test('renders GeneratedAccessCode when PIN is available', () => {
-    const reservation = createReservation({ accessCode: '1232' });
+    const reservation = createReservation({ access_code: '1232' });
     const wrapper = getWrapper({ reservation });
     expect(wrapper.name()).toContain('GeneratedAccessCode');
   });
 
   test('renders PendingAccessCode when PIN is pending', () => {
-    const resource = createResource({ generateAccessCodes: false });
+    const resource = createResource({ generate_access_codes: false });
     const wrapper = getWrapper({ resource });
     expect(wrapper.name()).toContain('PendingAccessCode');
   });
@@ -38,7 +38,7 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
 
   test('renders empty span when reservation that would produce pending PIN is cancelled', () => {
     const reservation = createReservation({ state: 'cancelled' });
-    const resource = createResource({ generateAccessCodes: false });
+    const resource = createResource({ generate_access_codes: false });
     const wrapper = getWrapper({ reservation, resource });
     expect(wrapper.equals(<span />)).toBe(true);
   });
