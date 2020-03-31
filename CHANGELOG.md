@@ -1,4 +1,6 @@
 # Unreleased
+
+# 0.10.0
   **MINOR CHANGES**
   - Changed search count to be announced when a search is made
   - Changed search results sort order to be announced when sort order is changed
