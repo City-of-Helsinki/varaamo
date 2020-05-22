@@ -16,6 +16,7 @@ import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/r
 import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
+import { hasProducts } from '../../../utils/resourceUtils';
 import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
@@ -234,7 +235,7 @@ class UnconnectedReservationEditForm extends Component {
             {isAdminOrOwner && !isEditing && (
               <Button
                 bsStyle="primary"
-                disabled={isSaving}
+                disabled={isSaving || (!isAdmin && hasProducts(resource))}
                 onClick={onStartEditClick}
               >
                 {t('ReservationEditForm.startEdit')}

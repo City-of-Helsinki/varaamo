@@ -331,6 +331,36 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         test('is not rendered if isEditing is true', () => {
           expect(getEditButton({ isEditing: true })).toHaveLength(0);
         });
+
+        test('disabled when the resource has a cost and the user is not an admin', () => {
+          const isAdmin = getEditButton({
+            isEditing: false,
+            isAdmin: true,
+            resource: {
+              ...resource,
+              products: [{
+                price: {},
+              }],
+            },
+          });
+          const isUser = getEditButton({
+            isEditing: false,
+            isAdmin: false,
+            reservation: {
+              ...reservation,
+              isOwn: true,
+            },
+            resource: {
+              ...resource,
+              products: [{
+                price: {},
+              }],
+            },
+          });
+
+          expect(isAdmin.prop('disabled')).toEqual(false);
+          expect(isUser.prop('disabled')).toEqual(true);
+        });
       });
 
       describe('cancel button', () => {
