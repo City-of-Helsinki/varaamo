@@ -16,6 +16,7 @@ import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/r
 import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
+import { hasProducts } from '../../../utils/resourceUtils';
 import ReduxFormField from '../../form-fields/ReduxFormField';
 import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
@@ -63,10 +64,10 @@ class UnconnectedReservationEditForm extends Component {
     return this.renderInfoRow(label, value);
   }
 
-  renderInfoRow(label, value) {
+  renderInfoRow(label, value, rest) {
     if (!value && value !== '') return null;
     return (
-      <FormGroup>
+      <FormGroup {...rest}>
         <Col sm={3}>
           <ControlLabel>{label}</ControlLabel>
         </Col>
@@ -185,6 +186,7 @@ class UnconnectedReservationEditForm extends Component {
     } = reservation;
 
     const isAdminOrOwner = (isAdmin || isOwn);
+    const showRefundPolicy = isAdmin && !reservation.staffEvent && price > 0;
 
     return (
       <Form
@@ -213,10 +215,13 @@ class UnconnectedReservationEditForm extends Component {
           && price > 0
           && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
 
-        {!reservation.staffEvent
-          && price > 0
-        // eslint-disable-next-line max-len
-          && this.renderInfoRow(t('ReservationInformationForm.refundPolicyTitle'), t('ReservationInformationForm.refundPolicyText'))}
+        {showRefundPolicy
+          && this.renderInfoRow(
+            t('ReservationInformationForm.refundPolicyTitle'),
+            t('ReservationInformationForm.refundPolicyText'),
+            { id: 'refund-policy' },
+          )
+        }
         {canViewExtraFields && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
@@ -230,7 +235,7 @@ class UnconnectedReservationEditForm extends Component {
             {isAdminOrOwner && !isEditing && (
               <Button
                 bsStyle="primary"
-                disabled={isSaving}
+                disabled={isSaving || (!isAdmin && hasProducts(resource))}
                 onClick={onStartEditClick}
               >
                 {t('ReservationEditForm.startEdit')}
