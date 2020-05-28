@@ -218,7 +218,13 @@ class UnconnectedReservationEditForm extends Component {
         {showRefundPolicy
           && this.renderInfoRow(
             t('ReservationInformationForm.refundPolicyTitle'),
-            t('ReservationInformationForm.refundPolicyText'),
+            <>
+              {t('ReservationInformationForm.refundPolicyText.1')}
+              <a href={`mailto:${t('ReservationInformationForm.refundPolicyText.2')}`}>
+                {t('ReservationInformationForm.refundPolicyText.2')}
+              </a>
+              {t('ReservationInformationForm.refundPolicyText.3')}
+            </>,
             { id: 'refund-policy' },
           )
         }
