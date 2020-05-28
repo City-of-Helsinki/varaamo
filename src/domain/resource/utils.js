@@ -11,7 +11,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
-import { resourcePriceTypes } from './constants';
+import { resourcePriceTypes, resourceProductTypes } from './constants';
 
 /**
  * getResourcePageLink();
@@ -675,4 +675,23 @@ export const getSlotTallness = (resource) => {
 
   // as a fallback return null
   return null;
+};
+
+/**
+ *  getHasOnlinePaymentSupport();
+ *
+ *  This function is business logic. If resource products include
+ *  products of type RENT, it means that the requires payment before it
+ *  can be reserved. This implicitly communicates that it has support
+ *  for online payments.
+ *
+ *  https://github.com/City-of-Helsinki/respa/blob/develop/docs/payments.md#basics
+ *
+ *  @param resource {object} Resource object.
+ *  returns {boolean}
+ * */
+export const getHasOnlinePaymentSupport = (resource) => {
+  const resourceProducts = get(resource, 'products', []);
+
+  return resourceProducts.some(product => product.type === resourceProductTypes.RENT);
 };

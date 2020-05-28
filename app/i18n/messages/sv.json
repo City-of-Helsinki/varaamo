@@ -202,6 +202,8 @@
   "ReservationCancelModal.cancelNotAllowedTitle": "Avbokning av bokning",
   "ReservationCancelModal.lead": "Är du säker på att du vill avboka följande bokning:",
   "ReservationCancelModal.takeIntoAccount": "Märk väl att bokningen ska avbokas minst <strong>5 dagar</strong> före datumet för bokningen. Oanvända bokningar faktureras.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1": "Vid denna bokning tillämpas betalnings- och annulleringsvillkor. Annullering av en godkänd bokning sker genom att ta kontakt med det verksamhetsställe som tillhandahåller tjänsten. Annulleringen anses ha skett vid den tidpunkt då information om annulleringen enligt anvisningarna har nått verksamhetsstället.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2": "Annulleringskostnader: Bokningen kan annulleras senast 14 dygn innan bokningen börjar. Om annulleringen görs senare än 14 dagar innan, återbetalas den erlagda betalningen inte. Oannullerade bokningar faktureras.",
   "ReservationConfirmation.feedbackText": "Tack för att du använde Varaamo! <a href='{href}'>Sänd feedback.",
   "ReservationConfirmation.reservationCreatedTitle": "Bokningen sparad",
   "ReservationConfirmation.reservationEditedTitle": "Bokningen uppdaterad",

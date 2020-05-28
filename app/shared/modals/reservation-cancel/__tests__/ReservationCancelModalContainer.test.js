@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Modal from 'react-bootstrap/lib/Modal';
 import simple from 'simple-mock';
+import toJSON from 'enzyme-to-json';
 
 import CompactReservationList from '../../../compact-reservation-list/CompactReservationList';
 import Reservation from '../../../../utils/fixtures/Reservation';
@@ -102,6 +103,22 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
           expect(
             getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
           ).toHaveLength(0);
+        });
+      });
+
+      describe('if resource has payment support', () => {
+        test('renders custom message', () => {
+          const wrapper = getModalBodyWrapper({
+            resource: {
+              products: [
+                {
+                  type: 'rent',
+                },
+              ],
+            },
+          });
+
+          expect(toJSON(wrapper)).toMatchSnapshot();
         });
       });
     });

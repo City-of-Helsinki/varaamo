@@ -200,6 +200,8 @@
   "ReservationCancelModal.cancelNotAllowedTitle": "Cancelling a reservation",
   "ReservationCancelModal.lead": "Are you certain that you wish to cancel the following reservation:",
   "ReservationCancelModal.takeIntoAccount": "Please note that the reservation must be cancelled, at the latest, <strong>5 days</strong> before the start of the reservation. You will be invoiced for unused reservations.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1": "This booking is subject to the terms and conditions for payment and cancellations. This booking can be cancelled by contacting the provider of the booked service. A cancellation will be considered effective from the date that the service provider is informed of the cancellation in accordance with the given instructions.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2": "Cancellation fee: The booking must be cancelled 14 days before the start of the booking at the latest. If the booking is cancelled less than 14 before the start of the booking, the payment is not refunded. Uncancelled bookings will be invoiced.",
   "ReservationConfirmation.feedbackText": "Thank you for using Varaamo! <a href='{href}'>Send feedback</a>.",
   "ReservationConfirmation.reservationCreatedTitle": "Reservation successful",
   "ReservationConfirmation.reservationEditedTitle": "Reservation updated",

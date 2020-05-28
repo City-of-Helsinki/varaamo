@@ -200,6 +200,8 @@
   "ReservationCancelModal.cancelNotAllowedTitle": "Varauksen peruminen",
   "ReservationCancelModal.lead": "Oletko varma että haluat perua seuraavan varauksen:",
   "ReservationCancelModal.takeIntoAccount": "Huomioi kuitenkin, että varaus pitää perua viimeistään <strong>5 päivää</strong> ennen varauksen alkamista. Käyttämättömät varaukset laskutetaan.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1": "Tässä varauksessa noudatetaan maksu- ja peruutusehtoja. Hyväksytyn varauksen peruuttaminen tapahtuu ottamalla yhteyttä palvelua tarjoavaan toimipisteeseen. Peruutus katsotaan tapahtuneeksi sillä hetkellä, jolloin tieto peruutuksesta on tullut ohjeistuksen mukaisesti toimipisteeseen.",
+  "ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2": "Peruutuskustannukset: Varaus tulee peruuttaa viimeistään 14 vuorokautta ennen varauksen alkamista. Jos peruutus tehdään alle 14 vuorokautta ennen, suoritettua maksua ei palauteta. Peruuttamatta jätetyt varaukset laskutetaan.",
   "ReservationConfirmation.feedbackText": "Kiitokset Varaamon käytöstä! <a href='{href}'>Lähetä palvelusta palautetta</a>.",
   "ReservationConfirmation.reservationCreatedTitle": "Varaus suoritettu onnistuneesti",
   "ReservationConfirmation.reservationEditedTitle": "Varaus päivitetty",
