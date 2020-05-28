@@ -9,6 +9,7 @@ import get from 'lodash/get';
 
 import client from '../../common/api/client';
 import { RESERVATION_STATE } from '../../constants/ReservationState';
+import { getReservationPrice } from '../resource/utils';
 
 export const combineReservations = (reservations) => {
   if (!reservations || !reservations.length) {
@@ -119,4 +120,19 @@ export const canUserCancelReservation = (reservation) => {
   }
 
   return false;
+};
+
+/**
+ * Check if refund policy should be shown.
+ *
+ * @param {Boolean} isAdmin
+ * @param {Object} reservation
+ * @param {Object} resource
+ * @returns {Boolean}
+ */
+export const getShowRefundPolicy = (isAdmin, reservation, resource) => {
+  const isStaffEvent = get(reservation, 'staffEvent', false);
+  const price = getReservationPrice(reservation.begin, reservation.end, resource);
+
+  return isAdmin && !isStaffEvent && price > 0;
 };

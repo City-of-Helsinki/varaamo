@@ -24,12 +24,19 @@ import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 import ReservationInformationModal from '../../modal/ReservationInformationModal';
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
+import { isAdminSelector } from '../../../../../app/state/selectors/authSelectors';
 import ConnectedReservationCancelModal from '../../modal/ReservationCancelModal';
 
 export const PAGE_SIZE = 50;
+const INITIAL_SELECTED_RESERVATION_RESOURCE = {
+  data: null,
+  isLoading: false,
+  error: null,
+};
 
 class ManageReservationsPage extends React.Component {
   static propTypes = {
+    isAdmin: PropTypes.bool,
     t: PropTypes.func.isRequired,
     history: PropTypes.object,
     location: PropTypes.object,
@@ -48,6 +55,11 @@ class ManageReservationsPage extends React.Component {
       totalCount: 0,
       isModalOpen: false,
       selectedReservation: {},
+      // The resource object returned as part of the reservation object
+      // is not complete so we have to find the complete version.
+      // Because it seems that this component attempts to avoid redux,
+      // I will do this finding within this component.
+      selectedReservationResource: INITIAL_SELECTED_RESERVATION_RESOURCE,
       showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY],
       isReservationCancelModalOpen: false,
     };
@@ -64,6 +76,19 @@ class ManageReservationsPage extends React.Component {
     if (prevProps.location !== location) {
       this.loadReservations();
     }
+  }
+
+  get selectedReservationResource() {
+    return this.state.selectedReservationResource.data;
+  }
+
+  setSelectedReservationResource = (nextStatePartial) => {
+    this.setState(state => ({
+      selectedReservationResource: {
+        ...state.selectedReservationResource,
+        ...nextStatePartial,
+      },
+    }));
   }
 
   loadReservations = () => {
@@ -108,6 +133,39 @@ class ManageReservationsPage extends React.Component {
       });
   };
 
+  loadSelectedReservationResource = (resourceId) => {
+    this.setSelectedReservationResource({
+      isLoading: true,
+    });
+
+    client.get(`resource/${resourceId}`)
+      .then((res) => {
+        if (res.error) {
+          this.setSelectedReservationResource({
+            error: res.error,
+          });
+
+          return;
+        }
+
+        this.setSelectedReservationResource({
+          data: res.data,
+        });
+      }).catch((e) => {
+        this.setSelectedReservationResource({
+          error: e,
+        });
+      }).finally(() => {
+        this.setSelectedReservationResource({
+          isLoading: false,
+        });
+      });
+  }
+
+  resetSelectedReservationResource = () => {
+    this.setSelectedReservationResource(INITIAL_SELECTED_RESERVATION_RESOURCE);
+  }
+
   onSearchFiltersChange = (filters) => {
     const { history } = this.props;
 
@@ -135,10 +193,19 @@ class ManageReservationsPage extends React.Component {
   };
 
   onInfoClick = (reservation) => {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen,
+    this.loadSelectedReservationResource(reservation.resource.id);
+    this.setState({
+      isModalOpen: true,
       selectedReservation: reservation,
-    }));
+    });
+  }
+
+  onInfoModalClose = () => {
+    this.resetSelectedReservationResource();
+    this.setState({
+      isModalOpen: false,
+      selectedReservation: null,
+    });
   }
 
   // The same function is passed to ManageReservationsList, ReservationInformationModal AND ReservationCancelModal!!!
@@ -223,6 +290,7 @@ class ManageReservationsPage extends React.Component {
 
   render() {
     const {
+      isAdmin,
       t,
       history,
       location,
@@ -298,12 +366,14 @@ class ManageReservationsPage extends React.Component {
         {isModalOpen && (
           <div className="app-ManageReservationsPage__modal">
             <ReservationInformationModal
+              isAdmin={isAdmin}
               isOpen={isModalOpen}
               onEditClick={this.onEditClick}
               onEditReservation={this.onEditReservation}
-              onHide={this.onInfoClick}
+              onHide={this.onInfoModalClose}
               onSaveComment={this.onSaveComment}
               reservation={selectedReservation}
+              resource={this.selectedReservationResource}
             />
           </div>
         )}
@@ -323,6 +393,7 @@ class ManageReservationsPage extends React.Component {
 export const UnwrappedManageReservationsPage = injectT(ManageReservationsPage);
 
 const selector = createStructuredSelector({
+  isAdmin: isAdminSelector,
   userFavoriteResources: userFavouriteResourcesSelector,
 });
 
