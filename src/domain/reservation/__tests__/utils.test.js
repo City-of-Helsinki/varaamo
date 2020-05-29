@@ -1,4 +1,4 @@
-import { canUserModifyReservation, canUserCancelReservation } from '../utils';
+import { canUserModifyReservation, canUserCancelReservation, getShowRefundPolicy } from '../utils';
 import reservationGenerator from '../../../common/data/fixtures/reservation';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 
@@ -62,6 +62,29 @@ describe('Reservation utils function ', () => {
       const canCancel = canUserCancelReservation(reservation);
 
       expect(canCancel).toBeFalsy();
+    });
+  });
+
+  describe('getShowRefundPolicy', () => {
+    test('should return true when user is admin, reservation is not a staff event and reservation has a price', () => {
+      const reservation = {
+        staffEvent: false,
+        begin: new Date(2017, 6, 7, 10, 0, 0, 0),
+        end: new Date(2017, 6, 7, 11, 0, 0, 0),
+      };
+      const resource = {
+        products: [
+          {
+            price: {
+              type: 'per_period',
+              period: '01:00',
+              amount: 100,
+            },
+          },
+        ],
+      };
+
+      expect(getShowRefundPolicy(true, reservation, resource));
     });
   });
 });

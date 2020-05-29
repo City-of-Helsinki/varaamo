@@ -22,6 +22,7 @@ import ReservationTimeControls from '../../form-fields/ReservationTimeControls';
 import TimeRange from '../../time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
 import constants from '../../../constants/AppConstants';
+import { getShowRefundPolicy } from '../../../../src/domain/reservation/utils';
 
 // We have a generic utility function with the same purpose, but it has
 // been developed to be snake_case compatible. In this view we are still
@@ -186,7 +187,7 @@ class UnconnectedReservationEditForm extends Component {
     } = reservation;
 
     const isAdminOrOwner = (isAdmin || isOwn);
-    const showRefundPolicy = isAdmin && !reservation.staffEvent && price > 0;
+    const showRefundPolicy = getShowRefundPolicy(isAdmin, reservation, resource);
 
     return (
       <Form
@@ -218,7 +219,13 @@ class UnconnectedReservationEditForm extends Component {
         {showRefundPolicy
           && this.renderInfoRow(
             t('ReservationInformationForm.refundPolicyTitle'),
-            t('ReservationInformationForm.refundPolicyText'),
+            <>
+              {t('ReservationInformationForm.refundPolicyText.1')}
+              <a href={`mailto:${t('ReservationInformationForm.refundPolicyText.2')}`}>
+                {t('ReservationInformationForm.refundPolicyText.2')}
+              </a>
+              {t('ReservationInformationForm.refundPolicyText.3')}
+            </>,
             { id: 'refund-policy' },
           )
         }
