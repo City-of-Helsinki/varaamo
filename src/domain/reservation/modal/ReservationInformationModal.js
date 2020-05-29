@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Modal, Row, Col, Button, ControlLabel, FormControl,
+  Modal, Button, ControlLabel, FormControl,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
@@ -12,9 +12,11 @@ import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import ReservationMetadata from '../information/ReservationMetadata';
 import ConnectedReservationCancelModal from './ReservationCancelModal';
+import { getShowRefundPolicy } from '../utils';
+import ReservationInformationModalContentRow from './ReservationInformationModalContentRow';
 
 const ReservationInformationModal = ({
-  t, reservation, onHide, isOpen, onEditClick, onEditReservation, onSaveComment,
+  t, reservation, resource, onHide, isOpen, isAdmin, onEditClick, onEditReservation, onSaveComment,
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
   const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(false);
@@ -27,19 +29,23 @@ const ReservationInformationModal = ({
 
   const renderField = (label, value) => {
     return (
-      <div className="app-ReservationInformationModal__field">
-        <Row>
-          <Col className="app-ReservationInformationModal__field__label" xs={5}>
-            <span>{t(`common.${(camelCase(label))}Label`)}</span>
-          </Col>
+      <ReservationInformationModalContentRow
+        content={(<span>{value}</span>)}
+        key={label}
+        label={<span>{t(`common.${(camelCase(label))}Label`)}</span>}
+      />
+    );
+  };
 
-          <Col className="app-ReservationInformationModal__field__value" xs={7}>
-            <span>
-              {value}
-            </span>
-          </Col>
-        </Row>
-      </div>
+  const renderInfoRow = (label, value, rest) => {
+    if (!value && value !== '') return null;
+
+    return (
+      <ReservationInformationModalContentRow
+        content={value}
+        label={label}
+        {...rest}
+      />
     );
   };
 
@@ -47,6 +53,7 @@ const ReservationInformationModal = ({
   const payerLastName = get(reservation, 'billing_last_name', '');
   const payerEmail = get(reservation, 'billing_email_address', '');
   const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
+  const showRefundPolicy = resource !== null && getShowRefundPolicy(isAdmin, reservation, resource);
 
   return (
     <Modal
@@ -76,6 +83,20 @@ const ReservationInformationModal = ({
             customField={renderField}
             reservation={reservation}
           />
+
+          {showRefundPolicy
+            && renderInfoRow(
+              t('ReservationInformationForm.refundPolicyTitle'),
+              <>
+                {t('ReservationInformationForm.refundPolicyText.1')}
+                <a href={`mailto:${t('ReservationInformationForm.refundPolicyText.2')}`}>
+                  {t('ReservationInformationForm.refundPolicyText.2')}
+                </a>
+                {t('ReservationInformationForm.refundPolicyText.3')}
+              </>,
+              { id: 'refund-policy' },
+            )
+          }
 
         </div>
         <div className="app-ReservationInformationModal__edit-reservation-btn">
@@ -154,10 +175,12 @@ const ReservationInformationModal = ({
 ReservationInformationModal.propTypes = {
   t: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
+  resource: PropTypes.object,
   onHide: PropTypes.func,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
   onSaveComment: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool,
   isOpen: PropTypes.bool,
 };
 

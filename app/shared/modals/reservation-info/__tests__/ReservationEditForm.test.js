@@ -236,6 +236,42 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
               expect(timeControlProps.disabled).toEqual(true);
             });
           });
+
+          test('renders refund policy for correct roles', () => {
+            // Should only be rendered for admin level users, should
+            // only be rendered for reservations that are not made by
+            // staff and should only be rendered when the price is
+            // greater than 0.
+            const getRefundPolicy = (wrapper) => {
+              return wrapper.find({ id: 'refund-policy' });
+            };
+            const notAdmin = getWrapper({ isEditing: true, isAdmin: false });
+            const admin = getWrapper({
+              isEditing: true,
+              isAdmin: true,
+              reservation: {
+                ...reservation,
+                isStaffEvent: false,
+                begin: new Date(2017, 10, 1, 9, 0, 0, 0).toJSON(),
+                end: new Date(2017, 10, 1, 11, 0, 0, 0).toJSON(),
+              },
+              resource: {
+                ...resource,
+                products: [
+                  {
+                    price: {
+                      type: 'per_period',
+                      period: '01:00',
+                      amount: 100,
+                    },
+                  },
+                ],
+              },
+            });
+
+            expect(getRefundPolicy(notAdmin).length).toEqual(0);
+            expect(getRefundPolicy(admin).length).toEqual(1);
+          });
         });
       });
 
@@ -294,6 +330,36 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
         test('is not rendered if isEditing is true', () => {
           expect(getEditButton({ isEditing: true })).toHaveLength(0);
+        });
+
+        test('disabled when the resource has a cost and the user is not an admin', () => {
+          const isAdmin = getEditButton({
+            isEditing: false,
+            isAdmin: true,
+            resource: {
+              ...resource,
+              products: [{
+                price: {},
+              }],
+            },
+          });
+          const isUser = getEditButton({
+            isEditing: false,
+            isAdmin: false,
+            reservation: {
+              ...reservation,
+              isOwn: true,
+            },
+            resource: {
+              ...resource,
+              products: [{
+                price: {},
+              }],
+            },
+          });
+
+          expect(isAdmin.prop('disabled')).toEqual(false);
+          expect(isUser.prop('disabled')).toEqual(true);
         });
       });
 

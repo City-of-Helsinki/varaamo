@@ -2,6 +2,13 @@
 
 # 0.10.0
   **MINOR CHANGES**
+  - Fixed refund policy test being visible to regular users
+  - Fixed enabled edit button for paid reservations when the user does not have admin level privileges
+  - Updated refund policy related descriptions
+  - Changed billing email to be shown in reservation confirmation view
+
+# 0.10.0
+  **MINOR CHANGES**
   - Changed search count to be announced when a search is made
   - Changed search results sort order to be announced when sort order is changed
   - Fixed illegible icon names in toggles being read out loud by screen readers
