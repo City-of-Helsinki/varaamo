@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import simple from 'simple-mock';
 import snakeCaseKeys from 'snakecase-keys';
-import camelCaseKeys from 'camelcase-keys';
+import camelCaseKeys from 'camelcase-keys-deep';
 
 import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
