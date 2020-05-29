@@ -23,16 +23,6 @@ class UnconnectedReservationCancelModalContainer extends Component {
     this.state = { checkboxDisabled: null };
   }
 
-  componentDidMount() {
-    const {
-      resource,
-    } = this.props;
-
-    hasProducts(resource)
-      ? this.setState({ checkboxDisabled: false })
-      : this.setState({ checkboxDisabled: true });
-  }
-
   handleCancel() {
     const { actions, reservation } = this.props;
     actions.deleteReservation(reservation);
