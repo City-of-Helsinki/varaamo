@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Toggle from 'react-toggle';
 
+import { getHasOnlinePaymentSupport } from '../../../../src/domain/resource/utils';
 import { deleteReservation } from '../../../actions/reservationActions';
 import { closeReservationCancelModal } from '../../../actions/uiActions';
 import CompactReservationList from '../../compact-reservation-list/CompactReservationList';
@@ -66,6 +67,8 @@ class UnconnectedReservationCancelModalContainer extends Component {
       t,
     } = this.props;
 
+    const resourceHasOnlinePaymentSupport = getHasOnlinePaymentSupport(resource);
+
     return (
       <Modal
         onHide={() => {
@@ -106,8 +109,18 @@ class UnconnectedReservationCancelModalContainer extends Component {
           {!cancelAllowed
             && (
             <div>
-              <p>{t('ReservationCancelModal.cancelNotAllowedInfo')}</p>
-              <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
+              {resourceHasOnlinePaymentSupport && (
+                <>
+                  <p>{t('ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1')}</p>
+                  <p>{t('ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2')}</p>
+                </>
+              )}
+              {!resourceHasOnlinePaymentSupport && (
+                <>
+                  <p>{t('ReservationCancelModal.cancelNotAllowedInfo')}</p>
+                  <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
+                </>
+              )}
               <p className="responsible-contact-info">{resource.responsibleContactInfo}</p>
             </div>
             )

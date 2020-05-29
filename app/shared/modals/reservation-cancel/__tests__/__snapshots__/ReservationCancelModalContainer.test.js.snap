@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shared/modals/reservation-cancel/ReservationCancelModalContainer render Modal body if resource has payment support renders custom message 1`] = `
+<ModalBody
+  bsClass="modal-body"
+  componentClass="div"
+>
+  <div>
+    <p>
+      ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1
+    </p>
+    <p>
+      ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2
+    </p>
+    <p
+      className="responsible-contact-info"
+    />
+  </div>
+</ModalBody>
+`;

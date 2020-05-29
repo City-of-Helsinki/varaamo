@@ -454,4 +454,30 @@ describe('domain resource utility function', () => {
       expect(price).toBe(0);
     });
   });
+
+  describe('getHasOnlinePaymentSupport', () => {
+    test('returns true when resource has products of type RENT', () => {
+      const resource = {
+        products: [
+          {
+            type: 'rent',
+          },
+        ],
+      };
+
+      expect(resourceUtils.getHasOnlinePaymentSupport(resource)).toEqual(true);
+    });
+
+    test('otherwise returns false', () => {
+      const resource = {
+        products: [
+          {
+            type: 'random',
+          },
+        ],
+      };
+
+      expect(resourceUtils.getHasOnlinePaymentSupport(resource)).toEqual(false);
+    });
+  });
 });

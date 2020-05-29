@@ -6,23 +6,12 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
-import { getReservationPrice } from '../../../../../../src/domain/resource/utils';
+import { getReservationPrice, getHasOnlinePaymentSupport } from '../../../../../../src/domain/resource/utils';
 import ReservationAccessCode from '../../../../reservation-access-code/ReservationAccessCode';
 import utils from '../utils';
-import { resourceProductTypes } from '../../../../../../src/domain/resource/constants';
 
 function getReserverName(reserverName, user) {
   return reserverName || (user && (user.displayName || user.email));
-}
-
-// This function is business logic. If resource products include
-// products of type RENT, it means that the requires payment before it
-// can be reserved. This implicitly communicates that it has support for
-// online payments.
-
-// https://github.com/City-of-Helsinki/respa/blob/develop/docs/payments.md#basics
-function hasOnlinePaymentSupport(resourceProducts) {
-  return resourceProducts.some(product => product.type === resourceProductTypes.RENT);
 }
 
 Reservation.propTypes = {
@@ -43,14 +32,14 @@ Reservation.propTypes = {
   }),
 };
 
-function Reservation({ onClick, products, ...reservation }) {
+function Reservation({ onClick, ...reservation }) {
   const startTime = moment(reservation.begin);
   const endTime = moment(reservation.end);
   const width = utils.getTimeSlotWidth({ startTime, endTime });
   const reserverName = getReserverName(reservation.reserverName, reservation.user);
   // This value is zero when no price is found.
-  const price = getReservationPrice(reservation.begin, reservation.end, { products });
-  const showPrice = hasOnlinePaymentSupport(products || []);
+  const price = getReservationPrice(reservation.begin, reservation.end, { products: reservation.products });
+  const showPrice = getHasOnlinePaymentSupport(reservation);
 
   const popover = (
     <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
