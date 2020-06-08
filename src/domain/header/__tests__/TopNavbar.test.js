@@ -13,6 +13,8 @@ describe('shared/top-navbar/TopNavbar', () => {
       currentLanguage: 'fi',
       isLoggedIn: false,
       userName: 'Luke Skywalker',
+      fontSize: 'fontSizeSmall',
+      setFontSize: () => {},
     };
     return shallowWithIntl(<TopNavbar {...defaults} {...props} />);
   }

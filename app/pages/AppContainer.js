@@ -21,6 +21,7 @@ import { getCustomizationClassName } from '../utils/customizationUtils';
 import Notifications from '../shared/notifications/NotificationsContainer';
 import UserNotificator from '../../src/common/notificator/user/UserNotificator';
 import AccessibilityShortcuts from '../shared/accessibility-shortcuts/AccessibilityShortcuts';
+import FontSizes from '../constants/FontSizes';
 
 const userIdSelector = state => state.auth.userId;
 const languageSelector = state => state.intl && state.intl.locale;
@@ -32,6 +33,10 @@ export const selector = createStructuredSelector({
 });
 
 export class UnconnectedAppContainer extends Component {
+  state = {
+    fontSize: FontSizes.small,
+  };
+
   constructor(props) {
     super(props);
     const mobileDetect = new MobileDetect(window.navigator.userAgent);
@@ -53,6 +58,10 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
+  handleFontSizeChange = (fontSize) => {
+    this.setState({ fontSize });
+  };
+
   removeFacebookAppendedHash() {
     if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
       window.location.hash = ''; // for older browsers, leaves a # behind
@@ -62,24 +71,28 @@ export class UnconnectedAppContainer extends Component {
 
   render() {
     const { isStaff, language } = this.props;
+    const { fontSize } = this.state;
     const mainContentId = 'main-content';
 
     return (
       <>
         <AccessibilityShortcuts mainContentId={mainContentId} />
         <div className={classNames('app', getCustomizationClassName())}>
-          <Helmet htmlAttributes={{ lang: this.props.language }}>
+          <Helmet
+            htmlAttributes={{ lang: this.props.language, class: fontSize }}
+          >
             <title>Varaamo</title>
           </Helmet>
 
-          <Header location={this.props.location}>
+          <Header
+            fontSize={fontSize}
+            location={this.props.location}
+            setFontSize={this.handleFontSizeChange}
+          >
             <Favicon />
             <TestSiteMessage />
             {firebase.apps.length > 0 && (
-              <UserNotificator
-                isStaff={isStaff}
-                language={language}
-              />
+              <UserNotificator isStaff={isStaff} language={language} />
             )}
           </Header>
           <div className="app-content" id={mainContentId}>
@@ -108,9 +121,4 @@ UnconnectedAppContainer.propTypes = {
 
 const actions = { enableGeoposition, fetchUser };
 
-export default withRouter(
-  connect(
-    selector,
-    actions,
-  )(UnconnectedAppContainer),
-);
+export default withRouter(connect(selector, actions)(UnconnectedAppContainer));

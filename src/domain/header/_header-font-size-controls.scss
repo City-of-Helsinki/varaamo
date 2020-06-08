@@ -1,0 +1,10 @@
+.app-HeaderFontSizeControl {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  margin-right: 16px;
+
+  &__label {
+    margin-right: 8px;
+  }
+}

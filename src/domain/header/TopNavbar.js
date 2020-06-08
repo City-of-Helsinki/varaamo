@@ -5,10 +5,21 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Nav from 'react-bootstrap/lib/Nav';
 
+import FontSizes from '../../../app/constants/FontSizes';
 import injectT from '../../../app/i18n/injectT';
 import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
 import TabbableNavItem from '../../../app/shared/tabbable-nav-dropdown/TabbableNavItem';
+import HeaderFontSizeControl from './HeaderFontSizeControl';
+
+// Bootstrap uses magic to force props on child elements based on
+// element type. Because our vanilla elements don't make use of those
+// props, they end up in the DOM and raise errors. For that reason, we
+// blocking bootstrap from applying these props.
+const BootstrapGuardedLI = (props) => {
+  // eslint-disable-next-line react/prop-types
+  return <li>{props.children}</li>;
+};
 
 class TopNavbar extends Component {
   static propTypes = {
@@ -17,6 +28,8 @@ class TopNavbar extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
     userName: PropTypes.string.isRequired,
+    fontSize: PropTypes.oneOf(Object.values(FontSizes)).isRequired,
+    setFontSize: PropTypes.func.isRequired,
   };
 
   onLanguageItemClick(nextLocale) {
@@ -30,7 +43,12 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      currentLanguage, isLoggedIn, t, userName,
+      currentLanguage,
+      isLoggedIn,
+      t,
+      userName,
+      fontSize,
+      setFontSize,
     } = this.props;
 
     return (
@@ -44,19 +62,28 @@ class TopNavbar extends Component {
         </Navbar.Header>
 
         <Nav activeKey="none" pullRight>
+          <BootstrapGuardedLI>
+            <HeaderFontSizeControl
+              fontSize={fontSize}
+              setFontSize={setFontSize}
+            />
+          </BootstrapGuardedLI>
           <TabbableNavDropdown
             as="li"
             className="app-TopNavbar__language"
             id="language-nav-dropdown"
             renderToggle={props => (
-              <LinkButton {...props} aria-label={t(`common.language.${currentLanguage}`)}>
+              <LinkButton
+                {...props}
+                aria-label={t(`common.language.${currentLanguage}`)}
+              >
                 {currentLanguage.toUpperCase()}
               </LinkButton>
             )}
           >
-            {({ closeMenu }) => Object
-              .values(SUPPORTED_LANGUAGES)
-              .filter(language => language !== currentLanguage).map(language => (
+            {({ closeMenu }) => Object.values(SUPPORTED_LANGUAGES)
+              .filter(language => language !== currentLanguage)
+              .map(language => (
                 <TabbableNavItem
                   href="#"
                   key={language}
@@ -69,7 +96,8 @@ class TopNavbar extends Component {
                 >
                   {t(`common.language.${language}`)}
                 </TabbableNavItem>
-              ))}
+              ))
+            }
           </TabbableNavDropdown>
 
           {isLoggedIn && (
@@ -77,10 +105,15 @@ class TopNavbar extends Component {
               as="li"
               className="app-TopNavbar__name"
               id="user-nav-dropdown"
-              renderToggle={props => <LinkButton {...props}>{userName}</LinkButton>}
+              renderToggle={props => (
+                <LinkButton {...props}>{userName}</LinkButton>
+              )}
             >
               {({ closeMenu }) => (
-                <TabbableNavItem href={`/logout?next=${window.location.origin}`} onClick={closeMenu}>
+                <TabbableNavItem
+                  href={`/logout?next=${window.location.origin}`}
+                  onClick={closeMenu}
+                >
                   {t('Navbar.logout')}
                 </TabbableNavItem>
               )}
@@ -101,7 +134,9 @@ class TopNavbar extends Component {
 // Due to style rules, which expect an a element, we have to use an anchor
 // instead of a button.
 const LinkButton = ({ children, ...props }) => (
-  <a href="#" type="button" {...props}>{children}</a>
+  <a href="#" type="button" {...props}>
+    {children}
+  </a>
 );
 
 LinkButton.propTypes = {

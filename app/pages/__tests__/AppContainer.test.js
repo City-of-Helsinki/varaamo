@@ -84,14 +84,20 @@ describe('pages/AppContainer', () => {
       expect(children).toHaveLength(1);
     });
 
-    test('html lang attribute is set correctly for Finnish, Swedish ans English', () => {
+    test('html lang attribute is set correctly for Finnish, Swedish and English', () => {
       const languages = ['fi', 'en', 'sv'];
 
       languages.forEach((code) => {
         expect(
-          getWrapper({ language: code }).find(Helmet).props().htmlAttributes,
-        ).toEqual({ lang: code });
+          getWrapper({ language: code }).find(Helmet).props().htmlAttributes.lang,
+        ).toEqual(code);
       });
+    });
+
+    test('html class attribute is set correctly for font sizes', () => {
+      expect(
+        getWrapper().find(Helmet).props().htmlAttributes.class,
+      ).toEqual('fontSizeSmall');
     });
   });
 

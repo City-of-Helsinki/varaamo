@@ -11,6 +11,8 @@ describe('shared/header/Header', () => {
   function getWrapper() {
     const defaults = {
       location: { pathname },
+      fontSize: 'fontSizeSmall',
+      setFontSize: () => {},
     };
     return shallow(
       <Header {...defaults}>
