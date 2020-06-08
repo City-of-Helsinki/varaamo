@@ -3,6 +3,7 @@
 $card-border-color: #d6d6d6;
 $image-items-margin: 5px;
 $resourceCardPadding: 15px;
+$resourceCardTitleBottomMargin: 6px;
 
 .app-resourceCard {
   margin: 20px 0;
@@ -56,11 +57,14 @@ $resourceCardPadding: 15px;
     }
   }
 
-  h4 {
+  h3 {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: $resourceCardTitleBottomMargin;
+
+    font-size: 2.4rem;
+
     @media (max-width: $screen-xs-max) {
-      font-size: 1.6rem;
+      font-size: 2.4rem;
       line-height: 1;
     }
   }

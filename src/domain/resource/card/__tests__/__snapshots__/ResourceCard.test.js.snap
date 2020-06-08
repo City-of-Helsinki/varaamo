@@ -26,54 +26,6 @@ exports[`ResourceCard renders correctly 1`] = `
   <div
     className="app-resourceCard__content"
   >
-    <div
-      className="app-resourceCard__unit-name"
-    >
-      <a
-        className="app-resourceCard__unit-name-link"
-        onClick={[Function]}
-        role="button"
-        tabIndex="-1"
-      >
-        <span>
-          Unit (en) - 1
-        </span>
-      </a>
-      <div
-        className="app-resourceCard__unit-name-labels"
-      >
-        <InjectT(ResourceAvailability)
-          date="30-07-2019"
-          resource={
-            Object {
-              "available_hours": Array [],
-              "equipment": Array [],
-              "id": 1,
-              "is_favorite": false,
-              "name": Object {
-                "en": "Resource (en) - 1",
-                "fi": "Resource (fi) - 1",
-                "sv": "Resource (sv) - 1",
-              },
-              "need_manual_confirmation": false,
-              "opening_hours": Array [],
-              "products": Array [],
-              "public": true,
-              "required_reservation_extra_fields": Array [],
-              "reservable": true,
-              "reservable_after": null,
-              "slot_size": "00:30:00",
-              "supported_reservation_extra_fields": Array [],
-              "unit": 1,
-              "user_permissions": Object {
-                "canMakeReservations": true,
-                "isAdmin": false,
-              },
-            }
-          }
-        />
-      </div>
-    </div>
     <Link
       replace={false}
       to={
@@ -86,9 +38,50 @@ exports[`ResourceCard renders correctly 1`] = `
         }
       }
     >
-      <h4>
+      <h3>
         Resource (en) - 1
-      </h4>
+      </h3>
+      <div
+        className="app-resourceCard__unit-name"
+      >
+        <span>
+          Unit (en) - 1
+        </span>
+        <div
+          className="app-resourceCard__unit-name-labels"
+        >
+          <InjectT(ResourceAvailability)
+            date="30-07-2019"
+            resource={
+              Object {
+                "available_hours": Array [],
+                "equipment": Array [],
+                "id": 1,
+                "is_favorite": false,
+                "name": Object {
+                  "en": "Resource (en) - 1",
+                  "fi": "Resource (fi) - 1",
+                  "sv": "Resource (sv) - 1",
+                },
+                "need_manual_confirmation": false,
+                "opening_hours": Array [],
+                "products": Array [],
+                "public": true,
+                "required_reservation_extra_fields": Array [],
+                "reservable": true,
+                "reservable_after": null,
+                "slot_size": "00:30:00",
+                "supported_reservation_extra_fields": Array [],
+                "unit": 1,
+                "user_permissions": Object {
+                  "canMakeReservations": true,
+                  "isAdmin": false,
+                },
+              }
+            }
+          />
+        </div>
+      </div>
     </Link>
     <div
       className="app-resourceCard__description"
