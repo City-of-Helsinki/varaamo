@@ -12,6 +12,7 @@ import iconTicket from 'hel-icons/dist/shapes/ticket.svg';
 import iconUser from 'hel-icons/dist/shapes/user-o.svg';
 import iconHeart from 'hel-icons/dist/shapes/heart-o.svg';
 
+import FontSizes from '../../../../app/constants/FontSizes';
 import injectT from '../../../../app/i18n/injectT';
 import iconMap from '../../../../app/assets/icons/map.svg';
 import iconHeartFilled from '../../../../app/assets/icons/heart-filled.svg';
@@ -26,7 +27,6 @@ import UnpublishedLabel from '../../../../app/shared/label/unpublished/Unpublish
 import ResourceCardInfoCell from './ResourceCardInfoCell';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
 
-
 class ResourceCard extends React.Component {
   static propTypes = {
     date: PropTypes.string.isRequired,
@@ -39,6 +39,7 @@ class ResourceCard extends React.Component {
     isLoggedIn: PropTypes.bool,
     onFavoriteClick: PropTypes.func.isRequired,
     onFilterClick: PropTypes.func.isRequired,
+    isNormalFontSize: PropTypes.bool,
   };
 
   getResourcePageLink = () => {
@@ -67,35 +68,53 @@ class ResourceCard extends React.Component {
       unit,
       intl,
       t,
+      isNormalFontSize,
     } = this.props;
     const locale = intl.locale;
-    const typeName = resource.type ? dataUtils.getLocalizedFieldValue(resource.type.name, locale) : '';
+    const typeName = resource.type
+      ? dataUtils.getLocalizedFieldValue(resource.type.name, locale)
+      : '';
 
     return (
       <div
-        className={classNames('app-resourceCard', {
-          'app-resourceCard__stacked': isStacked,
+        className={classNames('app-resourceCard2', {
+          'app-resourceCard2__stacked': isStacked,
+          'app-resourceCard2--normal-font-size': isNormalFontSize,
         })}
       >
-        <Link className="app-resourceCard__image-link" onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-          <BackgroundImage height={420} image={getMainImage(resource.images)} width={700} />
+        <Link
+          className={classNames('app-resourceCard2__image-link', {
+            'app-resourceCard2__image-link--large-font-size': !isNormalFontSize,
+          })}
+          onClick={this.handleLinkClick}
+          to={this.getResourcePageLink()}
+        >
+          <BackgroundImage
+            height={420}
+            image={getMainImage(resource.images)}
+            width={700}
+          />
         </Link>
-        <div className="app-resourceCard__content">
+        <div className="app-resourceCard2__content">
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
             <h3>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h3>
-            <div className="app-resourceCard__unit-name">
+            <div className="app-resourceCard2__unit-name">
               <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
-              <div className="app-resourceCard__unit-name-labels">
+              <div className="app-resourceCard2__unit-name-labels">
                 <ResourceAvailability date={date} resource={resource} />
                 {!resource.public && <UnpublishedLabel />}
               </div>
             </div>
           </Link>
-          <div className="app-resourceCard__description">
-            {dataUtils.getLocalizedFieldValue(resource.description, locale, true)}
+          <div className="app-resourceCard2__description">
+            {dataUtils.getLocalizedFieldValue(
+              resource.description,
+              locale,
+              true,
+            )}
           </div>
         </div>
-        <div className="app-resourceCard__info">
+        <div className="app-resourceCard2__info">
           {resource.type && (
             <ResourceCardInfoCell
               icon={iconHome}
@@ -107,18 +126,29 @@ class ResourceCard extends React.Component {
             icon={iconUser}
             onClick={
               resource.people_capacity
-                ? () => onFilterClick('people', searchUtils.getClosestPeopleCapacityValue(resource.people_capacity))
+                ? () => onFilterClick(
+                  'people',
+                  searchUtils.getClosestPeopleCapacityValue(
+                    resource.people_capacity,
+                  ),
+                )
                 : null
             }
             text={
               resource.people_capacity
-                ? t('ResourceCard.peopleCapacity', { people: resource.people_capacity })
+                ? t('ResourceCard.peopleCapacity', {
+                  people: resource.people_capacity,
+                })
                 : '-'
             }
           />
           <ResourceCardInfoCell
             icon={iconTicket}
-            onClick={resourceUtils.isFree(resource) ? () => onFilterClick('freeOfCharge', true) : null}
+            onClick={
+              resourceUtils.isFree(resource)
+                ? () => onFilterClick('freeOfCharge', true)
+                : null
+            }
             text={resourceUtils.getPriceFromSnakeCaseResource(resource, t)}
           />
           <ResourceCardInfoCell
@@ -148,11 +178,13 @@ class ResourceCard extends React.Component {
 const UnconnectedResourceCard = injectT(ResourceCard);
 export { UnconnectedResourceCard };
 
+const isNormalFontSizeSelector = state => state.ui.accessibility.fontSize !== FontSizes.LARGE;
+
 const selector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
+  isNormalFontSize: isNormalFontSizeSelector,
 });
 
-export default flowRight([
-  injectIntl,
-  connect(selector),
-])(UnconnectedResourceCard);
+export default flowRight([injectIntl, connect(selector)])(
+  UnconnectedResourceCard,
+);

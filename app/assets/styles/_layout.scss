@@ -10,6 +10,21 @@
 
 $layout-padding: 30px;
 
+:root {
+  --root-font-size: 10px;
+  
+  font-size: var(--root-font-size);
+}
+:root.fontSizeSmall {
+  --root-font-size: 10px;
+}
+:root.fontSizeMedium {
+  --root-font-size: 12px;
+}
+:root.fontSizeLarge {
+  --root-font-size: 14px;
+}
+
 // All of the wrapping elements before .app need to have a height of 100%
 html, body, #root {
   height: 100%;

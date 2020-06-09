@@ -5,9 +5,9 @@
 
 .app-ReservationPage__title {
   font-weight: $font-weight-regular;
-  font-size: 22px;
+  font-size: 2.2rem;
   &--big {
-    font-size: 28px;
+    font-size: 2.8rem;
   }
 }
 
@@ -15,7 +15,7 @@
   margin-bottom: 20px;
   label {
     display: block;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: $font-weight-regular;
   }
   input,
@@ -35,7 +35,7 @@
 .app-ReservationPage__error {
   color: $red;
   display: block;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .app-ReservationFailedPage {
