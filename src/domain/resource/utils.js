@@ -11,7 +11,7 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
-import { resourcePriceTypes, resourceProductTypes } from './constants';
+import { resourcePriceTypes, resourceProductTypes, productPriceType } from './constants';
 
 /**
  * getResourcePageLink();
@@ -613,19 +613,30 @@ export const getReservationPrice = (start, end, resource) => {
   const startMoment = moment(start);
   const endMoment = moment(end);
 
-  const currentProduct = products[0];
-  const timeDiff = endMoment.diff(startMoment, 'hours', true);
-  const duration = moment.duration(currentProduct.price.period).as('hours');
-  const amount = get(currentProduct, 'price.amount', 0);
-
   // TODO: Replace those getter with generic data when price
-  // not only by hours and product is more than 1.
+  // product is more than 1.
 
-  if (duration && amount && get(currentProduct, 'price.type', '') === 'per_period') {
-    return timeDiff * amount / duration;
+  const currentProduct = products[0];
+  const currentProductPriceType = get(currentProduct, 'price.type', null);
+  const currentProductPriceAmount = get(currentProduct, 'price.amount', 0);
+
+  switch (currentProductPriceType) {
+    case productPriceType.PER_PERIOD: {
+      const timeDiff = endMoment.diff(startMoment, 'hours', true);
+      const duration = moment.duration(currentProduct.price.period).as('hours');
+
+      if (!duration || !currentProductPriceAmount) {
+        return 0;
+      }
+
+      return timeDiff * currentProductPriceAmount / duration;
+    }
+    case productPriceType.FIXED: {
+      return currentProductPriceAmount;
+    }
+    default:
+      return 0;
   }
-
-  return 0;
 };
 
 

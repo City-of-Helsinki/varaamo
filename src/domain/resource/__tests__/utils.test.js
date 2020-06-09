@@ -453,6 +453,18 @@ describe('domain resource utility function', () => {
       const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
       expect(price).toBe(0);
     });
+
+    test('returns the correct price when price type is fixed', () => {
+      const resource = resourceFixture.build({
+        products: [{
+          price: { amount: 200, type: 'fixed' },
+
+        }],
+      });
+
+      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      expect(price).toBe(200);
+    });
   });
 
   describe('getHasOnlinePaymentSupport', () => {

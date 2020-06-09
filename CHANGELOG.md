@@ -1,4 +1,7 @@
 # Unreleased
+  **MINOR CHANGES**
+  - Fix fixed prices always being zero
+  
   **CHANGELOG**
   - Added font size control
 

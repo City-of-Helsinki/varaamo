@@ -9,3 +9,8 @@ export const resourcePriceTypes = Object.freeze({
   WEEKLY: 'weekly',
   FIXED: 'fixed',
 });
+
+export const productPriceType = Object.freeze({
+  PER_PERIOD: 'per_period',
+  FIXED: 'fixed',
+});
