@@ -81,22 +81,15 @@ class ResourceCard extends React.Component {
           <BackgroundImage height={420} image={getMainImage(resource.images)} width={700} />
         </Link>
         <div className="app-resourceCard__content">
-          <div className="app-resourceCard__unit-name">
-            <a
-              className="app-resourceCard__unit-name-link"
-              onClick={() => this.onSearchClick({ unit: resource.unit })}
-              role="button"
-              tabIndex="-1"
-            >
-              <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
-            </a>
-            <div className="app-resourceCard__unit-name-labels">
-              <ResourceAvailability date={date} resource={resource} />
-              {!resource.public && <UnpublishedLabel />}
-            </div>
-          </div>
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h4>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h4>
+            <h3>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h3>
+            <div className="app-resourceCard__unit-name">
+              <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
+              <div className="app-resourceCard__unit-name-labels">
+                <ResourceAvailability date={date} resource={resource} />
+                {!resource.public && <UnpublishedLabel />}
+              </div>
+            </div>
           </Link>
           <div className="app-resourceCard__description">
             {dataUtils.getLocalizedFieldValue(resource.description, locale, true)}
