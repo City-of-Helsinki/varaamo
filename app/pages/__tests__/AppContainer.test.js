@@ -18,6 +18,7 @@ describe('pages/AppContainer', () => {
       location: {},
       userId: null,
       language: 'fi',
+      fontSize: 'fontSizeSmall',
     };
     return shallow(<AppContainer {...defaults} {...props} />);
   }

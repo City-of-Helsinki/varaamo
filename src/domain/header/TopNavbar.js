@@ -5,7 +5,6 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Nav from 'react-bootstrap/lib/Nav';
 
-import FontSizes from '../../../app/constants/FontSizes';
 import injectT from '../../../app/i18n/injectT';
 import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
@@ -28,8 +27,6 @@ class TopNavbar extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
     userName: PropTypes.string.isRequired,
-    fontSize: PropTypes.oneOf(Object.values(FontSizes)).isRequired,
-    setFontSize: PropTypes.func.isRequired,
   };
 
   onLanguageItemClick(nextLocale) {
@@ -43,12 +40,7 @@ class TopNavbar extends Component {
 
   render() {
     const {
-      currentLanguage,
-      isLoggedIn,
-      t,
-      userName,
-      fontSize,
-      setFontSize,
+      currentLanguage, isLoggedIn, t, userName,
     } = this.props;
 
     return (
@@ -63,10 +55,7 @@ class TopNavbar extends Component {
 
         <Nav activeKey="none" pullRight>
           <BootstrapGuardedLI>
-            <HeaderFontSizeControl
-              fontSize={fontSize}
-              setFontSize={setFontSize}
-            />
+            <HeaderFontSizeControl />
           </BootstrapGuardedLI>
           <TabbableNavDropdown
             as="li"

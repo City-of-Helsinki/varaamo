@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
+import { changeFontSize } from '../../../app/actions/uiActions';
 import injectT from '../../../app/i18n/injectT';
 import FontSizes from '../../../app/constants/FontSizes';
 import HeaderFontSizeButton from './HeaderFontSizeButton';
 
 function getVariant(fontSize) {
   switch (fontSize) {
-    case FontSizes.small:
+    case FontSizes.SMALL:
       return 'small';
-    case FontSizes.medium:
+    case FontSizes.MEDIUM:
       return 'medium';
-    case FontSizes.large:
+    case FontSizes.LARGE:
       return 'large';
     default:
       return 'small';
@@ -21,7 +24,9 @@ function getVariant(fontSize) {
 const HeaderFontSizeControl = ({ fontSize, setFontSize, t }) => {
   return (
     <div className="app-HeaderFontSizeControl">
-      <span className="app-HeaderFontSizeControl__label">{t('HeaderFontSizeControl.label')}</span>
+      <span className="app-HeaderFontSizeControl__label">
+        {t('HeaderFontSizeControl.label')}
+      </span>
       <div className="app-HeaderFontSizeControl__option-list">
         {Object.values(FontSizes).map(fontSizeOption => (
           <HeaderFontSizeButton
@@ -43,4 +48,14 @@ HeaderFontSizeControl.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default injectT(HeaderFontSizeControl);
+const fontSizeSelector = state => state.ui.accessibility.fontSize;
+
+export const selector = createStructuredSelector({
+  fontSize: fontSizeSelector,
+});
+
+const actions = {
+  setFontSize: changeFontSize,
+};
+
+export default injectT(connect(selector, actions)(HeaderFontSizeControl));

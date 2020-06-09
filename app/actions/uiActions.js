@@ -97,6 +97,8 @@ const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_
 
 const myPremisessSetSelectedTimeSlots = createAction(types.UI.MY_PREMISES_SET_SELECTED_TIME_SLOTS);
 
+const changeFontSize = createAction(types.UI.CHANGE_FONTSIZE, fontsize => fontsize);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -128,4 +130,5 @@ export {
   unselectAdminResourceType,
   setSelectedTimeSlots,
   myPremisessSetSelectedTimeSlots,
+  changeFontSize,
 };

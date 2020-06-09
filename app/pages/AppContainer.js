@@ -25,18 +25,16 @@ import FontSizes from '../constants/FontSizes';
 
 const userIdSelector = state => state.auth.userId;
 const languageSelector = state => state.intl && state.intl.locale;
+const fontSizeSelector = state => state.ui.accessibility.fontSize;
 
 export const selector = createStructuredSelector({
   isStaff: isAdminSelector,
   language: languageSelector,
   userId: userIdSelector,
+  fontSize: fontSizeSelector,
 });
 
 export class UnconnectedAppContainer extends Component {
-  state = {
-    fontSize: FontSizes.small,
-  };
-
   constructor(props) {
     super(props);
     const mobileDetect = new MobileDetect(window.navigator.userAgent);
@@ -58,10 +56,6 @@ export class UnconnectedAppContainer extends Component {
     }
   }
 
-  handleFontSizeChange = (fontSize) => {
-    this.setState({ fontSize });
-  };
-
   removeFacebookAppendedHash() {
     if (window.location.hash && window.location.hash.indexOf('_=_') !== -1) {
       window.location.hash = ''; // for older browsers, leaves a # behind
@@ -70,8 +64,7 @@ export class UnconnectedAppContainer extends Component {
   }
 
   render() {
-    const { isStaff, language } = this.props;
-    const { fontSize } = this.state;
+    const { isStaff, language, fontSize } = this.props;
     const mainContentId = 'main-content';
 
     return (
@@ -84,11 +77,7 @@ export class UnconnectedAppContainer extends Component {
             <title>Varaamo</title>
           </Helmet>
 
-          <Header
-            fontSize={fontSize}
-            location={this.props.location}
-            setFontSize={this.handleFontSizeChange}
-          >
+          <Header location={this.props.location}>
             <Favicon />
             <TestSiteMessage />
             {firebase.apps.length > 0 && (
@@ -117,6 +106,7 @@ UnconnectedAppContainer.propTypes = {
   fetchUser: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   userId: PropTypes.string,
+  fontSize: PropTypes.oneOf(Object.values(FontSizes)),
 };
 
 const actions = { enableGeoposition, fetchUser };
