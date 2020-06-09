@@ -69,7 +69,7 @@ class ResourceCard extends Component {
 
   render() {
     const {
-      date, resource, t, unit, actions, isLoggedIn,
+      date, resource, t, unit, actions, isLoggedIn, isNormalFontSize,
     } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {
@@ -82,6 +82,7 @@ class ResourceCard extends Component {
       <div
         className={classNames('app-ResourceCard', {
           'app-ResourceCard__stacked': this.props.stacked,
+          'app-ResourceCard--normal-font-size': isNormalFontSize,
         })}
       >
         <Link className="app-ResourceCard__image-link" onClick={this.handleLinkClick} to={linkTo}>
@@ -193,6 +194,7 @@ ResourceCard.propTypes = {
   unit: PropTypes.object.isRequired,
   actions: PropTypes.object,
   isLoggedIn: PropTypes.bool,
+  isNormalFontSize: PropTypes.bool,
 };
 
 const UnconnectedResourceCard = injectT(ResourceCard);
