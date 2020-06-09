@@ -61,10 +61,8 @@ $resourceCardTitleBottomMargin: 6px;
     margin-top: 0;
     margin-bottom: $resourceCardTitleBottomMargin;
 
-    font-size: 2.4rem;
-
     @media (max-width: $screen-xs-max) {
-      font-size: 2.4rem;
+      font-size: 1.6rem;
       line-height: 1;
     }
   }
