@@ -1,4 +1,6 @@
 # Unreleased
+  **CHANGELOG**
+  - Added font size control
 
 # 0.10.0
   **MINOR CHANGES**
