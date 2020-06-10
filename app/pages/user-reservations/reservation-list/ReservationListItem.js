@@ -14,27 +14,37 @@ import TimeRange from '../../../shared/time-range/TimeRange';
 import injectT from '../../../i18n/injectT';
 import { getMainImage } from '../../../utils/imageUtils';
 import { getResourcePageUrl, hasProducts } from '../../../utils/resourceUtils';
-import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
-import ResourceHydrator from './ResourceHydrator';
+import {
+  getReservationPrice,
+  getTaxPercentage,
+} from '../../../../src/domain/resource/utils';
 
 class ReservationListItem extends Component {
   wrapperRef = React.createRef();
 
   localize(translationObject) {
-    return dataUtils.getLocalizedFieldValue(translationObject, this.props.locale, true);
+    return dataUtils.getLocalizedFieldValue(
+      translationObject,
+      this.props.locale,
+      true,
+    );
   }
 
   renderImage(image) {
     if (image && image.url) {
-      return <img alt={this.localize(image.caption)} className="resourceImg" src={`${image.url}?dim=700x420`} />;
+      return (
+        <img
+          alt={this.localize(image.caption)}
+          className="resourceImg"
+          src={`${image.url}?dim=700x420`}
+        />
+      );
     }
     return null;
   }
 
   render() {
-    const {
-      isAdmin, reservation, t,
-    } = this.props;
+    const { isAdmin, reservation, t } = this.props;
     const resource = reservation.resource;
     const unit = reservation.resource.unit;
 
@@ -42,91 +52,87 @@ class ReservationListItem extends Component {
 
     const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const statusLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
+    const price = getReservationPrice(
+      reservation.begin,
+      reservation.end,
+      resource,
+    );
+    const vat = getTaxPercentage(resource);
+    const tVariables = {
+      price,
+      vat,
+    };
 
     return (
-      <ResourceHydrator id={reservation.resource.id} wrappingRef={this.wrapperRef}>
-        {(result) => {
-          const hasCompleteResource = result.data !== null;
-          const completeResource = result.data;
-          const price = getReservationPrice(reservation.begin, reservation.end, resource);
-          const vat = getTaxPercentage(resource);
-          const tVariables = {
-            price,
-            vat,
-          };
+      <li className="reservation" ref={this.wrapperRef}>
+        <div className="col-md-3 col-lg-2 image-container">
+          <Link
+            aria-hidden="true"
+            tabIndex="-1"
+            to={getResourcePageUrl(resource)}
+          >
+            {this.renderImage(getMainImage(resource.images))}
+          </Link>
+        </div>
+        <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
+          <div className="reservation-state-label-container">
+            {hasProducts(resource) && !resource.staff_event && price > 0 && (
+              <InfoLabel
+                labelStyle={paymentLabel.labelBsStyle}
+                labelText={t(paymentLabel.labelTextId)}
+              />
+            )}
+            <InfoLabel
+              labelStyle={statusLabel.labelBsStyle}
+              labelText={t(statusLabel.labelTextId)}
+            />
+          </div>
+          <Link to={getResourcePageUrl(resource)}>
+            <h4>{this.localize(resource.name)}</h4>
+          </Link>
+          <div>
+            <img
+              alt={this.localize(resource.type.name)}
+              className="location"
+              src={iconHome}
+            />
+            <span className="unit-name">{this.localize(unit.name)}</span>
+            {nameSeparator}
+            <span>{this.localize(unit.street_address)}</span>
+          </div>
+          <div>
+            <img
+              alt={this.localize(resource.type.name)}
+              className="timeslot"
+              src={iconCalendar}
+            />
+            <TimeRange begin={reservation.begin} end={reservation.end} />
+          </div>
+          <ReservationAccessCode
+            reservation={reservation}
+            resource={resource}
+            text={t('ReservationListItem.accessCodeText')}
+          />
+          {hasProducts(resource) && !resource.staff_event && price > 0 && (
+            <div>
+              <span className="price">
+                {`${t(
+                  'common.totalPriceLabel',
+                )}: `}
 
-          return (
-            <li className="reservation" ref={this.wrapperRef}>
-              <div className="col-md-3 col-lg-2 image-container">
-                {hasCompleteResource && (
-                  <Link
-                    aria-hidden="true"
-                    tabIndex="-1"
-                    to={getResourcePageUrl(completeResource)}
-                  >
-                    {this.renderImage(getMainImage(completeResource.images))}
-                  </Link>
-                )}
-              </div>
-              <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
-                <div className="reservation-state-label-container">
-                  {hasCompleteResource && (
-                    hasProducts(completeResource)
-                    && !completeResource.staff_event
-                    && price > 0 && (
-                      <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
-                    )
-                  )}
-                  <InfoLabel labelStyle={statusLabel.labelBsStyle} labelText={t(statusLabel.labelTextId)} />
-                </div>
-                <Link to={getResourcePageUrl(resource)}>
-                  <h4>{this.localize(resource.name)}</h4>
-                </Link>
-                <div>
-                  <img
-                    alt={hasCompleteResource ? this.localize(completeResource.type.name) : ''}
-                    className="location"
-                    src={iconHome}
-                  />
-                  <span className="unit-name">{this.localize(unit.name)}</span>
-                  {nameSeparator}
-                  <span>{this.localize(unit.street_address)}</span>
-                </div>
-                <div>
-                  <img
-                    alt={hasCompleteResource ? this.localize(completeResource.type.name) : ''}
-                    className="timeslot"
-                    src={iconCalendar}
-                  />
-                  <TimeRange begin={reservation.begin} end={reservation.end} />
-                </div>
-                <ReservationAccessCode
-                  reservation={reservation}
-                  resource={completeResource}
-                  text={t('ReservationListItem.accessCodeText')}
-                />
-                {hasCompleteResource && (
-                  hasProducts(completeResource)
-                  && !completeResource.staff_event
-                  && price > 0 && (
-                    <div>
-                      <span className="price">{`${t('common.totalPriceLabel')}: `}</span>
-                      <span>{t('common.priceWithVAT', tVariables)}</span>
-                    </div>
-                  )
-                )}
-              </div>
-              <div className="col-xs-4 col-md-3 col-lg-3 action-container">
-                <ReservationControls
-                  isAdmin={isAdmin}
-                  reservation={reservation}
-                  resource={completeResource}
-                />
-              </div>
-            </li>
-          );
-        }}
-      </ResourceHydrator>
+              </span>
+              <span>{t('common.priceWithVAT', tVariables)}</span>
+            </div>
+          )}
+        </div>
+        <div className="col-xs-4 col-md-3 col-lg-3 action-container">
+          <ReservationControls
+            isAdmin={isAdmin}
+            reservation={reservation}
+            resource={resource}
+          />
+        </div>
+      </li>
     );
   }
 }

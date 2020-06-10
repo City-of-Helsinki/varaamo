@@ -55,7 +55,9 @@ function injectReservationFromReduxState(
 ) {
   return naiveReservations.map((reservation) => {
     const reduxReservation = reduxReservations[reservation.url];
-    const reduxReservationInSnakeCase = reduxReservation ? snakeCaseKeys(reduxReservation) : reduxReservation;
+    const reduxReservationInSnakeCase = reduxReservation
+      ? snakeCaseKeys(reduxReservation)
+      : reduxReservation;
 
     if (!reduxReservation) {
       return reservation;
@@ -172,13 +174,13 @@ class UnconnectedUserReservationsPage extends Component {
       loading: true,
     });
 
-    client.get(name, params).then((response) => {
+    client.get(name, params).then(async (response) => {
       const defaultNextState = {
         loading: false,
         data: get(response.data, 'results', []),
       };
       const customNextState = mapResponseToState
-        ? mapResponseToState(response)
+        ? await mapResponseToState(response)
         : {};
 
       this.setModel(nameInState, {
@@ -203,16 +205,48 @@ class UnconnectedUserReservationsPage extends Component {
     this.loadModel(
       'reservation',
       params,
-      (response) => {
+      async (response) => {
+        const reservationsWithSimpleResource = get(
+          response.data,
+          'results',
+          [],
+        );
+        const resourceIds = reservationsWithSimpleResource.map(
+          reservation => reservation.resource.id,
+        );
+        const completeResourcesResponses = await Promise.all(
+          resourceIds.map(resourceId => client.get(`resource/${resourceId}`)),
+        );
+        const completeResources = completeResourcesResponses.map(
+          resourceResponse => resourceResponse.data,
+        );
+        // By default the resource that is returned with a reservation
+        // omits most of the fields. We need these fields most of the
+        // time to be able to tell whether a reservation is paid or not
+        // so we are just loading them here.
+        const reservations = reservationsWithSimpleResource.map(
+          (reservation) => {
+            const resource = completeResources.find(
+              completeResource => completeResource.id === reservation.resource.id,
+            );
+
+            return {
+              ...reservation,
+              resource,
+            };
+          },
+        );
+
         // Here we are duplicating the loaded reservations into the
         // redux state. This makes them discoverable for some action
         // buttons and modals which are heavily tied to the redux state.
         // This is a relatively brittle approach to handle this and can
         // likely cause new issues later on.
-        this.props.sendReservationsToRedux(get(response.data, 'results', []));
+        this.props.sendReservationsToRedux(reservations);
 
         return {
           count: response.data.count,
+          data: reservations,
         };
       },
       `${namespace}Reservation`,
