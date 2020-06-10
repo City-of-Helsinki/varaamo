@@ -5,6 +5,19 @@ $resource-page-width: 700px;
 $margin-between-items: 10px;
 $content-padding: 10px;
 
+// https://github.com/twbs/bootstrap/blob/a4a04cd9ec741050390746f8056cc79a9c04c8df/scss/mixins/_screen-reader.scss
+@mixin sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important; // Fix for https://github.com/twbs/bootstrap/issues/25686
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 @import './resource-header/resource-header';
 @import './resource-info/image-carousel';
 @import './resource-info/resource-info';
@@ -144,6 +157,12 @@ $content-padding: 10px;
 
     .panel-body {
       padding: 0;
+    }
+  }
+
+  &__keyboard-reservation {
+    &:not(:focus-within) {
+      @include sr-only();
     }
   }
 

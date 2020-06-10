@@ -1,0 +1,10 @@
+@import '~hds-core/lib/components/text-input/text-input';
+@import '~hds-design-tokens/lib/spacing/all';
+
+.app-ResourceKeyboardReservation {
+  $form-group-spacing: $spacing-l;
+
+  &__form-group {
+    padding-bottom: $form-group-spacing;
+  }
+}

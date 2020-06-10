@@ -4,6 +4,7 @@
   
   **CHANGELOG**
   - Added font size control
+  - Added keyboard friendly form into resource page for making reservations
 
 # 0.10.0
   **MINOR CHANGES**

@@ -99,10 +99,6 @@
       border-radius: 0;
       font-size: 1.6rem;
 
-      &:focus {
-        outline: none;
-      }
-
       &--disabled {
         cursor: pointer;
         text-decoration: line-through;
