@@ -155,7 +155,7 @@ function makeEndTimeOverlap(slotEnd) {
 // These are a hack that force more a more select like appearance that
 // includes a chevron.
 const inlineStyles = {
-  '-webkit-appearance': 'auto',
+  WebkitAppearance: 'auto',
 };
 
 const ResourcePageKeyboardTimePicker = ({
