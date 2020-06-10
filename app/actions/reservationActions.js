@@ -157,6 +157,20 @@ function getTrackingInfo(type, resource) {
   });
 }
 
+/**
+ * batchAddReservations();
+ * Creates an action that adds a batch of reservations into the redux
+ * state.
+ * @param reservations {array} Reservations to add.
+ * @returns {object}
+ */
+export function batchAddReservations(reservations) {
+  return {
+    type: types.DATA.RESERVATION_BATCH_ADD,
+    reservations,
+  };
+}
+
 export {
   commentReservation,
   confirmPreliminaryReservation,

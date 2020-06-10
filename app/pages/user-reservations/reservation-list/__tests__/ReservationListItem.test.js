@@ -58,18 +58,11 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
     isStaff: false,
     reservation: Immutable(makeReservation({ resource })),
   };
-  const hydratedResource = {
-    loading: false,
-    data: resource,
-    error: null,
-  };
 
   let component;
 
   beforeAll(() => {
-    const resourceHydratorChildren = shallowWithIntl(<ReservationListItem {...props} />).prop('children');
-
-    component = shallowWithIntl(resourceHydratorChildren(hydratedResource));
+    component = shallowWithIntl(<ReservationListItem {...props} />);
   });
 
   describe('rendering', () => {
@@ -81,12 +74,12 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
       const image = component.find('.resourceImg');
 
       expect(image).toHaveLength(1);
-      expect(image.props().alt).toBe(hydratedResource.data.images[0].caption.fi);
-      expect(image.props().src).toBe(`${hydratedResource.data.images[0].url}?dim=700x420`);
+      expect(image.props().alt).toBe(resource.images[0].caption.fi);
+      expect(image.props().src).toBe(`${resource.images[0].url}?dim=700x420`);
     });
 
     test('contains two links to resource page with correct props', () => {
-      const expectedUrl = getResourcePageUrl(hydratedResource.data);
+      const expectedUrl = getResourcePageUrl(resource);
       const links = component.find(Link);
 
       expect(links.length).toBe(2);
@@ -132,7 +125,7 @@ describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
 
       expect(actualProps.isAdmin).toBe(false);
       expect(actualProps.reservation).toBe(props.reservation);
-      expect(actualProps.resource).toBe(hydratedResource.data);
+      expect(actualProps.resource).toStrictEqual(resource);
     });
   });
 });
