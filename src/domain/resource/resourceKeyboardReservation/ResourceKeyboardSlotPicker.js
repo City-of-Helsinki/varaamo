@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
+import Constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
 import { getIsSlotReserved, getIsSlotInPast, getInMs } from './resourceKeyboardSlotPickerUtils';
 
@@ -16,13 +18,9 @@ const classes = {
 };
 
 function getTime(dateTime) {
-  const date = new Date(dateTime);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const hoursWithPadding = String(hours).padStart(2, '0');
-  const minutesWithPadding = String(minutes).padStart(2, '0');
+  const dateTimeInAppTimeZone = moment(dateTime).tz(Constants.TIME_ZONE);
 
-  return `${hoursWithPadding}:${minutesWithPadding}`;
+  return dateTimeInAppTimeZone.format('HH:mm');
 }
 
 function getSlotCount(time, slotSize) {
