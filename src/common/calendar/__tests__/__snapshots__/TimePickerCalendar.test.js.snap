@@ -75,6 +75,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
         },
       }
     }
+    datesRender={[Function]}
     defaultDate="2019-08-15"
     dragScroll={true}
     editable={true}

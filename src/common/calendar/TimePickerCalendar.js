@@ -396,7 +396,7 @@ class TimePickerCalendar extends Component {
               click: () => onDateChange(this.calendarRef.current.calendar.view.initialNowDate),
             },
           }}
-          // datesRender={this.onDatesRender}
+          datesRender={this.onDatesRender}
           defaultDate={date}
           eventDrop={this.onEventResize}
           eventRender={this.onEventRender}
