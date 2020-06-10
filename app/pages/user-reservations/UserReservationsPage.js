@@ -6,7 +6,9 @@ import get from 'lodash/get';
 import classNames from 'classnames';
 import moment from 'moment';
 import pick from 'lodash/pick';
+import snakeCaseKeys from 'snakecase-keys';
 
+import { batchAddReservations } from '../../actions/reservationActions';
 import ReservationInfoModal from '../../shared/modals/reservation-info/ReservationInfoModalContainer';
 import PageWrapper from '../PageWrapper';
 import ReservationCancelModal from '../../shared/modals/reservation-cancel/ReservationCancelModalContainer';
@@ -47,9 +49,13 @@ const TABS = Object.freeze({
 
 // This approach may introduce some "cache" invalidation issues in the
 // long run.
-function injectReservationFromReduxState(naiveReservations = [], reduxReservations = {}) {
+function injectReservationFromReduxState(
+  naiveReservations = [],
+  reduxReservations = {},
+) {
   return naiveReservations.map((reservation) => {
     const reduxReservation = reduxReservations[reservation.url];
+    const reduxReservationInSnakeCase = reduxReservation ? snakeCaseKeys(reduxReservation) : reduxReservation;
 
     if (!reduxReservation) {
       return reservation;
@@ -57,7 +63,7 @@ function injectReservationFromReduxState(naiveReservations = [], reduxReservatio
 
     return {
       ...reservation,
-      ...reduxReservation,
+      ...reduxReservationInSnakeCase,
       resource: reservation.resource,
     };
   });
@@ -90,9 +96,7 @@ class UnconnectedUserReservationsPage extends Component {
   }
 
   get isLoading() {
-    const {
-      upcomingReservation, pastReservation,
-    } = this.state;
+    const { upcomingReservation, pastReservation } = this.state;
 
     return upcomingReservation.loading || pastReservation.loading;
   }
@@ -131,11 +135,17 @@ class UnconnectedUserReservationsPage extends Component {
     const { reduxReservations } = this.props;
 
     if (this.tab === TABS.UPCOMING) {
-      return injectReservationFromReduxState(this.state.upcomingReservation.data, reduxReservations);
+      return injectReservationFromReduxState(
+        this.state.upcomingReservation.data,
+        reduxReservations,
+      );
     }
 
     if (this.tab === TABS.PAST) {
-      return injectReservationFromReduxState(this.state.pastReservation.data, reduxReservations);
+      return injectReservationFromReduxState(
+        this.state.pastReservation.data,
+        reduxReservations,
+      );
     }
 
     return [];
@@ -144,13 +154,16 @@ class UnconnectedUserReservationsPage extends Component {
   setModel = (name, data, cb) => {
     const currentState = get(this.state, name, {});
 
-    this.setState({
-      [name]: {
-        ...currentState,
-        ...data,
+    this.setState(
+      {
+        [name]: {
+          ...currentState,
+          ...data,
+        },
       },
-    }, cb);
-  }
+      cb,
+    );
+  };
 
   loadModel = (name, params, mapResponseToState, stateName) => {
     const nameInState = stateName || name;
@@ -159,20 +172,21 @@ class UnconnectedUserReservationsPage extends Component {
       loading: true,
     });
 
-    client.get(name, params)
-      .then((response) => {
-        const defaultNextState = {
-          loading: false,
-          data: get(response.data, 'results', []),
-        };
-        const customNextState = mapResponseToState ? mapResponseToState(response) : {};
+    client.get(name, params).then((response) => {
+      const defaultNextState = {
+        loading: false,
+        data: get(response.data, 'results', []),
+      };
+      const customNextState = mapResponseToState
+        ? mapResponseToState(response)
+        : {};
 
-        this.setModel(nameInState, {
-          ...defaultNextState,
-          ...customNextState,
-        });
+      this.setModel(nameInState, {
+        ...defaultNextState,
+        ...customNextState,
       });
-  }
+    });
+  };
 
   fetchReservations = (namespace, getFilters) => {
     const filters = getFilters ? getFilters(this.filters) : this.filters;
@@ -186,9 +200,23 @@ class UnconnectedUserReservationsPage extends Component {
       is_own: true,
     };
 
-    this.loadModel('reservation', params, response => ({
-      count: response.data.count,
-    }), `${namespace}Reservation`);
+    this.loadModel(
+      'reservation',
+      params,
+      (response) => {
+        // Here we are duplicating the loaded reservations into the
+        // redux state. This makes them discoverable for some action
+        // buttons and modals which are heavily tied to the redux state.
+        // This is a relatively brittle approach to handle this and can
+        // likely cause new issues later on.
+        this.props.sendReservationsToRedux(get(response.data, 'results', []));
+
+        return {
+          count: response.data.count,
+        };
+      },
+      `${namespace}Reservation`,
+    );
   };
 
   loadUpcomingReservations = (getFilters) => {
@@ -199,7 +227,7 @@ class UnconnectedUserReservationsPage extends Component {
     };
 
     this.fetchReservations('upcoming', getFilterWithDefaults);
-  }
+  };
 
   loadPastReservations = (getFilters) => {
     const getFilterWithDefaults = (defaultFilters) => {
@@ -213,7 +241,9 @@ class UnconnectedUserReservationsPage extends Component {
         // common heuristics these should not be considered to be in the
         // past, but I could not find a more efficient way to find past
         // reservations.
-        start: moment(ARBITRARY_START_DATETIME, 'YYYY-MM-DD[T]HH:mm').format(constants.DATETIME_FORMAT),
+        start: moment(ARBITRARY_START_DATETIME, 'YYYY-MM-DD[T]HH:mm').format(
+          constants.DATETIME_FORMAT,
+        ),
         end: now,
       };
 
@@ -221,7 +251,7 @@ class UnconnectedUserReservationsPage extends Component {
     };
 
     this.fetchReservations('past', getFilterWithDefaults);
-  }
+  };
 
   handlePageChange = (newPage) => {
     const { history } = this.props;
@@ -233,11 +263,17 @@ class UnconnectedUserReservationsPage extends Component {
     });
 
     if (this.tab === TABS.UPCOMING) {
-      this.loadUpcomingReservations(defaultFilters => ({ ...defaultFilters, ...nextFilters }));
+      this.loadUpcomingReservations(defaultFilters => ({
+        ...defaultFilters,
+        ...nextFilters,
+      }));
     }
 
     if (this.tab === TABS.PAST) {
-      this.loadPastReservations(defaultFilters => ({ ...defaultFilters, ...nextFilters }));
+      this.loadPastReservations(defaultFilters => ({
+        ...defaultFilters,
+        ...nextFilters,
+      }));
     }
   };
 
@@ -248,7 +284,7 @@ class UnconnectedUserReservationsPage extends Component {
 
     const { history } = this.props;
     // Reset pagination
-    const nextFilters = { };
+    const nextFilters = {};
 
     history.push({
       search: searchUtils.getSearchFromFilters(nextFilters),
@@ -263,12 +299,10 @@ class UnconnectedUserReservationsPage extends Component {
     if (tab === TABS.PAST) {
       this.loadPastReservations(filters => pick(filters, PAST_PARAMETERS));
     }
-  }
+  };
 
   render() {
-    const {
-      t,
-    } = this.props;
+    const { t } = this.props;
 
     const upcomingReservationLoading = this.state.upcomingReservation.loading;
     const upcomingReservationCount = this.state.upcomingReservation.count;
@@ -286,7 +320,8 @@ class UnconnectedUserReservationsPage extends Component {
               <button
                 aria-selected={this.tab === TABS.UPCOMING}
                 className={classNames('app-UserReservationPage__tab', {
-                  'app-UserReservationPage__tab--active': this.tab === TABS.UPCOMING,
+                  'app-UserReservationPage__tab--active':
+                    this.tab === TABS.UPCOMING,
                 })}
                 onClick={() => this.handleTabChange(TABS.UPCOMING)}
                 role="tab"
@@ -294,12 +329,15 @@ class UnconnectedUserReservationsPage extends Component {
               >
                 {t('ReservationListContainer.comingReservations')}
                 {' '}
-                {!upcomingReservationLoading ? `(${upcomingReservationCount})` : ''}
+                {!upcomingReservationLoading
+                  ? `(${upcomingReservationCount})`
+                  : ''}
               </button>
               <button
                 aria-selected={this.tab === TABS.PAST}
                 className={classNames('app-UserReservationPage__tab', {
-                  'app-UserReservationPage__tab--active': this.tab === TABS.PAST,
+                  'app-UserReservationPage__tab--active':
+                    this.tab === TABS.PAST,
                 })}
                 onClick={() => this.handleTabChange(TABS.PAST)}
                 role="tab"
@@ -334,10 +372,18 @@ UnconnectedUserReservationsPage.propTypes = {
   location: PropTypes.object,
   t: PropTypes.func.isRequired,
   reduxReservations: PropTypes.object.isRequired,
+  sendReservationsToRedux: PropTypes.func.isRequired,
 };
-UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage);  // eslint-disable-line
+UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage); // eslint-disable-line
+
+function mapDispatch(dispatch) {
+  return {
+    sendReservationsToRedux: reservations => dispatch(batchAddReservations(reservations)),
+  };
+}
 
 export { UnconnectedUserReservationsPage };
-export default connect(userReservationsPageSelector)(
-  UnconnectedUserReservationsPage,
-);
+export default connect(
+  userReservationsPageSelector,
+  mapDispatch,
+)(UnconnectedUserReservationsPage);

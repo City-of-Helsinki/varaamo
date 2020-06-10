@@ -1,8 +1,11 @@
 import reject from 'lodash/reject';
 import mapValues from 'lodash/mapValues';
 import Immutable from 'seamless-immutable';
+import { arrayOf } from 'normalizr';
 
 import types from '../../constants/ActionTypes';
+import schemas from '../../store/middleware/Schemas';
+import { createTransformFunction } from '../../utils/apiUtils';
 
 const initialState = Immutable({
   reservations: {},
@@ -83,6 +86,14 @@ function dataReducer(state = initialState, action) {
     case types.API.RESOURCE_FAVORITE_POST_SUCCESS: {
       const id = action.meta.id;
       return state.setIn(['resources', id, 'isFavorite'], true);
+    }
+
+    case types.DATA.RESERVATION_BATCH_ADD: {
+      const { reservations } = action;
+      const transform = createTransformFunction(arrayOf(schemas.batchAddReservationSchema));
+      const result = transform(reservations);
+
+      return handleData(state, result.entities);
     }
 
     default: {

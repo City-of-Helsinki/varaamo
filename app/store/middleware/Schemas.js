@@ -24,10 +24,27 @@ paginatedUnitsSchema.define({
   results: arrayOf(unitSchema),
 });
 
+const batchAddResourceSchema = new Schema('resources', {
+  unit: unitSchema,
+});
+const batchAddReservationSchema = new Schema(
+  'reservations',
+  { idAttribute: 'url' },
+);
+
+batchAddResourceSchema.define({
+  unit: unitSchema,
+});
+
+batchAddReservationSchema.define({
+  resource: batchAddResourceSchema,
+});
+
 export default {
   paginatedReservationsSchema,
   paginatedResourcesSchema,
   paginatedUnitsSchema,
   resourceSchema,
   unitSchema,
+  batchAddReservationSchema,
 };
