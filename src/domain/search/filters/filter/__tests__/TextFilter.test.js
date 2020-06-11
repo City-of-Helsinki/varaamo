@@ -4,7 +4,6 @@ import toJSON from 'enzyme-to-json';
 import TextFilter from '../TextFilter';
 import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
 
-
 describe('TextFilter', () => {
   test('render normally', () => {
     const props = {
@@ -13,9 +12,7 @@ describe('TextFilter', () => {
       onSearch: jest.fn(),
       value: 'bar',
     };
-    const wrapper = shallowWithIntl(
-      <TextFilter {...props} />,
-    );
+    const wrapper = shallowWithIntl(<TextFilter {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

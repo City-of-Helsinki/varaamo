@@ -19,12 +19,7 @@ const phases = {
   payment: 'ReservationPhase.paymentTitle',
 };
 
-function ReservationPhases({
-  resource,
-  currentPhase,
-  isEditing,
-  t,
-}) {
+function ReservationPhases({ resource, currentPhase, isEditing, t }) {
   let stepMessageIds = hasProducts(resource)
     ? ['information', 'payment', 'confirmation']
     : ['information', 'confirmation'];
@@ -33,7 +28,7 @@ function ReservationPhases({
     stepMessageIds = ['time', ...stepMessageIds];
   }
 
-  const steps = stepMessageIds.map(id => t(phases[id]));
+  const steps = stepMessageIds.map((id) => t(phases[id]));
   const current = t(phases[currentPhase]);
 
   return (

@@ -34,7 +34,9 @@ describe('shared/availability-view/group-info/GroupInfo', () => {
   test('renders given resources', () => {
     const date = '2016-05-02';
     const resources = ['abcd', 'efgh'];
-    const elements = getWrapper({ date, resources }).find(ResourceInfoContainer);
+    const elements = getWrapper({ date, resources }).find(
+      ResourceInfoContainer
+    );
     expect(elements).toHaveLength(2);
     expect(elements.at(0).prop('date')).toBe(date);
     expect(elements.at(0).prop('id')).toBe(resources[0]);

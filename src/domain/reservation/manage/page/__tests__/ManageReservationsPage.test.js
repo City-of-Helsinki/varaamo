@@ -1,7 +1,10 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl, globalDateMock } from '../../../../../../app/utils/testUtils';
+import {
+  shallowWithIntl,
+  globalDateMock,
+} from '../../../../../../app/utils/testUtils';
 import { UnwrappedManageReservationsPage } from '../ManageReservationsPage';
 import resourceCreator from '../../../../../common/data/fixtures/resource';
 import reservationCreator from '../../../../../common/data/fixtures/reservation';
@@ -14,9 +17,10 @@ describe('ManageReservationsPage', () => {
   const defaultProps = {
     location: { search: '' },
   };
-  const wrapper = props => shallowWithIntl(
-    <UnwrappedManageReservationsPage {...defaultProps} {...props} />,
-  );
+  const wrapper = (props) =>
+    shallowWithIntl(
+      <UnwrappedManageReservationsPage {...defaultProps} {...props} />
+    );
 
   test('renders correctly', () => {
     const page = wrapper();
@@ -45,11 +49,7 @@ describe('ManageReservationsPage', () => {
       state: RESERVATION_STATE.REQUESTED,
     });
 
-    const mockReservations = [
-      unFavReservation,
-      favReservation,
-      canModifyFav,
-    ];
+    const mockReservations = [unFavReservation, favReservation, canModifyFav];
 
     const page = wrapper({ userFavoriteResources: ['fav'] });
 
@@ -73,13 +73,17 @@ describe('ManageReservationsPage', () => {
     });
 
     test('return favorite reservations if show_only: favorite selected', () => {
-      const filtered = page.instance().getFilteredReservations([RESERVATION_SHOWONLY_FILTERS.FAVORITE]);
+      const filtered = page
+        .instance()
+        .getFilteredReservations([RESERVATION_SHOWONLY_FILTERS.FAVORITE]);
 
       expect(filtered).toEqual([favReservation, canModifyFav]);
     });
 
     test('return can_modify reservations if show_only: can_modify selected', () => {
-      const filtered = page.instance().getFilteredReservations([RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY]);
+      const filtered = page
+        .instance()
+        .getFilteredReservations([RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY]);
 
       expect(filtered).toEqual([canModifyFav]);
     });

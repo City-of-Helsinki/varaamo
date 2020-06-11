@@ -5,7 +5,10 @@ import * as fixtureUtils from './utils';
 
 export default new Factory()
   .sequence('id')
-  .sequence('name', fixtureUtils.getLocalizedFieldSequenceGeneratorFunction('Resource'))
+  .sequence(
+    'name',
+    fixtureUtils.getLocalizedFieldSequenceGeneratorFunction('Resource')
+  )
   .attr('public', true)
   .sequence('unit')
   .attr('available_hours', [])

@@ -16,7 +16,9 @@ describe('src/common/url/utils.js', () => {
 
   describe('getLinkString', () => {
     const withQuery = urlUtils.getLinkString('testPath', query);
-    expect(withQuery).toBe('testPath?foo=foo&bar=foo%2Cbar&baz=foo%2Cbar%2Cbaz');
+    expect(withQuery).toBe(
+      'testPath?foo=foo&bar=foo%2Cbar&baz=foo%2Cbar%2Cbaz'
+    );
 
     const withoutQuery = urlUtils.getLinkString('testPath');
     expect(withoutQuery).toBe('testPath');

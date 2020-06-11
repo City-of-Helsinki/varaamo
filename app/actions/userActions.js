@@ -13,17 +13,14 @@ function fetchUser(id, params = {}) {
   return {
     [RSAA]: {
       types: [
-        getRequestTypeDescriptor(
-          types.API.USER_GET_REQUEST,
-          {
-            meta: {
-              track: {
-                event: 'trackEvent',
-                args: ['User', 'user-get', id],
-              },
+        getRequestTypeDescriptor(types.API.USER_GET_REQUEST, {
+          meta: {
+            track: {
+              event: 'trackEvent',
+              args: ['User', 'user-get', id],
             },
           },
-        ),
+        }),
         getSuccessTypeDescriptor(types.API.USER_GET_SUCCESS),
         getErrorTypeDescriptor(types.API.USER_GET_ERROR),
       ],
@@ -34,6 +31,4 @@ function fetchUser(id, params = {}) {
   };
 }
 
-export {
-  fetchUser,
-};
+export { fetchUser };

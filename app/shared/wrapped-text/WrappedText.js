@@ -5,9 +5,9 @@ import Linkify from 'react-linkify';
 function renderParagraph(text, index, openLinksInNewTab) {
   const properties = openLinksInNewTab
     ? {
-      rel: 'noopener noreferrer',
-      target: '_blank',
-    }
+        rel: 'noopener noreferrer',
+        target: '_blank',
+      }
     : {};
 
   return (
@@ -25,7 +25,9 @@ function WrappedText({ text, openLinksInNewTab = false }) {
     <div className="wrapped-text">
       {text
         .split('\n')
-        .map((paragraph, index) => renderParagraph(paragraph, index, openLinksInNewTab))}
+        .map((paragraph, index) =>
+          renderParagraph(paragraph, index, openLinksInNewTab)
+        )}
     </div>
   );
 }

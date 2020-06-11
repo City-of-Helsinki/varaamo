@@ -8,10 +8,7 @@ import Image from '../../../../utils/fixtures/Image';
 import ImageCarousel from '../ImageCarousel';
 
 describe('pages/resource/resource-info/ImageCarousel', () => {
-  const images = [
-    Image.build(),
-    Image.build({ caption: null }),
-  ];
+  const images = [Image.build(), Image.build({ caption: null })];
   const defaultProps = {
     altText: 'Some alt text',
     images: Immutable(images),
@@ -84,7 +81,9 @@ describe('pages/resource/resource-info/ImageCarousel', () => {
         carouselItems.forEach((carouselItem, index) => {
           const backgroundImage = carouselItem.find(BackgroundImage);
 
-          expect(backgroundImage.prop('image')).toEqual(defaultProps.images[index]);
+          expect(backgroundImage.prop('image')).toEqual(
+            defaultProps.images[index]
+          );
         });
       });
     });

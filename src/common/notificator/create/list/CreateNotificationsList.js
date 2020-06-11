@@ -20,16 +20,17 @@ const CreateNotificationsList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {notifications && notifications.map((notification, index) => (
-            <tr key={index} onClick={() => onClick(notification)}>
-              <th>{notification.name}</th>
-              <th>{moment(notification.created).format('DD.MM.YYYY')}</th>
-              <th>{moment(notification.until).format('DD.MM.YYYY')}</th>
-              <th>{notification.target.label}</th>
-              <th>{notification.urgency.label}</th>
-              <th>{notification.active.label}</th>
-            </tr>
-          ))}
+          {notifications &&
+            notifications.map((notification, index) => (
+              <tr key={index} onClick={() => onClick(notification)}>
+                <th>{notification.name}</th>
+                <th>{moment(notification.created).format('DD.MM.YYYY')}</th>
+                <th>{moment(notification.until).format('DD.MM.YYYY')}</th>
+                <th>{notification.target.label}</th>
+                <th>{notification.urgency.label}</th>
+                <th>{notification.active.label}</th>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </div>

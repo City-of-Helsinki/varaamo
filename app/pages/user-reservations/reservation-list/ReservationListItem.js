@@ -26,7 +26,7 @@ class ReservationListItem extends Component {
     return dataUtils.getLocalizedFieldValue(
       translationObject,
       this.props.locale,
-      true,
+      true
     );
   }
 
@@ -45,17 +45,18 @@ class ReservationListItem extends Component {
 
   render() {
     const { isAdmin, reservation, t } = this.props;
-    const resource = reservation.resource;
-    const unit = reservation.resource.unit;
+    const { resource } = reservation;
+    const { unit } = reservation.resource;
 
     const nameSeparator = isEmpty(resource) || isEmpty(unit) ? '' : ', ';
 
-    const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
+    const paymentLabel =
+      constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const statusLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
     const price = getReservationPrice(
       reservation.begin,
       reservation.end,
-      resource,
+      resource
     );
     const vat = getTaxPercentage(resource);
     const tVariables = {
@@ -116,10 +117,7 @@ class ReservationListItem extends Component {
           {hasProducts(resource) && !resource.staff_event && price > 0 && (
             <div>
               <span className="price">
-                {`${t(
-                  'common.totalPriceLabel',
-                )}: `}
-
+                {`${t('common.totalPriceLabel')}: `}
               </span>
               <span>{t('common.priceWithVAT', tVariables)}</span>
             </div>

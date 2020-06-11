@@ -5,7 +5,6 @@ import Immutable from 'seamless-immutable';
 
 import types from '../../../constants/ActionTypes';
 
-
 const initialState = Immutable({
   date: undefined,
   selectedResourceTypes: [],
@@ -20,7 +19,10 @@ function adminResourcesPageReducer(state = initialState, action) {
 
     case types.UI.SELECT_ADMIN_RESOURCE_TYPE: {
       return state.merge({
-        selectedResourceTypes: uniq([...state.selectedResourceTypes, action.payload]),
+        selectedResourceTypes: uniq([
+          ...state.selectedResourceTypes,
+          action.payload,
+        ]),
       });
     }
 
@@ -28,15 +30,17 @@ function adminResourcesPageReducer(state = initialState, action) {
       return state.merge({
         selectedResourceTypes: filter(
           state.selectedResourceTypes,
-          resourceType => resourceType !== action.payload,
+          (resourceType) => resourceType !== action.payload
         ),
       });
     }
 
     case types.API.RESOURCES_GET_SUCCESS: {
-      const meta = action.meta;
+      const { meta } = action;
       if (meta && meta.source === 'adminResourcesPage') {
-        return state.merge({ resourceIds: map(action.payload.entities.resources, 'id') });
+        return state.merge({
+          resourceIds: map(action.payload.entities.resources, 'id'),
+        });
       }
       return state;
     }

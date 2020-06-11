@@ -13,7 +13,9 @@ describe('pages/reservation/reservation-phases/ReservationPhases', () => {
   };
 
   function getWrapper(extraProps) {
-    return mountWithIntl(<ReservationPhases {...defaultProps} {...extraProps} />);
+    return mountWithIntl(
+      <ReservationPhases {...defaultProps} {...extraProps} />
+    );
   }
 
   test('uses ProgressSteps under the hood', () => {

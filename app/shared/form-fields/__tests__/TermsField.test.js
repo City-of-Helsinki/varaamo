@@ -60,7 +60,9 @@ describe('shared/form-fields/TermsField', () => {
 
     test('gets the label as its children', () => {
       const rbCheckbox = getWrapper().find(RBCheckbox);
-      expect(rbCheckbox.props().children).toEqual(expect.arrayContaining([defaultProps.label]));
+      expect(rbCheckbox.props().children).toEqual(
+        expect.arrayContaining([defaultProps.label])
+      );
     });
   });
 

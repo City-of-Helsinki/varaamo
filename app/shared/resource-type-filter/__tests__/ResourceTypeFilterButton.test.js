@@ -35,7 +35,9 @@ describe('shared/resource-type-filter/ResourceTypeFilterButton', () => {
 
   test('passes onClick prop with correct args', () => {
     wrapper.prop('onClick')();
-    expect(defaultProps.onClick.lastCall.args).toEqual([defaultProps.resourceType]);
+    expect(defaultProps.onClick.lastCall.args).toEqual([
+      defaultProps.resourceType,
+    ]);
   });
 
   test('renders resource type name', () => {

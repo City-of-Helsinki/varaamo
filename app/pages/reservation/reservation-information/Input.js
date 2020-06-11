@@ -5,13 +5,7 @@ import PropTypes from 'prop-types';
 import Error from './Error';
 import injectT from '../../../i18n/injectT';
 
-function Input({
-  input,
-  meta: { error, touched },
-  t,
-  label,
-  autoComplete,
-}) {
+function Input({ input, meta: { error, touched }, t, label, autoComplete }) {
   return (
     <div className="app-ReservationPage__formfield">
       <label>

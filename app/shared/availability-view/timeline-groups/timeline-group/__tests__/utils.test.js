@@ -26,7 +26,7 @@ describe('shared/availability-view/utils', () => {
         startTime: moment('2016-01-01T12:00:00Z'),
         endTime: moment('2016-01-01T13:00:00Z'),
       });
-      expect(actual).toBe((slotWidth * 2) - slotMargin);
+      expect(actual).toBe(slotWidth * 2 - slotMargin);
     });
 
     test('returns twenty slot width for 10 hour span', () => {
@@ -34,7 +34,7 @@ describe('shared/availability-view/utils', () => {
         startTime: moment('2016-01-01T12:00:00Z'),
         endTime: moment('2016-01-01T22:00:00Z'),
       });
-      expect(actual).toBe((slotWidth * 20) - slotMargin);
+      expect(actual).toBe(slotWidth * 20 - slotMargin);
     });
   });
 
@@ -150,20 +150,36 @@ describe('shared/availability-view/utils', () => {
 
   describe('getTimelineItems', () => {
     test('returns reservation slots if reservations is undefined', () => {
-      const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00Z'), undefined, '1');
+      const actual = utils.getTimelineItems(
+        moment('2016-01-01T00:00:00Z'),
+        undefined,
+        '1'
+      );
       expect(actual).toHaveLength(48);
-      actual.forEach(item => expect(item.type).toBe('reservation-slot'));
+      actual.forEach((item) => expect(item.type).toBe('reservation-slot'));
     });
 
     test('returns reservation slots if reservations is empty', () => {
-      const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00Z'), [], '1');
+      const actual = utils.getTimelineItems(
+        moment('2016-01-01T00:00:00Z'),
+        [],
+        '1'
+      );
       expect(actual).toHaveLength(48);
-      actual.forEach(item => expect(item.type).toBe('reservation-slot'));
+      actual.forEach((item) => expect(item.type).toBe('reservation-slot'));
     });
 
     test('returns one reservation if entire day is a reservation', () => {
-      const reservation = { id: 11, begin: '2016-01-01T00:00:00', end: '2016-01-02T00:00:00' };
-      const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00'), [reservation], '1');
+      const reservation = {
+        id: 11,
+        begin: '2016-01-01T00:00:00',
+        end: '2016-01-02T00:00:00',
+      };
+      const actual = utils.getTimelineItems(
+        moment('2016-01-01T00:00:00'),
+        [reservation],
+        '1'
+      );
       expect(actual).toHaveLength(1);
       expect(actual[0]).toEqual({
         key: '0',
@@ -178,7 +194,11 @@ describe('shared/availability-view/utils', () => {
         { id: 12, begin: '2016-01-01T12:30:00', end: '2016-01-01T20:00:00' },
         { id: 13, begin: '2016-01-01T20:00:00', end: '2016-01-01T20:30:00' },
       ];
-      const actual = utils.getTimelineItems(moment('2016-01-01T00:00:00'), reservations, '1');
+      const actual = utils.getTimelineItems(
+        moment('2016-01-01T00:00:00'),
+        reservations,
+        '1'
+      );
       const expected = [
         {
           key: '0',

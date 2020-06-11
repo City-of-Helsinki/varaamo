@@ -9,7 +9,7 @@ import constants from '../constants/AppConstants';
 function buildAPIUrl(endpoint, params) {
   let url = `${constants.API_URL}/${endpoint}/`;
 
-  const nonEmptyParams = pickBy(params, value => value !== '');
+  const nonEmptyParams = pickBy(params, (value) => value !== '');
 
   if (!isEmpty(nonEmptyParams)) {
     url = `${url}?${getSearchParamsString(nonEmptyParams)}`;
@@ -31,7 +31,7 @@ function createTransformFunction(schema) {
 function getErrorTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: action => ({
+    meta: (action) => ({
       API_ACTION: {
         apiRequestFinish: true,
         countable: options.countable,
@@ -48,20 +48,25 @@ function getHeadersCreator(headers) {
     if (state.auth.token) {
       authorizationHeaders.Authorization = `JWT ${state.auth.token}`;
     }
-    return Object.assign({}, constants.REQUIRED_API_HEADERS, headers, authorizationHeaders);
+    return {
+      ...constants.REQUIRED_API_HEADERS,
+      ...headers,
+      ...authorizationHeaders,
+    };
   };
 }
 
 function getRequestTypeDescriptor(type, options = {}) {
   return {
     type,
-    meta: Object.assign({
+    meta: {
       API_ACTION: {
         apiRequestStart: true,
         countable: options.countable,
         type,
       },
-    }, options.meta),
+      ...options.meta,
+    },
   };
 }
 
@@ -70,16 +75,17 @@ function getSearchParamsString(params) {
   const parts = [];
 
   Object.keys(decamelized).forEach((key) => {
-    parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(decamelized[key])}`);
+    parts.push(
+      `${encodeURIComponent(key)}=${encodeURIComponent(decamelized[key])}`
+    );
   });
 
   return parts.join('&');
 }
 
 function getSuccessPayload(options) {
-  return (action, state, response) => (
-    getJSON(response).then(createTransformFunction(options.schema))
-  );
+  return (action, state, response) =>
+    getJSON(response).then(createTransformFunction(options.schema));
 }
 
 function getSuccessTypeDescriptor(type, options = {}) {
@@ -87,15 +93,14 @@ function getSuccessTypeDescriptor(type, options = {}) {
     type,
     payload: options.payload || getSuccessPayload(options),
 
-    meta: action => (
-      Object.assign({
-        API_ACTION: {
-          apiRequestFinish: true,
-          countable: options.countable,
-          type: action[RSAA].types[0].type,
-        },
-      }, options.meta)
-    ),
+    meta: (action) => ({
+      API_ACTION: {
+        apiRequestFinish: true,
+        countable: options.countable,
+        type: action[RSAA].types[0].type,
+      },
+      ...options.meta,
+    }),
   };
 }
 

@@ -5,15 +5,11 @@ import RBCheckbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-function Checkbox({
-  controlProps = {}, help, id, label, validationState,
-}) {
+function Checkbox({ controlProps = {}, help, id, label, validationState }) {
   return (
     <FormGroup controlId={id} validationState={validationState}>
       <Col sm={9} smOffset={3}>
-        <RBCheckbox {...controlProps}>
-          {label}
-        </RBCheckbox>
+        <RBCheckbox {...controlProps}>{label}</RBCheckbox>
         {help && <HelpBlock>{help}</HelpBlock>}
       </Col>
     </FormGroup>

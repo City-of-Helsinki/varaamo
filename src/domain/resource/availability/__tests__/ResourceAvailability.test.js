@@ -11,9 +11,7 @@ describe('ResourceAvailability', () => {
       date: '2019-07-30',
       resource: resource.build(),
     };
-    const wrapper = shallowWithIntl(
-      <ResourceAvailability {...props} />,
-    );
+    const wrapper = shallowWithIntl(<ResourceAvailability {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

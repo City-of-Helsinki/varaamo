@@ -15,7 +15,7 @@ import {
 
 describe('pages/reservation/reservation-information/ReservationInformationForm', () => {
   describe('validation', () => {
-    const t = id => id;
+    const t = (id) => id;
 
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {
@@ -130,14 +130,18 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
     };
 
     function getWrapper(extraProps) {
-      return shallowWithIntl(<ReservationInformationForm {...defaultProps} {...extraProps} />);
+      return shallowWithIntl(
+        <ReservationInformationForm {...defaultProps} {...extraProps} />
+      );
     }
 
     test('does not render info texts when needManualConfirmation is false', () => {
       const resource = Resource.build({
         needManualConfirmation: false,
       });
-      const infoTexts = getWrapper({ resource }).find('.app-ReservationInformation__info-texts');
+      const infoTexts = getWrapper({ resource }).find(
+        '.app-ReservationInformation__info-texts'
+      );
       expect(infoTexts).toHaveLength(0);
     });
 
@@ -197,20 +201,17 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
             expect(input.props().label).toContain('*');
           });
 
-          test(
-            'does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS',
-            () => {
-              const nonRequiredFieldName = 'reserverEmailAddress';
-              const fields = [nonRequiredFieldName];
-              const props = {
-                fields,
-                requiredFields: [nonRequiredFieldName],
-                staffEventSelected,
-              };
-              const input = getWrapper(props).find(Field);
-              expect(input.props().label).not.toContain('*');
-            },
-          );
+          test('does not show an asterisk beside non REQUIRED_STAFF_EVENT_FIELDS', () => {
+            const nonRequiredFieldName = 'reserverEmailAddress';
+            const fields = [nonRequiredFieldName];
+            const props = {
+              fields,
+              requiredFields: [nonRequiredFieldName],
+              staffEventSelected,
+            };
+            const input = getWrapper(props).find(Field);
+            expect(input.props().label).not.toContain('*');
+          });
         });
       });
     });
@@ -283,7 +284,9 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
           const button = buttons.at(0);
 
           test('has correct text', () => {
-            expect(button.props().children).toBe('ReservationInformationForm.cancelEdit');
+            expect(button.props().children).toBe(
+              'ReservationInformationForm.cancelEdit'
+            );
           });
 
           test('clicking it calls props.onCancel', () => {

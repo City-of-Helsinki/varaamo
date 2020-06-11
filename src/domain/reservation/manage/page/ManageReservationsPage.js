@@ -83,18 +83,16 @@ class ManageReservationsPage extends React.Component {
   }
 
   setSelectedReservationResource = (nextStatePartial) => {
-    this.setState(state => ({
+    this.setState((state) => ({
       selectedReservationResource: {
         ...state.selectedReservationResource,
         ...nextStatePartial,
       },
     }));
-  }
+  };
 
   loadReservations = () => {
-    const {
-      location,
-    } = this.props;
+    const { location } = this.props;
 
     this.setState({
       isLoading: true,
@@ -109,14 +107,13 @@ class ManageReservationsPage extends React.Component {
       include: 'resource_detail',
     };
 
-    client.get('reservation', params)
-      .then(({ data }) => {
-        this.setState({
-          isLoading: false,
-          reservations: get(data, 'results', []),
-          totalCount: get(data, 'count', 0),
-        });
+    client.get('reservation', params).then(({ data }) => {
+      this.setState({
+        isLoading: false,
+        reservations: get(data, 'results', []),
+        totalCount: get(data, 'count', 0),
       });
+    });
   };
 
   loadUnits = () => {
@@ -124,7 +121,8 @@ class ManageReservationsPage extends React.Component {
       isLoadingUnits: true,
     });
 
-    client.get('unit', { page_size: 500, unit_has_resource: true })
+    client
+      .get('unit', { page_size: 500, unit_has_resource: true })
       .then(({ data }) => {
         this.setState({
           isLoadingUnits: false,
@@ -138,7 +136,8 @@ class ManageReservationsPage extends React.Component {
       isLoading: true,
     });
 
-    client.get(`resource/${resourceId}`)
+    client
+      .get(`resource/${resourceId}`)
       .then((res) => {
         if (res.error) {
           this.setSelectedReservationResource({
@@ -151,20 +150,22 @@ class ManageReservationsPage extends React.Component {
         this.setSelectedReservationResource({
           data: res.data,
         });
-      }).catch((e) => {
+      })
+      .catch((e) => {
         this.setSelectedReservationResource({
           error: e,
         });
-      }).finally(() => {
+      })
+      .finally(() => {
         this.setSelectedReservationResource({
           isLoading: false,
         });
       });
-  }
+  };
 
   resetSelectedReservationResource = () => {
     this.setSelectedReservationResource(INITIAL_SELECTED_RESERVATION_RESOURCE);
-  }
+  };
 
   onSearchFiltersChange = (filters) => {
     const { history } = this.props;
@@ -178,17 +179,21 @@ class ManageReservationsPage extends React.Component {
     this.setState({
       showOnlyFilters: filters,
     });
-  }
+  };
 
   onEditClick = (reservation) => {
     const { history, actions } = this.props;
 
-
-    const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+    const normalizedReservation = {
+      ...reservation,
+      resource: reservation.resource.id,
+    };
     actions.editReservation({ reservation: normalizedReservation });
     // TODO: Remove this after refactor timeSlot
 
-    const nextUrl = `${reservationUtils.getEditReservationUrl(reservation)}&path=manage-reservations`;
+    const nextUrl = `${reservationUtils.getEditReservationUrl(
+      reservation
+    )}&path=manage-reservations`;
     history.push(nextUrl);
   };
 
@@ -198,7 +203,7 @@ class ManageReservationsPage extends React.Component {
       isModalOpen: true,
       selectedReservation: reservation,
     });
-  }
+  };
 
   onInfoModalClose = () => {
     this.resetSelectedReservationResource();
@@ -206,10 +211,14 @@ class ManageReservationsPage extends React.Component {
       isModalOpen: false,
       selectedReservation: null,
     });
-  }
+  };
 
   // The same function is passed to ManageReservationsList, ReservationInformationModal AND ReservationCancelModal!!!
-  onEditReservation = async (reservation, status, openReservationCancelModal = false) => {
+  onEditReservation = async (
+    reservation,
+    status,
+    openReservationCancelModal = false
+  ) => {
     try {
       if (status === RESERVATION_STATE.CANCELLED) {
         if (openReservationCancelModal) {
@@ -234,11 +243,14 @@ class ManageReservationsPage extends React.Component {
       // We show the error message from respa to staff because it helps with support and debugging.
       createNotification(NOTIFICATION_TYPE.ERROR, error.message);
     }
-  }
+  };
 
   onSaveComment = async (reservation, comments) => {
     try {
-      await reservationUtils.putReservation(reservation, { resource: reservation.resource.id, comments });
+      await reservationUtils.putReservation(reservation, {
+        resource: reservation.resource.id,
+        comments,
+      });
       this.loadReservations();
     } catch (error) {
       // We show the error message from respa to staff because it helps with support and debugging.
@@ -251,16 +263,18 @@ class ManageReservationsPage extends React.Component {
    * By default return all fetched reservations
    *
    * @memberof ManageReservationsPage
-  */
+   */
 
   getFilteredReservations = (filters) => {
     const { reservations } = this.state;
     const { userFavoriteResources } = this.props;
 
-    const favoriteResourceFilter = reservation => userFavoriteResources
-      && userFavoriteResources.includes(reservation.resource.id);
+    const favoriteResourceFilter = (reservation) =>
+      userFavoriteResources &&
+      userFavoriteResources.includes(reservation.resource.id);
 
-    const canModifyFilter = reservation => reservationUtils.canUserModifyReservation(reservation);
+    const canModifyFilter = (reservation) =>
+      reservationUtils.canUserModifyReservation(reservation);
 
     if (isEmpty(filters) || !Array.isArray(filters)) {
       return reservations;
@@ -268,7 +282,10 @@ class ManageReservationsPage extends React.Component {
 
     // Both options selected
     if (filters.length > 1) {
-      return reservations.filter(reservation => canModifyFilter(reservation) && favoriteResourceFilter(reservation));
+      return reservations.filter(
+        (reservation) =>
+          canModifyFilter(reservation) && favoriteResourceFilter(reservation)
+      );
     }
 
     if (filters.includes(RESERVATION_SHOWONLY_FILTERS.FAVORITE)) {
@@ -280,21 +297,16 @@ class ManageReservationsPage extends React.Component {
     }
 
     return reservations;
-  }
+  };
 
   parentToggle = (bool) => {
     this.setState(() => ({
       isReservationCancelModalOpen: bool,
     }));
-  }
+  };
 
   render() {
-    const {
-      isAdmin,
-      t,
-      history,
-      location,
-    } = this.props;
+    const { isAdmin, t, history, location } = this.props;
 
     const {
       isLoading,
@@ -331,14 +343,14 @@ class ManageReservationsPage extends React.Component {
               <Col sm={12}>
                 <span>
                   {totalCount > 0
-                    ? t('ManageReservationsPage.searchResults', { count: totalCount })
-                    : t('ManageReservationsPage.noSearchResults')
-                  }
+                    ? t('ManageReservationsPage.searchResults', {
+                        count: totalCount,
+                      })
+                    : t('ManageReservationsPage.noSearchResults')}
                 </span>
               </Col>
             </Row>
           </Grid>
-
         </div>
         <div className="app-ManageReservationsPage__list">
           <PageWrapper title={title}>
@@ -353,9 +365,14 @@ class ManageReservationsPage extends React.Component {
                   />
                 </Loader>
                 <Pagination
-                  onChange={newPage => history.push({
-                    search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
-                  })}
+                  onChange={(newPage) =>
+                    history.push({
+                      search: searchUtils.getSearchFromFilters({
+                        ...filters,
+                        page: newPage,
+                      }),
+                    })
+                  }
                   page={filters && filters.page ? Number(filters.page) : 1}
                   pages={Math.round(totalCount / PAGE_SIZE)}
                 />
@@ -405,4 +422,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 };
 
-export default connect(selector, mapDispatchToProps)(withRouter(UnwrappedManageReservationsPage));
+export default connect(
+  selector,
+  mapDispatchToProps
+)(withRouter(UnwrappedManageReservationsPage));

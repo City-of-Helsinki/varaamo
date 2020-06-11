@@ -47,12 +47,14 @@ class TimeControls extends Component {
   }
 
   getEndTimeOptions(beginValue) {
-    const {
-      begin, maxReservationPeriod, timeFormat, timeSlots,
-    } = this.props;
+    const { begin, maxReservationPeriod, timeFormat, timeSlots } = this.props;
     const beginTime = beginValue || begin.input.value;
-    const firstPossibleIndex = timeSlots.findIndex(slot => moment(slot.end).isAfter(beginTime));
-    const maxHours = maxReservationPeriod ? moment.duration(maxReservationPeriod).asHours() : null;
+    const firstPossibleIndex = timeSlots.findIndex((slot) =>
+      moment(slot.end).isAfter(beginTime)
+    );
+    const maxHours = maxReservationPeriod
+      ? moment.duration(maxReservationPeriod).asHours()
+      : null;
     const options = [];
     // eslint-disable-next-line
     forEach(timeSlots.slice(firstPossibleIndex), slot => {
@@ -74,12 +76,18 @@ class TimeControls extends Component {
   handleBeginTimeChange = ({ value }) => {
     const { begin, end, timeFormat } = this.props;
     if (value) {
-      const updatedBeginTime = updateWithTime(begin.input.value, value, timeFormat);
+      const updatedBeginTime = updateWithTime(
+        begin.input.value,
+        value,
+        timeFormat
+      );
       begin.input.onChange(updatedBeginTime);
       const newEndOptions = this.getEndTimeOptions(updatedBeginTime);
       const currentEndValue = moment(end.input.value).format(timeFormat);
-      if (!newEndOptions.find(option => option.value === currentEndValue)) {
-        end.input.onChange(updateWithTime(end.input.value, newEndOptions[0].value, timeFormat));
+      if (!newEndOptions.find((option) => option.value === currentEndValue)) {
+        end.input.onChange(
+          updateWithTime(end.input.value, newEndOptions[0].value, timeFormat)
+        );
       }
     }
   };

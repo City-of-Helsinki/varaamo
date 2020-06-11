@@ -22,7 +22,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
         type: {
           name: 'workplace',
         },
-      }),
+      })
     ),
     unit: Immutable(Unit.build()),
     currentEquipments: [
@@ -84,9 +84,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       streetAddress: 'Test street 12',
       wwwUrl: 'some-url',
     });
-    const link = getWrapper({ unit })
-      .find('.app-ResourceInfo__www')
-      .find('a');
+    const link = getWrapper({ unit }).find('.app-ResourceInfo__www').find('a');
 
     expect(link).toHaveLength(1);
     expect(link.prop('href')).toBe(unit.wwwUrl);

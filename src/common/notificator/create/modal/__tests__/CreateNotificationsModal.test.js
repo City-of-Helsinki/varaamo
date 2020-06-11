@@ -16,7 +16,8 @@ describe('CreateNotificationsModal', () => {
     onDelete: simple.stub(),
     selectedNotification: {},
   };
-  const getWrapper = props => shallow(<CreateNotificationModal {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallow(<CreateNotificationModal {...defaultProps} {...props} />);
 
   test('Renders correcly', () => {
     const wrapper = getWrapper();

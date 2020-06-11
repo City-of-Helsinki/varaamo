@@ -28,18 +28,27 @@ export const createSelectOptions = () => {
   };
 };
 
-
 /**
  * formatValuesForUse()
  * Format notification values to usable form.
  * @returns {Object} with formatted values
  */
 export const formatValuesForUse = (notification) => {
-  const { targetOptions, urgencyOptions, activeOptions } = createSelectOptions();
+  const {
+    targetOptions,
+    urgencyOptions,
+    activeOptions,
+  } = createSelectOptions();
   const formattedNotification = { ...notification };
-  formattedNotification.target = targetOptions.find(option => option.value === notification.target);
-  formattedNotification.urgency = urgencyOptions.find(option => option.value === notification.urgency);
-  formattedNotification.active = activeOptions.find(option => option.value === notification.active);
+  formattedNotification.target = targetOptions.find(
+    (option) => option.value === notification.target
+  );
+  formattedNotification.urgency = urgencyOptions.find(
+    (option) => option.value === notification.urgency
+  );
+  formattedNotification.active = activeOptions.find(
+    (option) => option.value === notification.active
+  );
   formattedNotification.until = moment(notification.until).toDate();
   return formattedNotification;
 };
@@ -54,6 +63,8 @@ export const formatValuesForDatabase = (notification) => {
   formattedNotification.target = notification.target.value;
   formattedNotification.urgency = notification.urgency.value;
   formattedNotification.active = notification.active.value;
-  formattedNotification.until = moment(notification.until).format('YYYYMMDDTHHmmss');
+  formattedNotification.until = moment(notification.until).format(
+    'YYYYMMDDTHHmmss'
+  );
   return formattedNotification;
 };

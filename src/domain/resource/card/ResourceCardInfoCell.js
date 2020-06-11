@@ -3,34 +3,29 @@ import Button from 'react-bootstrap/lib/Button';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const ResourceCardInfoCellWrapper = ({ onClick, children, ...props }) => (
-  onClick ? <Button onClick={onClick} {...props}>{children}</Button> : <span {...props}>{children}</span>
-);
+const ResourceCardInfoCellWrapper = ({ onClick, children, ...props }) =>
+  onClick ? (
+    <Button onClick={onClick} {...props}>
+      {children}
+    </Button>
+  ) : (
+    <span {...props}>{children}</span>
+  );
 
 ResourceCardInfoCellWrapper.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
 };
 
-function ResourceCardInfoCell({
-  className,
-  alt,
-  icon,
-  onClick,
-  text,
-}) {
-  const imgAlt = (alt || text) || '';
+function ResourceCardInfoCell({ className, alt, icon, onClick, text }) {
+  const imgAlt = alt || text || '';
 
   return (
     <ResourceCardInfoCellWrapper
       className={classNames('app-resourceCardInfoCell', className)}
       onClick={onClick}
     >
-      <img
-        alt={imgAlt}
-        className="app-resourceCardInfoCell__icon"
-        src={icon}
-      />
+      <img alt={imgAlt} className="app-resourceCardInfoCell__icon" src={icon} />
       {!!text && <span>{text}</span>}
     </ResourceCardInfoCellWrapper>
   );

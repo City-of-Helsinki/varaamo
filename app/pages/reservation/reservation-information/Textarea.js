@@ -6,12 +6,7 @@ import TextareaAutosize from 'react-autosize-textarea';
 import Error from './Error';
 import injectT from '../../../i18n/injectT';
 
-function Textarea({
-  input,
-  meta: { error, touched },
-  t,
-  label,
-}) {
+function Textarea({ input, meta: { error, touched }, t, label }) {
   return (
     <div className="app-ReservationPage__formfield">
       <label>

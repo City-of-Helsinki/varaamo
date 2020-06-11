@@ -14,7 +14,8 @@ describe('CreateNotificationForm', () => {
     newNotification: {},
     onFieldChange: simple.stub(),
   };
-  const getWrapper = props => shallow(<CreateNotificationsForm {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallow(<CreateNotificationsForm {...defaultProps} {...props} />);
 
   test('Snapshot test', () => {
     const wrapper = getWrapper();

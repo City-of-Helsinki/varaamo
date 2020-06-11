@@ -8,19 +8,10 @@ Label.propTypes = {
   className: PropTypes.string,
 };
 
-function Label({
-  children, className, ...rest
-}) {
+function Label({ children, className, ...rest }) {
   return (
-    <div
-      className={classNames(
-        'app-Label',
-        className,
-      )}
-    >
-      <BootstrapLabel {...rest}>
-        {children}
-      </BootstrapLabel>
+    <div className={classNames('app-Label', className)}>
+      <BootstrapLabel {...rest}>{children}</BootstrapLabel>
     </div>
   );
 }

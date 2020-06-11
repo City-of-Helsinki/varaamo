@@ -5,16 +5,12 @@ import React, { Component } from 'react';
 
 class TimeRange extends Component {
   render() {
-    const {
-      begin,
-      className,
-      beginFormat,
-      end,
-      endFormat,
-    } = this.props;
+    const { begin, className, beginFormat, end, endFormat } = this.props;
     const beginMoment = moment(begin);
     const endMoment = moment(end);
-    const rangeString = `${beginMoment.format(beginFormat)} \u2013 ${endMoment.format(endFormat)}`;
+    const rangeString = `${beginMoment.format(
+      beginFormat
+    )} \u2013 ${endMoment.format(endFormat)}`;
     const ISORangeString = `${begin}/${end}`;
 
     return (

@@ -5,10 +5,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 function FAIcon({ className, ...rest }) {
   return (
-    <Icon
-      className={classNames('app-fontAwesome', className)}
-      {...rest}
-    />
+    <Icon className={classNames('app-fontAwesome', className)} {...rest} />
   );
 }
 

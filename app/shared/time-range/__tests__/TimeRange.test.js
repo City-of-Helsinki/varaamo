@@ -37,7 +37,9 @@ describe('shared/time-range/TimeRange', () => {
     const rangeString = getWrapper().find('time').props().children;
 
     test('displays the begin in given beginFormat', () => {
-      const expected = moment(defaultProps.begin).format(defaultProps.beginFormat);
+      const expected = moment(defaultProps.begin).format(
+        defaultProps.beginFormat
+      );
       expect(rangeString.toLowerCase()).toContain(expected.toLowerCase());
     });
 

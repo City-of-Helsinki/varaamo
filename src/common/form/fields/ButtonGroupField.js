@@ -5,24 +5,21 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 
-const ButtonGroupField = ({
-  onChange,
-  label,
-  options,
-  value,
-  type,
-  id,
-}) => (
+const ButtonGroupField = ({ onChange, label, options, value, type, id }) => (
   <div className="app-ButtonGroupField">
     <FormGroup controlId={`buttonGroupField-${id}`}>
-      {label && <ControlLabel className="app-ButtonGroupField__label">{label}</ControlLabel>}
+      {label && (
+        <ControlLabel className="app-ButtonGroupField__label">
+          {label}
+        </ControlLabel>
+      )}
       <ToggleButtonGroup
         className="app-ButtonGroupField__buttons"
         onChange={onChange}
         type={type}
         value={value}
       >
-        {options.map(option => (
+        {options.map((option) => (
           <ToggleButton
             className="app-ButtonGroupField__button"
             key={`${id}-button-${option.value}`}
@@ -37,10 +34,7 @@ const ButtonGroupField = ({
 );
 
 const OptionShape = PropTypes.shape({
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   label: PropTypes.string.isRequired,
 });
 

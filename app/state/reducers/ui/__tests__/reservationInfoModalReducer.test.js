@@ -16,9 +16,12 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
 
   describe('RESERVATION_DELETE_SUCCESS', () => {
     test('resets state', () => {
-      const actual = reducer({ show: true, reservation: {} }, {
-        type: 'RESERVATION_DELETE_SUCCESS',
-      });
+      const actual = reducer(
+        { show: true, reservation: {} },
+        {
+          type: 'RESERVATION_DELETE_SUCCESS',
+        }
+      );
       expect(actual).toEqual(initialState);
     });
   });
@@ -31,7 +34,10 @@ describe('state/reducers/ui/reservationInfoModalReducer', () => {
     };
 
     test('sets payload as reservation', () => {
-      const actual = reducer(Immutable({ reservation: { id: 'r-1', foo: 'old value' } }), action);
+      const actual = reducer(
+        Immutable({ reservation: { id: 'r-1', foo: 'old value' } }),
+        action
+      );
       expect(actual.reservation).toEqual(reservation);
     });
 

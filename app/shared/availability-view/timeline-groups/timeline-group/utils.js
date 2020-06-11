@@ -1,13 +1,17 @@
 import some from 'lodash/some';
 import moment from 'moment';
 
-import { slotSize, slotWidth, slotMargin } from '../../../../constants/SlotConstants';
+import {
+  slotSize,
+  slotWidth,
+  slotMargin,
+} from '../../../../constants/SlotConstants';
 
 function getTimeSlotWidth({ startTime, endTime } = {}) {
   const diff = endTime ? endTime.diff(startTime, 'minutes') : slotSize;
   const slots = Math.floor(diff / slotSize);
 
-  return (slotWidth * slots) - slotMargin;
+  return slotWidth * slots - slotMargin;
 }
 
 function getTimelineItems(date, reservations, resourceId) {
@@ -17,7 +21,8 @@ function getTimelineItems(date, reservations, resourceId) {
   const end = date.clone().endOf('day');
   while (timePointer.isBefore(end)) {
     const reservation = reservations && reservations[reservationPointer];
-    const isSlotReservation = reservation && timePointer.isSame(reservation.begin);
+    const isSlotReservation =
+      reservation && timePointer.isSame(reservation.begin);
     if (isSlotReservation) {
       items.push({
         key: String(items.length),
@@ -46,17 +51,18 @@ function getTimelineItems(date, reservations, resourceId) {
 }
 
 function isInsideOpeningHours(item, openingHours) {
-  return some(openingHours, opening => (
-    opening.opens <= item.data.begin && item.data.end <= opening.closes
-  ));
+  return some(
+    openingHours,
+    (opening) =>
+      opening.opens <= item.data.begin && item.data.end <= opening.closes
+  );
 }
 
 function markItemSelectable(item, isSelectable, openingHours) {
-  const selectable = (
-    isSelectable
-    && moment().isSameOrBefore(item.data.end)
-    && (!openingHours || isInsideOpeningHours(item, openingHours))
-  );
+  const selectable =
+    isSelectable &&
+    moment().isSameOrBefore(item.data.end) &&
+    (!openingHours || isInsideOpeningHours(item, openingHours));
   return { ...item, data: { ...item.data, isSelectable: selectable } };
 }
 
@@ -70,7 +76,8 @@ function markItemsSelectable(items, isSelectable, openingHours) {
 function addSelectionData(selection, resource, items) {
   if (!selection) {
     return markItemsSelectable(items, true, resource.openingHours);
-  } if (selection.resourceId !== resource.id) {
+  }
+  if (selection.resourceId !== resource.id) {
     // isSelectable is false by default, so nothing needs to be done.
     // This is a pretty important performance optimization when there are tons of
     // resources in the AvailabilityView and the selection is in a state where the

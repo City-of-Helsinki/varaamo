@@ -3,10 +3,7 @@ import notificationsSelector from '../notificationsSelector';
 describe('shared/notifications/notificationsSelector', () => {
   test('returns notifications from state', () => {
     const state = {
-      notifications: [
-        { text: 'first' },
-        { text: 'second' },
-      ],
+      notifications: [{ text: 'first' }, { text: 'second' }],
     };
     const selected = notificationsSelector(state);
 

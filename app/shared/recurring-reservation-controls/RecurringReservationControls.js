@@ -65,7 +65,9 @@ function RecurringReservationControls({
         {frequency !== '' && (
           <Col md={6} xs={12}>
             <FormGroup controlId="LastTimeGroup">
-              <ControlLabel>{t('RecurringReservationControls.lastTimeLabel')}</ControlLabel>
+              <ControlLabel>
+                {t('RecurringReservationControls.lastTimeLabel')}
+              </ControlLabel>
               <DatePicker
                 dateFormat="D.M.YYYY"
                 onChange={changeLastTime}
@@ -92,5 +94,7 @@ RecurringReservationControls.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export const UnconnectedRecurringReservationControls = injectT(RecurringReservationControls);
+export const UnconnectedRecurringReservationControls = injectT(
+  RecurringReservationControls
+);
 export default connect(UnconnectedRecurringReservationControls);

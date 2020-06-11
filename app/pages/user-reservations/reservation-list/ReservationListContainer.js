@@ -15,9 +15,7 @@ class UnconnectedReservationListContainer extends Component {
   }
 
   renderReservationListItem(reservation) {
-    const {
-      isAdmin,
-    } = this.props;
+    const { isAdmin } = this.props;
 
     return (
       <ReservationListItem
@@ -29,32 +27,24 @@ class UnconnectedReservationListContainer extends Component {
   }
 
   render() {
-    const {
-      emptyMessage,
-      loading,
-      reservations,
-      page,
-      pages,
-      t,
-    } = this.props;
+    const { emptyMessage, loading, reservations, page, pages, t } = this.props;
 
     return (
       <Loader loaded={!loading}>
-        {reservations.length > 0
-          ? (
-            <div>
-              <ul className="reservation-list">
-                {reservations.map(this.renderReservationListItem)}
-              </ul>
-              <Pagination
-                onChange={this.props.onPageChange}
-                page={page}
-                pages={pages}
-              />
-            </div>
-          )
-          : <p>{emptyMessage || t('ReservationListContainer.emptyMessage')}</p>
-        }
+        {reservations.length > 0 ? (
+          <div>
+            <ul className="reservation-list">
+              {reservations.map(this.renderReservationListItem)}
+            </ul>
+            <Pagination
+              onChange={this.props.onPageChange}
+              page={page}
+              pages={pages}
+            />
+          </div>
+        ) : (
+          <p>{emptyMessage || t('ReservationListContainer.emptyMessage')}</p>
+        )}
       </Loader>
     );
   }
@@ -73,4 +63,6 @@ UnconnectedReservationListContainer.propTypes = {
 UnconnectedReservationListContainer = injectT(UnconnectedReservationListContainer);  // eslint-disable-line
 
 export { UnconnectedReservationListContainer };
-export default connect(reservationListSelector)(UnconnectedReservationListContainer);
+export default connect(reservationListSelector)(
+  UnconnectedReservationListContainer
+);

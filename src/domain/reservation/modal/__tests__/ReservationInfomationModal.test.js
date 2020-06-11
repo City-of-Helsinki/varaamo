@@ -1,11 +1,15 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
+import {
+  shallowWithIntl,
+  globalDateMock,
+} from '../../../../../app/utils/testUtils';
 import ReservationInformationModal from '../ReservationInformationModal';
 import reservation from '../../../../common/data/fixtures/reservation';
 
-const findButtonByLabel = (wrapper, label) => wrapper.find({ children: `ReservationInfoModal.${label}` });
+const findButtonByLabel = (wrapper, label) =>
+  wrapper.find({ children: `ReservationInfoModal.${label}` });
 
 describe('ReservationInformationModal', () => {
   const mockReservation = reservation.build({
@@ -19,11 +23,12 @@ describe('ReservationInformationModal', () => {
     onSaveComment: jest.fn(),
     isOpen: true,
     onEditReservation: jest.fn(),
-    t: path => path,
+    t: (path) => path,
   };
-  const getWrapper = props => shallowWithIntl(
-    <ReservationInformationModal {...defaultProps} {...props} />,
-  );
+  const getWrapper = (props) =>
+    shallowWithIntl(
+      <ReservationInformationModal {...defaultProps} {...props} />
+    );
 
   test('renders correctly', () => {
     globalDateMock();
@@ -39,10 +44,11 @@ describe('ReservationInformationModal', () => {
   });
 
   describe('when state is requested', () => {
-    const getWrapperInRequestedState = props => getWrapper({
-      reservation: { ...defaultProps.reservation, state: 'requested' },
-      ...props,
-    });
+    const getWrapperInRequestedState = (props) =>
+      getWrapper({
+        reservation: { ...defaultProps.reservation, state: 'requested' },
+        ...props,
+      });
 
     test('render deny and approve buttons', () => {
       const wrapper = getWrapperInRequestedState();
@@ -53,6 +59,7 @@ describe('ReservationInformationModal', () => {
   });
 
   describe('refund policy', () => {
+    // eslint-disable-next-line max-len
     test('rendered when resource is not null, when user is admin, when reservation is not a staff event and when the reservation has a price', () => {
       const getRefundPolicy = (wrapper) => {
         return wrapper.find({ id: 'refund-policy' });

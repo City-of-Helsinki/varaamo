@@ -11,7 +11,10 @@ describe('Actions: reservationActions', () => {
 
   let getRequestTypeDescriptorMock;
   beforeEach(() => {
-    getRequestTypeDescriptorMock = simple.mock(apiUtils, 'getRequestTypeDescriptor');
+    getRequestTypeDescriptorMock = simple.mock(
+      apiUtils,
+      'getRequestTypeDescriptor'
+    );
   });
 
   describe('deleteReservation', () => {
@@ -19,11 +22,7 @@ describe('Actions: reservationActions', () => {
       reservationActions.deleteReservation(reservation);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
-        args: [
-          'Reservation',
-          'reservation-cancel',
-          reservation.resource,
-        ],
+        args: ['Reservation', 'reservation-cancel', reservation.resource],
       });
     });
   });
@@ -32,11 +31,7 @@ describe('Actions: reservationActions', () => {
       reservationActions.postReservation(reservation);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
-        args: [
-          'Reservation',
-          'reservation-add',
-          reservation.resource,
-        ],
+        args: ['Reservation', 'reservation-add', reservation.resource],
       });
     });
   });
@@ -45,11 +40,7 @@ describe('Actions: reservationActions', () => {
       reservationActions.putReservation(reservation);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
-        args: [
-          'Reservation',
-          'reservation-edit',
-          reservation.resource,
-        ],
+        args: ['Reservation', 'reservation-edit', reservation.resource],
       });
     });
   });

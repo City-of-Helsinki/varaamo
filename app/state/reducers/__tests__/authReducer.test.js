@@ -19,7 +19,9 @@ describe('state/reducers/authReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESERVATION_DELETE_ERROR', () => {
-      const reservationDeleteError = createAction(types.API.RESERVATION_DELETE_ERROR);
+      const reservationDeleteError = createAction(
+        types.API.RESERVATION_DELETE_ERROR
+      );
 
       test('sets state to initialState if error status is 401', () => {
         const action = reservationDeleteError({ status: 401 });
@@ -44,7 +46,9 @@ describe('state/reducers/authReducer', () => {
     });
 
     describe('API.RESERVATION_POST_ERROR', () => {
-      const reservationPostError = createAction(types.API.RESERVATION_POST_ERROR);
+      const reservationPostError = createAction(
+        types.API.RESERVATION_POST_ERROR
+      );
 
       test('sets state to initialState if error status is 401', () => {
         const action = reservationPostError({ status: 401 });

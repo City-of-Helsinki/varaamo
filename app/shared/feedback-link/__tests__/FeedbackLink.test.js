@@ -39,7 +39,9 @@ describe('shared/feedback-link/FeedbackLink', () => {
     let link;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('ESPOO');
       link = getWrapper();
     });
 

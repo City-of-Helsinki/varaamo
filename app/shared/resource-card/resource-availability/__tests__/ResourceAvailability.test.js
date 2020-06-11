@@ -16,7 +16,9 @@ describe('shared/resource-card/resource-availability/ResourceAvailability', () =
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ResourceAvailability {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ResourceAvailability {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('if date given in props is in the past', () => {
@@ -77,7 +79,9 @@ describe('shared/resource-card/resource-availability/ResourceAvailability', () =
 
     test('uses getAvailabilityDataForNow for Label props', () => {
       const expectedData = { status: 'closed', bsStyle: 'danger' };
-      simple.mock(resourceUtils, 'getAvailabilityDataForNow').returnWith(expectedData);
+      simple
+        .mock(resourceUtils, 'getAvailabilityDataForNow')
+        .returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);
 
       expect(label.prop('bsStyle')).toBe(expectedData.bsStyle);
@@ -105,7 +109,9 @@ describe('shared/resource-card/resource-availability/ResourceAvailability', () =
 
     test('uses getAvailabilityDataForWholeDay for Label props', () => {
       const expectedData = { status: 'closed', bsStyle: 'danger' };
-      simple.mock(resourceUtils, 'getAvailabilityDataForWholeDay').returnWith(expectedData);
+      simple
+        .mock(resourceUtils, 'getAvailabilityDataForWholeDay')
+        .returnWith(expectedData);
       const label = getWrapper({ date }).find(Label);
 
       expect(label.prop('bsStyle')).toBe(expectedData.bsStyle);

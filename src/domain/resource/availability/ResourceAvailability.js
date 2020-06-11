@@ -8,7 +8,10 @@ import * as resourceUtils from '../utils';
 
 const ResourceAvailability = ({ date, resource, t }) => {
   const now = moment();
-  if (moment(date).isBefore(now, 'day') || !!resource.external_reservation_url) {
+  if (
+    moment(date).isBefore(now, 'day') ||
+    !!resource.external_reservation_url
+  ) {
     return <span />;
   }
 
@@ -18,7 +21,10 @@ const ResourceAvailability = ({ date, resource, t }) => {
 
   return (
     <Label bsStyle={availabilityData.bsStyle} className="resource-availability">
-      {t(`ResourceAvailability.${availabilityData.status}`, availabilityData.values)}
+      {t(
+        `ResourceAvailability.${availabilityData.status}`,
+        availabilityData.values
+      )}
     </Label>
   );
 };

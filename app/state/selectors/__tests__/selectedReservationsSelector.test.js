@@ -13,15 +13,18 @@ function getState(selected) {
 }
 
 describe('Selector: selectedReservationsSelector', () => {
-  const selected = [{
-    begin: '2015-12-12T12:00:00+03:00',
-    end: '2015-12-12T13:00:00+03:00',
-    resource: 'some-id',
-  }, {
-    begin: '2015-12-12T13:00:00+03:00',
-    end: '2015-12-12T14:00:00+03:00',
-    resource: 'some-id',
-  }];
+  const selected = [
+    {
+      begin: '2015-12-12T12:00:00+03:00',
+      end: '2015-12-12T13:00:00+03:00',
+      resource: 'some-id',
+    },
+    {
+      begin: '2015-12-12T13:00:00+03:00',
+      end: '2015-12-12T14:00:00+03:00',
+      resource: 'some-id',
+    },
+  ];
 
   test('returns an empty object if no reservations are selected', () => {
     const state = getState([]);

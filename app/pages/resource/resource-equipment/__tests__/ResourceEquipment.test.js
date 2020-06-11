@@ -19,10 +19,7 @@ test('pages/resource/resource-equipment/ResourceEquipment', () => {
     ],
   };
 
-
-  const wrapper = shallowWithIntl(
-    <ResourceEquipment {...props} />,
-  );
+  const wrapper = shallowWithIntl(<ResourceEquipment {...props} />);
 
   expect(toJSON(wrapper)).toMatchSnapshot();
 });

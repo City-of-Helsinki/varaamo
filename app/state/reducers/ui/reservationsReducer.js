@@ -46,12 +46,17 @@ function selectReservationToEdit(state, action) {
 }
 
 function parseError(error) {
-  if (error.response && error.response.non_field_errors && error.response.non_field_errors.length) {
+  if (
+    error.response &&
+    error.response.non_field_errors &&
+    error.response.non_field_errors.length
+  ) {
     return error.response.non_field_errors
       .join('. ')
       .replace("['", '')
       .replace("']", '');
-  } if (error.response && error.response.detail) {
+  }
+  if (error.response && error.response.detail) {
     return error.response.detail;
   }
   return 'Jotain meni vikaan';
@@ -80,7 +85,7 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.API.RESERVATION_POST_ERROR: {
-      const reservation = action.meta.reservation;
+      const { reservation } = action.meta;
       const failReason = parseError(action.payload);
       return state.merge({
         failed: [...state.failed, { ...reservation, failReason }],

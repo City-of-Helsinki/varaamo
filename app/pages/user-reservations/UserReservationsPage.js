@@ -51,7 +51,7 @@ const TABS = Object.freeze({
 // long run.
 function injectReservationFromReduxState(
   naiveReservations = [],
-  reduxReservations = {},
+  reduxReservations = {}
 ) {
   return naiveReservations.map((reservation) => {
     const reduxReservation = reduxReservations[reservation.url];
@@ -139,14 +139,14 @@ class UnconnectedUserReservationsPage extends Component {
     if (this.tab === TABS.UPCOMING) {
       return injectReservationFromReduxState(
         this.state.upcomingReservation.data,
-        reduxReservations,
+        reduxReservations
       );
     }
 
     if (this.tab === TABS.PAST) {
       return injectReservationFromReduxState(
         this.state.pastReservation.data,
-        reduxReservations,
+        reduxReservations
       );
     }
 
@@ -163,7 +163,7 @@ class UnconnectedUserReservationsPage extends Component {
           ...data,
         },
       },
-      cb,
+      cb
     );
   };
 
@@ -209,16 +209,16 @@ class UnconnectedUserReservationsPage extends Component {
         const reservationsWithSimpleResource = get(
           response.data,
           'results',
-          [],
+          []
         );
         const resourceIds = reservationsWithSimpleResource.map(
-          reservation => reservation.resource.id,
+          (reservation) => reservation.resource.id
         );
         const completeResourcesResponses = await Promise.all(
-          resourceIds.map(resourceId => client.get(`resource/${resourceId}`)),
+          resourceIds.map((resourceId) => client.get(`resource/${resourceId}`))
         );
         const completeResources = completeResourcesResponses.map(
-          resourceResponse => resourceResponse.data,
+          (resourceResponse) => resourceResponse.data
         );
         // By default the resource that is returned with a reservation
         // omits most of the fields. We need these fields most of the
@@ -227,14 +227,15 @@ class UnconnectedUserReservationsPage extends Component {
         const reservations = reservationsWithSimpleResource.map(
           (reservation) => {
             const resource = completeResources.find(
-              completeResource => completeResource.id === reservation.resource.id,
+              (completeResource) =>
+                completeResource.id === reservation.resource.id
             );
 
             return {
               ...reservation,
               resource,
             };
-          },
+          }
         );
 
         // Here we are duplicating the loaded reservations into the
@@ -249,7 +250,7 @@ class UnconnectedUserReservationsPage extends Component {
           data: reservations,
         };
       },
-      `${namespace}Reservation`,
+      `${namespace}Reservation`
     );
   };
 
@@ -276,7 +277,7 @@ class UnconnectedUserReservationsPage extends Component {
         // past, but I could not find a more efficient way to find past
         // reservations.
         start: moment(ARBITRARY_START_DATETIME, 'YYYY-MM-DD[T]HH:mm').format(
-          constants.DATETIME_FORMAT,
+          constants.DATETIME_FORMAT
         ),
         end: now,
       };
@@ -289,7 +290,7 @@ class UnconnectedUserReservationsPage extends Component {
 
   handlePageChange = (newPage) => {
     const { history } = this.props;
-    const filters = this.filters;
+    const { filters } = this;
     const nextFilters = { ...filters, page: newPage };
 
     history.push({
@@ -297,14 +298,14 @@ class UnconnectedUserReservationsPage extends Component {
     });
 
     if (this.tab === TABS.UPCOMING) {
-      this.loadUpcomingReservations(defaultFilters => ({
+      this.loadUpcomingReservations((defaultFilters) => ({
         ...defaultFilters,
         ...nextFilters,
       }));
     }
 
     if (this.tab === TABS.PAST) {
-      this.loadPastReservations(defaultFilters => ({
+      this.loadPastReservations((defaultFilters) => ({
         ...defaultFilters,
         ...nextFilters,
       }));
@@ -327,11 +328,13 @@ class UnconnectedUserReservationsPage extends Component {
     this.setState({ tab });
 
     if (tab === TABS.UPCOMING) {
-      this.loadUpcomingReservations(filters => pick(filters, UPCOMING_PARAMETERS));
+      this.loadUpcomingReservations((filters) =>
+        pick(filters, UPCOMING_PARAMETERS)
+      );
     }
 
     if (tab === TABS.PAST) {
-      this.loadPastReservations(filters => pick(filters, PAST_PARAMETERS));
+      this.loadPastReservations((filters) => pick(filters, PAST_PARAMETERS));
     }
   };
 
@@ -361,8 +364,7 @@ class UnconnectedUserReservationsPage extends Component {
                 role="tab"
                 type="button"
               >
-                {t('ReservationListContainer.comingReservations')}
-                {' '}
+                {t('ReservationListContainer.comingReservations')}{' '}
                 {!upcomingReservationLoading
                   ? `(${upcomingReservationCount})`
                   : ''}
@@ -412,12 +414,13 @@ UnconnectedUserReservationsPage = injectT(UnconnectedUserReservationsPage); // e
 
 function mapDispatch(dispatch) {
   return {
-    sendReservationsToRedux: reservations => dispatch(batchAddReservations(reservations)),
+    sendReservationsToRedux: (reservations) =>
+      dispatch(batchAddReservations(reservations)),
   };
 }
 
 export { UnconnectedUserReservationsPage };
 export default connect(
   userReservationsPageSelector,
-  mapDispatch,
+  mapDispatch
 )(UnconnectedUserReservationsPage);

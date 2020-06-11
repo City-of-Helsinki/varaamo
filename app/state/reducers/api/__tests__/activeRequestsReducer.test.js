@@ -16,7 +16,7 @@ describe('state/reducers/api/activeRequestsReducer', () => {
     const apiActionCreator = createAction(
       'REQUEST',
       () => ({}),
-      metaData => ({ API_ACTION: metaData }),
+      (metaData) => ({ API_ACTION: metaData })
     );
 
     describe('actions that have meta.API_ACTIONS.apiRequestStart', () => {
@@ -27,25 +27,17 @@ describe('state/reducers/api/activeRequestsReducer', () => {
 
       describe('if activeRequests already contains the action', () => {
         test('increases the count of the action by one', () => {
-          const initialState = Immutable(
-            { SOME_REQUEST: 2 },
-          );
+          const initialState = Immutable({ SOME_REQUEST: 2 });
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 3 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 3 });
 
           expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
-          const initialState = Immutable(
-            { SOME_REQUEST: 2, OTHER_REQUEST: 1 },
-          );
+          const initialState = Immutable({ SOME_REQUEST: 2, OTHER_REQUEST: 1 });
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 3, OTHER_REQUEST: 1 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 3, OTHER_REQUEST: 1 });
 
           expect(nextState).toEqual(expected);
         });
@@ -55,21 +47,15 @@ describe('state/reducers/api/activeRequestsReducer', () => {
         test('adds the action to activeRequests with count 1', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 1 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 1 });
 
           expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
-          const initialState = Immutable(
-            { OTHER_REQUEST: 1 },
-          );
+          const initialState = Immutable({ OTHER_REQUEST: 1 });
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 1, OTHER_REQUEST: 1 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 1, OTHER_REQUEST: 1 });
 
           expect(nextState).toEqual(expected);
         });
@@ -86,25 +72,20 @@ describe('state/reducers/api/activeRequestsReducer', () => {
           });
 
           test('decreases the count of the action by one', () => {
-            const initialState = Immutable(
-              { SOME_REQUEST: 2 },
-            );
+            const initialState = Immutable({ SOME_REQUEST: 2 });
             const nextState = activeRequestsReducer(initialState, action);
-            const expected = Immutable(
-              { SOME_REQUEST: 1 },
-            );
+            const expected = Immutable({ SOME_REQUEST: 1 });
 
             expect(nextState).toEqual(expected);
           });
 
           test('does not affect the existing activeRequests', () => {
-            const initialState = Immutable(
-              { SOME_REQUEST: 2, OTHER_REQUEST: 1 },
-            );
+            const initialState = Immutable({
+              SOME_REQUEST: 2,
+              OTHER_REQUEST: 1,
+            });
             const nextState = activeRequestsReducer(initialState, action);
-            const expected = Immutable(
-              { SOME_REQUEST: 1, OTHER_REQUEST: 1 },
-            );
+            const expected = Immutable({ SOME_REQUEST: 1, OTHER_REQUEST: 1 });
 
             expect(nextState).toEqual(expected);
           });
@@ -117,25 +98,20 @@ describe('state/reducers/api/activeRequestsReducer', () => {
           });
 
           test('sets the count of the action to 0', () => {
-            const initialState = Immutable(
-              { SOME_REQUEST: 2 },
-            );
+            const initialState = Immutable({ SOME_REQUEST: 2 });
             const nextState = activeRequestsReducer(initialState, action);
-            const expected = Immutable(
-              { SOME_REQUEST: 0 },
-            );
+            const expected = Immutable({ SOME_REQUEST: 0 });
 
             expect(nextState).toEqual(expected);
           });
 
           test('does not affect the existing activeRequests', () => {
-            const initialState = Immutable(
-              { SOME_REQUEST: 2, OTHER_REQUEST: 1 },
-            );
+            const initialState = Immutable({
+              SOME_REQUEST: 2,
+              OTHER_REQUEST: 1,
+            });
             const nextState = activeRequestsReducer(initialState, action);
-            const expected = Immutable(
-              { SOME_REQUEST: 0, OTHER_REQUEST: 1 },
-            );
+            const expected = Immutable({ SOME_REQUEST: 0, OTHER_REQUEST: 1 });
 
             expect(nextState).toEqual(expected);
           });
@@ -151,21 +127,15 @@ describe('state/reducers/api/activeRequestsReducer', () => {
         test('adds the action to activeRequests with count 0', () => {
           const initialState = Immutable({});
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 0 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 0 });
 
           expect(nextState).toEqual(expected);
         });
 
         test('does not affect the existing activeRequests', () => {
-          const initialState = Immutable(
-            { OTHER_REQUEST: 1 },
-          );
+          const initialState = Immutable({ OTHER_REQUEST: 1 });
           const nextState = activeRequestsReducer(initialState, action);
-          const expected = Immutable(
-            { SOME_REQUEST: 0, OTHER_REQUEST: 1 },
-          );
+          const expected = Immutable({ SOME_REQUEST: 0, OTHER_REQUEST: 1 });
 
           expect(nextState).toEqual(expected);
         });

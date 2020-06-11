@@ -35,11 +35,17 @@ class UnconnectedAdminResourcesPage extends Component {
     const interval = 10 * 60 * 1000;
     this.fetchResources();
     this.props.actions.fetchUnits();
-    this.updateResourcesTimer = window.setInterval(this.fetchResources, interval);
+    this.updateResourcesTimer = window.setInterval(
+      this.fetchResources,
+      interval
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.date !== this.props.date || nextProps.location !== this.props.location) {
+    if (
+      nextProps.date !== this.props.date ||
+      nextProps.location !== this.props.location
+    ) {
       this.fetchResources(nextProps.date);
     }
   }
@@ -50,7 +56,10 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   fetchResources(date = this.props.date) {
-    this.props.actions.fetchFavoritedResources(moment(date), 'adminResourcesPage');
+    this.props.actions.fetchFavoritedResources(
+      moment(date),
+      'adminResourcesPage'
+    );
   }
 
   handleSelect(selection) {
@@ -71,15 +80,23 @@ class UnconnectedAdminResourcesPage extends Component {
       resourceTypes,
     } = this.props;
     return (
-      <PageWrapper className="admin-resources-page" fluid title={(t('AdminResourcesPage.adminTitle'))}>
+      <PageWrapper
+        className="admin-resources-page"
+        fluid
+        title={t('AdminResourcesPage.adminTitle')}
+      >
         {isAdmin && <h1>{t('AdminResourcesPage.adminTitle')}</h1>}
         {!isAdmin && <h1>{t('AdminResourcesPage.favoriteTitle')}</h1>}
         <Loader loaded={Boolean(!isFetchingResources || resources.length)}>
           {isLoggedin && (
             <div>
               <ResourceTypeFilter
-                onSelectResourceType={this.props.actions.selectAdminResourceType}
-                onUnselectResourceType={this.props.actions.unselectAdminResourceType}
+                onSelectResourceType={
+                  this.props.actions.selectAdminResourceType
+                }
+                onUnselectResourceType={
+                  this.props.actions.unselectAdminResourceType
+                }
                 resourceTypes={resourceTypes}
                 selectedResourceTypes={selectedResourceTypes}
               />
@@ -92,19 +109,22 @@ class UnconnectedAdminResourcesPage extends Component {
               />
             </div>
           )}
-          {isLoggedin && !resources.length && <p>{t('AdminResourcesPage.noResourcesMessage')}</p>}
+          {isLoggedin && !resources.length && (
+            <p>{t('AdminResourcesPage.noResourcesMessage')}</p>
+          )}
         </Loader>
-        {this.state.selection
-          && (
+        {this.state.selection && (
           <ReservationConfirmationContainer
             params={{ id: this.state.selection.resourceId }}
-            selectedReservations={[{
-              begin: this.state.selection.begin,
-              end: this.state.selection.end,
-              resource: this.state.selection.resourceId,
-            }]}
+            selectedReservations={[
+              {
+                begin: this.state.selection.begin,
+                end: this.state.selection.end,
+                resource: this.state.selection.resourceId,
+              },
+            ]}
           />
-          )}
+        )}
         <ReservationSuccessModal />
       </PageWrapper>
     );
@@ -142,6 +162,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedAdminResourcesPage };
-export default (
-  connect(adminResourcesPageSelector, mapDispatchToProps)(injectT(UnconnectedAdminResourcesPage))
-);
+export default connect(
+  adminResourcesPageSelector,
+  mapDispatchToProps
+)(injectT(UnconnectedAdminResourcesPage));

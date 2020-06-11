@@ -9,7 +9,7 @@ describe('InfoLabel', () => {
     const labelStyle = 'success';
     const labelText = 'Success';
     const wrapper = shallow(
-      <InfoLabel labelStyle={labelStyle} labelText={labelText} />,
+      <InfoLabel labelStyle={labelStyle} labelText={labelText} />
     );
 
     expect(toJson(wrapper)).toMatchSnapshot();

@@ -3,7 +3,6 @@ import { Strategy } from 'passport-helsinki';
 
 import settings from '../../config/settings';
 
-
 function configurePassport() {
   const helsinkiStrategy = new Strategy(
     {
@@ -13,11 +12,15 @@ function configurePassport() {
       proxy: Boolean(settings.PROXY),
     },
     (accessToken, refreshToken, profile, cb) => {
-      helsinkiStrategy.getAPIToken(accessToken, settings.TARGET_APP, (token) => {
-        const profileWithToken = Object.assign({}, profile, { token });
-        return cb(null, profileWithToken);
-      });
-    },
+      helsinkiStrategy.getAPIToken(
+        accessToken,
+        settings.TARGET_APP,
+        (token) => {
+          const profileWithToken = { ...profile, token };
+          return cb(null, profileWithToken);
+        }
+      );
+    }
   );
 
   passport.use(helsinkiStrategy);

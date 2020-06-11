@@ -5,9 +5,7 @@ import RBCheckbox from 'react-bootstrap/lib/Checkbox';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-function TermsField({
-  input, label, meta,
-}) {
+function TermsField({ input, label, meta }) {
   const showError = meta.error && meta.touched;
   return (
     <FormGroup

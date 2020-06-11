@@ -13,13 +13,12 @@ describe('Actions: resourceActions', () => {
       simple.restore();
     });
 
-    test(
-      'calls createAction with a string containing the component name that is provided',
-      () => {
-        updateRoute('homepage');
+    test('calls createAction with a string containing the component name that is provided', () => {
+      updateRoute('homepage');
 
-        expect(reduxActions.createAction.calls[0].arg).toBe('ENTER_OR_CHANGE_HOMEPAGE_PAGE');
-      },
-    );
+      expect(reduxActions.createAction.calls[0].arg).toBe(
+        'ENTER_OR_CHANGE_HOMEPAGE_PAGE'
+      );
+    });
   });
 });

@@ -6,9 +6,7 @@ import ManageReservationsComment from '../ManageReservationsComment';
 
 describe('ManageReservationsComment', () => {
   test('renders correctly', () => {
-    const wrapper = shallow(
-      <ManageReservationsComment comments="foo" />,
-    );
+    const wrapper = shallow(<ManageReservationsComment comments="foo" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

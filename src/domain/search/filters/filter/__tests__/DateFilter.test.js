@@ -13,18 +13,21 @@ const defaultProps = {
   locale: 'en',
   onChange: jest.fn(),
   date: new Date(2017, 11, 10),
-  t: jest.fn(translationString => translationString),
+  t: jest.fn((translationString) => translationString),
 };
 
-const findOverlay = wrapper => wrapper.find(Overlay);
-const findInput = wrapper => wrapper.find(`[aria-describedby="${defaultProps.name}-error"]`);
-const clickInput = wrapper => findInput(wrapper).simulate('click');
-const findDatepickerWrapper = wrapper => wrapper.find(Overlay).children().first().dive();
-const findDatepickerDropdownToggleButton = wrapper => wrapper.find(Button);
-const findDayPicker = wrapper => wrapper.find(DayPicker);
+const findOverlay = (wrapper) => wrapper.find(Overlay);
+const findInput = (wrapper) =>
+  wrapper.find(`[aria-describedby="${defaultProps.name}-error"]`);
+const clickInput = (wrapper) => findInput(wrapper).simulate('click');
+const findDatepickerWrapper = (wrapper) =>
+  wrapper.find(Overlay).children().first().dive();
+const findDatepickerDropdownToggleButton = (wrapper) => wrapper.find(Button);
+const findDayPicker = (wrapper) => wrapper.find(DayPicker);
 
 describe('DateFilter', () => {
-  const getWrapper = props => shallow(<DateFilter {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallow(<DateFilter {...defaultProps} {...props} />);
 
   test('render normally', () => {
     const mockDate = new Date(2017, 11, 10);
@@ -32,9 +35,7 @@ describe('DateFilter', () => {
 
     global.Date = () => mockDate;
 
-    const wrapper = shallow(
-      <DateFilter {...defaultProps} />,
-    );
+    const wrapper = shallow(<DateFilter {...defaultProps} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
 

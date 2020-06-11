@@ -11,7 +11,7 @@ import notificationsSelector from './notificationsSelector';
 class UnconnectedNotificationsContainer extends Component {
   render() {
     const { actions, notifications, t } = this.props;
-    const translatedNotifications = notifications.map(notification => ({
+    const translatedNotifications = notifications.map((notification) => ({
       ...notification,
       message: notification.message || t(notification.messageId),
     }));
@@ -40,6 +40,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedNotificationsContainer };
-export default connect(notificationsSelector, mapDispatchToProps)(
-  UnconnectedNotificationsContainer,
-);
+export default connect(
+  notificationsSelector,
+  mapDispatchToProps
+)(UnconnectedNotificationsContainer);

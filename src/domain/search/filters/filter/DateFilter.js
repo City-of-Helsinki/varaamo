@@ -15,9 +15,7 @@ import injectT from '../../../../../app/i18n/injectT';
 import iconCalendar from './images/calendar.svg';
 
 const DatePickerWrapper = ({ children }) => (
-  <div className="app-DateFilter__datePicker">
-    {children}
-  </div>
+  <div className="app-DateFilter__datePicker">{children}</div>
 );
 
 function formatDate(date) {
@@ -76,8 +74,14 @@ class UntranslatedDateFilter extends React.Component {
           break;
         }
 
-        const formattedInputDate = moment(this.state.inputValue, 'L', true).format(constants.DATE_FORMAT);
-        const formattedPropsDate = moment(this.props.date).format(constants.DATE_FORMAT);
+        const formattedInputDate = moment(
+          this.state.inputValue,
+          'L',
+          true
+        ).format(constants.DATE_FORMAT);
+        const formattedPropsDate = moment(this.props.date).format(
+          constants.DATE_FORMAT
+        );
 
         if (formattedInputDate === formattedPropsDate) {
           this.setState({ isOpen: false });
@@ -87,7 +91,7 @@ class UntranslatedDateFilter extends React.Component {
       default:
         break;
     }
-  }
+  };
 
   onChange = (newDate) => {
     const { onChange } = this.props;
@@ -102,34 +106,28 @@ class UntranslatedDateFilter extends React.Component {
 
   isValidDate = (date, format = 'L') => {
     return moment(date, format, true).isValid();
-  }
+  };
 
   handleInputChange = (event) => {
-    const value = event.target.value;
+    const { value } = event.target;
 
     this.setState({ inputValue: value });
 
     if (value && this.isValidDate(value)) {
       this.props.onChange(moment(value, 'L', true));
     }
-  }
+  };
 
   handleInputBlur = () => {
     this.setState({ inputTouched: true });
-  }
+  };
 
   handleDateButtonClick = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
-  }
+    this.setState((state) => ({ isOpen: !state.isOpen }));
+  };
 
   render() {
-    const {
-      locale,
-      label,
-      date,
-      name,
-      t,
-    } = this.props;
+    const { locale, label, date, name, t } = this.props;
     const { isOpen, inputValue, inputTouched } = this.state;
     const inputError = inputTouched && !this.isValidDate(inputValue);
     const errorMessageId = `${name}-error`;
@@ -145,7 +143,7 @@ class UntranslatedDateFilter extends React.Component {
               id={errorMessageId}
               role="alert"
             >
-                {t('DatePickerControl.form.error.feedback')}
+              {t('DatePickerControl.form.error.feedback')}
             </span>
           )}
           <InputGroup>
@@ -173,7 +171,11 @@ class UntranslatedDateFilter extends React.Component {
                 {/* This image is hidden from screen readers so the */}
                 {/* alt text is here to help seeing mouse using */}
                 {/* users */}
-                <img alt={t('DatePickerControl.button.imageAlt')} className="app-DateFilter__icon" src={iconCalendar} />
+                <img
+                  alt={t('DatePickerControl.button.imageAlt')}
+                  className="app-DateFilter__icon"
+                  src={iconCalendar}
+                />
               </Button>
             </InputGroup.Button>
           </InputGroup>
@@ -188,11 +190,11 @@ class UntranslatedDateFilter extends React.Component {
         >
           <DatePickerWrapper>
             <DayPicker
-              disabledDays={day => moment(day).isBefore(moment(), 'date')}
+              disabledDays={(day) => moment(day).isBefore(moment(), 'date')}
               initialMonth={date}
               locale={locale}
               localeUtils={MomentLocaleUtils}
-              onDayClick={newDate => this.onChange(newDate)}
+              onDayClick={(newDate) => this.onChange(newDate)}
               selectedDays={date}
               showOutsideDays
               showWeekNumbers

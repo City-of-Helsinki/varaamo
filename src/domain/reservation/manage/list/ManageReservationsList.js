@@ -38,8 +38,10 @@ const ManageReservationsList = ({
             <th>{t('ManageReservationsList.resourceHeader')}</th>
             <th>{t('ManageReservationsList.premiseHeader')}</th>
             <th>{t('ManageReservationsList.dateAndTimeHeader')}</th>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
             <th>{t('ManageReservationsList.pinHeader')}</th>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
             <th>{t('ManageReservationsList.statusHeader')}</th>
             <th>{t('ManageReservationsList.actionsHeader')}</th>
@@ -47,7 +49,10 @@ const ManageReservationsList = ({
         </thead>
         <tbody>
           {reservations.map((reservation) => {
-            const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+            const normalizedReservation = {
+              ...reservation,
+              resource: reservation.resource.id,
+            };
             // API only accept resource in reservation as string in request body
 
             return (
@@ -55,29 +60,44 @@ const ManageReservationsList = ({
                 <td>{get(reservation, 'event_description') || '-'}</td>
                 <td>{get(reservation, 'user.display_name') || '-'}</td>
                 <td>{get(reservation, 'user.email') || '-'}</td>
-                <td>{dataUtils.getLocalizedFieldValue(get(reservation, 'resource.name'), locale) || '-'}</td>
                 <td>
                   {dataUtils.getLocalizedFieldValue(
-                    get(reservation, 'resource.unit.name'), locale,
+                    get(reservation, 'resource.name'),
+                    locale
+                  ) || '-'}
+                </td>
+                <td>
+                  {dataUtils.getLocalizedFieldValue(
+                    get(reservation, 'resource.unit.name'),
+                    locale
                   ) || '-'}
                 </td>
                 <td>{getDateAndTime(reservation)}</td>
                 <td />
-                <td><ManageReservationsPincode reservation={reservation} /></td>
-                <td><ManageReservationsComment comments={reservation.comments} /></td>
-                <td><ManageReservationsStatus reservation={reservation} /></td>
+                <td>
+                  <ManageReservationsPincode reservation={reservation} />
+                </td>
+                <td>
+                  <ManageReservationsComment comments={reservation.comments} />
+                </td>
+                <td>
+                  <ManageReservationsStatus reservation={reservation} />
+                </td>
                 <td>
                   <ManageReservationsDropdown
                     onEditClick={() => onEditClick(reservation)}
                     onEditReservation={onEditReservation}
                     onInfoClick={() => onInfoClick(reservation)}
                     reservation={normalizedReservation}
-                    userCanCancel={reservationUtils.canUserCancelReservation(reservation)}
-                    userCanModify={reservationUtils.canUserModifyReservation(reservation)}
+                    userCanCancel={reservationUtils.canUserCancelReservation(
+                      reservation
+                    )}
+                    userCanModify={reservationUtils.canUserModifyReservation(
+                      reservation
+                    )}
                   />
                 </td>
               </tr>
-
             );
           })}
         </tbody>

@@ -6,9 +6,7 @@ import PopoverOverlay from '../PopoverOverlay';
 
 describe('PopoverOverlay', () => {
   test('renders correctly', () => {
-    const wrapper = shallow(
-      <PopoverOverlay />,
-    );
+    const wrapper = shallow(<PopoverOverlay />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

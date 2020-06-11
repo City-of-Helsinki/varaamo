@@ -8,9 +8,8 @@ import Reservation from '../../../utils/fixtures/Reservation';
 import Resource from '../../../utils/fixtures/Resource';
 import { getEditReservationUrl } from '../../../utils/reservationUtils';
 import ReservationControls from '../ReservationControls';
-import {
-  UnconnectedReservationControlsContainer as ReservationControlsContainer,
-} from '../ReservationControlsContainer';
+// eslint-disable-next-line max-len
+import { UnconnectedReservationControlsContainer as ReservationControlsContainer } from '../ReservationControlsContainer';
 
 describe('shared/reservation-controls/ReservationControlsContainer', () => {
   // This project handles API responses differently based on the method
@@ -45,7 +44,10 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
     reservation,
     resource,
   };
-  const transformedReservation = camelCaseKeys({ ...props.reservation, resource: props.reservation.resource.id });
+  const transformedReservation = camelCaseKeys({
+    ...props.reservation,
+    resource: props.reservation.resource.id,
+  });
 
   let container;
   let instance;
@@ -79,14 +81,12 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       instance.handleCancelClick();
     });
 
-    test(
-      'calls props.actions.selectReservationToCancel with this reservation',
-      () => {
-        expect(props.actions.selectReservationToCancel.callCount).toBe(1);
-        expect(props.actions.selectReservationToCancel.lastCall.args[0])
-          .toEqual(transformedReservation);
-      },
-    );
+    test('calls props.actions.selectReservationToCancel with this reservation', () => {
+      expect(props.actions.selectReservationToCancel.callCount).toBe(1);
+      expect(props.actions.selectReservationToCancel.lastCall.args[0]).toEqual(
+        transformedReservation
+      );
+    });
 
     test('calls the props.actions.openReservationCancelModal function', () => {
       expect(props.actions.openReservationCancelModal.callCount).toBe(1);
@@ -105,16 +105,13 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       simple.restore();
     });
 
-    test(
-      'calls props.actions.selectReservationToEdit with reservation and slotSize',
-      () => {
-        expect(props.actions.selectReservationToEdit.callCount).toBe(1);
-        expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
-          reservation: transformedReservation,
-          slotSize: props.resource.slot_size,
-        });
-      },
-    );
+    test('calls props.actions.selectReservationToEdit with reservation and slotSize', () => {
+      expect(props.actions.selectReservationToEdit.callCount).toBe(1);
+      expect(props.actions.selectReservationToEdit.lastCall.args[0]).toEqual({
+        reservation: transformedReservation,
+        slotSize: props.resource.slot_size,
+      });
+    });
 
     test('calls history.push with correct path', () => {
       const actualPath = historyMock.lastCall.args[0];
@@ -130,13 +127,11 @@ describe('shared/reservation-controls/ReservationControlsContainer', () => {
       instance.handleInfoClick();
     });
 
-    test(
-      'calls the props.actions.showReservationInfoModal function with this reservation',
-      () => {
-        expect(props.actions.showReservationInfoModal.callCount).toBe(1);
-        expect(props.actions.showReservationInfoModal.lastCall.args[0])
-          .toEqual(transformedReservation);
-      },
-    );
+    test('calls the props.actions.showReservationInfoModal function with this reservation', () => {
+      expect(props.actions.showReservationInfoModal.callCount).toBe(1);
+      expect(props.actions.showReservationInfoModal.lastCall.args[0]).toEqual(
+        transformedReservation
+      );
+    });
   });
 });

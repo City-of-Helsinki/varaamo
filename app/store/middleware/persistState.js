@@ -13,7 +13,9 @@ export const loadPersistedLocale = () => {
 
 export const savePersistLocale = (locale) => {
   try {
-    return locale && typeof locale === 'string' ? localStorage.setItem('userLocale', locale) : undefined;
+    return locale && typeof locale === 'string'
+      ? localStorage.setItem('userLocale', locale)
+      : undefined;
   } catch (err) {
     return undefined;
   }

@@ -102,15 +102,12 @@ describe('shared/modals/reservation-success/reservationSuccessModalSelector', ()
       expect(selected.show).toBe(true);
     });
 
-    test(
-      'returns false if modals.open does not contain RESERVATION_SUCCESS',
-      () => {
-        const selected = getSelected({
-          'ui.modals.open': [],
-        });
-        expect(selected.show).toBe(false);
-      },
-    );
+    test('returns false if modals.open does not contain RESERVATION_SUCCESS', () => {
+      const selected = getSelected({
+        'ui.modals.open': [],
+      });
+      expect(selected.show).toBe(false);
+    });
   });
 
   test('returns user', () => {

@@ -6,7 +6,6 @@ import { UnconnectedResourceCardSlider } from '../ResourceCardSlider';
 import unit from '../../../../../common/data/fixtures/unit';
 import resource from '../../../../../common/data/fixtures/resource';
 
-
 describe('ResourceCardSlider', () => {
   test('renders correctly', () => {
     const props = {
@@ -18,9 +17,7 @@ describe('ResourceCardSlider', () => {
       onFavoriteClick: jest.fn(),
       onFilterClick: jest.fn(),
     };
-    const wrapper = shallow(
-      <UnconnectedResourceCardSlider {...props} />,
-    );
+    const wrapper = shallow(<UnconnectedResourceCardSlider {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

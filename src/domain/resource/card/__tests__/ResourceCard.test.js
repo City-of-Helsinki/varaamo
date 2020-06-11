@@ -17,9 +17,7 @@ describe('ResourceCard', () => {
       unit: unit.build(),
       t: () => {},
     };
-    const wrapper = shallowWithIntl(
-      <UnconnectedResourceCard {...props} />,
-    );
+    const wrapper = shallowWithIntl(<UnconnectedResourceCard {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

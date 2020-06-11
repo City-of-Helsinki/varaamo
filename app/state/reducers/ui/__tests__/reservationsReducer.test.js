@@ -65,7 +65,9 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
-      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
+      const postReservationSuccess = createAction(
+        types.API.RESERVATION_POST_SUCCESS
+      );
 
       test('clears selected', () => {
         const action = postReservationSuccess();
@@ -119,7 +121,7 @@ describe('state/reducers/ui/reservationsReducer', () => {
       const postReservationError = createAction(
         types.API.RESERVATION_POST_ERROR,
         () => ({ response: { non_field_errors: [`['${failReason}']`] } }),
-        reservation => ({ reservation }),
+        (reservation) => ({ reservation })
       );
 
       test('adds the reservation in meta info to failed', () => {
@@ -141,7 +143,10 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const action = postReservationError(reservations[1]);
         const nextState = reservationsReducer(initialState, action);
-        const expected = Immutable([reservations[0], { ...reservations[1], failReason }]);
+        const expected = Immutable([
+          reservations[0],
+          { ...reservations[1], failReason },
+        ]);
 
         expect(nextState.failed).toEqual(expected);
       });
@@ -149,7 +154,9 @@ describe('state/reducers/ui/reservationsReducer', () => {
 
     describe('API.RESERVATION_PUT_SUCCESS', () => {
       const reservation = Reservation.build();
-      const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
+      const putReservationSuccess = createAction(
+        types.API.RESERVATION_PUT_SUCCESS
+      );
 
       test('clears selected', () => {
         const action = putReservationSuccess(reservation);
@@ -360,7 +367,9 @@ describe('state/reducers/ui/reservationsReducer', () => {
           selected: [],
           toEdit: [reservations[0]],
         });
-        const action = selectReservationToEdit({ reservation: reservations[1] });
+        const action = selectReservationToEdit({
+          reservation: reservations[1],
+        });
         const nextState = reservationsReducer(initialState, action);
         const expected = Immutable([reservations[1]]);
 
@@ -378,7 +387,11 @@ describe('state/reducers/ui/reservationsReducer', () => {
         });
         const action = selectReservationToEdit({ reservation, slotSize });
         const nextState = reservationsReducer(initialState, action);
-        const slots = getTimeSlots(reservation.begin, reservation.end, slotSize);
+        const slots = getTimeSlots(
+          reservation.begin,
+          reservation.end,
+          slotSize
+        );
         const firstSlot = first(slots);
         const lastSlot = last(slots);
         const expected = [

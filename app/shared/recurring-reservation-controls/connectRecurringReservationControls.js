@@ -15,7 +15,7 @@ function selectFrequencyOptions() {
 
 const isVisibleSelector = createSelector(
   recurringReservations.selectBaseTime,
-  baseTime => Boolean(baseTime),
+  (baseTime) => Boolean(baseTime)
 );
 
 export const selector = createStructuredSelector({

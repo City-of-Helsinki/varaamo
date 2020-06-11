@@ -26,7 +26,10 @@ import iconTimes from './images/times.svg';
 function timeToDatetime(time, date) {
   const [hours, minutes] = time.split(':');
 
-  return moment(date).startOf('day').hours(hours).minutes(minutes)
+  return moment(date)
+    .startOf('day')
+    .hours(hours)
+    .minutes(minutes)
     .format(constants.DATETIME_FORMAT);
 }
 
@@ -74,11 +77,15 @@ class SearchFilters extends React.Component {
 
   parseAvailableBetweenFilter = (availableBetween) => {
     const [startDatetime, endDatetime, duration] = availableBetween.split(',');
-    const startTime = moment(startDatetime, constants.DATETIME_FORMAT).format('HH:mm');
-    const endTime = moment(endDatetime, constants.DATETIME_FORMAT).format('HH:mm');
+    const startTime = moment(startDatetime, constants.DATETIME_FORMAT).format(
+      'HH:mm'
+    );
+    const endTime = moment(endDatetime, constants.DATETIME_FORMAT).format(
+      'HH:mm'
+    );
 
     return [startTime, endTime, duration].join(',');
-  }
+  };
 
   // We use date and availableBetween at the same time in our searches.
   // This causes a conflict of interest--both of them use the same
@@ -113,7 +120,7 @@ class SearchFilters extends React.Component {
     };
 
     return nextFilters;
-  }
+  };
 
   onFilterChange = (filterName, filterValue) => {
     const { filters } = this.state;
@@ -133,14 +140,20 @@ class SearchFilters extends React.Component {
 
   onSearch = () => {
     const { onChange } = this.props;
-    const { filters, filters: { availableBetween, date } } = this.state;
+    const {
+      filters,
+      filters: { availableBetween, date },
+    } = this.state;
     const nextFilters = {
       ...omit(filters, 'page'),
     };
 
     // Inject date back into availableBetween before sending the filter.
     if (availableBetween) {
-      nextFilters.availableBetween = injectDateIntoAvailableBetween(availableBetween, date);
+      nextFilters.availableBetween = injectDateIntoAvailableBetween(
+        availableBetween,
+        date
+      );
     }
 
     onChange(nextFilters);
@@ -169,9 +182,7 @@ class SearchFilters extends React.Component {
       units,
       onGeolocationToggle,
     } = this.props;
-    const {
-      filters,
-    } = this.state;
+    const { filters } = this.state;
 
     const date = get(filters, 'date', moment().format(constants.DATE_FORMAT));
     const municipality = get(filters, 'municipality', '');
@@ -187,7 +198,7 @@ class SearchFilters extends React.Component {
                 <TextFilter
                   id="searchField"
                   label={t('SearchFilters.searchLabel')}
-                  onChange={value => this.onFilterChange('search', value)}
+                  onChange={(value) => this.onFilterChange('search', value)}
                   onSearch={() => this.onSearch()}
                   value={get(filters, 'search', '')}
                 />
@@ -198,7 +209,10 @@ class SearchFilters extends React.Component {
                   label={t('SearchFilters.dateLabel')}
                   name="date-filter"
                   onChange={(newValue) => {
-                    this.onFilterChange('date', moment(newValue).format(constants.DATE_FORMAT));
+                    this.onFilterChange(
+                      'date',
+                      moment(newValue).format(constants.DATE_FORMAT)
+                    );
                   }}
                 />
                 <Button
@@ -206,7 +220,12 @@ class SearchFilters extends React.Component {
                   className="app-SearchFilters__today-button"
                   disabled={moment(date).isSame(moment(), 'day')}
                   key="today-button"
-                  onClick={() => this.onFilterChange('date', moment().format(constants.DATE_FORMAT))}
+                  onClick={() =>
+                    this.onFilterChange(
+                      'date',
+                      moment().format(constants.DATE_FORMAT)
+                    )
+                  }
                   type="submit"
                 >
                   {t('TimePickerCalendar.info.today')}
@@ -226,7 +245,7 @@ class SearchFilters extends React.Component {
                     onChange={(items) => {
                       this.onFilterChange(
                         'municipality',
-                        items ? items.map(item => item.value).join(',') : null,
+                        items ? items.map((item) => item.value).join(',') : null
                       );
                     }}
                     options={searchUtils.getMunicipalityOptions()}
@@ -241,8 +260,13 @@ class SearchFilters extends React.Component {
                     isLoading={isLoadingPurposes}
                     label={t('SearchFilters.purposeLabel')}
                     name="app-SearchFilters-purpose-select"
-                    onChange={item => this.onFilterChange('purpose', item.value)}
-                    options={searchUtils.getPurposeOptions(purposes, intl.locale)}
+                    onChange={(item) =>
+                      this.onFilterChange('purpose', item.value)
+                    }
+                    options={searchUtils.getPurposeOptions(
+                      purposes,
+                      intl.locale
+                    )}
                     value={filters.purpose}
                   />
                 </Col>
@@ -252,7 +276,7 @@ class SearchFilters extends React.Component {
                     isLoading={isLoadingUnits}
                     label={t('SearchFilters.unitLabel')}
                     name="app-SearchControls-unit-select"
-                    onChange={item => this.onFilterChange('unit', item.value)}
+                    onChange={(item) => this.onFilterChange('unit', item.value)}
                     options={searchUtils.getUnitOptions(units, intl.locale)}
                     value={filters.unit}
                   />
@@ -262,7 +286,9 @@ class SearchFilters extends React.Component {
                     id="people"
                     label={t('SearchFilters.peopleCapacityLabel')}
                     name="app-SearchFilters-people-select"
-                    onChange={item => this.onFilterChange('people', item.value)}
+                    onChange={(item) =>
+                      this.onFilterChange('people', item.value)
+                    }
                     options={searchUtils.getPeopleCapacityOptions()}
                     value={Number(get(filters, 'people'))}
                   />
@@ -272,7 +298,9 @@ class SearchFilters extends React.Component {
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <PositionControl
                     geolocated={isGeolocationEnabled}
-                    onConfirm={value => this.onFilterChange('distance', value)}
+                    onConfirm={(value) =>
+                      this.onFilterChange('distance', value)
+                    }
                     onPositionSwitch={() => {
                       if (isGeolocationEnabled) {
                         this.onFilterChange('distance', null);
@@ -286,7 +314,9 @@ class SearchFilters extends React.Component {
                 <Col className="app-SearchFilters__control" md={4} sm={6}>
                   <TimeRangeFilter
                     label={t('TimeRangeControl.timeRangeTitle')}
-                    onChange={value => this.onFilterChange('availableBetween', value)}
+                    onChange={(value) =>
+                      this.onFilterChange('availableBetween', value)
+                    }
                     value={availableBetween}
                   />
                 </Col>
@@ -295,7 +325,9 @@ class SearchFilters extends React.Component {
                     checked={!!get(filters, 'freeOfCharge', false)}
                     id="charge"
                     label={t('SearchFilters.chargeLabel')}
-                    onChange={checked => this.onFilterChange('freeOfCharge', checked)}
+                    onChange={(checked) =>
+                      this.onFilterChange('freeOfCharge', checked)
+                    }
                   />
                 </Col>
               </Row>

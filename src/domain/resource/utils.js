@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import round from 'lodash/round';
 import filter from 'lodash/filter';
 import findIndex from 'lodash/findIndex';
@@ -11,7 +12,11 @@ import * as urlUtils from '../../common/url/utils';
 import * as dataUtils from '../../common/data/utils';
 import * as reservationUtils from '../reservation/utils';
 import constants from '../../../app/constants/AppConstants';
-import { resourcePriceTypes, resourceProductTypes, productPriceType } from './constants';
+import {
+  resourcePriceTypes,
+  resourceProductTypes,
+  productPriceType,
+} from './constants';
 
 /**
  * getResourcePageLink();
@@ -32,7 +37,10 @@ export const getResourcePageLink = (resource, query) => {
  */
 export const getUnitAddress = (unit, locale) => {
   let postal;
-  const streetAddress = dataUtils.getLocalizedFieldValue(unit.street_address, locale);
+  const streetAddress = dataUtils.getLocalizedFieldValue(
+    unit.street_address,
+    locale
+  );
   if (unit && unit.address_zip) {
     postal = unit.address_zip;
   }
@@ -69,7 +77,9 @@ function getPriceUnit(resourcePriceType) {
 
 function getPriceEnding(resourcePriceType, labels) {
   const resourcePriceUnit = getPriceUnit(resourcePriceType);
-  const translatedPriceUnit = resourcePriceUnit ? labels[resourcePriceUnit] : null;
+  const translatedPriceUnit = resourcePriceUnit
+    ? labels[resourcePriceUnit]
+    : null;
 
   return resourcePriceUnit ? `€/${translatedPriceUnit}` : '€';
 }
@@ -132,7 +142,11 @@ export const isFree = (resource) => {
     return true;
   }
 
-  if (minPricePerHour && maxPricePerHour && minPricePerHour !== maxPricePerHour) {
+  if (
+    minPricePerHour &&
+    maxPricePerHour &&
+    minPricePerHour !== maxPricePerHour
+  ) {
     return false;
   }
 
@@ -174,7 +188,9 @@ export const getOpeningHours = (resource, date = null) => {
     return null;
   }
 
-  const index = date ? findIndex(openingHours, item => item.date === date) : 0;
+  const index = date
+    ? findIndex(openingHours, (item) => item.date === date)
+    : 0;
   return {
     closes: get(openingHours, `[${index}].closes`),
     opens: get(openingHours, `[${index}].opens`),
@@ -188,8 +204,7 @@ export const getOpeningHours = (resource, date = null) => {
  * @returns {[]}
  */
 export const getOpeningHoursForWeek = (resource, date = null) => {
-  let momentDate = moment(date)
-    .startOf('week');
+  let momentDate = moment(date).startOf('week');
 
   const openingHours = [];
   for (let i = 0; i < 7; i++) {
@@ -227,7 +242,6 @@ export const getFullCalendarBusinessHours = (resource, date = null) => {
   return businessHours;
 };
 
-
 /**
  * getFullCalendarBusinessHoursForDate();
  * @param resource Resource object.
@@ -238,7 +252,7 @@ export const getFullCalendarBusinessHoursForDate = (resource, date) => {
   let dayNumber = Number(moment(date).format('E'));
   dayNumber = dayNumber < 7 ? dayNumber : 0;
 
-  return find(businessHoursForWeek, item => item.daysOfWeek[0] === dayNumber);
+  return find(businessHoursForWeek, (item) => item.daysOfWeek[0] === dayNumber);
 };
 
 /**
@@ -272,7 +286,10 @@ export const getFullCalendarMinTime = (resource, date, viewType) => {
     if (item.opens) {
       const opens = moment(item.opens);
 
-      if (!min || (opens.minutes() + opens.hours() * 60) < (min.minutes() + min.hours() * 60)) {
+      if (
+        !min ||
+        opens.minutes() + opens.hours() * 60 < min.minutes() + min.hours() * 60
+      ) {
         min = opens;
       }
     }
@@ -280,7 +297,10 @@ export const getFullCalendarMinTime = (resource, date, viewType) => {
 
   if (min) {
     // Subtract the buffer from the min value.
-    const slotSize = moment.duration(get(resource, 'slot_size', '01:00:00'), 'hours');
+    const slotSize = moment.duration(
+      get(resource, 'slot_size', '01:00:00'),
+      'hours'
+    );
     min.subtract(slotSize, 'hour');
 
     // Make sure that the min value is an even hour.
@@ -289,8 +309,7 @@ export const getFullCalendarMinTime = (resource, date, viewType) => {
       min.subtract(1, 'hour');
     }
 
-    return min
-      .format('HH:mm:ss');
+    return min.format('HH:mm:ss');
   }
 
   return defaultMin;
@@ -327,7 +346,11 @@ export const getFullCalendarMaxTime = (resource, date, viewType) => {
     if (item.closes) {
       const closes = moment(item.closes);
 
-      if (!max || (closes.minutes() + closes.hours() * 60) > (max.minutes() + max.hours() * 60)) {
+      if (
+        !max ||
+        closes.minutes() + closes.hours() * 60 >
+          max.minutes() + max.hours() * 60
+      ) {
         max = closes;
       }
     }
@@ -347,13 +370,15 @@ export const getFullCalendarMaxTime = (resource, date, viewType) => {
     // to overflow to tomorrow. That would cause a situation where
     // maxTime could equal less than minTime and the calendar would not
     // render properly.
-    const slotSize = moment.duration(get(resource, 'slot_size', '01:00:00'), 'hours');
+    const slotSize = moment.duration(
+      get(resource, 'slot_size', '01:00:00'),
+      'hours'
+    );
     if (hasTimeUntilEndOfDay(max, slotSize)) {
       max.add(slotSize, 'hour');
     }
 
-    return max
-      .format('HH:mm:ss');
+    return max.format('HH:mm:ss');
   }
 
   return defaultMax;
@@ -402,8 +427,12 @@ export const isDateReservable = (resource, date) => {
   const reservableBefore = get(resource, 'reservable_before', null);
 
   const isAdmin = get(resource, 'user_permissions.is_admin', false);
-  const isBefore = reservableBefore ? moment(date).isSameOrBefore(moment(reservableBefore), 'day') : true;
-  const isAfter = reservableAfter ? moment(date).isSameOrAfter(moment(reservableAfter), 'day') : true;
+  const isBefore = reservableBefore
+    ? moment(date).isSameOrBefore(moment(reservableBefore), 'day')
+    : true;
+  const isAfter = reservableAfter
+    ? moment(date).isSameOrAfter(moment(reservableAfter), 'day')
+    : true;
 
   return isAdmin || (isBefore && isAfter);
 };
@@ -451,15 +480,21 @@ export const isTimeRangeReservable = (resource, start, end, events) => {
 
   // Check if current time slot is overlapped with reserved reservation
   if (!isEmpty(events)) {
-    const isReserved = isBetweenReservedTimeRange(events, start, endMoment.toDate());
+    const isReserved = isBetweenReservedTimeRange(
+      events,
+      start,
+      endMoment.toDate()
+    );
 
     if (isReserved) {
       return false;
     }
   }
 
-  if (!isDateReservable(resource, startMoment.format(constants.DATE_FORMAT))
-    || !isDateReservable(resource, endMoment.format(constants.DATE_FORMAT))) {
+  if (
+    !isDateReservable(resource, startMoment.format(constants.DATE_FORMAT)) ||
+    !isDateReservable(resource, endMoment.format(constants.DATE_FORMAT))
+  ) {
     return false;
   }
 
@@ -493,7 +528,9 @@ export const reservingIsRestricted = (resource, date) => {
   }
 
   const isAdmin = get(resource, 'user_permissions.is_admin', false);
-  const isLimited = resource.reservable_before && moment(resource.reservable_before).isBefore(moment(date), 'day');
+  const isLimited =
+    resource.reservable_before &&
+    moment(resource.reservable_before).isBefore(moment(date), 'day');
 
   return isLimited && !isAdmin;
 };
@@ -532,9 +569,14 @@ export const getAvailabilityDataForNow = (resource, date) => {
     return { status: 'closed', bsStyle: 'danger' };
   }
 
-  const currentReservation = reservationUtils.getCurrentReservation(reservations);
+  const currentReservation = reservationUtils.getCurrentReservation(
+    reservations
+  );
   if (currentReservation || nowMoment < opensMoment) {
-    const nextAvailableTime = reservationUtils.getNextAvailableTime(reservations, beginMoment);
+    const nextAvailableTime = reservationUtils.getNextAvailableTime(
+      reservations,
+      beginMoment
+    );
     if (nextAvailableTime < closesMoment) {
       return {
         status: 'availableAt',
@@ -629,7 +671,7 @@ export const getReservationPrice = (start, end, resource) => {
         return 0;
       }
 
-      return timeDiff * currentProductPriceAmount / duration;
+      return (timeDiff * currentProductPriceAmount) / duration;
     }
     case productPriceType.FIXED: {
       return currentProductPriceAmount;
@@ -638,7 +680,6 @@ export const getReservationPrice = (start, end, resource) => {
       return 0;
   }
 };
-
 
 /**
  *  getTaxPercentage();
@@ -663,7 +704,9 @@ export const getTaxPercentage = (resource) => {
 };
 
 export const getSlotTallness = (resource) => {
-  const [hours, minutes, seconds] = get(resource, 'slot_size', '00:30:00').split(':').map(val => Number(val));
+  const [hours, minutes, seconds] = get(resource, 'slot_size', '00:30:00')
+    .split(':')
+    .map((val) => Number(val));
   const startOfTodayTime = new Date().setHours(0, 0, 0, 0);
   const slotSizeTime = new Date().setHours(hours, minutes, seconds, 0);
   const slotSizeDurationTime = slotSizeTime - startOfTodayTime;
@@ -675,12 +718,12 @@ export const getSlotTallness = (resource) => {
   }
 
   // if six hours or less
-  if (slotSizeDurationTime <= (6 * hourTime)) {
+  if (slotSizeDurationTime <= 6 * hourTime) {
     return 'big';
   }
 
   // if more than six hours
-  if (slotSizeDurationTime > (6 * hourTime)) {
+  if (slotSizeDurationTime > 6 * hourTime) {
     return 'huge';
   }
 
@@ -704,5 +747,7 @@ export const getSlotTallness = (resource) => {
 export const getHasOnlinePaymentSupport = (resource) => {
   const resourceProducts = get(resource, 'products', []);
 
-  return resourceProducts.some(product => product.type === resourceProductTypes.RENT);
+  return resourceProducts.some(
+    (product) => product.type === resourceProductTypes.RENT
+  );
 };

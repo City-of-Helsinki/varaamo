@@ -1,5 +1,4 @@
 const path = require('path');
-
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -21,7 +20,10 @@ module.exports = merge(common, {
     rules: [
       {
         test: /^(?!.*\.test\.js$).*\.js$/,
-        include: [path.resolve(__dirname, '../app'), path.resolve(__dirname, '../src')],
+        include: [
+          path.resolve(__dirname, '../app'),
+          path.resolve(__dirname, '../src'),
+        ],
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react'],
@@ -34,8 +36,16 @@ module.exports = merge(common, {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'resolve-url-loader',
-          { loader: 'sass-loader', options: { sourceMap: true, sourceMapContents: false } },
-          { loader: 'postcss-loader', options: { plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })] } },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true, sourceMapContents: false },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [autoprefixer({ browsers: ['last 2 version', 'ie 9'] })],
+            },
+          },
         ],
       },
     ],

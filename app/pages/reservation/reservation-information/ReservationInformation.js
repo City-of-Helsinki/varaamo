@@ -3,14 +3,21 @@ import uniq from 'lodash/uniq';
 import camelCase from 'lodash/camelCase';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
 
 import injectT from '../../../i18n/injectT';
-import { isStaffEvent, getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
-import { getTermsAndConditions, hasProducts } from '../../../utils/resourceUtils';
+import {
+  isStaffEvent,
+  getReservationPrice,
+  getReservationPricePerPeriod,
+} from '../../../utils/reservationUtils';
+import {
+  getTermsAndConditions,
+  hasProducts,
+} from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
 import apiClient from '../../../../src/common/api/client';
 
@@ -32,35 +39,30 @@ class ReservationInformation extends Component {
 
   state = {
     reservationPrice: null,
-  }
+  };
 
   componentDidMount() {
     if (!hasProducts(this.props.resource)) {
       return;
     }
     const products = get(this.props.resource, 'products');
-    const {
-      begin,
-      end,
-    } = this.props.selectedTime;
+    const { begin, end } = this.props.selectedTime;
 
     getReservationPrice(apiClient, begin, end, products)
-      .then(price => this.setState({ reservationPrice: price }))
+      .then((price) => this.setState({ reservationPrice: price }))
       .catch(() => this.setState({ reservationPrice: null }));
   }
 
   onConfirm = (values) => {
     const { onConfirm } = this.props;
     onConfirm(values);
-  }
+  };
 
   getFormFields = (termsAndConditions) => {
-    const {
-      isAdmin,
-      isStaff,
-      resource,
-    } = this.props;
-    const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
+    const { isAdmin, isStaff, resource } = this.props;
+    const formFields = [
+      ...resource.supportedReservationExtraFields,
+    ].map((value) => camelCase(value));
 
     if (isAdmin) {
       formFields.push('comments');
@@ -87,27 +89,24 @@ class ReservationInformation extends Component {
       formFields.push('billingEmailAddress');
     }
 
-
     return uniq(formFields);
-  }
+  };
 
   getFormInitialValues = () => {
-    const {
-      isEditing,
-      reservation,
-      resource,
-    } = this.props;
+    const { isEditing, reservation, resource } = this.props;
     let rv = reservation ? pick(reservation, this.getFormFields()) : {};
     if (isEditing) {
       rv = { ...rv, staffEvent: isStaffEvent(reservation, resource) };
     }
     return rv;
-  }
+  };
 
   getRequiredFormFields(resource, termsAndConditions) {
-    const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field),
-    )];
+    const requiredFormFields = [
+      ...resource.requiredReservationExtraFields.map((field) =>
+        camelCase(field)
+      ),
+    ];
 
     const { isAdmin } = this.props;
 
@@ -139,16 +138,15 @@ class ReservationInformation extends Component {
       unit,
       isStaff,
     } = this.props;
-    const {
-      reservationPrice,
-    } = this.state;
+    const { reservationPrice } = this.state;
 
     const taxPercentage = get(resource, 'products[0].price.taxPercentage');
 
     const termsAndConditions = getTermsAndConditions(resource);
     const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
     const endText = moment(selectedTime.end).format('HH:mm');
-    const hours = moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
+    const hours =
+      moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
 
     return (
       <div className="app-ReservationInformation">
@@ -162,14 +160,19 @@ class ReservationInformation extends Component {
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
+            requiredFields={this.getRequiredFormFields(
+              resource,
+              termsAndConditions
+            )}
             resource={resource}
             termsAndConditions={termsAndConditions}
           />
         </Col>
         <Col md={5} sm={12}>
           <div className="app-ReservationDetails">
-            <h2 className="app-ReservationPage__title">{t('ReservationPage.detailsTitle')}</h2>
+            <h2 className="app-ReservationPage__title">
+              {t('ReservationPage.detailsTitle')}
+            </h2>
             <Row>
               <Col md={4}>
                 <span className="app-ReservationDetails__name">
@@ -185,7 +188,7 @@ class ReservationInformation extends Component {
               </Col>
             </Row>
             {hasProducts(resource) && (
-              <Fragment>
+              <>
                 <Row>
                   <Col md={4}>
                     <span className="app-ReservationDetails__name">
@@ -206,11 +209,14 @@ class ReservationInformation extends Component {
                   </Col>
                   <Col md={8}>
                     <span className="app-ReservationDetails__value">
-                      {t('common.priceWithVAT', { price: reservationPrice, vat: taxPercentage })}
+                      {t('common.priceWithVAT', {
+                        price: reservationPrice,
+                        vat: taxPercentage,
+                      })}
                     </span>
                   </Col>
                 </Row>
-              </Fragment>
+              </>
             )}
             <Row>
               <Col md={4}>

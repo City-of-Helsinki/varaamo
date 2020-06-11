@@ -50,7 +50,9 @@ describe('shared/top-navbar/TopNavbar', () => {
     }
 
     test('renders the name of the logged in user', () => {
-      const userNavDropDown = getLoggedInNotAdminWrapper().find('#user-nav-dropdown');
+      const userNavDropDown = getLoggedInNotAdminWrapper().find(
+        '#user-nav-dropdown'
+      );
       expect(userNavDropDown).toHaveLength(1);
       const renderToggle = userNavDropDown.at(0).dive().children().first();
       expect(renderToggle.prop('children')).toEqual(props.userName);
@@ -58,7 +60,9 @@ describe('shared/top-navbar/TopNavbar', () => {
 
     test.skip('renders a logout link', () => {
       const logoutHref = `/logout?next=${window.location.origin}`;
-      const userNavDropdown = getLoggedInNotAdminWrapper().find('#user-nav-dropdown').dive();
+      const userNavDropdown = getLoggedInNotAdminWrapper()
+        .find('#user-nav-dropdown')
+        .dive();
       const renderToggle = userNavDropdown.children().first();
 
       renderToggle.simulate('click', { preventDefault: () => {} });
@@ -90,7 +94,9 @@ describe('shared/top-navbar/TopNavbar', () => {
       const wrapper = getNotLoggedInWrapper();
       const loginLink = wrapper.find(NavItem).filter('#app-TopNavbar__login');
       expect(loginLink).toHaveLength(1);
-      expect(loginLink.at(0).prop('onClick')).toBe(wrapper.instance().handleLoginClick);
+      expect(loginLink.at(0).prop('onClick')).toBe(
+        wrapper.instance().handleLoginClick
+      );
     });
 
     test('does not render a logout link', () => {

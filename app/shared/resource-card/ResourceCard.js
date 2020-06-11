@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import round from 'lodash/round';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +18,10 @@ import UnpublishedLabel from '../label/unpublished/UnpublishedLabel';
 import iconMap from '../../assets/icons/map.svg';
 import BackgroundImage from '../background-image/BackgroundImage';
 import { getMainImage } from '../../utils/imageUtils';
-import { getPrice, getResourcePageUrlComponents } from '../../utils/resourceUtils';
+import {
+  getPrice,
+  getResourcePageUrlComponents,
+} from '../../utils/resourceUtils';
 import ResourceAvailability from './resource-availability/ResourceAvailability';
 import ResourceCardInfoCell from './info-cell/ResourceCardInfoCell';
 import resourceCardSelector from './resourceCardSelector';
@@ -50,9 +53,10 @@ class ResourceCard extends Component {
 
   handleLinkClick = () => {
     window.scrollTo(0, 0);
-    const scrollTop = window.pageYOffset
-      || document.documentElement.scrollTop
-      || document.body.scrollTop;
+    const scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
     const { location, history } = this.props;
     const { pathname, search } = location;
     history.replace({ pathname, search, state: { scrollTop } });
@@ -69,7 +73,13 @@ class ResourceCard extends Component {
 
   render() {
     const {
-      date, resource, t, unit, actions, isLoggedIn, isNormalFontSize,
+      date,
+      resource,
+      t,
+      unit,
+      actions,
+      isLoggedIn,
+      isNormalFontSize,
     } = this.props;
     const { pathname, query } = getResourcePageUrlComponents(resource, date);
     const linkTo = {
@@ -85,11 +95,21 @@ class ResourceCard extends Component {
           'app-ResourceCard--normal-font-size': isNormalFontSize,
         })}
       >
-        <Link className="app-ResourceCard__image-link" onClick={this.handleLinkClick} to={linkTo}>
-          <BackgroundImage height={420} image={getMainImage(resource.images)} width={700} />
+        <Link
+          className="app-ResourceCard__image-link"
+          onClick={this.handleLinkClick}
+          to={linkTo}
+        >
+          <BackgroundImage
+            height={420}
+            image={getMainImage(resource.images)}
+            width={700}
+          />
         </Link>
         <div className="app-ResourceCard__content">
           <div className="app-ResourceCard__unit-name">
+            {/* eslint-disable-next-line max-len */}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid */}
             <a
               className="app-ResourceCard__unit-name-link"
               onClick={this.handleSearchByUnit}
@@ -106,7 +126,9 @@ class ResourceCard extends Component {
           <Link onClick={this.handleLinkClick} to={linkTo}>
             <h4>{resource.name}</h4>
           </Link>
-          <div className="app-ResourceCard__description">{resource.description}</div>
+          <div className="app-ResourceCard__description">
+            {resource.description}
+          </div>
         </div>
 
         <div className="app-ResourceCard__info">
@@ -115,9 +137,7 @@ class ResourceCard extends Component {
             icon={iconHome}
             onClick={this.handleSearchByType}
           >
-            <span>
-              {resource.type ? resource.type.name : '\u00A0'}
-            </span>
+            <span>{resource.type ? resource.type.name : '\u00A0'}</span>
           </ResourceCardInfoCell>
 
           <ResourceCardInfoCell
@@ -126,33 +146,27 @@ class ResourceCard extends Component {
             onClick={this.handleSearchByPeopleCapacity}
           >
             <span className="app-ResourceCard__peopleCapacity">
-              {t('ResourceCard.peopleCapacity', { people: resource.peopleCapacity })}
+              {t('ResourceCard.peopleCapacity', {
+                people: resource.peopleCapacity,
+              })}
             </span>
           </ResourceCardInfoCell>
 
-          <ResourceCardInfoCell
-            alt={resource.type.name}
-            icon={iconTicket}
-          >
+          <ResourceCardInfoCell alt={resource.type.name} icon={iconTicket}>
             <span className="app-ResourceCard__hourly-price">
               {getPrice(t, resource) || '\u00A0'}
             </span>
           </ResourceCardInfoCell>
 
-          <ResourceCardInfoCell
-            alt={resource.type.name}
-            icon={iconMap}
-          >
-            <Fragment>
+          <ResourceCardInfoCell alt={resource.type.name} icon={iconMap}>
+            <>
               <span className="app-ResourceCard__street-address">
                 {unit.streetAddress}
               </span>
               <span className="app-ResourceCard__zip-address">
-                {unit.addressZip}
-                {' '}
-                {unit.municipality}
+                {unit.addressZip} {unit.municipality}
               </span>
-            </Fragment>
+            </>
           </ResourceCardInfoCell>
 
           <ResourceCardInfoCell
@@ -161,23 +175,23 @@ class ResourceCard extends Component {
             onClick={this.handleSearchByDistance}
           >
             <span className="app-ResourceCard__distance">
-              {resource.distance ? this.renderDistance(resource.distance) : '\u00A0'}
+              {resource.distance
+                ? this.renderDistance(resource.distance)
+                : '\u00A0'}
             </span>
           </ResourceCardInfoCell>
 
-          {isLoggedIn
-            && (
+          {isLoggedIn && (
             <ResourceCardInfoCell
               alt={resource.type.name}
               icon={resource.isFavorite ? iconHeartFilled : iconHeart}
               onClick={
-              resource.isFavorite
-                ? () => actions.unfavoriteResource(resource.id)
-                : () => actions.favoriteResource(resource.id)
-            }
+                resource.isFavorite
+                  ? () => actions.unfavoriteResource(resource.id)
+                  : () => actions.favoriteResource(resource.id)
+              }
             />
-            )
-          }
+          )}
         </div>
       </div>
     );
@@ -199,7 +213,6 @@ ResourceCard.propTypes = {
 
 const UnconnectedResourceCard = injectT(ResourceCard);
 
-
 function mapDispatchToProps(dispatch) {
   const actionCreators = {
     favoriteResource,
@@ -211,4 +224,7 @@ function mapDispatchToProps(dispatch) {
 
 export { UnconnectedResourceCard };
 
-export default connect(resourceCardSelector, mapDispatchToProps)(UnconnectedResourceCard);
+export default connect(
+  resourceCardSelector,
+  mapDispatchToProps
+)(UnconnectedResourceCard);

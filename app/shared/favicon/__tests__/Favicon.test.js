@@ -29,7 +29,9 @@ describe('shared/favicon/Favicon', () => {
     let favicon;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('ESPOO');
       favicon = getWrapper();
     });
 
@@ -46,7 +48,9 @@ describe('shared/favicon/Favicon', () => {
     let favicon;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('VANTAA');
       favicon = getWrapper();
     });
 

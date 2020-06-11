@@ -32,7 +32,7 @@ class HomePage extends Component {
   state = {
     isFetchingPurposes: false,
     purposes: null,
-  }
+  };
 
   componentDidMount() {
     this.fetchPurposes();
@@ -42,43 +42,57 @@ class HomePage extends Component {
     this.setState({ isFetchingPurposes: true });
     try {
       const response = await client.get('purpose');
-      this.setState({ isFetchingPurposes: false, purposes: response.data.results });
+      this.setState({
+        isFetchingPurposes: false,
+        purposes: response.data.results,
+      });
     } catch (errors) {
       this.setState({ isFetchingPurposes: false });
       // TODO: HTTP error handler
     }
-  }
+  };
 
   handleSearch = (value = '') => {
     this.props.history.push(`/search?search=${value}`);
-  }
+  };
 
   renderPurposeBanners = () => {
     const { t, locale } = this.props;
     const { purposes } = this.state;
 
-    const normalizedPurpose = purposes.filter(purpose => !purpose.parent).sort();
+    const normalizedPurpose = purposes
+      .filter((purpose) => !purpose.parent)
+      .sort();
 
     return normalizedPurpose.map((purpose) => {
       const image = purposeIcons[camelCase(purpose.id)];
       const purposeName = purpose.name[locale] || '';
 
       return (
-        <Col className="app-HomePageContent__banner" key={purpose.id} md={3} sm={6} xs={12}>
-          <Link className="app-HomePageContent__banner__linkWrapper" to={`/search?purpose=${purpose.id}`}>
+        <Col
+          className="app-HomePageContent__banner"
+          key={purpose.id}
+          md={3}
+          sm={6}
+          xs={12}
+        >
+          <Link
+            className="app-HomePageContent__banner__linkWrapper"
+            to={`/search?purpose=${purpose.id}`}
+          >
             <div className="app-HomePageContent__banner-icon">
-              {typeof image === 'string' ? <img alt={purposeName} src={image} />
-              // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
+              {typeof image === 'string' ? (
+                <img alt={purposeName} src={image} />
+              ) : (
+                // TODO: VAR-80 | VAR-81 Replace those icon with designed icon.
 
-                : <FAIcon icon={image} />}
+                <FAIcon icon={image} />
+              )}
             </div>
 
             <h5>{purposeName}</h5>
             <div className="app-HomePageContent__banner-action">
-              <Button
-                bsStyle="primary"
-                className="app-HomePageContent__button"
-              >
+              <Button bsStyle="primary" className="app-HomePageContent__button">
                 {t('HomePage.buttonText')}
               </Button>
             </div>
@@ -86,7 +100,7 @@ class HomePage extends Component {
         </Col>
       );
     });
-  }
+  };
 
   render() {
     const { t } = this.props;
@@ -101,14 +115,15 @@ class HomePage extends Component {
           <HomeSearchBox onSearch={this.handleSearch} />
         </div>
         <div className="app-HomePage__koro" />
-        <PageWrapper className="app-HomePageContent" title={t('HomePage.title')}>
+        <PageWrapper
+          className="app-HomePageContent"
+          title={t('HomePage.title')}
+        >
           <h4>{t('HomePage.bannersTitle')}</h4>
           {purposes && (
             <Loader loaded={!isFetchingPurposes}>
               <div className="app-HomePageContent__banners">
-                <Row>
-                  {this.renderPurposeBanners()}
-                </Row>
+                <Row>{this.renderPurposeBanners()}</Row>
               </div>
             </Loader>
           )}

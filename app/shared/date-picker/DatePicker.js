@@ -15,7 +15,11 @@ const defaultDateFormat = 'YYYY-MM-DD';
 const localizedDateFormat = 'D.M.YYYY';
 
 export function UnconnectedDatePicker({
-  dateFormat, onChange, currentLocale, value, rest,
+  dateFormat,
+  onChange,
+  currentLocale,
+  value,
+  rest,
 }) {
   const pickerDateFormat = dateFormat || localizedDateFormat;
 
@@ -33,7 +37,7 @@ export function UnconnectedDatePicker({
       format={pickerDateFormat}
       formatDate={formatDate}
       keepFocus={false}
-      onDayChange={date => onChange(formatDate(date, defaultDateFormat))}
+      onDayChange={(date) => onChange(formatDate(date, defaultDateFormat))}
       parseDate={parseDate}
       value={new Date(value)}
       {...rest}

@@ -47,7 +47,8 @@ export function mergeProps(stateProps, dispatchProps) {
       dispatchProps.cancelReservationEditInInfoModal();
       dispatchProps.resetForm(FormTypes.RESERVATION_EDIT);
     },
-    onConfirmClick: () => dispatchProps.confirmPreliminaryReservation(reservation),
+    onConfirmClick: () =>
+      dispatchProps.confirmPreliminaryReservation(reservation),
     onDenyClick: () => dispatchProps.denyPreliminaryReservation(reservation),
     onEditFormSubmit: dispatchProps.putReservation,
     onSaveCommentsClick: (comments) => {
@@ -57,4 +58,8 @@ export function mergeProps(stateProps, dispatchProps) {
   };
 }
 
-export default connect(reservationInfoModalSelector, actions, mergeProps)(withRouter(ReservationInfoModal));
+export default connect(
+  reservationInfoModalSelector,
+  actions,
+  mergeProps
+)(withRouter(ReservationInfoModal));

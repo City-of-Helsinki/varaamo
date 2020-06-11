@@ -10,7 +10,9 @@ describe('ResourcePanel', () => {
       header: 'foo',
     };
     const wrapper = shallowWithIntl(
-      <ResourcePanel {...props}><p>bar</p></ResourcePanel>,
+      <ResourcePanel {...props}>
+        <p>bar</p>
+      </ResourcePanel>
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

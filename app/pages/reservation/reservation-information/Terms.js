@@ -6,13 +6,7 @@ import { FormattedHTMLMessage } from 'react-intl';
 import Error from './Error';
 import injectT from '../../../i18n/injectT';
 
-function Terms({
-  input,
-  meta: { error, touched },
-  t,
-  labelId,
-  link,
-}) {
+function Terms({ input, meta: { error, touched }, t, labelId, link }) {
   return (
     <div className="app-ReservationPage__formfield">
       <label>

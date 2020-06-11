@@ -8,12 +8,18 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Modal from 'react-bootstrap/lib/Modal';
 
 import constants from '../../../constants/AppConstants';
-import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/resource/permissions/constants';
+import {
+  resourceRoles,
+  resourcePermissionTypes,
+} from '../../../../src/domain/resource/permissions/constants';
 import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
 import injectT from '../../../i18n/injectT';
 import ReservationCancelModal from '../reservation-cancel/ReservationCancelModalContainer';
 import InfoLabel from '../../../../src/common/label/InfoLabel';
-import { isStaffEvent, getEditReservationUrl } from '../../../utils/reservationUtils';
+import {
+  isStaffEvent,
+  getEditReservationUrl,
+} from '../../../utils/reservationUtils';
 import ReservationEditForm from './ReservationEditForm';
 import { hasProducts } from '../../../utils/resourceUtils';
 import { RESERVATION_STATE } from '../../../../src/constants/ReservationState';
@@ -41,7 +47,10 @@ class ReservationInfoModal extends Component {
 
   handleStartEditClick() {
     const {
-      selectReservationToEdit, reservation, resource, history,
+      selectReservationToEdit,
+      reservation,
+      resource,
+      history,
     } = this.props;
 
     if (!resource === null) {
@@ -73,18 +82,25 @@ class ReservationInfoModal extends Component {
     } = this.props;
 
     const disabled = isSaving || isEditing;
-    const canComment = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_COMMENT_RESERVATIONS);
+    const canComment = hasPermissionForResource(
+      userUnitRole,
+      resourcePermissionTypes.CAN_COMMENT_RESERVATIONS
+    );
     const canViewComment = hasPermissionForResource(
       userUnitRole,
-      resourcePermissionTypes.CAN_ACCESS_RESERVATION_COMMENTS,
+      resourcePermissionTypes.CAN_ACCESS_RESERVATION_COMMENTS
     );
-    const canModify = hasPermissionForResource(userUnitRole, resourcePermissionTypes.CAN_MODIFY_RESERVATIONS);
-    const showCancelButton = reservationIsEditable && (
-      reservation.state === RESERVATION_STATE.CONFIRMED
-      || (reservation.state === RESERVATION_STATE.REQUESTED && !isAdmin)
+    const canModify = hasPermissionForResource(
+      userUnitRole,
+      resourcePermissionTypes.CAN_MODIFY_RESERVATIONS
     );
+    const showCancelButton =
+      reservationIsEditable &&
+      (reservation.state === RESERVATION_STATE.CONFIRMED ||
+        (reservation.state === RESERVATION_STATE.REQUESTED && !isAdmin));
 
-    const paymentLabel = constants.RESERVATION_PAYMENT_LABELS[reservation.state];
+    const paymentLabel =
+      constants.RESERVATION_PAYMENT_LABELS[reservation.state];
     const stateLabel = constants.RESERVATION_STATE_LABELS[reservation.state];
 
     return (
@@ -98,19 +114,24 @@ class ReservationInfoModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          {!isEmpty(reservation)
-            && (
+          {!isEmpty(reservation) && (
             <div>
               <div className="reservation-labels-wrapper">
-                {hasProducts(resource)
-                  && paymentLabel
-                  && !reservation.staffEvent && (
-                    <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
-                )}
-                {reservation.needManualConfirmation
-                  && reservation.state !== 'cancelled' && (
-                    <InfoLabel labelStyle={stateLabel.labelBsStyle} labelText={t(stateLabel.labelTextId)} />
-                )}
+                {hasProducts(resource) &&
+                  paymentLabel &&
+                  !reservation.staffEvent && (
+                    <InfoLabel
+                      labelStyle={paymentLabel.labelBsStyle}
+                      labelText={t(paymentLabel.labelTextId)}
+                    />
+                  )}
+                {reservation.needManualConfirmation &&
+                  reservation.state !== 'cancelled' && (
+                    <InfoLabel
+                      labelStyle={stateLabel.labelBsStyle}
+                      labelText={t(stateLabel.labelTextId)}
+                    />
+                  )}
               </div>
               <ReservationEditForm
                 enableReinitialize
@@ -129,16 +150,13 @@ class ReservationInfoModal extends Component {
               {canViewComment && reservationIsEditable && (
                 <form className="comments-form">
                   <FormGroup controlId="commentsTextarea">
-                    <ControlLabel>
-                      {t('common.commentsLabel')}
-  :
-                    </ControlLabel>
+                    <ControlLabel>{t('common.commentsLabel')}:</ControlLabel>
                     <FormControl
                       componentClass="textarea"
                       defaultValue={reservation.comments}
                       disabled={disabled || !canComment}
                       // eslint-disable-next-line no-return-assign
-                      inputRef={ref => this.commentsInput = ref}
+                      inputRef={(ref) => (this.commentsInput = ref)}
                       placeholder={t('common.commentsPlaceholder')}
                       rows={5}
                     />
@@ -150,42 +168,44 @@ class ReservationInfoModal extends Component {
                         disabled={disabled}
                         onClick={this.handleSaveCommentsClick}
                       >
-                        {isSaving ? t('common.saving') : t('ReservationInfoModal.saveComment')}
+                        {isSaving
+                          ? t('common.saving')
+                          : t('ReservationInfoModal.saveComment')}
                       </Button>
                     </div>
                   )}
                 </form>
               )}
             </div>
-            )
-          }
+          )}
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
-            bsStyle="default"
-            onClick={hideReservationInfoModal}
-          >
+          <Button bsStyle="default" onClick={hideReservationInfoModal}>
             {t('common.back')}
           </Button>
-          {canModify && reservationIsEditable && reservation.state === 'requested' && (
-            <Button
-              bsStyle="danger"
-              disabled={disabled}
-              onClick={onDenyClick}
-            >
-              {t('ReservationInfoModal.denyButton')}
-            </Button>
-          )}
-          {canModify && reservationIsEditable && reservation.state === 'requested' && (
-            <Button
-              bsStyle="success"
-              disabled={disabled}
-              onClick={onConfirmClick}
-            >
-              {t('ReservationInfoModal.approveButton')}
-            </Button>
-          )}
+          {canModify &&
+            reservationIsEditable &&
+            reservation.state === 'requested' && (
+              <Button
+                bsStyle="danger"
+                disabled={disabled}
+                onClick={onDenyClick}
+              >
+                {t('ReservationInfoModal.denyButton')}
+              </Button>
+            )}
+          {canModify &&
+            reservationIsEditable &&
+            reservation.state === 'requested' && (
+              <Button
+                bsStyle="success"
+                disabled={disabled}
+                onClick={onConfirmClick}
+              >
+                {t('ReservationInfoModal.approveButton')}
+              </Button>
+            )}
           {showCancelButton && (
             <Button
               bsStyle="danger"

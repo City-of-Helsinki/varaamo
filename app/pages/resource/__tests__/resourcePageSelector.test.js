@@ -111,17 +111,14 @@ describe('pages/resource/resourcePageSelector', () => {
     expect(selected.unit).toEqual(unit);
   });
 
-  test(
-    'returns an empty object as the unit if unit with the given id is not fetched',
-    () => {
-      const resource = Resource.build();
-      const state = getState([resource], []);
-      const props = getProps(resource.id);
-      const selected = resourcePageSelector(state, props);
+  test('returns an empty object as the unit if unit with the given id is not fetched', () => {
+    const resource = Resource.build();
+    const state = getState([resource], []);
+    const props = getProps(resource.id);
+    const selected = resourcePageSelector(state, props);
 
-      expect(selected.unit).toEqual({});
-    },
-  );
+    expect(selected.unit).toEqual({});
+  });
 
   test('returns an empty object as the unit if resource is not fetched', () => {
     const state = getState([], []);

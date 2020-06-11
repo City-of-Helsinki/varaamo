@@ -8,6 +8,4 @@ function getMainImage(images) {
   return find(images, { type: 'main' }) || images[0];
 }
 
-export {
-  getMainImage,
-};
+export { getMainImage };

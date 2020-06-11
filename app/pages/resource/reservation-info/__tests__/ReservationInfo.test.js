@@ -18,7 +18,7 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
         reservationInfo: 'Some information',
         reservableMinDaysInAdvance: 2,
         reservableMaxDaysInAdvance: 90,
-      }),
+      })
     ),
   };
 
@@ -34,7 +34,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   test('renders resource.reservationInfo as WrappedText', () => {
     const wrappedText = getWrapper().find(WrappedText);
     expect(wrappedText.length).toBe(1);
-    expect(wrappedText.props().text).toBe(defaultProps.resource.reservationInfo);
+    expect(wrappedText.props().text).toBe(
+      defaultProps.resource.reservationInfo
+    );
     expect(wrappedText.props().openLinksInNewTab).toBe(true);
   });
 
@@ -46,7 +48,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
     test('is not rendered if resource.reservableMinDaysInAdvance is not defined', () => {
       const resource = {};
-      const maxLengthText = getWrapper({ resource }).find('.reservable-after-text');
+      const maxLengthText = getWrapper({ resource }).find(
+        '.reservable-after-text'
+      );
       expect(maxLengthText).toHaveLength(0);
     });
   });
@@ -59,7 +63,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
 
     test('is not rendered if resource.reservableMaxDaysInAdvance is not defined', () => {
       const resource = {};
-      const resLatestText = getWrapper({ resource }).find('.reservable-before-text');
+      const resLatestText = getWrapper({ resource }).find(
+        '.reservable-before-text'
+      );
       expect(resLatestText).toHaveLength(0);
     });
   });
@@ -78,22 +84,20 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
   });
 
   describe('max reservations per user text', () => {
-    test(
-      'is rendered correctly when resource.maxReservationsPerUser is defined',
-      () => {
-        const maxReservationsText = getWrapper().find('.max-number-of-reservations-text');
-        expect(maxReservationsText).toHaveLength(1);
-      },
-    );
+    test('is rendered correctly when resource.maxReservationsPerUser is defined', () => {
+      const maxReservationsText = getWrapper().find(
+        '.max-number-of-reservations-text'
+      );
+      expect(maxReservationsText).toHaveLength(1);
+    });
 
-    test(
-      'is not rendered if resource.maxReservationsPerUser is not defined',
-      () => {
-        const resource = {};
-        const maxReservationsText = getWrapper({ resource }).find('.max-number-of-reservations-text');
-        expect(maxReservationsText).toHaveLength(0);
-      },
-    );
+    test('is not rendered if resource.maxReservationsPerUser is not defined', () => {
+      const resource = {};
+      const maxReservationsText = getWrapper({ resource }).find(
+        '.max-number-of-reservations-text'
+      );
+      expect(maxReservationsText).toHaveLength(0);
+    });
   });
 
   describe('login text', () => {
@@ -114,7 +118,9 @@ describe('pages/resource/reservation-info/ReservationInfo', () => {
       const resource = {
         reservable: true,
       };
-      const loginText = getWrapper({ isLoggedIn: false, resource }).find('.login-text');
+      const loginText = getWrapper({ isLoggedIn: false, resource }).find(
+        '.login-text'
+      );
       expect(loginText).toHaveLength(1);
     });
   });

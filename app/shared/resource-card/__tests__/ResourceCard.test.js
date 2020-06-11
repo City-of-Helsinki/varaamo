@@ -38,13 +38,13 @@ describe('shared/resource-card/ResourceCard', () => {
           name: 'workplace',
         },
         ...extra,
-      }),
+      })
     );
   }
 
   const history = {
-    push: () => { },
-    replace: () => { },
+    push: () => {},
+    replace: () => {},
   };
 
   const defaultProps = {
@@ -70,12 +70,14 @@ describe('shared/resource-card/ResourceCard', () => {
         addressZip: '00100',
         municipality: 'helsinki',
         streetAddress: 'Fabiankatu',
-      }),
+      })
     ),
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<UnconnectedResourceCard {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <UnconnectedResourceCard {...defaultProps} {...extraProps} />
+    );
   }
 
   test('renders an div element', () => {
@@ -83,7 +85,9 @@ describe('shared/resource-card/ResourceCard', () => {
   });
 
   test('renders stacked className if stacked prop is passed', () => {
-    const resourceCard = getWrapper({ stacked: true }).filter('.app-ResourceCard__stacked');
+    const resourceCard = getWrapper({ stacked: true }).filter(
+      '.app-ResourceCard__stacked'
+    );
     expect(resourceCard).toHaveLength(1);
   });
 
@@ -130,7 +134,9 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('render with favorite icon as default if user logged in', () => {
-      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
+      const info = getWrapper({ isLoggedIn: true }).find(
+        '.app-ResourceCard__info'
+      );
       const cell = info.find(ResourceCardInfoCell).last();
 
       expect(cell.prop('alt')).toEqual(defaultProps.resource.type.name);
@@ -150,7 +156,9 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('invoke favorite func when favorite icon is clicked as default, user logged in', () => {
-      const info = getWrapper({ isLoggedIn: true }).find('.app-ResourceCard__info');
+      const info = getWrapper({ isLoggedIn: true }).find(
+        '.app-ResourceCard__info'
+      );
       const cell = info.find(ResourceCardInfoCell).last();
       cell.simulate('click');
       expect(defaultProps.actions.favoriteResource).toHaveBeenCalledTimes(1);
@@ -169,7 +177,9 @@ describe('shared/resource-card/ResourceCard', () => {
 
   describe('people capacity', () => {
     test('renders people capacity', () => {
-      const peopleCapacity = getWrapper().find('.app-ResourceCard__peopleCapacity');
+      const peopleCapacity = getWrapper().find(
+        '.app-ResourceCard__peopleCapacity'
+      );
 
       expect(peopleCapacity).toHaveLength(1);
       expect(peopleCapacity.text()).toContain('ResourceCard.peopleCapacity');
@@ -192,60 +202,60 @@ describe('shared/resource-card/ResourceCard', () => {
       expect(distanceLabel.text()).toBe('11 km');
     });
 
-    test(
-      'renders distance with a decimal if distance is smaller than 10 km',
-      () => {
-        const distanceLabel = getWrapper({
-          resource: getResource({ distance: 123 }),
-        }).find('.app-ResourceCard__distance');
+    test('renders distance with a decimal if distance is smaller than 10 km', () => {
+      const distanceLabel = getWrapper({
+        resource: getResource({ distance: 123 }),
+      }).find('.app-ResourceCard__distance');
 
-        expect(distanceLabel).toHaveLength(1);
-        expect(distanceLabel.text()).toBe('0.1 km');
-      },
-    );
+      expect(distanceLabel).toHaveLength(1);
+      expect(distanceLabel.text()).toBe('0.1 km');
+    });
   });
 
   describe('price', () => {
     test('renders a hourly price', () => {
-      const hourlyPriceSpan = getWrapper().find('.app-ResourceCard__hourly-price');
+      const hourlyPriceSpan = getWrapper().find(
+        '.app-ResourceCard__hourly-price'
+      );
 
       expect(hourlyPriceSpan.is('span')).toBe(true);
       expect(hourlyPriceSpan.text()).toContain('30 €/common.unit.time.hour');
     });
 
-    test(
-      'renders correct text if minPrice and maxPrice are 0 and priceType is hourly',
-      () => {
-        const resource = getResource({
-          maxPrice: 0,
-          minPrice: 0,
-          priceType: 'hourly',
-        });
-        const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
+    test('renders correct text if minPrice and maxPrice are 0 and priceType is hourly', () => {
+      const resource = getResource({
+        maxPrice: 0,
+        minPrice: 0,
+        priceType: 'hourly',
+      });
+      const hourlyPriceSpan = getWrapper({ resource }).find(
+        '.app-ResourceCard__hourly-price'
+      );
 
-        expect(hourlyPriceSpan.is('span')).toBe(true);
-        expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
-      },
-    );
+      expect(hourlyPriceSpan.is('span')).toBe(true);
+      expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
+    });
 
-    test(
-      'renders correct text if resource minPrice and maxPrice is empty',
-      () => {
-        const resource = getResource({
-          maxPrice: '',
-          minPrice: '',
-        });
-        const hourlyPriceSpan = getWrapper({ resource }).find('.app-ResourceCard__hourly-price');
+    test('renders correct text if resource minPrice and maxPrice is empty', () => {
+      const resource = getResource({
+        maxPrice: '',
+        minPrice: '',
+      });
+      const hourlyPriceSpan = getWrapper({ resource }).find(
+        '.app-ResourceCard__hourly-price'
+      );
 
-        expect(hourlyPriceSpan.is('span')).toBe(true);
-        expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
-      },
-    );
+      expect(hourlyPriceSpan.is('span')).toBe(true);
+      expect(hourlyPriceSpan.text()).toContain('ResourceIcons.free');
+    });
   });
 
   test('contains links to correct resource page', () => {
     const links = getWrapper().find(Link);
-    const urlComponents = getResourcePageUrlComponents(defaultProps.resource, defaultProps.date);
+    const urlComponents = getResourcePageUrlComponents(
+      defaultProps.resource,
+      defaultProps.date
+    );
     const expected = {
       pathname: urlComponents.pathname,
       search: `?${urlComponents.query}`,
@@ -289,7 +299,9 @@ describe('shared/resource-card/ResourceCard', () => {
     const wrapper = getWrapper();
     const unitAnchor = wrapper.find('.app-ResourceCard__unit-name-link');
     expect(unitAnchor).toHaveLength(1);
-    expect(unitAnchor.prop('onClick')).toBe(wrapper.instance().handleSearchByUnit);
+    expect(unitAnchor.prop('onClick')).toBe(
+      wrapper.instance().handleSearchByUnit
+    );
   });
 
   test('renders the type of the given resource in props', () => {
@@ -303,21 +315,23 @@ describe('shared/resource-card/ResourceCard', () => {
   test('renders ResourceAvailability with correct props', () => {
     const resourceAvailability = getWrapper().find(ResourceAvailability);
     expect(resourceAvailability.prop('date')).toBe(defaultProps.date);
-    expect(resourceAvailability.prop('resource').id).toBe(defaultProps.resource.id);
+    expect(resourceAvailability.prop('resource').id).toBe(
+      defaultProps.resource.id
+    );
   });
 
   test('renders UnpublishedLabel when resource public is false', () => {
-    const unpublishedLabel = getWrapper(
-      { resource: getResource({ public: false }) },
-    ).find(UnpublishedLabel);
+    const unpublishedLabel = getWrapper({
+      resource: getResource({ public: false }),
+    }).find(UnpublishedLabel);
 
     expect(unpublishedLabel.length).toEqual(1);
   });
 
   test('no renders UnpublishedLabel when resource public is true', () => {
-    const unpublishedLabel = getWrapper(
-      { resource: getResource({ public: true }) },
-    ).find(UnpublishedLabel);
+    const unpublishedLabel = getWrapper({
+      resource: getResource({ public: true }),
+    }).find(UnpublishedLabel);
 
     expect(unpublishedLabel.length).toEqual(0);
   });
@@ -334,9 +348,7 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('calls history.push with correct path', () => {
-      getWrapper()
-        .instance()
-        .handleSearchByType();
+      getWrapper().instance().handleSearchByType();
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?search=workplace';
 
@@ -382,9 +394,7 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('calls history.push with correct path', () => {
-      getWrapper()
-        .instance()
-        .handleSearchByPeopleCapacity();
+      getWrapper().instance().handleSearchByPeopleCapacity();
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?people=16';
 
@@ -405,9 +415,7 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('calls browserHistory.push with correct path', () => {
-      getWrapper()
-        .instance()
-        .handleSearchByUnit();
+      getWrapper().instance().handleSearchByUnit();
       const actualPath = historyMock.lastCall.args[0];
       const expectedPath = '/search?unit=unit_value';
 
@@ -428,14 +436,16 @@ describe('shared/resource-card/ResourceCard', () => {
     });
 
     test('calls browserHistory.replace', () => {
-      getWrapper()
-        .instance()
-        .handleLinkClick();
+      getWrapper().instance().handleLinkClick();
 
       expect(historyMock.callCount).toBe(1);
       expect(historyMock.lastCall.args).toHaveLength(1);
-      expect(historyMock.lastCall.args[0].pathname).toBe(defaultProps.location.pathname);
-      expect(historyMock.lastCall.args[0].search).toBe(defaultProps.location.search);
+      expect(historyMock.lastCall.args[0].pathname).toBe(
+        defaultProps.location.pathname
+      );
+      expect(historyMock.lastCall.args[0].search).toBe(
+        defaultProps.location.search
+      );
     });
   });
 });

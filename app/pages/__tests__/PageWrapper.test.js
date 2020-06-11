@@ -14,7 +14,7 @@ describe('pages/PageWrapper', () => {
     return shallow(
       <PageWrapper {...defaultProps} {...extraProps}>
         <h1>Rendered content</h1>
-      </PageWrapper>,
+      </PageWrapper>
     );
   }
 

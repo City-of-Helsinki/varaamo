@@ -64,7 +64,7 @@ function createApiTest(options) {
    *  },
    * }
    */
-  const tests = options.tests;
+  const { tests } = options;
   describe(options.name, () => {
     let action;
     let callAPI;
@@ -78,104 +78,110 @@ function createApiTest(options) {
       expect(callAPI).toBeDefined();
     });
 
-    tests.method && test(`uses ${tests.method}`, () => {
-      expect(callAPI.method).toBe(tests.method);
-    });
+    tests.method &&
+      test(`uses ${tests.method}`, () => {
+        expect(callAPI.method).toBe(tests.method);
+      });
 
-    tests.body && test('has correct body', () => {
-      const body = (
-        tests.body instanceof Object
-          ? JSON.parse(callAPI.body)
-          : callAPI.body
-      );
-      expect(body).toEqual(tests.body);
-    });
+    tests.body &&
+      test('has correct body', () => {
+        const body =
+          tests.body instanceof Object
+            ? JSON.parse(callAPI.body)
+            : callAPI.body;
+        expect(body).toEqual(tests.body);
+      });
 
-    tests.endpoint && test('uses correct endpoint', () => {
-      expect(callAPI.endpoint).toBe(tests.endpoint);
-    });
+    tests.endpoint &&
+      test('uses correct endpoint', () => {
+        expect(callAPI.endpoint).toBe(tests.endpoint);
+      });
 
-    tests.meta && test('has correct meta', () => {
-      expect(action.meta).toEqual(tests.meta);
-    });
+    tests.meta &&
+      test('has correct meta', () => {
+        expect(action.meta).toEqual(tests.meta);
+      });
 
     describe('types', () => {
       const mockAction = {
         [RSAA]: {
-          types: [{
-            type: (
-              (tests.request && tests.request.type) || 'Specify request.type'
-            ),
-          }],
+          types: [
+            {
+              type:
+                (tests.request && tests.request.type) || 'Specify request.type',
+            },
+          ],
         },
       };
 
       ['request', 'success', 'error'].forEach((actionTypeName, index) => {
-        tests[actionTypeName] && describe(actionTypeName, () => {
-          const actionTests = tests[actionTypeName];
-          const extraTests = actionTests.extra && actionTests.extra.tests;
-          let typeAction;
-          beforeAll(() => {
-            typeAction = callAPI.types[index];
-          });
-
-          actionTests.type && test('has correct type', () => {
-            expect(typeAction.type).toBe(actionTests.type);
-          });
-
-          extraTests && forIn(extraTests, (value, name) => {
-            const getParams = () => ({
-              typeAction,
-              mockAction,
-              meta: (
-                actionTypeName === 'request'
-                  ? typeAction.meta
-                  : typeAction.meta(mockAction)
-              ),
-            });
-            const func = (
-              value.length === 2
-                ? done => value(getParams(), done)
-                : () => value(getParams())
-            );
-            test(name, func);
-          });
-
-          actionTypeName === 'success' && describe('payload', () => {
-            let payload;
-            let response;
-            let promise;
-            const payloadTests = actionTests.payload || {};
-            const jsonData = payloadTests.data || {};
-
+        tests[actionTypeName] &&
+          describe(actionTypeName, () => {
+            const actionTests = tests[actionTypeName];
+            const extraTests = actionTests.extra && actionTests.extra.tests;
+            let typeAction;
             beforeAll(() => {
-              payload = typeAction.payload;
-              response = {
-                headers: {
-                  get: () => 'application/json',
-                },
-                json: () => Promise.resolve(jsonData),
-              };
+              typeAction = callAPI.types[index];
             });
 
-            beforeEach(() => {
-              promise = payload({ type: actionTests.type }, {}, response);
-            });
+            actionTests.type &&
+              test('has correct type', () => {
+                expect(typeAction.type).toBe(actionTests.type);
+              });
 
-            test('exists', () => {
-              expect(payload).toBeDefined();
-            });
+            extraTests &&
+              forIn(extraTests, (value, name) => {
+                const getParams = () => ({
+                  typeAction,
+                  mockAction,
+                  meta:
+                    actionTypeName === 'request'
+                      ? typeAction.meta
+                      : typeAction.meta(mockAction),
+                });
+                const func =
+                  value.length === 2
+                    ? (done) => value(getParams(), done)
+                    : () => value(getParams());
+                test(name, func);
+              });
 
-            payloadTests.tests && forIn(payloadTests.tests, (value, name) => {
-              const func = (
-                value.length === 2
-                  ? done => value({ promise, payload, response }, done)
-                  : () => value({ promise, payload, response })
-              );
-              test(name, func);
-            });
+            actionTypeName === 'success' &&
+              describe('payload', () => {
+                let payload;
+                let response;
+                let promise;
+                const payloadTests = actionTests.payload || {};
+                const jsonData = payloadTests.data || {};
+
+                beforeAll(() => {
+                  payload = typeAction.payload;
+                  response = {
+                    headers: {
+                      get: () => 'application/json',
+                    },
+                    json: () => Promise.resolve(jsonData),
+                  };
+                });
+
+                beforeEach(() => {
+                  promise = payload({ type: actionTests.type }, {}, response);
+                });
+
+                test('exists', () => {
+                  expect(payload).toBeDefined();
+                });
+
+                payloadTests.tests &&
+                  forIn(payloadTests.tests, (value, name) => {
+                    const func =
+                      value.length === 2
+                        ? (done) => value({ promise, payload, response }, done)
+                        : () => value({ promise, payload, response });
+                    test(name, func);
+                  });
+              });
           });
-        });
       });
     });
   });
@@ -219,12 +225,17 @@ function makeButtonTests(button, name, expectedText, expectedOnClickFunction) {
 }
 
 // Utilities for shallow testing components that use react-intl and injectT.
-const intlProvider = new IntlProvider({ locale: 'en', messages: testMessages }, {});
+const intlProvider = new IntlProvider(
+  { locale: 'en', messages: testMessages },
+  {}
+);
 const { intl } = intlProvider.getChildContext();
 
 function shallowWithIntl(node, context) {
   const nodeWithIntl = React.cloneElement(node, { intl });
-  return shallow(nodeWithIntl, { context: { ...context, intl } }).shallow({ context });
+  return shallow(nodeWithIntl, { context: { ...context, intl } }).shallow({
+    context,
+  });
 }
 
 function mountWithIntl(node, context) {

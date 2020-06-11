@@ -14,7 +14,7 @@ import { getResourcePageUrl } from '../../../../utils/resourceUtils';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ReservationListItem from '../ReservationListItem';
 
-const makeTranslationObject = value => ({
+const makeTranslationObject = (value) => ({
   fi: value,
   en: value,
   sv: value,
@@ -42,17 +42,22 @@ const injectTranslations = (obj, fields) => {
 // To be able to use the same test tooling, we are transforming the
 // camelCase mock objects into snake_case mock objects.
 const makeReservation = (...args) => snakeCaseKeys(Reservation.build(...args));
-const makeResource = (...args) => snakeCaseKeys(injectTranslations(Resource.build(...args), ['name']));
-const makeImage = (...args) => snakeCaseKeys(injectTranslations(Image.build(...args), ['caption']));
-const makeUnit = (...args) => snakeCaseKeys(injectTranslations(Unit.build(...args), ['name']));
+const makeResource = (...args) =>
+  snakeCaseKeys(injectTranslations(Resource.build(...args), ['name']));
+const makeImage = (...args) =>
+  snakeCaseKeys(injectTranslations(Image.build(...args), ['caption']));
+const makeUnit = (...args) =>
+  snakeCaseKeys(injectTranslations(Unit.build(...args), ['name']));
 
 describe('pages/user-reservations/reservation-list/ReservationListItem', () => {
   const unit = Immutable(makeUnit());
-  const resource = Immutable(makeResource({
-    unit,
-    images: [makeImage()],
-    type: { name: 'test_type' },
-  }));
+  const resource = Immutable(
+    makeResource({
+      unit,
+      images: [makeImage()],
+      type: { name: 'test_type' },
+    })
+  );
   const props = {
     isAdmin: false,
     isStaff: false,

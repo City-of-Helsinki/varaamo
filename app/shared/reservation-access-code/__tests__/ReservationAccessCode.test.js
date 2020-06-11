@@ -7,8 +7,9 @@ import Resource from '../../../utils/fixtures/Resource';
 import ReservationAccessCode from '../ReservationAccessCode';
 
 describe('shared/reservation-access-code/ReservationAccessCode', () => {
-  const createReservation = attributes => Immutable(Reservation.build(attributes));
-  const createResource = attributes => Immutable(Resource.build(attributes));
+  const createReservation = (attributes) =>
+    Immutable(Reservation.build(attributes));
+  const createResource = (attributes) => Immutable(Resource.build(attributes));
 
   const defaultProps = {
     reservation: createReservation(),
@@ -31,7 +32,7 @@ describe('shared/reservation-access-code/ReservationAccessCode', () => {
     expect(wrapper.name()).toContain('PendingAccessCode');
   });
 
-  test('renders empty span when PIN is not available and it won\'t be generated either', () => {
+  test("renders empty span when PIN is not available and it won't be generated either", () => {
     const wrapper = getWrapper();
     expect(wrapper.equals(<span />)).toBe(true);
   });

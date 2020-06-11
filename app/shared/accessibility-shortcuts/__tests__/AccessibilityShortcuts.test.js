@@ -8,7 +8,8 @@ describe('<AccessibilityShortcuts />', () => {
   const defaultProps = {
     mainContentId,
   };
-  const getWrapper = props => shallowWithIntl(<AccessibilityShortcuts {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallowWithIntl(<AccessibilityShortcuts {...defaultProps} {...props} />);
 
   test('div container exists', () => {
     const element = getWrapper().find('div');
@@ -27,7 +28,9 @@ describe('<AccessibilityShortcuts />', () => {
     });
 
     test('renders with correct props', () => {
-      expect(element.prop('className')).toBe('sr-only app-AccessibilityShortcuts__skip-link');
+      expect(element.prop('className')).toBe(
+        'sr-only app-AccessibilityShortcuts__skip-link'
+      );
       expect(element.prop('href')).toBe(`#${mainContentId}`);
     });
 

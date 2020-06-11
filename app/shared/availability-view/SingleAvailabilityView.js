@@ -30,17 +30,15 @@ export default class SingleAvailabilityView extends React.Component {
 
   scrollToInitial(component) {
     if (component) {
-      const target = (
-        this.props.selection
-          ? utils.getTimeSlotWidth({
+      const target = this.props.selection
+        ? utils.getTimeSlotWidth({
             startTime: moment(this.props.selection.begin).startOf('day'),
             endTime: moment(this.props.selection.begin),
           })
-          : utils.getTimeSlotWidth({
+        : utils.getTimeSlotWidth({
             startTime: moment('2016-01-01T00:00:00'),
             endTime: moment('2016-01-01T08:00:00'),
-          })
-      );
+          });
       component.scrollTo(target);
     }
   }
@@ -48,7 +46,10 @@ export default class SingleAvailabilityView extends React.Component {
   render() {
     return (
       <div className="availability-view availability-view-single">
-        <DateSelector onChange={this.props.onDateChange} value={this.props.date} />
+        <DateSelector
+          onChange={this.props.onDateChange}
+          value={this.props.date}
+        />
         <TimelineGroup
           className="dragscroll"
           date={this.props.date}

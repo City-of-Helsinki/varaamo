@@ -9,7 +9,9 @@ describe('shared/reservation-access-code/GeneratedAccessCode', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<GeneratedAccessCode {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <GeneratedAccessCode {...defaultProps} {...extraProps} />
+    );
   }
 
   test('renders a span with correct class', () => {

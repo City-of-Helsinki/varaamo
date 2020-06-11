@@ -51,21 +51,20 @@ describe('Utils: reservationUtils', () => {
       expect(combine(reservations)).toEqual([]);
     });
 
-    test(
-      'returns the reservations unchanged if it contains only one element',
-      () => {
-        const reservations = ['mock reservation'];
+    test('returns the reservations unchanged if it contains only one element', () => {
+      const reservations = ['mock reservation'];
 
-        expect(combine(reservations)).toEqual(reservations);
-      },
-    );
+      expect(combine(reservations)).toEqual(reservations);
+    });
 
     test('combines two reservations if they are continual', () => {
       const reservations = [slots[0], slots[1]];
-      const expected = [{
-        begin: slots[0].begin,
-        end: slots[1].end,
-      }];
+      const expected = [
+        {
+          begin: slots[0].begin,
+          end: slots[1].end,
+        },
+      ];
 
       expect(combine(reservations)).toEqual(expected);
     });
@@ -78,10 +77,12 @@ describe('Utils: reservationUtils', () => {
 
     test('combines three reservations if they are continual', () => {
       const reservations = [slots[0], slots[1], slots[2]];
-      const expected = [{
-        begin: slots[0].begin,
-        end: slots[2].end,
-      }];
+      const expected = [
+        {
+          begin: slots[0].begin,
+          end: slots[2].end,
+        },
+      ];
 
       expect(combine(reservations)).toEqual(expected);
     });
@@ -107,51 +108,48 @@ describe('Utils: reservationUtils', () => {
       expect(isStaffEvent(reservation, resource)).toBe(false);
     });
 
-    test(
-      'returns false if resource does not have any requiredReservationExtraFields',
-      () => {
-        const reservation = { reserverName: 'Luke' };
-        const resource = {};
-        expect(isStaffEvent(reservation, resource)).toBe(false);
-      },
-    );
+    test('returns false if resource does not have any requiredReservationExtraFields', () => {
+      const reservation = { reserverName: 'Luke' };
+      const resource = {};
+      expect(isStaffEvent(reservation, resource)).toBe(false);
+    });
 
-    test(
-      'returns false if reservation has values for requiredReservationExtraFields',
-      () => {
-        const reservation = { reserverName: 'Luke' };
-        const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).toBe(false);
-      },
-    );
+    test('returns false if reservation has values for requiredReservationExtraFields', () => {
+      const reservation = { reserverName: 'Luke' };
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).toBe(false);
+    });
 
-    test(
-      'returns true if reservation is missing values for requiredReservationExtraFields',
-      () => {
-        const reservation = {};
-        const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).toBe(true);
-      },
-    );
+    test('returns true if reservation is missing values for requiredReservationExtraFields', () => {
+      const reservation = {};
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).toBe(true);
+    });
 
-    test(
-      'returns true if reservation has empty strings for requiredReservationExtraFields',
-      () => {
-        const reservation = { reserverName: '' };
-        const resource = { requiredReservationExtraFields: ['reserver_name'] };
-        expect(isStaffEvent(reservation, resource)).toBe(true);
-      },
-    );
+    test('returns true if reservation has empty strings for requiredReservationExtraFields', () => {
+      const reservation = { reserverName: '' };
+      const resource = { requiredReservationExtraFields: ['reserver_name'] };
+      expect(isStaffEvent(reservation, resource)).toBe(true);
+    });
   });
 
   describe('getCurrentReservation', () => {
-    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const previousReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(1, 'days') }
+    );
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') },
+      { startTime: moment().subtract(20, 'minutes') }
     );
-    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
-    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const nextReservation = Reservation.build(
+      {},
+      { startTime: moment().add(2, 'hours') }
+    );
+    const lastReservation = Reservation.build(
+      {},
+      { startTime: moment().add(4, 'hours') }
+    );
     const unorderedReservations = [
       lastReservation,
       previousReservation,
@@ -160,7 +158,9 @@ describe('Utils: reservationUtils', () => {
     ];
 
     test('returns the current reservation from a list of reservations', () => {
-      expect(getCurrentReservation(unorderedReservations)).toEqual(currentReservation);
+      expect(getCurrentReservation(unorderedReservations)).toEqual(
+        currentReservation
+      );
     });
   });
 
@@ -172,7 +172,7 @@ describe('Utils: reservationUtils', () => {
         eventDescription: 'Is male',
         reservationExtraQuestions: 'Is Yoda God?',
       };
-      return Reservation.build(Object.assign({}, defaults, extraValues));
+      return Reservation.build({ ...defaults, ...extraValues });
     }
 
     test('returns an object', () => {
@@ -240,7 +240,10 @@ describe('Utils: reservationUtils', () => {
         const fromMoment = moment('2015-10-10T10:00:00+03:00');
 
         test('returns the fromMoment', () => {
-          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const nextAvailableTime = getNextAvailableTime(
+            reservations,
+            fromMoment
+          );
           expect(nextAvailableTime).toBe(fromMoment);
         });
       });
@@ -249,7 +252,10 @@ describe('Utils: reservationUtils', () => {
         const fromMoment = moment('2015-10-10T13:00:00+03:00');
 
         test('returns the end moment of the ongoing reservation', () => {
-          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const nextAvailableTime = getNextAvailableTime(
+            reservations,
+            fromMoment
+          );
           const expected = '2015-10-10T14:00:00+03:00';
           expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
@@ -259,7 +265,10 @@ describe('Utils: reservationUtils', () => {
         const fromMoment = moment('2015-10-10T16:30:00+03:00');
 
         test('returns the end moment of the last ongoing reservation', () => {
-          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const nextAvailableTime = getNextAvailableTime(
+            reservations,
+            fromMoment
+          );
           const expected = '2015-10-10T18:00:00+03:00';
           expect(nextAvailableTime.isSame(expected)).toBe(true);
         });
@@ -269,7 +278,10 @@ describe('Utils: reservationUtils', () => {
         const fromMoment = moment('2015-10-10T15:00:00+03:00');
 
         test('returns the fromMoment', () => {
-          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const nextAvailableTime = getNextAvailableTime(
+            reservations,
+            fromMoment
+          );
           expect(nextAvailableTime).toBe(fromMoment);
         });
       });
@@ -278,7 +290,10 @@ describe('Utils: reservationUtils', () => {
         const fromMoment = moment('2015-10-10T20:00:00+03:00');
 
         test('returns the fromMoment', () => {
-          const nextAvailableTime = getNextAvailableTime(reservations, fromMoment);
+          const nextAvailableTime = getNextAvailableTime(
+            reservations,
+            fromMoment
+          );
           expect(nextAvailableTime).toBe(fromMoment);
         });
       });
@@ -286,13 +301,22 @@ describe('Utils: reservationUtils', () => {
   });
 
   describe('getNextReservation', () => {
-    const previousReservation = Reservation.build({}, { startTime: moment().subtract(1, 'days') });
+    const previousReservation = Reservation.build(
+      {},
+      { startTime: moment().subtract(1, 'days') }
+    );
     const currentReservation = Reservation.build(
       {},
-      { startTime: moment().subtract(20, 'minutes') },
+      { startTime: moment().subtract(20, 'minutes') }
     );
-    const nextReservation = Reservation.build({}, { startTime: moment().add(2, 'hours') });
-    const lastReservation = Reservation.build({}, { startTime: moment().add(4, 'hours') });
+    const nextReservation = Reservation.build(
+      {},
+      { startTime: moment().add(2, 'hours') }
+    );
+    const lastReservation = Reservation.build(
+      {},
+      { startTime: moment().add(4, 'hours') }
+    );
     const unorderedReservations = [
       lastReservation,
       previousReservation,
@@ -301,7 +325,9 @@ describe('Utils: reservationUtils', () => {
     ];
 
     test('returns the next reservation from a list of reservations', () => {
-      expect(getNextReservation(unorderedReservations)).toEqual(nextReservation);
+      expect(getNextReservation(unorderedReservations)).toEqual(
+        nextReservation
+      );
     });
   });
 
@@ -324,21 +350,23 @@ describe('Utils: reservationUtils', () => {
   describe('getReservationPrice', () => {
     const begin = '2015-10-09T08:00:00+03:00';
     const end = '2015-10-09T10:00:00+03:00';
-    const products = [{
-      id: 'foo',
-      type: 'rent',
-      name: {
-        fi: 'testivuokra',
-        en: 'test rent',
+    const products = [
+      {
+        id: 'foo',
+        type: 'rent',
+        name: {
+          fi: 'testivuokra',
+          en: 'test rent',
+        },
+        description: {
+          fi: 'Testivuokran kuvaus.',
+          en: 'Test rent description.',
+        },
+        pretaxPrice: 10.0,
+        taxPercentage: 24.0,
+        price: { amount: 12.4, type: 'per_period', period: '01:00:00' },
       },
-      description: {
-        fi: 'Testivuokran kuvaus.',
-        en: 'Test rent description.',
-      },
-      pretaxPrice: 10.00,
-      taxPercentage: 24.00,
-      price: { amount: 12.40, type: 'per_period', period: '01:00:00' },
-    }];
+    ];
     const reservationMockData = {
       begin: '2019-09-06T15:00:00+03:00',
       end: '2019-09-06T16:00:00+03:00',

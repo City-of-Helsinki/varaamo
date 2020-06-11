@@ -15,7 +15,9 @@ describe('state/reducers/api/fetchCountsReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESERVATIONS_GET_SUCCESS', () => {
-      const getReservationsSuccess = createAction(types.API.RESERVATIONS_GET_SUCCESS);
+      const getReservationsSuccess = createAction(
+        types.API.RESERVATIONS_GET_SUCCESS
+      );
 
       test('increases reservations by 1', () => {
         const action = getReservationsSuccess();

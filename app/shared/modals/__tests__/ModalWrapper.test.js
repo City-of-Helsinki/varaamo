@@ -18,7 +18,7 @@ describe('shared/modals/ModalWrapper', () => {
     return shallow(
       <ModalWrapper {...defaultProps} {...extraProps}>
         <p>Modal content</p>
-      </ModalWrapper>,
+      </ModalWrapper>
     );
   }
 
@@ -65,14 +65,13 @@ describe('shared/modals/ModalWrapper', () => {
   });
 
   describe('footerContent', () => {
-    test(
-      'is rendered inside ModalFooter if footerContent is given in props',
-      () => {
-        const modalFooter = getWrapper().find(Modal.Footer);
+    test('is rendered inside ModalFooter if footerContent is given in props', () => {
+      const modalFooter = getWrapper().find(Modal.Footer);
 
-        expect(modalFooter.children().equals(defaultProps.footerContent)).toBe(true);
-      },
-    );
+      expect(modalFooter.children().equals(defaultProps.footerContent)).toBe(
+        true
+      );
+    });
 
     test('is not rendered if footerContent is not given in props', () => {
       const footerContent = undefined;

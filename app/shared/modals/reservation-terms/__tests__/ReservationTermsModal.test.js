@@ -6,9 +6,7 @@ import simple from 'simple-mock';
 import WrappedText from '../../../wrapped-text/WrappedText';
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import {
-  UnconnectedReservationTermsModal as ReservationTermsModal,
-} from '../ReservationTermsModal';
+import { UnconnectedReservationTermsModal as ReservationTermsModal } from '../ReservationTermsModal';
 
 describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
   const resource = Resource.build();
@@ -21,7 +19,9 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ReservationTermsModal {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationTermsModal {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('render', () => {
@@ -46,7 +46,9 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
       test('contains title', () => {
         const modalTitle = getModalHeaderWrapper().find(Modal.Title);
         expect(modalTitle.length).toBe(1);
-        expect(modalTitle.prop('children')).toBe('ReservationTermsModal.resourceTermsTitle');
+        expect(modalTitle.prop('children')).toBe(
+          'ReservationTermsModal.resourceTermsTitle'
+        );
       });
     });
 
@@ -62,14 +64,18 @@ describe('shared/modals/reservation-cancel/ReservationTermsModal', () => {
       test('renders resource name', () => {
         const texts = getModalBodyWrapper().find('span');
         expect(texts).toHaveLength(2);
-        expect(texts.at(0).text()).toContain('ReservationTermsModal.resourceTermsSubTitle');
+        expect(texts.at(0).text()).toContain(
+          'ReservationTermsModal.resourceTermsSubTitle'
+        );
       });
 
       test('renders generic terms', () => {
         const resourceWithTerms = Resource.build({
           genericTerms: 'some generic terms',
         });
-        const wrappedText = getModalBodyWrapper({ resource: resourceWithTerms }).find(WrappedText);
+        const wrappedText = getModalBodyWrapper({
+          resource: resourceWithTerms,
+        }).find(WrappedText);
         expect(wrappedText).toHaveLength(1);
         expect(wrappedText.prop('text')).toBe(resourceWithTerms.genericTerms);
       });

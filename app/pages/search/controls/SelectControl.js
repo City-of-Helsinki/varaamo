@@ -11,13 +11,15 @@ import injectT from '../../../i18n/injectT';
 class SelectControl extends React.Component {
   getValue = (value, options) => {
     if (isArray(value)) {
-      return value.map(item => options.find(option => option.value === item));
+      return value.map((item) =>
+        options.find((option) => option.value === item)
+      );
     }
 
-    return options.find(option => option.value === value);
+    return options.find((option) => option.value === value);
   };
 
-  noOptionsMessage = () => this.props.t('SelectControl.noOptions')
+  noOptionsMessage = () => this.props.t('SelectControl.noOptions');
 
   render() {
     const {
@@ -38,8 +40,7 @@ class SelectControl extends React.Component {
       <div className="app-SelectControl">
         <FormGroup controlId={id}>
           {label && <ControlLabel>{label}</ControlLabel>}
-          {!isLoading
-            && (
+          {!isLoading && (
             <Select
               {...rest}
               className={classNames('app-Select', className)}
@@ -63,7 +64,7 @@ class SelectControl extends React.Component {
               placeholder={t('common.select')}
               value={this.getValue(value, options)}
             />
-            )}
+          )}
         </FormGroup>
       </div>
     );
@@ -80,7 +81,11 @@ SelectControl.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.number]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.number,
+  ]),
 };
 
 export default injectT(SelectControl);

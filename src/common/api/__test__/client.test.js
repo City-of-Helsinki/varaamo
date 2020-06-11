@@ -134,6 +134,8 @@ describe('domain/common/api/client.js', () => {
 
     client.post('endpoint', dataWithEmptyField, config);
 
-    expect(client.request.mock.calls[0][0].data).toMatchObject(expectTrimmedData);
+    expect(client.request.mock.calls[0][0].data).toMatchObject(
+      expectTrimmedData
+    );
   });
 });

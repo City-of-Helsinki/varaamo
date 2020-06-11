@@ -37,20 +37,22 @@ export class UninjectedReservationSlot extends React.Component {
   shouldComponentUpdate(nextProps) {
     const isSelected = this.getIsSelected(nextProps.selection);
     const wasSelected = this.getIsSelected(this.props.selection);
-    const isSelectableChanged = this.props.isSelectable !== nextProps.isSelectable;
+    const isSelectableChanged =
+      this.props.isSelectable !== nextProps.isSelectable;
     return (
-      isSelectableChanged
-      || isSelected !== wasSelected
-      || this.shouldShowPopover(wasSelected, nextProps)
+      isSelectableChanged ||
+      isSelected !== wasSelected ||
+      this.shouldShowPopover(wasSelected, nextProps)
     );
   }
 
   getIsSelected(selection = this.props.selection) {
     return (
-      selection
-      && ((!selection.resourceId || selection.resourceId === this.props.resourceId)
-        && this.props.begin >= selection.begin
-        && this.props.end <= selection.end)
+      selection &&
+      (!selection.resourceId ||
+        selection.resourceId === this.props.resourceId) &&
+      this.props.begin >= selection.begin &&
+      this.props.end <= selection.end
     );
   }
 
@@ -58,7 +60,12 @@ export class UninjectedReservationSlot extends React.Component {
     const { end, slotSize } = this.props;
     const slotDuration = moment.duration(slotSize).hours();
     const slotDivider = moment.duration(slotSize).hours() * 2 - 1;
-    const slotEnd = slotDuration < 1 ? end : moment(end).add(30 * slotDivider, 'minutes').format('YYYY-MM-DDTHH:mm:ss');
+    const slotEnd =
+      slotDuration < 1
+        ? end
+        : moment(end)
+            .add(30 * slotDivider, 'minutes')
+            .format('YYYY-MM-DDTHH:mm:ss');
     return {
       begin: this.props.begin,
       end: slotEnd,
@@ -67,7 +74,11 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   shouldShowPopover(isSelected, props = this.props) {
-    return isSelected && !props.selection.hover && props.selection.begin === props.begin;
+    return (
+      isSelected &&
+      !props.selection.hover &&
+      props.selection.begin === props.begin
+    );
   }
 
   handleClick(event) {
@@ -106,7 +117,12 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: slotDuration < 1 ? utils.getTimeSlotWidth() : utils.getTimeSlotWidth() * divideIndex }}
+        style={{
+          width:
+            slotDuration < 1
+              ? utils.getTimeSlotWidth()
+              : utils.getTimeSlotWidth() * divideIndex,
+        }}
         type="button"
       >
         <span className="a11y-text" />
@@ -124,11 +140,11 @@ export class UninjectedReservationSlot extends React.Component {
       );
     }
     return (
-      <React.Fragment>
+      <>
         {slotDuration > 0 && itemIndex % divideIndex === 0 && slot}
         {slotDuration > 0 && itemIndex % divideIndex > 0 && <span />}
         {slotDuration < 1 && slot}
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -1,7 +1,7 @@
 import constants from '../constants/AppConstants';
 
 function getCurrentCustomization() {
-  const host = window.location.host;
+  const { host } = window.location;
   return constants.CUSTOMIZATIONS[host] || null;
 }
 
@@ -21,7 +21,4 @@ function getCustomizationClassName() {
   }
 }
 
-export {
-  getCurrentCustomization,
-  getCustomizationClassName,
-};
+export { getCurrentCustomization, getCustomizationClassName };

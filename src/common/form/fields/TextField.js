@@ -4,17 +4,12 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
-const TextField = ({
-  onChange,
-  onKeyPress,
-  label,
-  placeholder,
-  value,
-  id,
-}) => (
+const TextField = ({ onChange, onKeyPress, label, placeholder, value, id }) => (
   <div className="app-TextField">
     <FormGroup controlId={`textField-${id}`}>
-      {label && <ControlLabel className="app-TextField__label">{label}</ControlLabel>}
+      {label && (
+        <ControlLabel className="app-TextField__label">{label}</ControlLabel>
+      )}
       <FormControl
         className="app-TextField__input"
         onChange={onChange}

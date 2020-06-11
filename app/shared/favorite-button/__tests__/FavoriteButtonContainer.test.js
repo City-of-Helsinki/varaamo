@@ -20,7 +20,9 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
   };
 
   function getWrapper(props) {
-    return shallow(<UnconnectedFavoriteButtonContainer {...defaultProps} {...props} />);
+    return shallow(
+      <UnconnectedFavoriteButtonContainer {...defaultProps} {...props} />
+    );
   }
   let wrapper;
 
@@ -55,7 +57,9 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
     test('calls unfavoriteResource if resource was favorite', () => {
       instance.handleClick();
       expect(defaultProps.actions.unfavoriteResource.callCount).toBe(1);
-      expect(defaultProps.actions.unfavoriteResource.lastCall.args).toEqual(['123']);
+      expect(defaultProps.actions.unfavoriteResource.lastCall.args).toEqual([
+        '123',
+      ]);
     });
 
     test('calls favoriteResource if resource was not favorite', () => {
@@ -67,7 +71,9 @@ describe('shared/favorite-button/FavoriteButtonContainer', () => {
       }).instance();
       customInstance.handleClick();
       expect(defaultProps.actions.favoriteResource.callCount).toBe(1);
-      expect(defaultProps.actions.favoriteResource.lastCall.args).toEqual(['123']);
+      expect(defaultProps.actions.favoriteResource.lastCall.args).toEqual([
+        '123',
+      ]);
     });
   });
 });

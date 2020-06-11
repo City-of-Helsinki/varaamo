@@ -6,7 +6,10 @@ import * as apiUtils from '../../utils/apiUtils';
 describe('Actions: searchActions', () => {
   let getRequestTypeDescriptorMock;
   beforeEach(() => {
-    getRequestTypeDescriptorMock = simple.mock(apiUtils, 'getRequestTypeDescriptor');
+    getRequestTypeDescriptorMock = simple.mock(
+      apiUtils,
+      'getRequestTypeDescriptor'
+    );
   });
 
   describe('getPiwikActionName', () => {
@@ -53,11 +56,7 @@ describe('Actions: searchActions', () => {
       searchResources(params);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
-        args: [
-          'Search',
-          'search-get',
-          'searchText',
-        ],
+        args: ['Search', 'search-get', 'searchText'],
       });
     });
   });

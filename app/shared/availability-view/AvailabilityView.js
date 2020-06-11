@@ -19,14 +19,20 @@ export default class AvailabilityView extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hoverSelection: null, selection: null };
-    this.handleReservationSlotClick = this.handleReservationSlotClick.bind(this);
-    this.handleReservationSlotMouseEnter = this.handleReservationSlotMouseEnter.bind(this);
-    this.handleReservationSlotMouseLeave = this.handleReservationSlotMouseLeave.bind(this);
+    this.handleReservationSlotClick = this.handleReservationSlotClick.bind(
+      this
+    );
+    this.handleReservationSlotMouseEnter = this.handleReservationSlotMouseEnter.bind(
+      this
+    );
+    this.handleReservationSlotMouseLeave = this.handleReservationSlotMouseLeave.bind(
+      this
+    );
     this.handleSelectionCancel = this.handleSelectionCancel.bind(this);
   }
 
   getSelection() {
-    const selection = this.state.selection;
+    const { selection } = this.state;
     const hover = this.state.hoverSelection;
     if (!selection && !hover) return null;
     if (selection && !hover) return selection;
@@ -43,12 +49,10 @@ export default class AvailabilityView extends React.Component {
   }
 
   handleReservationSlotMouseEnter(slot) {
-    const isSlotSelectable = (
-      !this.state.selection || (
-        this.state.selection.resourceId === slot.resourceId
-        && this.state.selection.begin < slot.begin
-      )
-    );
+    const isSlotSelectable =
+      !this.state.selection ||
+      (this.state.selection.resourceId === slot.resourceId &&
+        this.state.selection.begin < slot.begin);
     if (isSlotSelectable) {
       this.setState({ hoverSelection: slot });
     }
@@ -67,10 +71,9 @@ export default class AvailabilityView extends React.Component {
   }
 
   endSelection(slot) {
-    const isValid = (
-      this.state.selection.resourceId === slot.resourceId
-      && this.state.selection.begin <= slot.begin
-    );
+    const isValid =
+      this.state.selection.resourceId === slot.resourceId &&
+      this.state.selection.begin <= slot.begin;
     if (!isValid) {
       return;
     }
@@ -98,7 +101,10 @@ export default class AvailabilityView extends React.Component {
           />
         </div>
         <div className="right">
-          <DateSelector onChange={this.props.onDateChange} value={this.props.date} />
+          <DateSelector
+            onChange={this.props.onDateChange}
+            value={this.props.date}
+          />
           <TimelineGroups
             date={this.props.date}
             groups={this.props.groups}

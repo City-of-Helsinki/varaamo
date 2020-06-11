@@ -42,7 +42,9 @@ class TimePickerCalendar extends Component {
 
   state = {
     viewType: 'timeGridWeek',
-    selected: calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation),
+    selected: calendarUtils.getDefaultSelectedTimeRange(
+      this.props.edittingReservation
+    ),
     header: {
       left: 'myPrev,myNext,myToday',
       center: 'title',
@@ -68,7 +70,12 @@ class TimePickerCalendar extends Component {
     const { resource } = this.props;
 
     const events = this.getReservedEvents();
-    return resourceUtils.isTimeRangeReservable(resource, selection.start, selection.end, events);
+    return resourceUtils.isTimeRangeReservable(
+      resource,
+      selection.start,
+      selection.end,
+      events
+    );
   };
 
   onChange = (selected) => {
@@ -76,13 +83,15 @@ class TimePickerCalendar extends Component {
 
     // Invoke select handler callback from props
     this.props.onTimeChange(selected);
-  }
+  };
 
   onCancel = () => {
     // Revert to default timerange if cancel
-    const defaultSelectedTimeRange = calendarUtils.getDefaultSelectedTimeRange(this.props.edittingReservation);
+    const defaultSelectedTimeRange = calendarUtils.getDefaultSelectedTimeRange(
+      this.props.edittingReservation
+    );
     this.onChange(defaultSelectedTimeRange);
-  }
+  };
 
   onEventRender = (info) => {
     // add cancel button for new selected event
@@ -91,7 +100,9 @@ class TimePickerCalendar extends Component {
     if (info.event.id === NEW_RESERVATION) {
       const cancelBtn = document.createElement('span');
       cancelBtn.classList.add('app-TimePickerCalendar__cancelEvent');
-      cancelBtn.addEventListener('click', () => this.onCancel(), { once: true });
+      cancelBtn.addEventListener('click', () => this.onCancel(), {
+        once: true,
+      });
       info.el.append(cancelBtn);
       duration = this.getDurationText(info.event);
     } else if (info.event.id === '') {
@@ -121,7 +132,10 @@ class TimePickerCalendar extends Component {
       this.onChange(selectable);
     } else {
       // Display error notifications if selection is not valid
-      createNotification(NOTIFICATION_TYPE.ERROR, t('Notifications.selectTimeToReserve.warning'));
+      createNotification(
+        NOTIFICATION_TYPE.ERROR,
+        t('Notifications.selectTimeToReserve.warning')
+      );
     }
   };
 
@@ -130,7 +144,7 @@ class TimePickerCalendar extends Component {
     const { event } = selectionInfo;
     const selectable = this.getSelectableTimeRange(event, selectionInfo);
     this.onChange(selectable);
-  }
+  };
 
   onDatesRender = (info) => {
     const { viewType, header } = this.state;
@@ -150,7 +164,7 @@ class TimePickerCalendar extends Component {
     if (viewType !== view) {
       this.setState({ viewType: view, header: headerConfig });
     }
-  }
+  };
 
   /**
    * To ensure the selected time range will always between min and max period
@@ -168,11 +182,16 @@ class TimePickerCalendar extends Component {
     };
 
     const isUnderMinPeriod = calendarUtils.isTimeRangeUnderMinPeriod(
-      resource, selectable.start, selectable.end,
+      resource,
+      selectable.start,
+      selectable.end
     );
 
     const isOverMaxPeriod = calendarUtils.isTimeRangeOverMaxPeriod(
-      resource, selectable.start, selectable.end, isStaff,
+      resource,
+      selectable.start,
+      selectable.end,
+      isStaff
     );
 
     if (isUnderMinPeriod) {
@@ -182,11 +201,18 @@ class TimePickerCalendar extends Component {
       if (eventCallback) {
         eventCallback.revert();
         createNotification(
-          NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.minPeriodText', { duration: minPeriodDuration }),
+          NOTIFICATION_TYPE.INFO,
+          t('TimePickerCalendar.info.minPeriodText', {
+            duration: minPeriodDuration,
+          })
         );
       }
 
-      selectable = calendarUtils.getMinPeriodTimeRange(resource, selected.start, selected.end);
+      selectable = calendarUtils.getMinPeriodTimeRange(
+        resource,
+        selected.start,
+        selected.end
+      );
       // Make sure selected time will always bigger than min period
     }
 
@@ -199,17 +225,23 @@ class TimePickerCalendar extends Component {
       }
 
       createNotification(
-        NOTIFICATION_TYPE.INFO, t('TimePickerCalendar.info.maxPeriodText', { duration: maxPeriodDuration }),
+        NOTIFICATION_TYPE.INFO,
+        t('TimePickerCalendar.info.maxPeriodText', {
+          duration: maxPeriodDuration,
+        })
       );
 
       selectable = calendarUtils.getMaxPeriodTimeRange(
-        resource, selectable.start, selectable.end, isStaff,
+        resource,
+        selectable.start,
+        selectable.end,
+        isStaff
       );
       // Make sure selected time will always smaller than max period
     }
 
     return selectable;
-  }
+  };
 
   getDurationText = (selected) => {
     const { resource } = this.props;
@@ -235,7 +267,11 @@ class TimePickerCalendar extends Component {
     if (selected) {
       const start = moment(selected.start);
       const end = moment(selected.end);
-      const price = resourceUtils.getReservationPrice(selected.start, selected.end, resource);
+      const price = resourceUtils.getReservationPrice(
+        selected.start,
+        selected.end,
+        resource
+      );
 
       const tVariables = {
         date: start.format('dd D.M.Y'),
@@ -266,23 +302,27 @@ class TimePickerCalendar extends Component {
     };
     // Add the resources reservations as normal FullCalendar events.
     const reservations = get(resource, 'reservations', []);
-    const events = isEmpty(reservations) ? [] : reservations.map(reservation => ({
-      classNames: [getClassNames(reservation)],
-      editable: false,
-      id: reservation.id,
-      start: moment(reservation.begin).toDate(),
-      end: moment(reservation.end).toDate(),
-    }));
+    const events = isEmpty(reservations)
+      ? []
+      : reservations.map((reservation) => ({
+          classNames: [getClassNames(reservation)],
+          editable: false,
+          id: reservation.id,
+          start: moment(reservation.begin).toDate(),
+          end: moment(reservation.end).toDate(),
+        }));
 
     // Check resources reservation rules and disable days if needed.
     const now = moment();
-    const momentDate = moment(date)
-      .startOf('week');
+    const momentDate = moment(date).startOf('week');
 
     for (let i = 0; i < 7; i++) {
       if (
-        momentDate.isBefore(now, 'date')
-        || !resourceUtils.isDateReservable(resource, momentDate.format(constants.DATE_FORMAT))
+        momentDate.isBefore(now, 'date') ||
+        !resourceUtils.isDateReservable(
+          resource,
+          momentDate.format(constants.DATE_FORMAT)
+        )
       ) {
         events.push({
           allDay: true,
@@ -299,7 +339,7 @@ class TimePickerCalendar extends Component {
       momentDate.add(1, 'day');
     }
     return events;
-  }
+  };
 
   getCalendarOptions = () => {
     const isDisabled = this.props.disabled;
@@ -335,9 +375,7 @@ class TimePickerCalendar extends Component {
   };
 
   getEvents = () => {
-    const {
-      resource, isStaff,
-    } = this.props;
+    const { resource, isStaff } = this.props;
     const { selected } = this.state;
 
     const events = this.getReservedEvents();
@@ -351,7 +389,10 @@ class TimePickerCalendar extends Component {
         ],
         editable: true,
         durationEditable: !calendarUtils.isTimeRangeOverMaxPeriod(
-          resource, selected.start, selected.end, isStaff,
+          resource,
+          selected.start,
+          selected.end,
+          isStaff
         ),
         id: NEW_RESERVATION,
         ...selected,
@@ -361,31 +402,33 @@ class TimePickerCalendar extends Component {
   };
 
   render() {
-    const {
-      date,
-      onDateChange,
-      resource,
-      t,
-      disabled,
-    } = this.props;
+    const { date, onDateChange, resource, t, disabled } = this.props;
     const { viewType, header } = this.state;
     const addValue = viewType === 'timeGridWeek' ? 'w' : 'd';
     const slotTallness = resourceUtils.getSlotTallness(resource);
 
     return (
-      <div className={classNames(['app-TimePickerCalendar', {
-        'app-TimePickerCalendar--disabled': disabled,
-        [`app-TimePickerCalendar--${slotTallness}-slots`]: slotTallness,
-      }])}
+      <div
+        className={classNames([
+          'app-TimePickerCalendar',
+          {
+            'app-TimePickerCalendar--disabled': disabled,
+            [`app-TimePickerCalendar--${slotTallness}-slots`]: slotTallness,
+          },
+        ])}
       >
         <FullCalendar
           {...this.getCalendarOptions()}
           allDaySlot={false}
-          businessHours={resourceUtils.getFullCalendarBusinessHours(resource, date)}
+          businessHours={resourceUtils.getFullCalendarBusinessHours(
+            resource,
+            date
+          )}
           customButtons={{
             myPrev: {
               text: ' ',
-              click: () => onDateChange(moment(date).subtract(1, addValue).toDate()),
+              click: () =>
+                onDateChange(moment(date).subtract(1, addValue).toDate()),
             },
             myNext: {
               text: ' ',
@@ -393,7 +436,10 @@ class TimePickerCalendar extends Component {
             },
             myToday: {
               text: t('TimePickerCalendar.info.today'),
-              click: () => onDateChange(this.calendarRef.current.calendar.view.initialNowDate),
+              click: () =>
+                onDateChange(
+                  this.calendarRef.current.calendar.view.initialNowDate
+                ),
             },
           }}
           datesRender={this.onDatesRender}
@@ -403,18 +449,34 @@ class TimePickerCalendar extends Component {
           eventResize={this.onEventResize}
           events={this.getEvents()}
           header={header}
-          maxTime={resourceUtils.getFullCalendarMaxTime(resource, date, viewType)}
-          minTime={resourceUtils.getFullCalendarMinTime(resource, date, viewType)}
+          maxTime={resourceUtils.getFullCalendarMaxTime(
+            resource,
+            date,
+            viewType
+          )}
+          minTime={resourceUtils.getFullCalendarMinTime(
+            resource,
+            date,
+            viewType
+          )}
           onDatesRender={this.onDatesRender}
           ref={this.calendarRef}
           select={this.onSelect}
-          slotDuration={resourceUtils.getFullCalendarSlotDuration(resource, date, viewType)}
-          slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(resource)}
+          slotDuration={resourceUtils.getFullCalendarSlotDuration(
+            resource,
+            date,
+            viewType
+          )}
+          slotLabelInterval={resourceUtils.getFullCalendarSlotLabelInterval(
+            resource
+          )}
         />
         <CalendarLegend />
         {disabled && (
           <div className="app-TimePickerCalendar__blocker">
-            <div className="app-TimePickerCalendar__inline-modal">{t('TimePickerCalendar.info.displayedMessage')}</div>
+            <div className="app-TimePickerCalendar__inline-modal">
+              {t('TimePickerCalendar.info.displayedMessage')}
+            </div>
           </div>
         )}
       </div>

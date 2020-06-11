@@ -17,9 +17,7 @@ describe('domain/footer/Footer', () => {
     expect(footer.length).toBe(1);
   });
   test('renders correctly', () => {
-    const wrapper = shallowWithIntl(
-      <Footer />,
-    );
+    const wrapper = shallowWithIntl(<Footer />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
@@ -36,9 +34,7 @@ describe('domain/footer/Footer', () => {
     });
 
     test('renders correctly', () => {
-      const wrapper = shallowWithIntl(
-        <Footer />,
-      );
+      const wrapper = shallowWithIntl(<Footer />);
       expect(toJSON(wrapper)).toMatchSnapshot();
     });
   });
@@ -47,7 +43,9 @@ describe('domain/footer/Footer', () => {
     let content;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('ESPOO');
       content = getWrapper();
     });
 
@@ -61,7 +59,9 @@ describe('domain/footer/Footer', () => {
     });
 
     it('renders texts for Espoo', () => {
-      expect(content.find('p').first().children().text()).toBe('Footer.espooText');
+      expect(content.find('p').first().children().text()).toBe(
+        'Footer.espooText'
+      );
     });
   });
 
@@ -69,7 +69,9 @@ describe('domain/footer/Footer', () => {
     let content;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('VANTAA');
       content = getWrapper();
     });
 
@@ -83,7 +85,9 @@ describe('domain/footer/Footer', () => {
     });
 
     it('renders texts for Vantaa', () => {
-      expect(content.find('p').first().children().text()).toBe('Footer.vantaaText');
+      expect(content.find('p').first().children().text()).toBe(
+        'Footer.vantaaText'
+      );
     });
   });
 });

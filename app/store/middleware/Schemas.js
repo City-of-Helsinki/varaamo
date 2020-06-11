@@ -27,10 +27,9 @@ paginatedUnitsSchema.define({
 const batchAddResourceSchema = new Schema('resources', {
   unit: unitSchema,
 });
-const batchAddReservationSchema = new Schema(
-  'reservations',
-  { idAttribute: 'url' },
-);
+const batchAddReservationSchema = new Schema('reservations', {
+  idAttribute: 'url',
+});
 
 batchAddResourceSchema.define({
   unit: unitSchema,

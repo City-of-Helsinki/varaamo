@@ -13,11 +13,14 @@ function InfoPopover({ id, placement, text }) {
   const popover = <Popover id={id}>{text}</Popover>;
 
   return (
-    <OverlayTrigger overlay={popover} placement={placement || 'top'} trigger={['hover', 'focus']}>
+    <OverlayTrigger
+      overlay={popover}
+      placement={placement || 'top'}
+      trigger={['hover', 'focus']}
+    >
       <Glyphicon className="info-popover" glyph="question-sign" />
     </OverlayTrigger>
   );
 }
-
 
 export default InfoPopover;

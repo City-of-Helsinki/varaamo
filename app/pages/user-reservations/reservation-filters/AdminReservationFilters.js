@@ -27,14 +27,11 @@ class AdminReservationFilters extends Component {
         value: 'all',
       },
       ...sortBy(
-        map(
-          constants.RESERVATION_STATE_LABELS,
-          (value, key) => ({
-            label: t(value.labelTextId),
-            value: key,
-          }),
-        ),
-        'label',
+        map(constants.RESERVATION_STATE_LABELS, (value, key) => ({
+          label: t(value.labelTextId),
+          value: key,
+        })),
+        'label'
       ),
     ];
 

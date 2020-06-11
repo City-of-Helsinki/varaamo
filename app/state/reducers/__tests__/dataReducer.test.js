@@ -106,7 +106,9 @@ describe('state/reducers/dataReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
-      const postReservationSuccess = createAction(types.API.RESERVATION_POST_SUCCESS);
+      const postReservationSuccess = createAction(
+        types.API.RESERVATION_POST_SUCCESS
+      );
 
       test('adds the reservation to reservations', () => {
         const reservation = Reservation.build();
@@ -134,7 +136,8 @@ describe('state/reducers/dataReducer', () => {
         });
         const action = postReservationSuccess(reservation);
         const nextState = dataReducer(initialState, action);
-        const actualReservations = nextState.resources[resource.id].reservations;
+        const actualReservations =
+          nextState.resources[resource.id].reservations;
         const expectedReservations = Immutable([reservation]);
 
         expect(actualReservations).toEqual(expectedReservations);
@@ -159,7 +162,9 @@ describe('state/reducers/dataReducer', () => {
     });
 
     describe('API.RESERVATION_PUT_SUCCESS', () => {
-      const putReservationSuccess = createAction(types.API.RESERVATION_PUT_SUCCESS);
+      const putReservationSuccess = createAction(
+        types.API.RESERVATION_PUT_SUCCESS
+      );
 
       describe('updating reservations', () => {
         test('adds the reservation to reservations if it is not already there', () => {
@@ -215,7 +220,8 @@ describe('state/reducers/dataReducer', () => {
           });
           const action = putReservationSuccess(reservation);
           const nextState = dataReducer(initialState, action);
-          const actualReservations = nextState.resources[resource.id].reservations;
+          const actualReservations =
+            nextState.resources[resource.id].reservations;
           const expectedReservations = Immutable([reservation]);
 
           expect(actualReservations).toEqual(expectedReservations);
@@ -243,7 +249,8 @@ describe('state/reducers/dataReducer', () => {
           const action = putReservationSuccess(updatedReservation);
           const nextState = dataReducer(initialState, action);
 
-          const actualReservations = nextState.resources[resource.id].reservations;
+          const actualReservations =
+            nextState.resources[resource.id].reservations;
           const expectedReservations = Immutable([updatedReservation]);
 
           expect(actualReservations).toEqual(expectedReservations);
@@ -269,7 +276,9 @@ describe('state/reducers/dataReducer', () => {
     });
 
     describe('API.RESERVATION_DELETE_SUCCESS', () => {
-      const deleteReservationSuccess = createAction(types.API.RESERVATION_DELETE_SUCCESS);
+      const deleteReservationSuccess = createAction(
+        types.API.RESERVATION_DELETE_SUCCESS
+      );
 
       test('changes reservation state to cancelled in reservations', () => {
         const reservation = Reservation.build({ state: 'confirmed' });
@@ -281,14 +290,17 @@ describe('state/reducers/dataReducer', () => {
         const nextState = dataReducer(initialState, action);
 
         const actual = nextState.reservations[reservation.url];
-        const expected = Object.assign({}, reservation, { state: 'cancelled' });
+        const expected = { ...reservation, state: 'cancelled' };
 
         expect(actual).toEqual(expected);
       });
 
       test('changes reservation state to cancelled in resource reservations', () => {
         const resource = Resource.build();
-        const reservation = Reservation.build({ resource: resource.id, state: 'confirmed' });
+        const reservation = Reservation.build({
+          resource: resource.id,
+          state: 'confirmed',
+        });
         resource.reservations = [reservation];
 
         const initialState = Immutable({
@@ -298,8 +310,9 @@ describe('state/reducers/dataReducer', () => {
         const action = deleteReservationSuccess(reservation);
         const nextState = dataReducer(initialState, action);
 
-        const actualReservations = nextState.resources[resource.id].reservations;
-        const expected = Immutable([Object.assign({}, reservation, { state: 'cancelled' })]);
+        const actualReservations =
+          nextState.resources[resource.id].reservations;
+        const expected = Immutable([{ ...reservation, state: 'cancelled' }]);
 
         expect(actualReservations[0].state).toEqual(expected[0].state);
       });
@@ -308,7 +321,10 @@ describe('state/reducers/dataReducer', () => {
         const resource = Resource.build({
           otherValue: 'whatever',
         });
-        const reservation = Reservation.build({ resource: resource.id, state: 'confirmed' });
+        const reservation = Reservation.build({
+          resource: resource.id,
+          state: 'confirmed',
+        });
         const initialState = Immutable({
           reservations: {},
           resources: { [resource.id]: resource },
@@ -325,7 +341,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
       const resourcesGetSuccess = createAction(
         types.API.RESOURCES_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } }),
+        (resource) => ({ entities: { resources: { [resource.id]: resource } } })
       );
 
       test('adds resources to state', () => {
@@ -375,7 +391,9 @@ describe('state/reducers/dataReducer', () => {
         const nextState = dataReducer(initialState, action);
         const actualResource = nextState.resources[originalResource.id];
 
-        expect(actualResource.reservations).toEqual(originalResource.reservations);
+        expect(actualResource.reservations).toEqual(
+          originalResource.reservations
+        );
         expect(actualResource.state).toBe(updatedResource.state);
       });
     });
@@ -383,7 +401,7 @@ describe('state/reducers/dataReducer', () => {
     describe('API.SEARCH_RESULTS_GET_SUCCESS', () => {
       const searchResultsGetSuccess = createAction(
         types.API.SEARCH_RESULTS_GET_SUCCESS,
-        resource => ({ entities: { resources: { [resource.id]: resource } } }),
+        (resource) => ({ entities: { resources: { [resource.id]: resource } } })
       );
 
       test('adds resources to state', () => {
@@ -400,7 +418,6 @@ describe('state/reducers/dataReducer', () => {
 
         expect(nextState.resources).toEqual(expected);
       });
-
 
       test('does not keep old fields in resource', () => {
         const originalResource = Resource.build({
@@ -421,7 +438,6 @@ describe('state/reducers/dataReducer', () => {
         expect(actualResource).toEqual(updatedResource);
       });
     });
-
 
     describe('API.USER_GET_SUCCESS', () => {
       const userGetSuccess = createAction(types.API.USER_GET_SUCCESS);
@@ -444,7 +460,10 @@ describe('state/reducers/dataReducer', () => {
 
       test('does not affect previous user values', () => {
         const user = User.build({ previousValue: 'value' });
-        const updatedUser = User.build({ uuid: user.uuid, newValue: 'newValue' });
+        const updatedUser = User.build({
+          uuid: user.uuid,
+          newValue: 'newValue',
+        });
         const initialState = Immutable({
           users: { [user.uuid]: user },
         });
@@ -465,8 +484,8 @@ describe('state/reducers/dataReducer', () => {
 
       const unfavoriteResource = createAction(
         types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
-        payload => payload,
-        () => ({ id: resource.id }),
+        (payload) => payload,
+        () => ({ id: resource.id })
       );
 
       test('changes isFavorite attribute from resource', () => {
@@ -491,8 +510,8 @@ describe('state/reducers/dataReducer', () => {
 
       const unfavoriteResource = createAction(
         types.API.RESOURCE_FAVORITE_POST_SUCCESS,
-        payload => payload,
-        () => ({ id: resource.id }),
+        (payload) => payload,
+        () => ({ id: resource.id })
       );
 
       test('changes isFavorite attribute from resource', () => {

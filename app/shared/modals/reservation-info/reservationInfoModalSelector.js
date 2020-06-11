@@ -2,7 +2,10 @@ import moment from 'moment';
 import { createSelector, createStructuredSelector } from 'reselect';
 
 import ActionTypes from '../../../constants/ActionTypes';
-import { createUserUnitRoleSelector, isAdminSelector } from '../../../state/selectors/authSelectors';
+import {
+  createUserUnitRoleSelector,
+  isAdminSelector,
+} from '../../../state/selectors/authSelectors';
 import { createResourceSelector } from '../../../state/selectors/dataSelectors';
 import requestIsActiveSelectorFactory from '../../../state/selectors/factories/requestIsActiveSelectorFactory';
 
@@ -15,25 +18,27 @@ const reservationIsEditableSelector = createSelector(
   (reservation) => {
     const isPastReservation = moment(reservation.end).isBefore(moment());
     return !isPastReservation && reservation.state !== 'cancelled';
-  },
+  }
 );
 
 const resourceIdSelector = createSelector(
   reservationSelector,
-  reservation => reservation.resource,
+  (reservation) => reservation.resource
 );
 
 const resourceSelector = createResourceSelector(resourceIdSelector);
 
 const reservationInfoModalSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
-  isEditing: state => state.ui.reservationInfoModal.isEditing,
-  isSaving: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_PUT_REQUEST),
+  isEditing: (state) => state.ui.reservationInfoModal.isEditing,
+  isSaving: requestIsActiveSelectorFactory(
+    ActionTypes.API.RESERVATION_PUT_REQUEST
+  ),
   userUnitRole: createUserUnitRoleSelector(resourceSelector),
   reservation: reservationSelector,
   reservationIsEditable: reservationIsEditableSelector,
   resource: resourceSelector,
-  show: state => state.ui.reservationInfoModal.show,
+  show: (state) => state.ui.reservationInfoModal.show,
 });
 
 export default reservationInfoModalSelector;

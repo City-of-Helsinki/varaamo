@@ -2,8 +2,9 @@ import * as searchUtils from '../utils';
 import constants from '../../../../app/constants/AppConstants';
 
 describe('src/domain/search/utils.js', () => {
-  // eslint-disable-next-line max-len
-  const expectedSearch = 'municipality=helsinki%2Cvantaa%2Cespoo&search=Foo&purpose=events&availableBetween=2019-07-31T14%3A30%2B03%3A00%2C2019-07-31T23%3A30%2B03%3A00%2C30&date=2019-07-31';
+  const expectedSearch =
+    // eslint-disable-next-line max-len
+    'municipality=helsinki%2Cvantaa%2Cespoo&search=Foo&purpose=events&availableBetween=2019-07-31T14%3A30%2B03%3A00%2C2019-07-31T23%3A30%2B03%3A00%2C30&date=2019-07-31';
   const expectedFilters = {
     municipality: 'helsinki,vantaa,espoo',
     search: 'Foo',
@@ -13,7 +14,9 @@ describe('src/domain/search/utils.js', () => {
   };
 
   test('getFiltersFromUrl', () => {
-    const filters = searchUtils.getFiltersFromUrl({ search: `?${expectedSearch}` });
+    const filters = searchUtils.getFiltersFromUrl({
+      search: `?${expectedSearch}`,
+    });
     expect(filters).toEqual(expectedFilters);
   });
 
@@ -41,10 +44,8 @@ describe('src/domain/search/utils.js', () => {
       expect(options[2]).toMatchObject({ value: 2 });
     });
 
-    test('returns label in Finnish if current locale doesn\'t exist', () => {
-      const units = [
-        { id: 1, name: { fi: 'B' } },
-      ];
+    test("returns label in Finnish if current locale doesn't exist", () => {
+      const units = [{ id: 1, name: { fi: 'B' } }];
       const [option] = searchUtils.getUnitOptions(units, 'en');
 
       expect(option.label).toEqual(units[0].name.fi);
@@ -96,10 +97,14 @@ describe('src/domain/search/utils.js', () => {
     expect(options.length).toBe(constants.DEFAULT_MUNICIPALITY_OPTIONS.length);
     expect(Object.keys(options[0])).toContainEqual('value');
     expect(Object.keys(options[0])).toContainEqual('label');
-    expect(options.map(option => option.label)).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS);
+    expect(options.map((option) => option.label)).toEqual(
+      constants.DEFAULT_MUNICIPALITY_OPTIONS
+    );
   });
 
   test('getSearchPageLink', () => {
-    expect(searchUtils.getSearchPageLink(expectedFilters)).toBe(`/search?${expectedSearch}`);
+    expect(searchUtils.getSearchPageLink(expectedFilters)).toBe(
+      `/search?${expectedSearch}`
+    );
   });
 });

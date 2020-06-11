@@ -7,9 +7,7 @@ function ResourceCalendarOverlay({ children }) {
   return (
     <div className="app-ResourceCalendarOverlay">
       <div className="app-ResourceCalendarOverlay__overlay">
-        <div className="app-ResourceCalendarOverlay__content">
-          {children}
-        </div>
+        <div className="app-ResourceCalendarOverlay__content">{children}</div>
       </div>
     </div>
   );

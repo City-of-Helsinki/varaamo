@@ -23,9 +23,9 @@ import UserNotificator from '../../src/common/notificator/user/UserNotificator';
 import AccessibilityShortcuts from '../shared/accessibility-shortcuts/AccessibilityShortcuts';
 import FontSizes from '../constants/FontSizes';
 
-const userIdSelector = state => state.auth.userId;
-const languageSelector = state => state.intl && state.intl.locale;
-const fontSizeSelector = state => state.ui.accessibility.fontSize;
+const userIdSelector = (state) => state.auth.userId;
+const languageSelector = (state) => state.intl && state.intl.locale;
+const fontSizeSelector = (state) => state.ui.accessibility.fontSize;
 
 export const selector = createStructuredSelector({
   isStaff: isAdminSelector,

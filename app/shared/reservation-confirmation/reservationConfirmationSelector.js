@@ -13,19 +13,22 @@ import requestIsActiveSelectorFactory from '../../state/selectors/factories/requ
 
 const resourceIdSelector = (state, props) => props.params.id;
 const resourceSelector = createResourceSelector(resourceIdSelector);
-const toEditSelector = state => state.ui.reservations.toEdit;
-const staffEventSelectedSelector = state => (
-  formValueSelector(FormTypes.RESERVATION)(state, 'staffEvent')
-);
+const toEditSelector = (state) => state.ui.reservations.toEdit;
+const staffEventSelectedSelector = (state) =>
+  formValueSelector(FormTypes.RESERVATION)(state, 'staffEvent');
 const selectedReservationsSelector = createSelector(
   (state, props) => props.selectedReservations,
   selectedReservationsFromStateSelector,
-  (fromProps, fromState) => fromProps || fromState,
+  (fromProps, fromState) => fromProps || fromState
 );
 
 const reservationConfirmationSelector = createStructuredSelector({
-  confirmReservationModalIsOpen: modalIsOpenSelectorFactory(ModalTypes.RESERVATION_CONFIRM),
-  isMakingReservations: requestIsActiveSelectorFactory(ActionTypes.API.RESERVATION_POST_REQUEST),
+  confirmReservationModalIsOpen: modalIsOpenSelectorFactory(
+    ModalTypes.RESERVATION_CONFIRM
+  ),
+  isMakingReservations: requestIsActiveSelectorFactory(
+    ActionTypes.API.RESERVATION_POST_REQUEST
+  ),
   isStaff: createIsStaffSelector(resourceSelector),
   recurringReservations: recurringReservations.selectReservations,
   reservationsToEdit: toEditSelector,

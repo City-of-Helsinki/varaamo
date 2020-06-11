@@ -10,9 +10,7 @@ describe('ManageReservationsStatus', () => {
     const props = {
       reservation: reservation.build(),
     };
-    const wrapper = shallowWithIntl(
-      <ManageReservationsStatus {...props} />,
-    );
+    const wrapper = shallowWithIntl(<ManageReservationsStatus {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

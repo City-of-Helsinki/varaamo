@@ -8,9 +8,12 @@ import rootReducer from '../app/state/rootReducer';
 const initialStoreState = createStore(rootReducer, {}).getState();
 const initialServerState = window.INITIAL_STATE;
 const initialIntlState = initI18n();
-const finalState = Immutable(initialStoreState).merge([initialServerState, initialIntlState], {
-  deep: true,
-});
+const finalState = Immutable(initialStoreState).merge(
+  [initialServerState, initialIntlState],
+  {
+    deep: true,
+  }
+);
 const store = configureStore(finalState);
 
 export default store;

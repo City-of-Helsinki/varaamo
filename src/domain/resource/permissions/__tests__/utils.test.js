@@ -1,4 +1,8 @@
-import { hasPermissionForResource, getUnitRoleFromResource, getIsUnitStaff } from '../utils';
+import {
+  hasPermissionForResource,
+  getUnitRoleFromResource,
+  getIsUnitStaff,
+} from '../utils';
 import { resourceRoles, resourcePermissionTypes } from '../constants';
 
 describe('domain resource permission utility functions', () => {
@@ -21,7 +25,7 @@ describe('domain resource permission utility functions', () => {
     });
 
     test('warns when the permissions targeted with requiredPermissions are unknown', () => {
-    // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       const originalWarn = global.console.warn;
       let lastCall = null;
       const mockWarn = jest.fn((...args) => {
@@ -30,11 +34,17 @@ describe('domain resource permission utility functions', () => {
       // eslint-disable-next-line no-console
       global.console.warn = mockWarn;
 
-      hasPermissionForResource(resourceRoles.UNIT_ADMINISTRATOR, 'IMAGINARY_PERMISSION');
+      hasPermissionForResource(
+        resourceRoles.UNIT_ADMINISTRATOR,
+        'IMAGINARY_PERMISSION'
+      );
 
       expect(lastCall).toMatchSnapshot();
 
-      hasPermissionForResource(resourceRoles.UNIT_ADMINISTRATOR, ['IMAGINARY_PERMISSION_0', 'IMAGINARY_PERMISSION_1']);
+      hasPermissionForResource(resourceRoles.UNIT_ADMINISTRATOR, [
+        'IMAGINARY_PERMISSION_0',
+        'IMAGINARY_PERMISSION_1',
+      ]);
 
       expect(lastCall).toMatchSnapshot();
 
@@ -46,12 +56,17 @@ describe('domain resource permission utility functions', () => {
       const consoleWarnSpy = jest.spyOn(global.console, 'warn');
       const admin = resourceRoles.UNIT_ADMINISTRATOR;
       const viewer = resourceRoles.UNIT_VIEWER;
-      const canIgnoreOpeningHours = resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS;
+      const canIgnoreOpeningHours =
+        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS;
 
       // Should return true because admin has this permission
-      expect(hasPermissionForResource(admin, canIgnoreOpeningHours)).toEqual(true);
+      expect(hasPermissionForResource(admin, canIgnoreOpeningHours)).toEqual(
+        true
+      );
       // Should return false because viewer does not have this permission
-      expect(hasPermissionForResource(viewer, canIgnoreOpeningHours)).toEqual(false);
+      expect(hasPermissionForResource(viewer, canIgnoreOpeningHours)).toEqual(
+        false
+      );
 
       expect(consoleWarnSpy).not.toHaveBeenCalled();
     });
@@ -61,13 +76,24 @@ describe('domain resource permission utility functions', () => {
       const admin = resourceRoles.UNIT_ADMINISTRATOR;
       const viewer = resourceRoles.UNIT_VIEWER;
       const canIgnoreOpeningHoursAndModifyReservations = [
-        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS, resourcePermissionTypes.CAN_MODIFY_RESERVATIONS,
+        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
+        resourcePermissionTypes.CAN_MODIFY_RESERVATIONS,
       ];
 
       // Should return true because admin has all the permissions
-      expect(hasPermissionForResource(admin, canIgnoreOpeningHoursAndModifyReservations)).toEqual(true);
+      expect(
+        hasPermissionForResource(
+          admin,
+          canIgnoreOpeningHoursAndModifyReservations
+        )
+      ).toEqual(true);
       // Should return false because viewer does not have one of the permission
-      expect(hasPermissionForResource(viewer, canIgnoreOpeningHoursAndModifyReservations)).toEqual(false);
+      expect(
+        hasPermissionForResource(
+          viewer,
+          canIgnoreOpeningHoursAndModifyReservations
+        )
+      ).toEqual(false);
 
       expect(consoleWarnSpy).not.toHaveBeenCalled();
     });
@@ -97,24 +123,28 @@ describe('domain resource permission utility functions', () => {
       });
 
       test(`returns UNIT_ADMINISTRATOR when ${caseMap.isAdmin} is true`, () => {
-        expect(getUnitRoleFromResource(getTestResource(true)))
-          .toEqual(resourceRoles.UNIT_ADMINISTRATOR);
+        expect(getUnitRoleFromResource(getTestResource(true))).toEqual(
+          resourceRoles.UNIT_ADMINISTRATOR
+        );
       });
 
       test(`returns UNIT_MANAGER when ${caseMap.isAdmin} is falsy and ${caseMap.isManager} is true`, () => {
-        expect(getUnitRoleFromResource(getTestResource(false, true)))
-          .toEqual(resourceRoles.UNIT_MANAGER);
+        expect(getUnitRoleFromResource(getTestResource(false, true))).toEqual(
+          resourceRoles.UNIT_MANAGER
+        );
       });
 
       // eslint-disable-next-line max-len
       test(`returns UNIT_MANAGER when ${caseMap.isAdmin} is falsy, ${caseMap.isManager} is falsy and ${caseMap.isViewer} is true`, () => {
-        expect(getUnitRoleFromResource(getTestResource(false, false, true)))
-          .toEqual(resourceRoles.UNIT_VIEWER);
+        expect(
+          getUnitRoleFromResource(getTestResource(false, false, true))
+        ).toEqual(resourceRoles.UNIT_VIEWER);
       });
 
       test('returns null otherwise', () => {
-        expect(getUnitRoleFromResource(getTestResource(false, false, false)))
-          .toEqual(null);
+        expect(
+          getUnitRoleFromResource(getTestResource(false, false, false))
+        ).toEqual(null);
       });
     };
 

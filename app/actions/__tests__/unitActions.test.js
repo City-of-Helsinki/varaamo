@@ -9,7 +9,10 @@ describe('Actions: unitActions', () => {
   let buildAPIUrlMock;
 
   beforeEach(() => {
-    getRequestTypeDescriptorMock = simple.mock(apiUtils, 'getRequestTypeDescriptor');
+    getRequestTypeDescriptorMock = simple.mock(
+      apiUtils,
+      'getRequestTypeDescriptor'
+    );
     buildAPIUrlMock = simple.mock(apiUtils, 'buildAPIUrl');
   });
 
@@ -20,7 +23,9 @@ describe('Actions: unitActions', () => {
   describe('fetchUnit', () => {
     test('includes correct type', () => {
       fetchUnits();
-      expect(getRequestTypeDescriptorMock.lastCall.args[0]).toBe(types.API.UNITS_GET_REQUEST);
+      expect(getRequestTypeDescriptorMock.lastCall.args[0]).toBe(
+        types.API.UNITS_GET_REQUEST
+      );
     });
 
     test('that has resources as default in query', () => {

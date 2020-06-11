@@ -55,9 +55,13 @@ class ReservationTime extends Component {
     const decamelizedResource = decamelizeKeys(resource);
     const reservations = get(decamelizedResource, 'reservations', []);
     const filteredReservations = filter(
-      reservations, res => (selectedReservation && res.id !== selectedReservation.id),
+      reservations,
+      (res) => selectedReservation && res.id !== selectedReservation.id
     );
-    const resourceToEdit = { ...decamelizedResource, reservations: filteredReservations };
+    const resourceToEdit = {
+      ...decamelizedResource,
+      reservations: filteredReservations,
+    };
 
     return (
       <div className="app-ReservationTime">
@@ -73,8 +77,12 @@ class ReservationTime extends Component {
               date={shownDate}
               edittingReservation={selectedReservation}
               isStaff={isStaff}
-              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-              onTimeChange={selected => handleSelectReservation({ selected, resource: resourceToEdit })}
+              onDateChange={(newDate) =>
+                this.handleDateChange(moment(newDate).toDate())
+              }
+              onTimeChange={(selected) =>
+                handleSelectReservation({ selected, resource: resourceToEdit })
+              }
               resource={resourceToEdit}
             />
           </Col>
@@ -98,7 +106,11 @@ class ReservationTime extends Component {
           <Button bsStyle="warning" onClick={onCancel}>
             {t('ReservationInformationForm.cancelEdit')}
           </Button>
-          <Button bsStyle="primary" disabled={isEmpty(selectedReservation)} onClick={onConfirm}>
+          <Button
+            bsStyle="primary"
+            disabled={isEmpty(selectedReservation)}
+            onClick={onConfirm}
+          >
             {t('common.continue')}
           </Button>
         </div>

@@ -3,9 +3,7 @@ import React from 'react';
 
 import ResourceCard from '../resource-card/ResourceCard';
 
-function ResourceList({
-  date, emptyMessage, location, resourceIds, history,
-}) {
+function ResourceList({ date, emptyMessage, location, resourceIds, history }) {
   function renderResourceListItem(resourceId) {
     return (
       <ResourceCard
@@ -21,7 +19,11 @@ function ResourceList({
     return emptyMessage ? <p>{emptyMessage}</p> : <div />;
   }
 
-  return <div className="resource-list">{resourceIds.map(renderResourceListItem)}</div>;
+  return (
+    <div className="resource-list">
+      {resourceIds.map(renderResourceListItem)}
+    </div>
+  );
 }
 
 ResourceList.propTypes = {

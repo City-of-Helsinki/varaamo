@@ -14,13 +14,10 @@ export function track(trackData) {
   }
 }
 
-const tracking = () => dispatch => (action) => {
+const tracking = () => (dispatch) => (action) => {
   const trackData = action.meta && action.meta.track;
   if (AppConstants.TRACKING && trackData) {
-    window.setTimeout(
-      () => track(trackData),
-      0,
-    );
+    window.setTimeout(() => track(trackData), 0);
   }
   return dispatch(action);
 };

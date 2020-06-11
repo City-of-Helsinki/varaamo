@@ -69,7 +69,9 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         const confirmPreliminaryReservation = simple.mock();
         callOnConfirmClick({ confirmPreliminaryReservation });
         expect(confirmPreliminaryReservation.callCount).toBe(1);
-        expect(confirmPreliminaryReservation.lastCall.args).toEqual([reservation]);
+        expect(confirmPreliminaryReservation.lastCall.args).toEqual([
+          reservation,
+        ]);
       });
     });
 
@@ -93,15 +95,16 @@ describe('shared/modals/reservation-info/ReservationInfoModalContainer', () => {
         getProps({ ...actions, ...extraActions }).onSaveCommentsClick(comments);
       }
 
-      test(
-        'calls commentReservation with reservation, resource and the given comment',
-        () => {
-          const commentReservation = simple.mock();
-          callOnSaveCommentsClick({ commentReservation });
-          expect(commentReservation.callCount).toBe(1);
-          expect(commentReservation.lastCall.args).toEqual([reservation, resource, comments]);
-        },
-      );
+      test('calls commentReservation with reservation, resource and the given comment', () => {
+        const commentReservation = simple.mock();
+        callOnSaveCommentsClick({ commentReservation });
+        expect(commentReservation.callCount).toBe(1);
+        expect(commentReservation.lastCall.args).toEqual([
+          reservation,
+          resource,
+          comments,
+        ]);
+      });
     });
   });
 });

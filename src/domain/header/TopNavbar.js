@@ -39,9 +39,7 @@ class TopNavbar extends Component {
   }
 
   render() {
-    const {
-      currentLanguage, isLoggedIn, t, userName,
-    } = this.props;
+    const { currentLanguage, isLoggedIn, t, userName } = this.props;
 
     return (
       <Navbar className="app-TopNavbar" fluid>
@@ -61,7 +59,7 @@ class TopNavbar extends Component {
             as="li"
             className="app-TopNavbar__language"
             id="language-nav-dropdown"
-            renderToggle={props => (
+            renderToggle={(props) => (
               <LinkButton
                 {...props}
                 aria-label={t(`common.language.${currentLanguage}`)}
@@ -70,22 +68,23 @@ class TopNavbar extends Component {
               </LinkButton>
             )}
           >
-            {({ closeMenu }) => Object.values(SUPPORTED_LANGUAGES)
-              .filter(language => language !== currentLanguage)
-              .map(language => (
-                <TabbableNavItem
-                  href="#"
-                  key={language}
-                  lang={language}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.onLanguageItemClick(language);
-                    closeMenu();
-                  }}
-                >
-                  {t(`common.language.${language}`)}
-                </TabbableNavItem>
-              ))
+            {({ closeMenu }) =>
+              Object.values(SUPPORTED_LANGUAGES)
+                .filter((language) => language !== currentLanguage)
+                .map((language) => (
+                  <TabbableNavItem
+                    href="#"
+                    key={language}
+                    lang={language}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.onLanguageItemClick(language);
+                      closeMenu();
+                    }}
+                  >
+                    {t(`common.language.${language}`)}
+                  </TabbableNavItem>
+                ))
             }
           </TabbableNavDropdown>
 
@@ -94,7 +93,7 @@ class TopNavbar extends Component {
               as="li"
               className="app-TopNavbar__name"
               id="user-nav-dropdown"
-              renderToggle={props => (
+              renderToggle={(props) => (
                 <LinkButton {...props}>{userName}</LinkButton>
               )}
             >
@@ -123,6 +122,7 @@ class TopNavbar extends Component {
 // Due to style rules, which expect an a element, we have to use an anchor
 // instead of a button.
 const LinkButton = ({ children, ...props }) => (
+  // eslint-disable-next-line jsx-a11y/anchor-is-valid
   <a href="#" type="button" {...props}>
     {children}
   </a>

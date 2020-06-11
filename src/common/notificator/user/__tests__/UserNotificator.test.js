@@ -9,14 +9,27 @@ describe('UserNotificator', () => {
     language: '',
   };
 
-  const getWrapper = props => shallow(<UserNotificator {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallow(<UserNotificator {...defaultProps} {...props} />);
 
   describe('Returns correct notification', () => {
     test('If notification array has target=all, return that', () => {
       const notifications = [
-        { target: 'all', message: { fi: '', en: 'Message for all', sv: '' }, urgency: 'common' },
-        { target: 'staff', message: { fi: '', en: 'Message for staff', sv: '' }, urgency: 'common' },
-        { target: 'user', message: { fi: '', en: 'Message for user', sv: '' }, urgency: 'common' },
+        {
+          target: 'all',
+          message: { fi: '', en: 'Message for all', sv: '' },
+          urgency: 'common',
+        },
+        {
+          target: 'staff',
+          message: { fi: '', en: 'Message for staff', sv: '' },
+          urgency: 'common',
+        },
+        {
+          target: 'user',
+          message: { fi: '', en: 'Message for user', sv: '' },
+          urgency: 'common',
+        },
       ];
 
       const wrapper = getWrapper();
@@ -26,8 +39,16 @@ describe('UserNotificator', () => {
     });
 
     const notifications = [
-      { target: 'staff', message: { fi: '', en: 'Message for staff', sv: '' }, urgency: 'common' },
-      { target: 'user', message: { fi: '', en: 'Message for user', sv: '' }, urgency: 'common' },
+      {
+        target: 'staff',
+        message: { fi: '', en: 'Message for staff', sv: '' },
+        urgency: 'common',
+      },
+      {
+        target: 'user',
+        message: { fi: '', en: 'Message for user', sv: '' },
+        urgency: 'common',
+      },
     ];
 
     test('No target=all and user is not admin', () => {
@@ -94,7 +115,15 @@ describe('UserNotificator', () => {
   describe('Use correct language', () => {
     const notifications = [
       // eslint-disable-next-line max-len
-      { target: 'user', message: { fi: 'Viesti käyttäjälle', en: 'Message for user', sv: 'Meddelande för användaren' }, urgency: 'common' },
+      {
+        target: 'user',
+        message: {
+          fi: 'Viesti käyttäjälle',
+          en: 'Message for user',
+          sv: 'Meddelande för användaren',
+        },
+        urgency: 'common',
+      },
     ];
 
     test('Language is fi', () => {
@@ -120,7 +149,11 @@ describe('UserNotificator', () => {
 
     test('Language is en but no message in finnish', () => {
       const noLanguageNotifications = [
-        { target: 'user', message: { fi: 'Viesti käyttäjälle', en: '', sv: '' }, urgency: 'common' },
+        {
+          target: 'user',
+          message: { fi: 'Viesti käyttäjälle', en: '', sv: '' },
+          urgency: 'common',
+        },
       ];
       const noLanguageWrapper = getWrapper({ language: 'en' });
       noLanguageWrapper.setState({ notifications: noLanguageNotifications });

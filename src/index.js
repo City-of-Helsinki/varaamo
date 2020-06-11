@@ -38,11 +38,12 @@ if (settings.FIREBASE.API_KEY && settings.FIREBASE.API_KEY.length > 0) {
 
 // TODO: Support IE11 in the future.
 render(
-  isIEBrowser ? <BrowserWarning />
-    : (
-      <Provider store={store}>
-        <Router>{getRoutes()}</Router>
-      </Provider>
-    ),
-  document.getElementById('root'),
+  isIEBrowser ? (
+    <BrowserWarning />
+  ) : (
+    <Provider store={store}>
+      <Router>{getRoutes()}</Router>
+    </Provider>
+  ),
+  document.getElementById('root')
 );

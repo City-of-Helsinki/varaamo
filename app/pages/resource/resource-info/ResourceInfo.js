@@ -11,9 +11,7 @@ import ReservationInfo from '../reservation-info/ReservationInfo';
 import Equipment from '../resource-equipment/ResourceEquipment';
 import ResourcePanel from './ResourcePanel';
 
-function ResourceInfo({
-  isLoggedIn, resource, unit, t,
-}) {
+function ResourceInfo({ isLoggedIn, resource, unit, t }) {
   const serviceMapUrl = getServiceMapUrl(unit);
   const hasProducts = resource.products && resource.products.length > 0;
 
@@ -34,7 +32,10 @@ function ResourceInfo({
       )}
 
       {resource.genericTerms && (
-        <ResourcePanel defaultExpanded={false} header={t('ResourcePage.genericTermsHeader')}>
+        <ResourcePanel
+          defaultExpanded={false}
+          header={t('ResourcePage.genericTermsHeader')}
+        >
           <WrappedText text={resource.genericTerms} />
         </ResourcePanel>
       )}
@@ -50,12 +51,20 @@ function ResourceInfo({
           <Col className="app-ResourceInfo__address" xs={6}>
             {unit && unit.name && <span>{unit.name}</span>}
             {unit && unit.streetAddress && <span>{unit.streetAddress}</span>}
-            {unit && <span>{`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}</span>}
+            {unit && (
+              <span>
+                {`${unit.addressZip} ${upperFirst(unit.municipality)}`.trim()}
+              </span>
+            )}
           </Col>
           <Col className="app-ResourceInfo__web" xs={6}>
             {serviceMapUrl && (
               <span className="app-ResourceInfo__servicemap">
-                <a href={serviceMapUrl} rel="noopener noreferrer" target="_blank">
+                <a
+                  href={serviceMapUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   {t('ResourceInfo.serviceMapLink')}
                 </a>
               </span>
@@ -71,8 +80,9 @@ function ResourceInfo({
         </Row>
       </ResourcePanel>
 
-      { Array.isArray(resource.equipment)
-      && resource.equipment.length > 0 && (<Equipment equipment={resource.equipment} />) }
+      {Array.isArray(resource.equipment) && resource.equipment.length > 0 && (
+        <Equipment equipment={resource.equipment} />
+      )}
 
       <ResourcePanel header={t('ResourceInfo.reservationTitle')}>
         <ReservationInfo isLoggedIn={isLoggedIn} resource={resource} />

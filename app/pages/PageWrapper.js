@@ -12,17 +12,17 @@ const PageWrapper = ({
   transparent = false,
 }) => {
   return (
-    <div className={classNames('app-PageWrapper', { 'app-PageWrapper__transparent': transparent })}>
-      <Grid
-        fluid={fluid}
-      >
+    <div
+      className={classNames('app-PageWrapper', {
+        'app-PageWrapper__transparent': transparent,
+      })}
+    >
+      <Grid fluid={fluid}>
         <Helmet>
           <title>{`${title} - Varaamo`}</title>
         </Helmet>
 
-        <div className={className}>
-          {children}
-        </div>
+        <div className={className}>{children}</div>
       </Grid>
     </div>
   );

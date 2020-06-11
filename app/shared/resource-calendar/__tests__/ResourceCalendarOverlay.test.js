@@ -5,9 +5,7 @@ import ResourceCalendarOverlay from '../ResourceCalendarOverlay';
 
 describe('shared/resource-calendar/ResourceCalendarOverlay', () => {
   function getWrapper(props) {
-    return shallowWithIntl(
-      <ResourceCalendarOverlay {...props} />,
-    );
+    return shallowWithIntl(<ResourceCalendarOverlay {...props} />);
   }
 
   test('renders app-ResourceCalendarOverlay with correct children', () => {

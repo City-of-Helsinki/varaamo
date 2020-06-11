@@ -28,7 +28,7 @@ const HeaderFontSizeControl = ({ fontSize, setFontSize, t }) => {
         {t('HeaderFontSizeControl.label')}
       </span>
       <div className="app-HeaderFontSizeControl__option-list">
-        {Object.values(FontSizes).map(fontSizeOption => (
+        {Object.values(FontSizes).map((fontSizeOption) => (
           <HeaderFontSizeButton
             aria-label={t(`HeaderFontSizeControl.${fontSizeOption}`)}
             aria-pressed={fontSize === fontSizeOption}
@@ -48,7 +48,7 @@ HeaderFontSizeControl.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const fontSizeSelector = state => state.ui.accessibility.fontSize;
+const fontSizeSelector = (state) => state.ui.accessibility.fontSize;
 
 export const selector = createStructuredSelector({
   fontSize: fontSizeSelector,

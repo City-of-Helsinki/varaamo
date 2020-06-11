@@ -14,13 +14,14 @@ function isTranslatable(prop) {
   if (!isObject(prop)) {
     return false;
   }
-  return some(constants.SUPPORTED_LANGUAGES, language => prop[language]);
+  return some(constants.SUPPORTED_LANGUAGES, (language) => prop[language]);
 }
 
 function translateValue(prop, language) {
   if (prop[language]) {
     return prop[language];
-  } if (prop[constants.DEFAULT_LOCALE]) {
+  }
+  if (prop[constants.DEFAULT_LOCALE]) {
     return prop[constants.DEFAULT_LOCALE];
   }
   return '';
@@ -32,10 +33,12 @@ function translateValue(prop, language) {
 function translateItem(item, language) {
   if (isTranslatable(item)) {
     return translateValue(item, language);
-  } if (isArray(item)) {
-    return item.map(value => translateItem(value, language));
-  } if (isObject(item)) {
-    return mapValues(item, value => translateItem(value, language));
+  }
+  if (isArray(item)) {
+    return item.map((value) => translateItem(value, language));
+  }
+  if (isObject(item)) {
+    return mapValues(item, (value) => translateItem(value, language));
   }
   return item;
 }
@@ -48,14 +51,11 @@ function createTranslatedSelector(toTranslateSelector) {
     currentLanguageSelector,
     (toTranslate, language) => {
       if (isArray(toTranslate)) {
-        return toTranslate.map(item => translateItem(item, language));
+        return toTranslate.map((item) => translateItem(item, language));
       }
-      return mapValues(toTranslate, item => translateItem(item, language));
-    },
+      return mapValues(toTranslate, (item) => translateItem(item, language));
+    }
   );
 }
 
-export {
-  createTranslatedSelector,
-  currentLanguageSelector,
-};
+export { createTranslatedSelector, currentLanguageSelector };

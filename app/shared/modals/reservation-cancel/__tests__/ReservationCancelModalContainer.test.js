@@ -8,9 +8,8 @@ import CompactReservationList from '../../../compact-reservation-list/CompactRes
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import {
-  UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer,
-} from '../ReservationCancelModalContainer';
+// eslint-disable-next-line max-len
+import { UnconnectedReservationCancelModalContainer as ReservationCancelModalContainer } from '../ReservationCancelModalContainer';
 
 describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () => {
   const resource = Resource.build();
@@ -28,7 +27,9 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ReservationCancelModalContainer {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationCancelModalContainer {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('render', () => {
@@ -52,15 +53,23 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
 
       describe('title', () => {
         test('is correct if cancel is allowed', () => {
-          const modalTitle = getModalHeaderWrapper({ cancelAllowed: true }).find(Modal.Title);
+          const modalTitle = getModalHeaderWrapper({
+            cancelAllowed: true,
+          }).find(Modal.Title);
           expect(modalTitle.length).toBe(1);
-          expect(modalTitle.prop('children')).toBe('ReservationCancelModal.cancelAllowedTitle');
+          expect(modalTitle.prop('children')).toBe(
+            'ReservationCancelModal.cancelAllowedTitle'
+          );
         });
 
         test('is correct if cancel is not allowed', () => {
-          const modalTitle = getModalHeaderWrapper({ cancelAllowed: false }).find(Modal.Title);
+          const modalTitle = getModalHeaderWrapper({
+            cancelAllowed: false,
+          }).find(Modal.Title);
           expect(modalTitle.length).toBe(1);
-          expect(modalTitle.prop('children')).toBe('ReservationCancelModal.cancelNotAllowedTitle');
+          expect(modalTitle.prop('children')).toBe(
+            'ReservationCancelModal.cancelNotAllowedTitle'
+          );
         });
       });
     });
@@ -79,13 +88,15 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
 
         test('renders CompactReservationList', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
+            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList)
           ).toHaveLength(1);
         });
 
         test('does not render responsibleContactInfo', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info'),
+            getModalBodyWrapper({ cancelAllowed }).find(
+              '.responsible-contact-info'
+            )
           ).toHaveLength(0);
         });
       });
@@ -95,13 +106,15 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
 
         test('renders responsibleContactInfo', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info'),
+            getModalBodyWrapper({ cancelAllowed }).find(
+              '.responsible-contact-info'
+            )
           ).toHaveLength(1);
         });
 
         test('does not render CompactReservationList', () => {
           expect(
-            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
+            getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList)
           ).toHaveLength(0);
         });
       });
@@ -133,11 +146,15 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
         const buttons = getFooterButtonsWrapper({ cancelAllowed });
 
         test('renders cancel button', () => {
-          expect(buttons.at(0).props().children).toBe('ReservationCancelModal.cancelAllowedCancel');
+          expect(buttons.at(0).props().children).toBe(
+            'ReservationCancelModal.cancelAllowedCancel'
+          );
         });
 
         test('renders confirm button', () => {
-          expect(buttons.at(1).props().children).toBe('ReservationCancelModal.cancelAllowedConfirm');
+          expect(buttons.at(1).props().children).toBe(
+            'ReservationCancelModal.cancelAllowedConfirm'
+          );
         });
       });
 

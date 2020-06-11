@@ -22,7 +22,9 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(<CompactReservationList {...defaultProps} {...extraProps} />);
+    return shallow(
+      <CompactReservationList {...defaultProps} {...extraProps} />
+    );
   }
 
   const wrapper = getWrapper();
@@ -58,23 +60,24 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
     test('is rendered if subtitle is specified', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
       const props = { reservations, subtitle: 'foo' };
-      const subtitle = getWrapper(props).find('.compact-reservation-list-subtitle');
+      const subtitle = getWrapper(props).find(
+        '.compact-reservation-list-subtitle'
+      );
       expect(subtitle).toHaveLength(1);
       expect(subtitle.text()).toBe(reservations[0].foo);
     });
 
     test('is not rendered if subtitle is not specified', () => {
-      expect(getWrapper().find('.compact-reservation-list-subtitle')).toHaveLength(0);
+      expect(
+        getWrapper().find('.compact-reservation-list-subtitle')
+      ).toHaveLength(0);
     });
   });
 
   describe('remove button', () => {
     test('is rendered if reservation is in removableReservations', () => {
       const reservations = [Reservation.build({ foo: 'bar' })];
-      const removableReservations = [
-        Reservation.build(),
-        Reservation.build(),
-      ];
+      const removableReservations = [Reservation.build(), Reservation.build()];
       const props = { reservations, removableReservations };
       const buttons = getWrapper(props).find({ glyph: 'remove-circle' });
       expect(buttons).toHaveLength(2);
@@ -87,7 +90,9 @@ describe('shared/compact-reservation-list/CompactReservationList', () => {
       const button = getWrapper(props).find({ glyph: 'remove-circle' });
       expect(onRemoveClick.callCount).toBe(0);
       button.prop('onClick')();
-      expect(onRemoveClick.lastCall.args).toEqual([removableReservations[0].begin]);
+      expect(onRemoveClick.lastCall.args).toEqual([
+        removableReservations[0].begin,
+      ]);
     });
   });
 });

@@ -12,7 +12,7 @@ import ReservationTime from '../ReservationTime';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
   const history = {
-    replace: () => { },
+    replace: () => {},
   };
 
   const defaultProps = {
@@ -30,24 +30,33 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationTime {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationTime {...defaultProps} {...extraProps} />
+    );
   }
 
   test('renders ResourceCalendar', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
     const resourceCalendar = wrapper.find(ResourceCalendar);
-    const date = moment(defaultProps.selectedReservation.begin).isSame(defaultProps.date, 'day')
+    const date = moment(defaultProps.selectedReservation.begin).isSame(
+      defaultProps.date,
+      'day'
+    )
       ? moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD')
       : moment(defaultProps.date).format('YYYY-MM-DD');
 
     expect(resourceCalendar).toHaveLength(1);
-    expect(resourceCalendar.prop('onDateChange')).toBe(instance.handleDateChange);
+    expect(resourceCalendar.prop('onDateChange')).toBe(
+      instance.handleDateChange
+    );
     expect(resourceCalendar.prop('selectedDate')).toBe(date);
   });
 
   test('renders TimePickerCalendar', () => {
-    const timePickerCalendar = getWrapper({ location }).find(TimePickerCalendar);
+    const timePickerCalendar = getWrapper({ location }).find(
+      TimePickerCalendar
+    );
 
     expect(timePickerCalendar).toHaveLength(1);
   });
@@ -56,8 +65,12 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
 
     expect(details).toHaveLength(1);
-    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.resource.name]));
-    expect(details.props().children).toEqual(expect.arrayContaining([defaultProps.unit.name]));
+    expect(details.props().children).toEqual(
+      expect.arrayContaining([defaultProps.resource.name])
+    );
+    expect(details.props().children).toEqual(
+      expect.arrayContaining([defaultProps.unit.name])
+    );
   });
 
   describe('handleDateChange', () => {

@@ -12,7 +12,7 @@ function FavoriteButton({ favorited, onClick, t }) {
     'favorite-button--favorite': favorited,
   });
   const buttonText = t(
-    `ResourceHeader.${favorited ? 'favoriteRemoveButton' : 'favoriteAddButton'}`,
+    `ResourceHeader.${favorited ? 'favoriteRemoveButton' : 'favoriteAddButton'}`
   );
   return (
     <Button className={buttonClassNames} onClick={onClick}>

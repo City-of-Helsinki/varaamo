@@ -5,23 +5,17 @@ import classNames from 'classnames';
 
 import CheckedStep from './CheckedStep';
 
-function CheckedProgressSteps({
-  steps,
-  completedSteps,
-  className = '',
-}) {
+function CheckedProgressSteps({ steps, completedSteps, className = '' }) {
   const classes = classNames(
     'progress-steps',
     'progress-steps-checked',
-    className,
+    className
   );
   return (
     <div className={classes}>
       {steps.map((stepName, index) => (
         <React.Fragment key={stepName}>
-          {
-            index > 0 && <div className="progress-step-separator" />
-          }
+          {index > 0 && <div className="progress-step-separator" />}
           <CheckedStep
             label={stepName}
             status={includes(completedSteps, stepName) ? 'completed' : 'error'}

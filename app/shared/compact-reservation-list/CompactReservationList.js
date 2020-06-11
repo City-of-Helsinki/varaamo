@@ -5,9 +5,10 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import TimeRange from '../time-range/TimeRange';
 
 class CompactReservationList extends Component {
-  renderFixedReservation = reservation => this.renderReservation(reservation);
+  renderFixedReservation = (reservation) => this.renderReservation(reservation);
 
-  renderRemovableReservation = reservation => this.renderReservation(reservation, true);
+  renderRemovableReservation = (reservation) =>
+    this.renderReservation(reservation, true);
 
   renderReservation = (reservation, removable = false) => {
     let resourceName = null;
@@ -19,32 +20,27 @@ class CompactReservationList extends Component {
       <li key={reservation.begin}>
         {resourceName ? `${resourceName}: ` : ''}
         <TimeRange begin={reservation.begin} end={reservation.end} />
-        {removable
-          && (
+        {removable && (
           <Glyphicon
             glyph="remove-circle"
             onClick={() => this.props.onRemoveClick(reservation.begin)}
           />
-          )
-        }
-        {this.props.subtitle
-          && (
+        )}
+        {this.props.subtitle && (
           <div className="compact-reservation-list-subtitle">
             {reservation[this.props.subtitle]}
           </div>
-          )
-        }
+        )}
       </li>
     );
-  }
+  };
 
   render() {
     return (
       <ul className="compact-reservation-list">
         {this.props.reservations.map(this.renderFixedReservation)}
-        {this.props.removableReservations && this.props.removableReservations.map(
-          this.renderRemovableReservation,
-        )}
+        {this.props.removableReservations &&
+          this.props.removableReservations.map(this.renderRemovableReservation)}
       </ul>
     );
   }

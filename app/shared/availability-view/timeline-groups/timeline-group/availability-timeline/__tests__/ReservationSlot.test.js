@@ -11,7 +11,7 @@ function getWrapper(props) {
     end: '2017-01-01T10:30:00Z',
     resourceId: '1',
     isSelectable: true,
-    t: s => s,
+    t: (s) => s,
   };
   return shallow(<ReservationSlot {...defaults} {...props} />);
 }
@@ -157,9 +157,15 @@ describe('shared/availability-view/ReservationSlot', () => {
         const begin = '2017-01-02T14:00:00Z';
         const end = '2017-01-02T14:30:00Z';
         const resourceId = 'auuxn391';
-        callHandleClick({}, {
-          begin, end, onClick, resourceId,
-        });
+        callHandleClick(
+          {},
+          {
+            begin,
+            end,
+            onClick,
+            resourceId,
+          }
+        );
         expect(onClick.callCount).toBe(1);
         expect(onClick.lastCall.args).toEqual([{ begin, end, resourceId }]);
       });

@@ -27,7 +27,10 @@ describe('shared/availability-view/TimelineGroups', () => {
   });
 
   test('renders each group', () => {
-    const groups = [{ name: 'A', resources: [] }, { name: 'B', resources: [] }];
+    const groups = [
+      { name: 'A', resources: [] },
+      { name: 'B', resources: [] },
+    ];
     const elements = getWrapper({ groups }).find(TimelineGroup);
     expect(elements).toHaveLength(2);
   });
@@ -35,7 +38,9 @@ describe('shared/availability-view/TimelineGroups', () => {
   test('passes onReservationSlotClick to groups', () => {
     const groups = [{ name: 'A', resources: [] }];
     const onReservationSlotClick = () => null;
-    const element = getWrapper({ groups, onReservationSlotClick }).find(TimelineGroup);
+    const element = getWrapper({ groups, onReservationSlotClick }).find(
+      TimelineGroup
+    );
     expect(element).toHaveLength(1);
     expect(element.prop('onReservationSlotClick')).toBe(onReservationSlotClick);
   });
@@ -43,17 +48,25 @@ describe('shared/availability-view/TimelineGroups', () => {
   test('passes onReservationSlotMouseEnter to groups', () => {
     const groups = [{ name: 'A', resources: [] }];
     const onReservationSlotMouseEnter = () => null;
-    const element = getWrapper({ groups, onReservationSlotMouseEnter }).find(TimelineGroup);
+    const element = getWrapper({ groups, onReservationSlotMouseEnter }).find(
+      TimelineGroup
+    );
     expect(element).toHaveLength(1);
-    expect(element.prop('onReservationSlotMouseEnter')).toBe(onReservationSlotMouseEnter);
+    expect(element.prop('onReservationSlotMouseEnter')).toBe(
+      onReservationSlotMouseEnter
+    );
   });
 
   test('passes onReservationSlotMouseLeave to groups', () => {
     const groups = [{ name: 'A', resources: [] }];
     const onReservationSlotMouseLeave = () => null;
-    const element = getWrapper({ groups, onReservationSlotMouseLeave }).find(TimelineGroup);
+    const element = getWrapper({ groups, onReservationSlotMouseLeave }).find(
+      TimelineGroup
+    );
     expect(element).toHaveLength(1);
-    expect(element.prop('onReservationSlotMouseLeave')).toBe(onReservationSlotMouseLeave);
+    expect(element.prop('onReservationSlotMouseLeave')).toBe(
+      onReservationSlotMouseLeave
+    );
   });
 
   test('passes selection to groups', () => {
@@ -77,7 +90,10 @@ describe('shared/availability-view/TimelineGroups', () => {
       const instance = getWrapper().instance();
       instance.componentDidMount();
       expect(window.addEventListener.callCount).toBe(1);
-      expect(window.addEventListener.lastCall.args).toEqual(['scroll', instance.handleScroll]);
+      expect(window.addEventListener.lastCall.args).toEqual([
+        'scroll',
+        instance.handleScroll,
+      ]);
     });
   });
 
@@ -95,7 +111,10 @@ describe('shared/availability-view/TimelineGroups', () => {
       const instance = getWrapper().instance();
       instance.componentWillUnmount();
       expect(window.removeEventListener.callCount).toBe(1);
-      expect(window.removeEventListener.lastCall.args).toEqual(['scroll', instance.handleScroll]);
+      expect(window.removeEventListener.lastCall.args).toEqual([
+        'scroll',
+        instance.handleScroll,
+      ]);
     });
   });
 });

@@ -9,18 +9,24 @@ import injectT from '../../../app/i18n/injectT';
 import { getCurrentCustomization } from '../../../app/utils/customizationUtils';
 
 function AboutPage({ t }) {
-  const city = getCurrentCustomization() ? getCurrentCustomization().toLowerCase() : 'default';
+  const city = getCurrentCustomization()
+    ? getCurrentCustomization().toLowerCase()
+    : 'default';
   // TODO: Remove me along with getCurrentCustomization stuff.
 
   return (
     <PageWrapper className="about-page" title={t('AboutPage.title')}>
       <div className="app-aboutPage">
         <h1>{t(`AboutPageContent.${city}Header`)}</h1>
-        <p className="app-aboutPage__lead">{t(`AboutPageContent.${city}Lead`)}</p>
+        <p className="app-aboutPage__lead">
+          {t(`AboutPageContent.${city}Lead`)}
+        </p>
 
         <p>{t('AboutPageContent.pilotParagraph')}</p>
         <p>{t(`AboutPageContent.${city}ReservableParagraph`)}</p>
-        <p><FormattedHTMLMessage id="AboutPageContent.basedOnParagraph" /></p>
+        <p>
+          <FormattedHTMLMessage id="AboutPageContent.basedOnParagraph" />
+        </p>
         <p>{t('AboutPageContent.developmentParagraph')}</p>
         <p>{t('AboutPageContent.goalParagraph')}</p>
         <p>
@@ -29,10 +35,10 @@ function AboutPage({ t }) {
         </p>
 
         {city !== 'default' && (
-        <div>
-          <h3>{t(`AboutPageContent.${city}PartnersHeader`)}</h3>
-          <AboutPartners />
-        </div>
+          <div>
+            <h3>{t(`AboutPageContent.${city}PartnersHeader`)}</h3>
+            <AboutPartners />
+          </div>
         )}
 
         <h3>{t('AboutPageContent.customerRegisterHeader')}</h3>

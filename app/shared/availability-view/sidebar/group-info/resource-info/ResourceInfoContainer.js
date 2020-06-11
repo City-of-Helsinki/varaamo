@@ -8,7 +8,10 @@ import { createSelector } from 'reselect';
 
 import UnpublishedLabel from '../../../../label/unpublished/UnpublishedLabel';
 import injectT from '../../../../../i18n/injectT';
-import { resourcesSelector, unitsSelector } from '../../../../../state/selectors/dataSelectors';
+import {
+  resourcesSelector,
+  unitsSelector,
+} from '../../../../../state/selectors/dataSelectors';
 
 ResourceInfo.propTypes = {
   date: PropTypes.string.isRequired,
@@ -22,20 +25,20 @@ ResourceInfo.propTypes = {
 export function ResourceInfo(props) {
   return (
     <div
-      className={classNames('resource-info', { 'resource-info-selected': props.isSelected })}
+      className={classNames('resource-info', {
+        'resource-info-selected': props.isSelected,
+      })}
       title={props.name}
     >
       <div className="name">
-        <Link to={`/resources/${props.id}?date=${props.date}`}>{props.name}</Link>
+        <Link to={`/resources/${props.id}?date=${props.date}`}>
+          {props.name}
+        </Link>
       </div>
       <div className="details">
         <span className="unit-name">{props.unitName || ''}</span>
-        <Glyphicon glyph="user" />
-        {' '}
-        {props.peopleCapacity}
-        {!props.public && (
-          <UnpublishedLabel />
-        )}
+        <Glyphicon glyph="user" /> {props.peopleCapacity}
+        {!props.public && <UnpublishedLabel />}
       </div>
     </div>
   );
@@ -48,23 +51,19 @@ export function selector() {
   const resourceSelector = createSelector(
     resourcesSelector,
     idSelector,
-    (resources, id) => resources[id],
+    (resources, id) => resources[id]
   );
   const unitSelector = createSelector(
     resourceSelector,
     unitsSelector,
-    (resource, units) => units[resource.unit],
+    (resource, units) => units[resource.unit]
   );
-  return createSelector(
-    resourceSelector,
-    unitSelector,
-    (resource, unit) => ({
-      name: resource.name,
-      peopleCapacity: resource.peopleCapacity,
-      public: resource.public,
-      unitName: unit ? unit.name : '',
-    }),
-  );
+  return createSelector(resourceSelector, unitSelector, (resource, unit) => ({
+    name: resource.name,
+    peopleCapacity: resource.peopleCapacity,
+    public: resource.public,
+    unitName: unit ? unit.name : '',
+  }));
 }
 
 export const UnconnectedResourceInfo = injectT(ResourceInfo);

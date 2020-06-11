@@ -24,7 +24,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationConfirmation {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationConfirmation {...defaultProps} {...extraProps} />
+    );
   }
 
   test('renders an Row element', () => {
@@ -32,26 +34,38 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
   });
 
   test('renders correct header when prop isEdited is false', () => {
-    const header = getWrapper({ isEdited: false }).find('.app-ReservationPage__header');
+    const header = getWrapper({ isEdited: false }).find(
+      '.app-ReservationPage__header'
+    );
     expect(header).toHaveLength(1);
-    expect(header.text()).toBe('ReservationConfirmation.reservationCreatedTitle');
+    expect(header.text()).toBe(
+      'ReservationConfirmation.reservationCreatedTitle'
+    );
   });
 
   test('renders correct header when prop isEdited is false', () => {
-    const header = getWrapper({ isEdited: true }).find('.app-ReservationPage__header');
+    const header = getWrapper({ isEdited: true }).find(
+      '.app-ReservationPage__header'
+    );
     expect(header).toHaveLength(1);
-    expect(header.text()).toBe('ReservationConfirmation.reservationEditedTitle');
+    expect(header.text()).toBe(
+      'ReservationConfirmation.reservationEditedTitle'
+    );
   });
 
   test('renders ReservationDate with correct props', () => {
     const reservationDate = getWrapper().find(ReservationDate);
     expect(reservationDate).toHaveLength(1);
-    expect(reservationDate.prop('beginDate')).toBe(defaultProps.reservation.begin);
+    expect(reservationDate.prop('beginDate')).toBe(
+      defaultProps.reservation.begin
+    );
     expect(reservationDate.prop('endDate')).toBe(defaultProps.reservation.end);
   });
 
   test('renders resource name', () => {
-    const name = getWrapper().find('.app-ReservationConfirmation__resource-name');
+    const name = getWrapper().find(
+      '.app-ReservationConfirmation__resource-name'
+    );
     expect(name).toHaveLength(1);
     expect(name.text()).toBe(defaultProps.resource.name);
   });
@@ -116,7 +130,9 @@ describe('pages/reservation/reservation-confirmation/ReservationConfirmation', (
       billingAddressCity: 'billing address city',
       user: User.build(),
     });
-    const fields = getWrapper({ reservation }).find('.app-ReservationConfirmation__field');
+    const fields = getWrapper({ reservation }).find(
+      '.app-ReservationConfirmation__field'
+    );
     expect(fields).toHaveLength(14);
   });
 });

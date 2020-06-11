@@ -12,13 +12,11 @@ class SearchMapResults extends React.Component {
   };
 
   render() {
-    const {
-      unit,
-      resource,
-    } = this.props;
+    const { unit, resource } = this.props;
 
-    // eslint-disable-next-line max-len
-    const tileLayerUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw';
+    const tileLayerUrl =
+      // eslint-disable-next-line max-len
+      'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw';
     const coordinates = get(unit, 'location.coordinates');
 
     return (
@@ -42,7 +40,6 @@ class SearchMapResults extends React.Component {
             unit={unit}
           />
         </Map>
-
       </div>
     );
   }

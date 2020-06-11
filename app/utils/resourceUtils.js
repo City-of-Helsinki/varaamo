@@ -6,7 +6,10 @@ import moment from 'moment';
 import queryString from 'query-string';
 
 import constants from '../constants/AppConstants';
-import { getCurrentReservation, getNextAvailableTime } from './reservationUtils';
+import {
+  getCurrentReservation,
+  getNextAvailableTime,
+} from './reservationUtils';
 import { getPrice as genericGetPrice } from '../../src/domain/resource/utils';
 
 function hasMaxReservations(resource) {
@@ -129,12 +132,15 @@ function getMinPeriodText(t, { minPeriod }) {
 function getOpeningHours(resource, selectedDate) {
   if (resource && resource.openingHours && resource.openingHours.length) {
     if (selectedDate) {
-      const openingHours = find(resource.openingHours, ({ date }) => date === selectedDate);
+      const openingHours = find(
+        resource.openingHours,
+        ({ date }) => date === selectedDate
+      );
       return openingHours
         ? {
-          closes: openingHours.closes,
-          opens: openingHours.opens,
-        }
+            closes: openingHours.closes,
+            opens: openingHours.opens,
+          }
         : {};
     }
     return {
@@ -149,7 +155,8 @@ function getOpeningHours(resource, selectedDate) {
 function getOpenReservations(resource) {
   return filter(
     resource.reservations,
-    reservation => reservation.state !== 'cancelled' && reservation.state !== 'denied',
+    (reservation) =>
+      reservation.state !== 'cancelled' && reservation.state !== 'denied'
   );
 }
 
@@ -157,7 +164,11 @@ function getResourcePageUrl(resource, date, time) {
   if (!resource || !resource.id) {
     return '';
   }
-  const { pathname, query } = getResourcePageUrlComponents(resource, date, time);
+  const { pathname, query } = getResourcePageUrlComponents(
+    resource,
+    date,
+    time
+  );
   return query ? `${pathname}?${query}` : pathname;
 }
 
@@ -188,15 +199,17 @@ function reservingIsRestricted(resource, date) {
     return false;
   }
   const isAdmin = resource.userPermissions && resource.userPermissions.isAdmin;
-  const isLimited = resource.reservableBefore && moment(resource.reservableBefore).isBefore(moment(date), 'day');
+  const isLimited =
+    resource.reservableBefore &&
+    moment(resource.reservableBefore).isBefore(moment(date), 'day');
   return Boolean(isLimited && !isAdmin);
 }
 
 function hasProducts(resource) {
   return (
-    has(resource, 'products')
-    && Array.isArray(resource.products)
-    && resource.products.length >= 1
+    has(resource, 'products') &&
+    Array.isArray(resource.products) &&
+    resource.products.length >= 1
   );
 }
 

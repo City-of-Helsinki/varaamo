@@ -28,24 +28,30 @@ describe('pages/about/AboutPartners', () => {
     });
 
     test('has 6 aika image', () => {
-      expect(images.find({
-        alt: 'AboutPartners.aikaLogoAlt',
-        src: aikaLogoSrc,
-      })).toHaveLength(1);
+      expect(
+        images.find({
+          alt: 'AboutPartners.aikaLogoAlt',
+          src: aikaLogoSrc,
+        })
+      ).toHaveLength(1);
     });
 
     test('has EU Vipuvoimaa image', () => {
-      expect(images.find({
-        alt: 'AboutPartners.euVipuvoimaaLogoAlt',
-        src: euVipuvoimaaLogoSrc,
-      })).toHaveLength(1);
+      expect(
+        images.find({
+          alt: 'AboutPartners.euVipuvoimaaLogoAlt',
+          src: euVipuvoimaaLogoSrc,
+        })
+      ).toHaveLength(1);
     });
 
     test('has eakr image', () => {
-      expect(images.find({
-        alt: 'AboutPartners.eakrLogoAlt',
-        src: eakrLogoSrc,
-      })).toHaveLength(1);
+      expect(
+        images.find({
+          alt: 'AboutPartners.eakrLogoAlt',
+          src: eakrLogoSrc,
+        })
+      ).toHaveLength(1);
     });
   });
 });

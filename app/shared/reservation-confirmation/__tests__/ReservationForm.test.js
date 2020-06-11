@@ -7,11 +7,14 @@ import simple from 'simple-mock';
 import constants from '../../../constants/AppConstants';
 import WrappedText from '../../wrapped-text/WrappedText';
 import { shallowWithIntl } from '../../../utils/testUtils';
-import { UnconnectedReservationForm as ReservationForm, validate } from '../ReservationForm';
+import {
+  UnconnectedReservationForm as ReservationForm,
+  validate,
+} from '../ReservationForm';
 
 describe('shared/reservation-confirmation/ReservationForm', () => {
   describe('validation', () => {
-    const t = id => id;
+    const t = (id) => id;
 
     describe('if field value is missing', () => {
       describe('if user is reserving an staff event', () => {
@@ -120,7 +123,9 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
     };
 
     function getWrapper(extraProps) {
-      return shallowWithIntl(<ReservationForm {...defaultProps} {...extraProps} />);
+      return shallowWithIntl(
+        <ReservationForm {...defaultProps} {...extraProps} />
+      );
     }
 
     test('renders a Form component', () => {
@@ -150,21 +155,22 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
           const header = termsAndConditionsDiv.find('h5');
 
           expect(header.length).toBe(1);
-          expect(header.text()).toBe('ReservationForm.termsAndConditionsHeader');
+          expect(header.text()).toBe(
+            'ReservationForm.termsAndConditionsHeader'
+          );
         });
 
-        test(
-          'renders the terms and conditions text inside WrappedText component',
-          () => {
-            const wrappedText = termsAndConditionsDiv.find(WrappedText);
+        test('renders the terms and conditions text inside WrappedText component', () => {
+          const wrappedText = termsAndConditionsDiv.find(WrappedText);
 
-            expect(wrappedText.length).toBe(1);
-            expect(wrappedText.prop('text')).toBe(termsAndConditions);
-          },
-        );
+          expect(wrappedText.length).toBe(1);
+          expect(wrappedText.prop('text')).toBe(termsAndConditions);
+        });
 
         test('renders terms and conditions input wrapper', () => {
-          const inputWrapper = wrapper.find('.terms-and-conditions-input-wrapper');
+          const inputWrapper = wrapper.find(
+            '.terms-and-conditions-input-wrapper'
+          );
 
           expect(inputWrapper.length).toBe(1);
         });
@@ -181,7 +187,9 @@ describe('shared/reservation-confirmation/ReservationForm', () => {
         });
 
         test('does not render terms and conditions input wrapper', () => {
-          const inputWrapper = wrapper.find('.terms-and-conditions-input-wrapper');
+          const inputWrapper = wrapper.find(
+            '.terms-and-conditions-input-wrapper'
+          );
 
           expect(inputWrapper.length).toBe(0);
         });

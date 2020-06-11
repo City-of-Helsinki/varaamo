@@ -30,17 +30,21 @@ class UnconnectedReservationCancelModalContainer extends Component {
   }
 
   handleCheckbox() {
-    this.setState(prevState => ({ checkboxDisabled: !prevState.checkboxDisabled }));
+    this.setState((prevState) => ({
+      checkboxDisabled: !prevState.checkboxDisabled,
+    }));
   }
 
   renderCheckBox(notice, onConfirm) {
     return (
       <div>
-        <p><strong>{notice}</strong></p>
+        <p>
+          <strong>{notice}</strong>
+        </p>
         <Toggle
           defaultChecked={false}
           id="checkbox"
-          onChange={e => onConfirm(e.target.checked)}
+          onChange={(e) => onConfirm(e.target.checked)}
         />
       </div>
     );
@@ -57,7 +61,9 @@ class UnconnectedReservationCancelModalContainer extends Component {
       t,
     } = this.props;
 
-    const resourceHasOnlinePaymentSupport = getHasOnlinePaymentSupport(resource);
+    const resourceHasOnlinePaymentSupport = getHasOnlinePaymentSupport(
+      resource
+    );
 
     return (
       <Modal
@@ -71,50 +77,60 @@ class UnconnectedReservationCancelModalContainer extends Component {
           <Modal.Title>
             {cancelAllowed
               ? t('ReservationCancelModal.cancelAllowedTitle')
-              : t('ReservationCancelModal.cancelNotAllowedTitle')
-            }
+              : t('ReservationCancelModal.cancelNotAllowedTitle')}
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          {cancelAllowed
-            && (
+          {cancelAllowed && (
             <div>
-              <p><strong>{t('ReservationCancelModal.lead')}</strong></p>
-              {reservation.resource
-                && (
+              <p>
+                <strong>{t('ReservationCancelModal.lead')}</strong>
+              </p>
+              {reservation.resource && (
                 <CompactReservationList
                   reservations={[reservation]}
                   resources={{ [resource.id]: resource }}
                 />
-                )
-              }
-              {reservation.resource && !reservation.staffEvent && hasProducts(resource) && this.renderCheckBox(
-                t('ReservationInformationForm.refundCheckBox'),
-                this.handleCheckbox,
               )}
+              {reservation.resource &&
+                !reservation.staffEvent &&
+                hasProducts(resource) &&
+                this.renderCheckBox(
+                  t('ReservationInformationForm.refundCheckBox'),
+                  this.handleCheckbox
+                )}
             </div>
-            )
-          }
-          {!cancelAllowed
-            && (
+          )}
+          {!cancelAllowed && (
             <div>
               {resourceHasOnlinePaymentSupport && (
                 <>
-                  <p>{t('ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1')}</p>
-                  <p>{t('ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2')}</p>
+                  <p>
+                    {t(
+                      'ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.1'
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      'ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2'
+                    )}
+                  </p>
                 </>
               )}
               {!resourceHasOnlinePaymentSupport && (
                 <>
                   <p>{t('ReservationCancelModal.cancelNotAllowedInfo')}</p>
-                  <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
+                  <p>
+                    <FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" />
+                  </p>
                 </>
               )}
-              <p className="responsible-contact-info">{resource.responsibleContactInfo}</p>
+              <p className="responsible-contact-info">
+                {resource.responsibleContactInfo}
+              </p>
             </div>
-            )
-          }
+          )}
         </Modal.Body>
 
         <Modal.Footer>
@@ -122,13 +138,13 @@ class UnconnectedReservationCancelModalContainer extends Component {
             bsStyle="default"
             onClick={() => {
               actions.closeReservationCancelModal();
-              if (hasProducts(resource)) this.setState({ checkboxDisabled: true });
+              if (hasProducts(resource))
+                this.setState({ checkboxDisabled: true });
             }}
           >
             {cancelAllowed
               ? t('ReservationCancelModal.cancelAllowedCancel')
-              : t('common.back')
-            }
+              : t('common.back')}
           </Button>
           {cancelAllowed && (
             <Button
@@ -142,8 +158,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
             >
               {isCancellingReservations
                 ? t('common.cancelling')
-                : t('ReservationCancelModal.cancelAllowedConfirm')
-              }
+                : t('ReservationCancelModal.cancelAllowedConfirm')}
             </Button>
           )}
         </Modal.Footer>
@@ -174,6 +189,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedReservationCancelModalContainer };
-export default connect(reservationCancelModalSelector, mapDispatchToProps)(
-  UnconnectedReservationCancelModalContainer,
-);
+export default connect(
+  reservationCancelModalSelector,
+  mapDispatchToProps
+)(UnconnectedReservationCancelModalContainer);

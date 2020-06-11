@@ -13,12 +13,12 @@ describe('pages/user-reservations/UserReservationsPage', () => {
     history: {
       push: () => {},
     },
-    t: path => path,
+    t: (path) => path,
     reduxReservations: {},
   };
 
   function getWrapper(extraProps = {}) {
-    const props = Object.assign({}, defaultProps, extraProps);
+    const props = { ...defaultProps, ...extraProps };
     return shallowWithIntl(<UserReservationsPage {...props} />);
   }
 
@@ -57,22 +57,22 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       expect(loadModelMock).toHaveBeenCalledWith(
         'reservation',
         {
-          'date': undefined,
-          'include': 'resource_detail',
-          'is_own': true,
-          'ordering': 'begin',
-          'page_size': 10,
+          date: undefined,
+          include: 'resource_detail',
+          is_own: true,
+          ordering: 'begin',
+          page_size: 10,
         },
         expect.any(Function),
-        'upcomingReservation',
+        'upcomingReservation'
       );
     });
   });
 
   describe('tabs', () => {
-    const findTabs = wrapper => wrapper.find('[role="tab"]');
-    const findUpcomingTab = wrapper => findTabs(wrapper).at(0);
-    const findPastTab = wrapper => findTabs(wrapper).at(1);
+    const findTabs = (wrapper) => wrapper.find('[role="tab"]');
+    const findUpcomingTab = (wrapper) => findTabs(wrapper).at(0);
+    const findPastTab = (wrapper) => findTabs(wrapper).at(1);
 
     test('should render upcoming and past tabs', () => {
       expect(findTabs(getWrapper()).length).toEqual(2);
@@ -127,8 +127,8 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       });
       expect(
         tabs
-          .map(tab => tab.prop('aria-selected'))
-          .some(ariaSelected => ariaSelected),
+          .map((tab) => tab.prop('aria-selected'))
+          .some((ariaSelected) => ariaSelected)
       ).toEqual(true);
     });
   });

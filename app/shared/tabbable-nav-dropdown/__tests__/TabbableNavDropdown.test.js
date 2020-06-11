@@ -10,13 +10,14 @@ import TabbableNavDropdown from '../TabbableNavDropdown';
 // Similarly, jsdom does not implement tabbing, so we would need a cypress test
 // to verify tabbing behaviour.
 describe('<TabbableNavDropdown />', () => {
-  const renderToggle = props => <div {...props}>test</div>;
+  const renderToggle = (props) => <div {...props}>test</div>;
   const defaultProps = {
     renderToggle,
     children: () => {},
   };
-  const getWrapper = props => shallow(<TabbableNavDropdown {...defaultProps} {...props} />);
-  const getWrappingEl = wrapper => wrapper.dive().first();
+  const getWrapper = (props) =>
+    shallow(<TabbableNavDropdown {...defaultProps} {...props} />);
+  const getWrappingEl = (wrapper) => wrapper.dive().first();
 
   it('should allow for its wrapping element to be set', () => {
     expect(getWrappingEl(getWrapper()).name()).toEqual('div');
@@ -28,7 +29,9 @@ describe('<TabbableNavDropdown />', () => {
   it.skip('should set open class on wrapping element when open', () => {
     const wrapper = getWrapper();
 
-    wrapper.find({ children: 'test' }).simulate('click', { preventDefault: () => {} });
+    wrapper
+      .find({ children: 'test' })
+      .simulate('click', { preventDefault: () => {} });
 
     expect(getWrappingEl(wrapper).hasClass('open')).toEqual(true);
   });

@@ -83,7 +83,9 @@ export default class TimelineGroup extends React.Component {
       onSelectionCancel,
       selection,
     } = this.props;
-    const selectionDuration = selection ? moment(selection.end).diff(selection.begin, 'hours') : null;
+    const selectionDuration = selection
+      ? moment(selection.end).diff(selection.begin, 'hours')
+      : null;
     return (
       <div
         className={classNames('timeline-group', this.props.className)}
@@ -97,14 +99,20 @@ export default class TimelineGroup extends React.Component {
         )}
         <Sticky>
           <div className="hours">
-            {getHourRanges(this.props.date).map(range => (
+            {getHourRanges(this.props.date).map((range) => (
               <div
                 className={classNames('hour', {
-                  'hour-start-selected': selection && range.midPoint.isSame(selection.end),
-                  'hour-end-selected': selection && range.endTime.isSame(selection.end),
-                  'hour-whole-selected': selection
-                    && selectionDuration > 0
-                    && moment(range.midPoint).isBetween(selection.begin, selection.end),
+                  'hour-start-selected':
+                    selection && range.midPoint.isSame(selection.end),
+                  'hour-end-selected':
+                    selection && range.endTime.isSame(selection.end),
+                  'hour-whole-selected':
+                    selection &&
+                    selectionDuration > 0 &&
+                    moment(range.midPoint).isBetween(
+                      selection.begin,
+                      selection.end
+                    ),
                 })}
                 key={range.startTime.format('HH')}
                 style={{ width: utils.getTimeSlotWidth(range) }}
@@ -114,7 +122,7 @@ export default class TimelineGroup extends React.Component {
             ))}
           </div>
         </Sticky>
-        {this.props.resources.map(resource => (
+        {this.props.resources.map((resource) => (
           <AvailabilityTimelineContainer
             date={this.props.date}
             id={resource}

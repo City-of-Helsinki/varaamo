@@ -9,8 +9,11 @@ import injectT from '../../../i18n/injectT';
 import { getServiceMapUrl } from '../../../utils/unitUtils';
 
 function formatAddress({ addressZip, municipality, streetAddress }) {
-  const parts = [streetAddress, `${addressZip} ${upperFirst(municipality)}`.trim()];
-  return parts.filter(part => part).join(', ');
+  const parts = [
+    streetAddress,
+    `${addressZip} ${upperFirst(municipality)}`.trim(),
+  ];
+  return parts.filter((part) => part).join(', ');
 }
 
 function ResourceMapInfo({ unit, t }) {

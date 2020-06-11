@@ -1,7 +1,10 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
+import {
+  shallowWithIntl,
+  globalDateMock,
+} from '../../../../../app/utils/testUtils';
 import { UntranslatedResourceReservationCalendar as ResourceReservationCalendar } from '../ResourceReservationCalendar';
 import resource from '../../../../common/data/fixtures/resource';
 
@@ -17,9 +20,7 @@ describe('ResourceReservationCalendar', () => {
       locale: 'en',
     };
 
-    const wrapper = shallowWithIntl(
-      <ResourceReservationCalendar {...props} />,
-    );
+    const wrapper = shallowWithIntl(<ResourceReservationCalendar {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

@@ -57,13 +57,12 @@ describe('shared/resource-list/ResourceCompactList', () => {
       expect(resourceCard.prop('stacked')).toBe(true);
     });
 
-    test(
-      'does not pass stacked prop to ResourceCard if more only one resource',
-      () => {
-        const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(ResourceCard);
-        expect(resourceCard.prop('stacked')).toBe(false);
-      },
-    );
+    test('does not pass stacked prop to ResourceCard if more only one resource', () => {
+      const resourceCard = getWrapper({ resourceIds: ['resource-1'] }).find(
+        ResourceCard
+      );
+      expect(resourceCard.prop('stacked')).toBe(false);
+    });
 
     test('renders left arrow if resourcePosition state is not 0', () => {
       const instance = wrapper.instance();
@@ -105,18 +104,15 @@ describe('shared/resource-list/ResourceCompactList', () => {
       expect(rightArrow.length).toBe(1);
     });
 
-    test(
-      'renders right arrow if resourcePosition state is last resource position',
-      () => {
-        const instance = wrapper.instance();
-        instance.setState({
-          resourcePosition: 1,
-        });
-        wrapper.update();
-        const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
-        expect(rightArrow.length).toBe(1);
-      },
-    );
+    test('renders right arrow if resourcePosition state is last resource position', () => {
+      const instance = wrapper.instance();
+      instance.setState({
+        resourcePosition: 1,
+      });
+      wrapper.update();
+      const rightArrow = wrapper.find('.app-ResourceCompactList_arrow-right');
+      expect(rightArrow.length).toBe(1);
+    });
 
     test('right arrow has correct onClick prop', () => {
       const instance = wrapper.instance();

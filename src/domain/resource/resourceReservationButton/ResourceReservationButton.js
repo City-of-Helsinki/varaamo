@@ -38,7 +38,7 @@ function getSelectedDateText(resource, selected, t) {
     const price = resourceUtils.getReservationPrice(
       selected.start,
       selected.end,
-      resource,
+      resource
     );
 
     const tVariables = {
@@ -52,7 +52,7 @@ function getSelectedDateText(resource, selected, t) {
     if (price) {
       return t(
         'ResourceReservationCalendar.selectedDateValueWithPrice',
-        tVariables,
+        tVariables
       );
     }
 
@@ -81,7 +81,7 @@ const ResourceReservationCalendar = ({
   const canMakeReservations = get(
     resource,
     'userPermissions.canMakeReservations',
-    false,
+    false
   );
   const selectedDateText = getSelectedDateText(resource, selected, t);
 
@@ -104,8 +104,7 @@ const ResourceReservationCalendar = ({
         <div className="app-ResourceReservationButton__selectedDate">
           <strong className="app-ResourceReservationButton__selectedDateLabel">
             {t('ResourceReservationCalendar.selectedDateLabel')}
-          </strong>
-          {' '}
+          </strong>{' '}
           <span className="app-ResourceReservationButton__selectedDateValue">
             {selectedDateText}
           </span>

@@ -9,7 +9,7 @@ function getWrapper(props) {
   const defaults = {
     value: '2016-11-01',
     onChange: () => null,
-    t: s => s,
+    t: (s) => s,
   };
   return shallow(<DateSelector {...defaults} {...props} />);
 }
@@ -78,7 +78,7 @@ describe('shared/availability-view/DateSelector', () => {
       const wrapper = getWrapper({ value, onChange });
       wrapper.instance().handleNextClick();
       expect(onChange.callCount).toBe(1);
-      const args = onChange.lastCall.args;
+      const { args } = onChange.lastCall;
       expect(args).toHaveLength(1);
       expect(args[0]).toBe('2016-01-02');
     });
@@ -91,7 +91,7 @@ describe('shared/availability-view/DateSelector', () => {
       const wrapper = getWrapper({ value, onChange });
       wrapper.instance().handlePreviousClick();
       expect(onChange.callCount).toBe(1);
-      const args = onChange.lastCall.args;
+      const { args } = onChange.lastCall;
       expect(args).toHaveLength(1);
       expect(args[0]).toBe('2015-12-31');
     });

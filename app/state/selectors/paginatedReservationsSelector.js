@@ -7,7 +7,11 @@ import moment from 'moment';
 const paginatedSelector = (state) => {
   let paginatedData;
 
-  if (state.data && state.data.paginatedReservations && state.data.paginatedReservations.undefined) {
+  if (
+    state.data &&
+    state.data.paginatedReservations &&
+    state.data.paginatedReservations.undefined
+  ) {
     paginatedData = { ...state.data.paginatedReservations.undefined };
   }
 
@@ -23,17 +27,25 @@ const paginatedSelector = (state) => {
     return state.data.reservations[res];
   });
 
-  paginatedData.pastReservations = reservations.filter(res => moment(res.end).isBefore());
+  paginatedData.pastReservations = reservations.filter((res) =>
+    moment(res.end).isBefore()
+  );
 
-  paginatedData.comingReservations = reservations.filter(res => moment(res.end).isAfter());
-  paginatedData.comingReservations = orderBy(values(paginatedData.comingReservations), ['begin'], ['asc']);
+  paginatedData.comingReservations = reservations.filter((res) =>
+    moment(res.end).isAfter()
+  );
+  paginatedData.comingReservations = orderBy(
+    values(paginatedData.comingReservations),
+    ['begin'],
+    ['asc']
+  );
 
   return paginatedData;
 };
 
 const paginatedReservationsSelector = createSelector(
   paginatedSelector,
-  reservations => reservations,
+  (reservations) => reservations
 );
 
 export default paginatedReservationsSelector;

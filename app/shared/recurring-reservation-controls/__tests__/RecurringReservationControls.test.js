@@ -5,10 +5,8 @@ import simple from 'simple-mock';
 import DatePicker from '../../date-picker/DatePicker';
 import { shallowWithIntl } from '../../../utils/testUtils';
 import SelectControl from '../../../pages/search/controls/SelectControl';
-import {
-  UnconnectedRecurringReservationControls as
-  RecurringReservationControls,
-} from '../RecurringReservationControls';
+// eslint-disable-next-line max-len
+import { UnconnectedRecurringReservationControls as RecurringReservationControls } from '../RecurringReservationControls';
 
 function getWrapper(props) {
   const defaults = {
@@ -22,7 +20,9 @@ function getWrapper(props) {
     lastTime: null,
     numberOfOccurrences: 1,
   };
-  return shallowWithIntl(<RecurringReservationControls {...defaults} {...props} />);
+  return shallowWithIntl(
+    <RecurringReservationControls {...defaults} {...props} />
+  );
 }
 
 describe('shared/RecurringReservationControls/RecurringReservationControls', () => {

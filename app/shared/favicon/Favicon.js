@@ -13,9 +13,12 @@ const favicons = {
 
 function Favicon() {
   const customization = getCurrentCustomization();
-  const favicon = customization in favicons ? favicons[customization] : helsinkiFavicon;
+  const favicon =
+    customization in favicons ? favicons[customization] : helsinkiFavicon;
 
-  return <Helmet link={[{ href: favicon, rel: 'icon', type: 'image/x-icon' }]} />;
+  return (
+    <Helmet link={[{ href: favicon, rel: 'icon', type: 'image/x-icon' }]} />
+  );
 }
 
 Favicon.propTypes = {};

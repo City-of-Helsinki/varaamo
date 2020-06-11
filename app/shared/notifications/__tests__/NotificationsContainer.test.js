@@ -2,9 +2,7 @@ import React from 'react';
 import ReactNotifications from 'react-notifications';
 
 import { shallowWithIntl } from '../../../utils/testUtils';
-import {
-  UnconnectedNotificationsContainer as NotificationsContainer,
-} from '../NotificationsContainer';
+import { UnconnectedNotificationsContainer as NotificationsContainer } from '../NotificationsContainer';
 
 describe('shared/notifications/NotificationsContainer', () => {
   const defaultProps = {
@@ -13,7 +11,9 @@ describe('shared/notifications/NotificationsContainer', () => {
   };
 
   function getWrapper(props) {
-    return shallowWithIntl(<NotificationsContainer {...defaultProps} {...props} />);
+    return shallowWithIntl(
+      <NotificationsContainer {...defaultProps} {...props} />
+    );
   }
 
   describe('ReactNotifications component', () => {
@@ -38,9 +38,13 @@ describe('shared/notifications/NotificationsContainer', () => {
           type: 'error',
         },
       ];
-      const actualProps = getWrapper({ notifications }).find(ReactNotifications).props();
+      const actualProps = getWrapper({ notifications })
+        .find(ReactNotifications)
+        .props();
       expect(actualProps.notifications).toEqual(expectedNotifications);
-      expect(actualProps.onRequestHide).toBe(defaultProps.actions.hideNotification);
+      expect(actualProps.onRequestHide).toBe(
+        defaultProps.actions.hideNotification
+      );
     });
   });
 });

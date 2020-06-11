@@ -4,7 +4,11 @@ import moment from 'moment';
 
 import Constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
-import { getIsSlotReserved, getIsSlotInPast, getInMs } from './resourceKeyboardSlotPickerUtils';
+import {
+  getIsSlotReserved,
+  getIsSlotInPast,
+  getInMs,
+} from './resourceKeyboardSlotPickerUtils';
 
 const rootClass = 'app-ResourcePageKeyboardTimePicker';
 
@@ -36,13 +40,13 @@ function labelStartTimeOptions(
   slotsWithReservationStatus,
   selectedBounds,
   maxSlotCount,
-  minSlotCount,
+  minSlotCount
 ) {
   // If there's no end bound any time is ok.
   // If both bounds are set, any time are ok. When the use selects a
   // bound, the companion bound is reset.
   if (!selectedBounds.end || (selectedBounds.start && selectedBounds.end)) {
-    return slotsWithReservationStatus.map(slot => ({
+    return slotsWithReservationStatus.map((slot) => ({
       ...slot,
       isResultsInNegativeTime: false,
       isResultsInOverlappingReservation: false,
@@ -52,13 +56,14 @@ function labelStartTimeOptions(
   }
 
   // eslint-disable-next-line max-len
-  const getIsResultsInNegativeTime = slotStart => new Date(slotStart).getTime() > new Date(selectedBounds.end).getTime();
+  const getIsResultsInNegativeTime = (slotStart) =>
+    new Date(slotStart).getTime() > new Date(selectedBounds.end).getTime();
 
   const closestReservationIndexBeforeEndBound = slotsWithReservationStatus.findIndex(
-    slot => !getIsResultsInNegativeTime(slot.start) && slot.isReserved,
+    (slot) => !getIsResultsInNegativeTime(slot.start) && slot.isReserved
   );
   const endBoundIndex = slotsWithReservationStatus.findIndex(
-    slot => makeEndTimeOverlap(slot.end) === selectedBounds.end,
+    (slot) => makeEndTimeOverlap(slot.end) === selectedBounds.end
   );
   const slotsWithLabels = slotsWithReservationStatus.map((slot, index) => {
     // Start times should never be after end time.
@@ -67,8 +72,9 @@ function labelStartTimeOptions(
     // make overlapping reservations. To this end, we are hiding all
     // options that come before the closest reservation that comes
     // before endBound.
-    const isResultsInOverlappingReservation = closestReservationIndexBeforeEndBound !== -1
-      && index <= closestReservationIndexBeforeEndBound;
+    const isResultsInOverlappingReservation =
+      closestReservationIndexBeforeEndBound !== -1 &&
+      index <= closestReservationIndexBeforeEndBound;
     const isResultsInUnderMinTime = endBoundIndex - index < minSlotCount - 1;
     const isResultsInOverMaxTime = endBoundIndex - index > maxSlotCount - 1;
 
@@ -88,13 +94,13 @@ function labelEndTimeOptions(
   slotsWithReservationStatus,
   selectedBounds,
   maxSlotCount,
-  minSlotCount,
+  minSlotCount
 ) {
   // If there's no start bound any time is ok.
   // If both bounds are set, any time are ok. When the use selects a
   // bound, the companion bound is reset.
   if (!selectedBounds.start || (selectedBounds.start && selectedBounds.end)) {
-    return slotsWithReservationStatus.map(slot => ({
+    return slotsWithReservationStatus.map((slot) => ({
       ...slot,
       isResultsInNegativeTime: false,
       isResultsInOverlappingReservation: false,
@@ -104,13 +110,14 @@ function labelEndTimeOptions(
   }
 
   // eslint-disable-next-line max-len
-  const getIsResultsInNegativeTime = slotStart => new Date(slotStart).getTime() < new Date(selectedBounds.start).getTime();
+  const getIsResultsInNegativeTime = (slotStart) =>
+    new Date(slotStart).getTime() < new Date(selectedBounds.start).getTime();
 
   const startBoundIndex = slotsWithReservationStatus.findIndex(
-    slot => slot.start === selectedBounds.start,
+    (slot) => slot.start === selectedBounds.start
   );
   const firstReservationAfterSlotIndex = slotsWithReservationStatus.findIndex(
-    (slot, j) => startBoundIndex < j && slot.isReserved,
+    (slot, j) => startBoundIndex < j && slot.isReserved
   );
   const slotsWithLabels = slotsWithReservationStatus.map((slot, index) => {
     // Start times should never be after end time.
@@ -118,8 +125,9 @@ function labelEndTimeOptions(
     // We should not offer the user options which allow them to to
     // make overlapping reservations. To this end, we are hiding all
     // options that come after the first reservation after this slot
-    const isResultsInOverlappingReservation = firstReservationAfterSlotIndex !== -1
-      && index >= firstReservationAfterSlotIndex;
+    const isResultsInOverlappingReservation =
+      firstReservationAfterSlotIndex !== -1 &&
+      index >= firstReservationAfterSlotIndex;
     const isResultsInUnderMinTime = index - startBoundIndex < minSlotCount - 1;
     const isResultsInOverMaxTime = index - startBoundIndex > maxSlotCount - 1;
 
@@ -137,12 +145,12 @@ function labelEndTimeOptions(
 
 function getIsOptionDisabled(option) {
   return (
-    option.isReserved
-    || option.isPast
-    || option.isResultsInNegativeTime
-    || option.isResultsInOverlappingReservation
-    || option.isResultsInOverMaxTime
-    || option.isResultsInUnderMinTime
+    option.isReserved ||
+    option.isPast ||
+    option.isResultsInNegativeTime ||
+    option.isResultsInOverlappingReservation ||
+    option.isResultsInOverMaxTime ||
+    option.isResultsInUnderMinTime
   );
 }
 
@@ -205,7 +213,7 @@ const ResourcePageKeyboardTimePicker = ({
 
   const startId = 'startTime';
   const endId = 'endTime';
-  const slotsWithReservationStatus = slots.map(slot => ({
+  const slotsWithReservationStatus = slots.map((slot) => ({
     ...slot,
     isReserved: getIsSlotReserved(slot, reservations),
     isPast: getIsSlotInPast(slot),
@@ -216,19 +224,19 @@ const ResourcePageKeyboardTimePicker = ({
     slotsWithReservationStatus,
     selectedTime,
     maxSlotCount,
-    minSlotCount,
+    minSlotCount
   );
   const endTimeSlots = labelEndTimeOptions(
     slotsWithReservationStatus,
     selectedTime,
     maxSlotCount,
-    minSlotCount,
+    minSlotCount
   );
-  const startDropdownOptions = startTimeSlots.map(slot => ({
+  const startDropdownOptions = startTimeSlots.map((slot) => ({
     ...slot,
     label: getTime(slot.start),
   }));
-  const endDropdownOptions = endTimeSlots.map(slot => ({
+  const endDropdownOptions = endTimeSlots.map((slot) => ({
     ...slot,
     end: makeEndTimeOverlap(slot.end),
     // Add one millisecond to label value in order to ignore the one ms
@@ -251,8 +259,9 @@ const ResourcePageKeyboardTimePicker = ({
             style={inlineStyles}
             value={selectedTime.start || ''}
           >
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <option value="" />
-            {startDropdownOptions.map(option => (
+            {startDropdownOptions.map((option) => (
               <option
                 disabled={getIsOptionDisabled(option)}
                 key={option.label}
@@ -274,8 +283,9 @@ const ResourcePageKeyboardTimePicker = ({
             style={inlineStyles}
             value={selectedTime.end || ''}
           >
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <option value="" />
-            {endDropdownOptions.map(option => (
+            {endDropdownOptions.map((option) => (
               <option
                 disabled={getIsOptionDisabled(option)}
                 key={option.label}

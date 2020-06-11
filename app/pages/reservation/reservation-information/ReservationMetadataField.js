@@ -5,9 +5,7 @@ import Input from './Input';
 import Textarea from './Textarea';
 import Terms from './Terms';
 
-function ReservationMetadataField({
-  type, input, externalName, ...rest
-}) {
+function ReservationMetadataField({ type, input, externalName, ...rest }) {
   const name = externalName || input.name || undefined;
   const inputWithModifiedName = {
     ...input,

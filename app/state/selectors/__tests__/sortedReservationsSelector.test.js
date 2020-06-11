@@ -23,10 +23,7 @@ describe('Selector: sortedReservationsSelector', () => {
     });
 
     test('returns all reservations in state in an array', () => {
-      const reservations = [
-        Reservation.build(),
-        Reservation.build(),
-      ];
+      const reservations = [Reservation.build(), Reservation.build()];
       const state = getState(reservations);
       const props = {};
       const actual = sortedReservationsSelector(state, props);
@@ -63,10 +60,22 @@ describe('Selector: sortedReservationsSelector', () => {
 
       test('returns only preliminary reservations in cancelled state', () => {
         const reservations = [
-          Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
-          Reservation.build({ state: 'confirmed', needManualConfirmation: true }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
-          Reservation.build({ state: 'confirmed', needManualConfirmation: false }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'confirmed',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: false,
+          }),
+          Reservation.build({
+            state: 'confirmed',
+            needManualConfirmation: false,
+          }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -80,10 +89,22 @@ describe('Selector: sortedReservationsSelector', () => {
 
       test('returns only preliminary reservations in confirmed state', () => {
         const reservations = [
-          Reservation.build({ state: 'confirmed', needManualConfirmation: true }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
-          Reservation.build({ state: 'confirmed', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
+          Reservation.build({
+            state: 'confirmed',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'confirmed',
+            needManualConfirmation: false,
+          }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: false,
+          }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -98,9 +119,15 @@ describe('Selector: sortedReservationsSelector', () => {
       test('returns only preliminary reservations in denied state', () => {
         const reservations = [
           Reservation.build({ state: 'denied', needManualConfirmation: true }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: true,
+          }),
           Reservation.build({ state: 'denied', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: false,
+          }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -114,10 +141,22 @@ describe('Selector: sortedReservationsSelector', () => {
 
       test('returns only preliminary reservations in requested state', () => {
         const reservations = [
-          Reservation.build({ state: 'requested', needManualConfirmation: true }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: true }),
-          Reservation.build({ state: 'requested', needManualConfirmation: false }),
-          Reservation.build({ state: 'cancelled', needManualConfirmation: false }),
+          Reservation.build({
+            state: 'requested',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: true,
+          }),
+          Reservation.build({
+            state: 'requested',
+            needManualConfirmation: false,
+          }),
+          Reservation.build({
+            state: 'cancelled',
+            needManualConfirmation: false,
+          }),
         ];
         const state = getState(reservations);
         const actual = sortedReservationsSelector(state, props);
@@ -138,20 +177,17 @@ describe('Selector: sortedReservationsSelector', () => {
       expect(actual).toEqual([reservations[0]]);
     });
 
-    test(
-      'returns only preliminary reservations when filter is "preliminary"',
-      () => {
-        const reservations = [
-          Reservation.build({ needManualConfirmation: true }),
-          Reservation.build({ needManualConfirmation: false }),
-        ];
-        const state = getState(reservations);
-        const props = { filter: 'preliminary' };
-        const actual = sortedReservationsSelector(state, props);
+    test('returns only preliminary reservations when filter is "preliminary"', () => {
+      const reservations = [
+        Reservation.build({ needManualConfirmation: true }),
+        Reservation.build({ needManualConfirmation: false }),
+      ];
+      const state = getState(reservations);
+      const props = { filter: 'preliminary' };
+      const actual = sortedReservationsSelector(state, props);
 
-        expect(actual).toEqual([reservations[0]]);
-      },
-    );
+      expect(actual).toEqual([reservations[0]]);
+    });
 
     test('returns only regular reservations when filter is "regular"', () => {
       const reservations = [
@@ -179,9 +215,18 @@ describe('Selector: sortedReservationsSelector', () => {
 
     test('returns the results ordered from oldest to newest', () => {
       const reservations = [
-        Reservation.build({ begin: '2015-10-10', needManualConfirmation: true }),
-        Reservation.build({ begin: '2015-09-20', needManualConfirmation: true }),
-        Reservation.build({ begin: '2015-10-30', needManualConfirmation: true }),
+        Reservation.build({
+          begin: '2015-10-10',
+          needManualConfirmation: true,
+        }),
+        Reservation.build({
+          begin: '2015-09-20',
+          needManualConfirmation: true,
+        }),
+        Reservation.build({
+          begin: '2015-10-30',
+          needManualConfirmation: true,
+        }),
       ];
       const state = getState(reservations);
       const props = { filter: 'preliminary' };

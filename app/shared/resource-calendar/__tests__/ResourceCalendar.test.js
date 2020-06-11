@@ -8,9 +8,7 @@ import MomentLocaleUtils from 'react-day-picker/moment';
 import simple from 'simple-mock';
 
 import { shallowWithIntl } from '../../../utils/testUtils';
-import {
-  UnconnectedResourceCalendar as ResourceCalendar,
-} from '../ResourceCalendar';
+import { UnconnectedResourceCalendar as ResourceCalendar } from '../ResourceCalendar';
 import ResourceCalendarOverlay from '../ResourceCalendarOverlay';
 
 describe('shared/resource-calendar/ResourceCalendar', () => {
@@ -69,18 +67,28 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   });
 
   test('renders a calendar-legend with correct labels', () => {
-    expect(wrapper.find('.calendar-legend .free').text()).toBe('ReservationCalendarPickerLegend.free');
-    expect(wrapper.find('.calendar-legend .busy').text()).toBe('ReservationCalendarPickerLegend.busy');
-    expect(wrapper.find('.calendar-legend .booked').text()).toBe('ReservationCalendarPickerLegend.booked');
+    expect(wrapper.find('.calendar-legend .free').text()).toBe(
+      'ReservationCalendarPickerLegend.free'
+    );
+    expect(wrapper.find('.calendar-legend .busy').text()).toBe(
+      'ReservationCalendarPickerLegend.busy'
+    );
+    expect(wrapper.find('.calendar-legend .booked').text()).toBe(
+      'ReservationCalendarPickerLegend.booked'
+    );
   });
 
   test('renders correct props', () => {
     expect(dayWrapper.prop('disabledDays')).toBeDefined();
     expect(dayWrapper.prop('enableOutsideDays')).toBe(true);
-    expect(dayWrapper.prop('initialMonth')).toEqual(new Date(defaultProps.selectedDate));
+    expect(dayWrapper.prop('initialMonth')).toEqual(
+      new Date(defaultProps.selectedDate)
+    );
     expect(dayWrapper.prop('locale')).toBe('en');
     expect(dayWrapper.prop('localeUtils')).toBe(MomentLocaleUtils);
-    expect(dayWrapper.prop('onDayClick')).toBe(wrapper.instance().handleDateChange);
+    expect(dayWrapper.prop('onDayClick')).toBe(
+      wrapper.instance().handleDateChange
+    );
     expect(dayWrapper.prop('selectedDays').getFullYear()).toBe(2015);
     expect(dayWrapper.prop('selectedDays').getMonth()).toBe(9);
     expect(dayWrapper.prop('selectedDays').getDate()).toBe(11);

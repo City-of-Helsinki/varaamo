@@ -10,30 +10,15 @@ import vantaaLogoSrc from './vantaa-logo.png';
 function Logo({ t }) {
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
-      return (
-        <img
-          alt={t('Logo.espooAlt')}
-          src={espooLogoSrc}
-        />
-      );
+      return <img alt={t('Logo.espooAlt')} src={espooLogoSrc} />;
     }
 
     case 'VANTAA': {
-      return (
-        <img
-          alt={t('Logo.vantaaAlt')}
-          src={vantaaLogoSrc}
-        />
-      );
+      return <img alt={t('Logo.vantaaAlt')} src={vantaaLogoSrc} />;
     }
 
     default: {
-      return (
-        <img
-          alt={t('Logo.helsinkiAlt')}
-          src={helsinkiLogoSrc}
-        />
-      );
+      return <img alt={t('Logo.helsinkiAlt')} src={helsinkiLogoSrc} />;
     }
   }
 }

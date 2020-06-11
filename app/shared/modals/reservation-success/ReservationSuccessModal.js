@@ -21,7 +21,9 @@ function ReservationSuccessModal({
   const reservation = reservationsToShow.length ? reservationsToShow[0] : {};
   const resource = reservation.resource ? resources[reservation.resource] : {};
   const isPreliminaryReservation = reservation.needManualConfirmation;
-  const email = isPreliminaryReservation ? reservation.reserverEmailAddress : user.email;
+  const email = isPreliminaryReservation
+    ? reservation.reserverEmailAddress
+    : user.email;
   const resourceName = resource.name;
 
   return (
@@ -32,11 +34,9 @@ function ReservationSuccessModal({
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          {
-            isPreliminaryReservation
-              ? t('ReservationSuccessModal.preliminaryReservationTitle')
-              : t('ReservationSuccessModal.regularReservationTitle')
-          }
+          {isPreliminaryReservation
+            ? t('ReservationSuccessModal.preliminaryReservationTitle')
+            : t('ReservationSuccessModal.regularReservationTitle')}
         </Modal.Title>
         <ReservationDate
           beginDate={reservation.begin}
@@ -47,14 +47,16 @@ function ReservationSuccessModal({
         <div className="reservation-success-modal__content">
           <h5>
             {isPreliminaryReservation
-              ? t('ReservationSuccessModal.preliminaryReservationLead', { resourceName })
-              : t('ReservationSuccessModal.regularReservationLead', { resourceName })
-            }
+              ? t('ReservationSuccessModal.preliminaryReservationLead', {
+                  resourceName,
+                })
+              : t('ReservationSuccessModal.regularReservationLead', {
+                  resourceName,
+                })}
           </h5>
           <hr />
 
-          {Boolean(failedReservations.length)
-            && (
+          {Boolean(failedReservations.length) && (
             <div>
               <h5>{t('ReservationSuccessModal.failedReservationsHeader')}</h5>
               <CompactReservationList
@@ -63,8 +65,7 @@ function ReservationSuccessModal({
                 subtitle="failReason"
               />
             </div>
-            )
-          }
+          )}
 
           {reservation.accessCode && (
             <div>
@@ -101,10 +102,7 @@ function ReservationSuccessModal({
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          bsStyle="primary"
-          onClick={closeReservationSuccessModal}
-        >
+        <Button bsStyle="primary" onClick={closeReservationSuccessModal}>
           {t('common.ok')}
         </Button>
       </Modal.Footer>

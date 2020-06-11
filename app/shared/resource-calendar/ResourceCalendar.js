@@ -71,36 +71,44 @@ export class UnconnectedResourceCalendar extends Component {
       available: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
         return (
-          availability[dayDate]
-          && availability[dayDate].percentage >= 80
-          && moment(day).isBetween(moment().startOf('day'), reservableUntil)
+          availability[dayDate] &&
+          availability[dayDate].percentage >= 80 &&
+          moment(day).isBetween(moment().startOf('day'), reservableUntil)
         );
       },
       busy: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
         return (
-          availability[dayDate]
-          && availability[dayDate].percentage < 80
-          && availability[dayDate].percentage > 0
-          && moment(day).isBetween(moment().startOf('day'), reservableUntil)
+          availability[dayDate] &&
+          availability[dayDate].percentage < 80 &&
+          availability[dayDate].percentage > 0 &&
+          moment(day).isBetween(moment().startOf('day'), reservableUntil)
         );
       },
       booked: (day) => {
         const dayDate = day.toISOString().substring(0, 10);
         return (
-          availability[dayDate]
-          && availability[dayDate].percentage === 0
-          && moment(day).isBetween(moment().startOf('day'), reservableUntil));
+          availability[dayDate] &&
+          availability[dayDate].percentage === 0 &&
+          moment(day).isBetween(moment().startOf('day'), reservableUntil)
+        );
       },
     };
 
     return (
       <div className="app-ResourceCalendar">
-        <div className="app-ResourceCalendar__wrapper" ref={this.setCalendarWrapper}>
+        <div
+          className="app-ResourceCalendar__wrapper"
+          ref={this.setCalendarWrapper}
+        >
           <FormGroup onClick={this.showOverlay}>
             <InputGroup>
               <InputGroup.Addon>
-                <img alt="" className="app-ResourceCalendar__icon" src={iconCalendar} />
+                <img
+                  alt=""
+                  className="app-ResourceCalendar__icon"
+                  src={iconCalendar}
+                />
               </InputGroup.Addon>
               <FormControl disabled type="text" value={selectedDateText} />
               <InputGroup.Addon>
@@ -128,9 +136,15 @@ export class UnconnectedResourceCalendar extends Component {
                 showOutsideDays
               />
               <div className="calendar-legend">
-                <span className="free">{t('ReservationCalendarPickerLegend.free')}</span>
-                <span className="busy">{t('ReservationCalendarPickerLegend.busy')}</span>
-                <span className="booked">{t('ReservationCalendarPickerLegend.booked')}</span>
+                <span className="free">
+                  {t('ReservationCalendarPickerLegend.free')}
+                </span>
+                <span className="busy">
+                  {t('ReservationCalendarPickerLegend.busy')}
+                </span>
+                <span className="booked">
+                  {t('ReservationCalendarPickerLegend.booked')}
+                </span>
               </div>
             </ResourceCalendarOverlay>
           </Overlay>

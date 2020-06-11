@@ -51,7 +51,9 @@ describe('shared/resource-list/ResourceList', () => {
 
       test('passes correct props to ResourceCard', () => {
         resourceCards.forEach((resourceListItem, index) => {
-          expect(resourceListItem.props().resourceId).toBe(defaultProps.resourceIds[index]);
+          expect(resourceListItem.props().resourceId).toBe(
+            defaultProps.resourceIds[index]
+          );
           expect(resourceListItem.props().date).toBe(defaultProps.date);
         });
       });

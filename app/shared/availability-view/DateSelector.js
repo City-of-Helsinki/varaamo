@@ -30,29 +30,39 @@ export class UninjectedDateSelector extends React.Component {
   }
 
   handleNextClick() {
-    this.handleChange(moment(this.props.value).add(1, 'day').format('YYYY-MM-DD'));
+    this.handleChange(
+      moment(this.props.value).add(1, 'day').format('YYYY-MM-DD')
+    );
   }
 
   handlePreviousClick() {
-    this.handleChange(moment(this.props.value).subtract(1, 'day').format('YYYY-MM-DD'));
+    this.handleChange(
+      moment(this.props.value).subtract(1, 'day').format('YYYY-MM-DD')
+    );
   }
 
   render() {
     return (
       <div className="date-selector">
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-tabindex */}
         <a className="previous" onClick={this.handlePreviousClick} tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.previousDay')}
         </a>
         <div className="current-value">
           <DatePicker
             dateFormat="dd D.M.YYYY"
-            onChange={date => this.handleChange(date)}
+            onChange={(date) => this.handleChange(date)}
             value={this.props.value}
           />
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-tabindex */}
           <a className="today" onClick={this.handleTodayClick} tabIndex="0">
             {this.props.t('TimePickerCalendar.info.today')}
           </a>
         </div>
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-tabindex */}
         <a className="next" onClick={this.handleNextClick} tabIndex="0">
           {this.props.t('AvailabilityViewDateSelector.nextDay')}
         </a>

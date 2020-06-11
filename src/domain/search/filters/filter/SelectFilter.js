@@ -21,15 +21,21 @@ class SelectFilter extends React.Component {
     onChange: PropTypes.func.isRequired,
     options: PropTypes.array.isRequired,
     t: PropTypes.func.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.number]),
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.number,
+    ]),
   };
 
   getValue = (value, options) => {
     if (isArray(value)) {
-      return value.map(item => options.find(option => option.value === item));
+      return value.map((item) =>
+        options.find((option) => option.value === item)
+      );
     }
 
-    return options.find(option => option.value === value);
+    return options.find((option) => option.value === value);
   };
 
   noOptionsMessage = () => this.props.t('SelectFilter.noOptionsMessage');
@@ -63,8 +69,7 @@ class SelectFilter extends React.Component {
       <div className="app-SelectFilter">
         <FormGroup controlId={id}>
           {label && <ControlLabel>{label}</ControlLabel>}
-          {!isLoading
-          && (
+          {!isLoading && (
             <Select
               className={classNames('app-Select', className)}
               classNamePrefix="app-Select"
@@ -74,7 +79,9 @@ class SelectFilter extends React.Component {
               isMulti={isMulti}
               isSearchable={isSearchable}
               noOptionsMessage={this.noOptionsMessage}
-              onChange={(selected, { action }) => this.onChange(selected, action)}
+              onChange={(selected, { action }) =>
+                this.onChange(selected, action)
+              }
               options={options}
               placeholder={t('common.select')}
               value={this.getValue(value, options)}

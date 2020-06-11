@@ -34,7 +34,9 @@ describe('shared/logo/Logo', () => {
     let logo;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('ESPOO');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('ESPOO');
       logo = getWrapper();
     });
 
@@ -56,7 +58,9 @@ describe('shared/logo/Logo', () => {
     let logo;
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCurrentCustomization').returnWith('VANTAA');
+      simple
+        .mock(customizationUtils, 'getCurrentCustomization')
+        .returnWith('VANTAA');
       logo = getWrapper();
     });
 

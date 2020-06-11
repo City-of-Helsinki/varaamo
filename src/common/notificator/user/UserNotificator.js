@@ -21,14 +21,16 @@ class UserNotificator extends Component {
   };
 
   componentDidMount() {
-    this.unsubscribeNotificationListener = firebase.firestore()
+    this.unsubscribeNotificationListener = firebase
+      .firestore()
       .collection('notifications')
       .where('active', '==', true)
       .onSnapshot(this.onNotificationSnapshot);
   }
 
   componentWillUnmount() {
-    this.unsubscribeNotificationListener && this.unsubscribeNotificationListener();
+    this.unsubscribeNotificationListener &&
+      this.unsubscribeNotificationListener();
   }
 
   onNotificationSnapshot = (querySnap) => {
@@ -40,7 +42,10 @@ class UserNotificator extends Component {
     querySnap.forEach((doc) => {
       const notification = doc.data();
       notification.id = doc.id;
-      if (!cookies.includes(notification.id) && moment(notification.until).isAfter()) {
+      if (
+        !cookies.includes(notification.id) &&
+        moment(notification.until).isAfter()
+      ) {
         notifications.push(notification);
       }
     });
@@ -52,9 +57,15 @@ class UserNotificator extends Component {
     const { notifications } = this.state;
     const sortedNotifications = orderBy(notifications, 'created');
 
-    const notificationsForUser = sortedNotifications.filter(notification => notification.target === 'user');
-    const notificationsForStaff = sortedNotifications.filter(notification => notification.target === 'staff');
-    const notificationsForAll = sortedNotifications.filter(notification => notification.target === 'all');
+    const notificationsForUser = sortedNotifications.filter(
+      (notification) => notification.target === 'user'
+    );
+    const notificationsForStaff = sortedNotifications.filter(
+      (notification) => notification.target === 'staff'
+    );
+    const notificationsForAll = sortedNotifications.filter(
+      (notification) => notification.target === 'all'
+    );
     if (notificationsForAll.length > 0) {
       return notificationsForAll[0];
     }
@@ -66,7 +77,6 @@ class UserNotificator extends Component {
     }
     return {};
   };
-
 
   closeNotificator = (notification) => {
     let cookies = document.cookie.replace('notifications=', '');
@@ -82,20 +92,26 @@ class UserNotificator extends Component {
     const notification = this.selectNotificationToShow();
     if (notification && !notification.message) return null;
     return (
-      <div className={classNames('app-UserNotificator', {
-        'app-UserNotificator__warning': notification.urgency === 'warning',
-        'app-UserNotificator__danger': notification.urgency === 'danger',
-      })}
+      <div
+        className={classNames('app-UserNotificator', {
+          'app-UserNotificator__warning': notification.urgency === 'warning',
+          'app-UserNotificator__danger': notification.urgency === 'danger',
+        })}
       >
-        <span className="close-notificator" onClick={() => this.closeNotificator(notification)}>X</span>
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <span
+          className="close-notificator"
+          onClick={() => this.closeNotificator(notification)}
+        >
+          X
+        </span>
         <Grid className="container">
           <Row>
             <Col sm={12}>
               <span className="notification-message">
-                { notification.message[language]
+                {notification.message[language]
                   ? ReactHtmlWrapper(notification.message[language])
-                  : ReactHtmlWrapper(notification.message.fi)
-                }
+                  : ReactHtmlWrapper(notification.message.fi)}
               </span>
             </Col>
           </Row>

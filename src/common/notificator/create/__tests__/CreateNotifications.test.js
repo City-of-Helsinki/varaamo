@@ -44,17 +44,23 @@ describe('CreateNotifications', () => {
 
     describe('Test message field with all languages', () => {
       test('Finnish', () => {
-        wrapper.instance().onFieldChange({ target: { value: 'Finland' } }, 'message', 'fi');
+        wrapper
+          .instance()
+          .onFieldChange({ target: { value: 'Finland' } }, 'message', 'fi');
         expect(wrapper.state().newNotification.message.fi).toEqual('Finland');
       });
 
       test('Swedish', () => {
-        wrapper.instance().onFieldChange({ target: { value: 'Sweden' } }, 'message', 'sv');
+        wrapper
+          .instance()
+          .onFieldChange({ target: { value: 'Sweden' } }, 'message', 'sv');
         expect(wrapper.state().newNotification.message.sv).toEqual('Sweden');
       });
 
       test('English', () => {
-        wrapper.instance().onFieldChange({ target: { value: 'England' } }, 'message', 'en');
+        wrapper
+          .instance()
+          .onFieldChange({ target: { value: 'England' } }, 'message', 'en');
         expect(wrapper.state().newNotification.message.en).toEqual('England');
       });
     });

@@ -12,10 +12,10 @@ export const getOption = (value, options) => {
   }
 
   if (Array.isArray(value)) {
-    return value.map(item => options.find(option => option.value === item));
+    return value.map((item) => options.find((option) => option.value === item));
   }
 
-  return options.find(option => option.value === value);
+  return options.find((option) => option.value === value);
 };
 
 const SelectField = ({

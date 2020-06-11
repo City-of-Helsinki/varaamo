@@ -5,9 +5,7 @@ import Label from 'react-bootstrap/lib/Label';
 const InfoLabel = ({ labelStyle, labelText }) => {
   return (
     <div className="app-InfoLabel">
-      <Label bsStyle={labelStyle}>
-        { labelText }
-      </Label>
+      <Label bsStyle={labelStyle}>{labelText}</Label>
     </div>
   );
 };

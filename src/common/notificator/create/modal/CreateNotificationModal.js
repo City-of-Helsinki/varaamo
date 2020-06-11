@@ -8,7 +8,13 @@ import DeleteConfirmationDialog from './DeleteConfirmationModal';
 const CreateNotificationModal = (props) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const {
-    isOpen, onHide, selectedNotification, addElement, save, onDelete, onFieldChange,
+    isOpen,
+    onHide,
+    selectedNotification,
+    addElement,
+    save,
+    onDelete,
+    onFieldChange,
   } = props;
 
   const deleteConfirm = () => {
@@ -17,7 +23,7 @@ const CreateNotificationModal = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Modal
         className="app-CreateNotificationModal"
         onHide={onHide}
@@ -38,9 +44,15 @@ const CreateNotificationModal = (props) => {
           </div>
         </Modal.Body>
         <Modal.Footer className="modal-footer">
-          <button onClick={() => setDeleteModal(true)} type="button">Delete</button>
-          <button onClick={onHide} type="button">Close</button>
-          <button onClick={save} type="button">Save</button>
+          <button onClick={() => setDeleteModal(true)} type="button">
+            Delete
+          </button>
+          <button onClick={onHide} type="button">
+            Close
+          </button>
+          <button onClick={save} type="button">
+            Save
+          </button>
         </Modal.Footer>
       </Modal>
 
@@ -49,8 +61,7 @@ const CreateNotificationModal = (props) => {
         isOpen={deleteModal}
         onHide={() => setDeleteModal(false)}
       />
-    </React.Fragment>
-
+    </>
   );
 };
 

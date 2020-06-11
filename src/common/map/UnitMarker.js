@@ -12,16 +12,13 @@ const getIcon = (count, isHighlighted = false) => {
     className: 'marker-icon',
     iconAnchor: [12, 48],
     iconSize: [25, 48],
-    html: `<div>${count}</div><img src="${isHighlighted ? highlightedIcon : icon}" />`,
+    html: `<div>${count}</div><img src="${
+      isHighlighted ? highlightedIcon : icon
+    }" />`,
   });
 };
 
-const UnitMarker = ({
-  unit,
-  resources,
-  isHighlighted,
-  onClick,
-}) => {
+const UnitMarker = ({ unit, resources, isHighlighted, onClick }) => {
   const coordinates = get(unit, 'location.coordinates');
 
   return (

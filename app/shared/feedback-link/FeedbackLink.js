@@ -10,11 +10,19 @@ function FeedbackLink({ children }) {
 
   switch (getCurrentCustomization()) {
     case 'ESPOO': {
-      return <a className="feedback-link" href={href}>{children}</a>;
+      return (
+        <a className="feedback-link" href={href}>
+          {children}
+        </a>
+      );
     }
 
     default: {
-      return <a className="feedback-link" href={href}>{children}</a>;
+      return (
+        <a className="feedback-link" href={href}>
+          {children}
+        </a>
+      );
     }
   }
 }

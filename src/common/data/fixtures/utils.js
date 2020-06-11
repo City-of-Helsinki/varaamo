@@ -1,4 +1,7 @@
-export const getLocalizedFieldSequenceGeneratorFunction = (fieldValue, locales = ['en', 'fi', 'sv']) => {
+export const getLocalizedFieldSequenceGeneratorFunction = (
+  fieldValue,
+  locales = ['en', 'fi', 'sv']
+) => {
   return (i) => {
     const value = {};
     locales.forEach((locale) => {

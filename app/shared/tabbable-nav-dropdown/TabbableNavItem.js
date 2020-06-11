@@ -34,7 +34,9 @@ function NavItem(props) {
   const typeProps = getProps(props);
 
   return (
-    <li><AsPolymorph {...typeProps} /></li>
+    <li>
+      <AsPolymorph {...typeProps} />
+    </li>
   );
 }
 

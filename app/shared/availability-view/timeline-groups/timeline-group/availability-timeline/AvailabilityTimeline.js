@@ -15,7 +15,7 @@ class UnconnectedAvailabilityTimeline extends React.Component {
         key: PropTypes.string.isRequired,
         type: PropTypes.oneOf(['reservation', 'reservation-slot']).isRequired,
         data: PropTypes.object,
-      }),
+      })
     ).isRequired,
     onReservationClick: PropTypes.func,
     onReservationSlotClick: PropTypes.func,
@@ -28,8 +28,10 @@ class UnconnectedAvailabilityTimeline extends React.Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    const isSelected = nextProps.selection && nextProps.selection.resourceId === this.props.id;
-    const wasSelected = this.props.selection && this.props.selection.resourceId === this.props.id;
+    const isSelected =
+      nextProps.selection && nextProps.selection.resourceId === this.props.id;
+    const wasSelected =
+      this.props.selection && this.props.selection.resourceId === this.props.id;
     return this.props.items !== nextProps.items || isSelected || wasSelected;
   }
 
@@ -84,15 +86,12 @@ export function selector() {
   const resourceSelector = createSelector(
     resourcesSelector,
     idSelector,
-    (resources, id) => resources[id],
+    (resources, id) => resources[id]
   );
-  return createSelector(
-    resourceSelector,
-    resource => ({
-      products: resource.products ? resource.products : [],
-      slotSize: resource.slotSize,
-    }),
-  );
+  return createSelector(resourceSelector, (resource) => ({
+    products: resource.products ? resource.products : [],
+    slotSize: resource.slotSize,
+  }));
 }
 export { UnconnectedAvailabilityTimeline };
 const AvailabilityTimeline = connect(selector)(UnconnectedAvailabilityTimeline);

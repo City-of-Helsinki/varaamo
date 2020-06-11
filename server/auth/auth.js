@@ -14,10 +14,12 @@ const maxSessionAge = 9 * 60 * 60 * 1000; // 9 hours
 // Session handling
 router.use(cookieParser());
 router.use(bodyParser.urlencoded({ extended: true }));
-router.use(cookieSession({
-  secret: process.env.SESSION_SECRET,
-  maxAge: maxSessionAge,
-}));
+router.use(
+  cookieSession({
+    secret: process.env.SESSION_SECRET,
+    maxAge: maxSessionAge,
+  })
+);
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
@@ -28,14 +30,17 @@ router.get('/auth', nocache(), (req, res) => {
   res.json(getAuthState(req));
 });
 
-router.get('/login',
+router.get(
+  '/login',
   (req, res, next) => {
     req.session.next = req.query.next; // eslint-disable-line no-param-reassign
     next();
   },
-  passport.authenticate('helsinki'));
+  passport.authenticate('helsinki')
+);
 
-router.get('/login/helsinki/return',
+router.get(
+  '/login/helsinki/return',
   passport.authenticate('helsinki', { failureRedirect: '/login' }),
   (req, res) => {
     if (req.session.next) {
@@ -45,7 +50,8 @@ router.get('/login/helsinki/return',
     } else {
       res.redirect('/');
     }
-  });
+  }
+);
 
 router.get('/logout', (req, res) => {
   req.logOut();

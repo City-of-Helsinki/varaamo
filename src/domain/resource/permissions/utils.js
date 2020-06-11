@@ -2,11 +2,15 @@ import difference from 'lodash/difference';
 import get from 'lodash/get';
 
 import {
-  resourceRoles, resourcePermissionTypes, resourcePermissionsByRole, UI_UNIT_STAFF_ROLES,
+  resourceRoles,
+  resourcePermissionTypes,
+  resourcePermissionsByRole,
+  UI_UNIT_STAFF_ROLES,
 } from './constants';
 
 const permissionOptions = Object.values(resourcePermissionTypes);
-const allValuesInArray = (subset, superset) => difference(subset, superset).length === 0;
+const allValuesInArray = (subset, superset) =>
+  difference(subset, superset).length === 0;
 
 export function hasPermissionForResource(resourceRole, requiredPermissions) {
   // undefined roles don't receive any permissions implicitly
@@ -15,32 +19,51 @@ export function hasPermissionForResource(resourceRole, requiredPermissions) {
   }
 
   if (!Object.values(resourceRoles).includes(resourceRole)) {
-    throw Error(`resourceRole needs to be one of: ${Object.values(resourceRoles).join(', ')}.`);
+    throw Error(
+      `resourceRole needs to be one of: ${Object.values(resourceRoles).join(
+        ', '
+      )}.`
+    );
   }
 
-  if (!Array.isArray(requiredPermissions) && typeof requiredPermissions !== 'string') {
+  if (
+    !Array.isArray(requiredPermissions) &&
+    typeof requiredPermissions !== 'string'
+  ) {
     throw Error('requiredPermissions has to be either a string or an array.');
   }
 
   if (
-    Array.isArray(requiredPermissions)
-    && !allValuesInArray(requiredPermissions, permissionOptions)
+    Array.isArray(requiredPermissions) &&
+    !allValuesInArray(requiredPermissions, permissionOptions)
   ) {
-    const unknownPermissions = difference(requiredPermissions, permissionOptions);
+    const unknownPermissions = difference(
+      requiredPermissions,
+      permissionOptions
+    );
 
     // eslint-disable-next-line no-console
-    console.warn([
-      `Permission asked with unknown permission: ${unknownPermissions.join(', ')}.`,
-      `Permission needs to be on of: ${permissionOptions.join(', ')}.`,
-    ].join('\n'));
+    console.warn(
+      [
+        `Permission asked with unknown permission: ${unknownPermissions.join(
+          ', '
+        )}.`,
+        `Permission needs to be on of: ${permissionOptions.join(', ')}.`,
+      ].join('\n')
+    );
   }
 
-  if (typeof requiredPermissions === 'string' && !permissionOptions.includes(requiredPermissions)) {
+  if (
+    typeof requiredPermissions === 'string' &&
+    !permissionOptions.includes(requiredPermissions)
+  ) {
     // eslint-disable-next-line no-console
-    console.warn([
-      `Permission asked with unknown permission: ${requiredPermissions}.`,
-      `Permission needs to be on of: ${permissionOptions.join(', ')}.`,
-    ].join('\n'));
+    console.warn(
+      [
+        `Permission asked with unknown permission: ${requiredPermissions}.`,
+        `Permission needs to be on of: ${permissionOptions.join(', ')}.`,
+      ].join('\n')
+    );
   }
 
   const rolePermissions = resourcePermissionsByRole[resourceRole];
@@ -52,10 +75,9 @@ export function hasPermissionForResource(resourceRole, requiredPermissions) {
   return rolePermissions.includes(requiredPermissions);
 }
 
-const getUserPermissions = resource => (
-  get(resource, 'user_permissions', false)
-  || get(resource, 'userPermissions', undefined)
-);
+const getUserPermissions = (resource) =>
+  get(resource, 'user_permissions', false) ||
+  get(resource, 'userPermissions', undefined);
 
 // Returns the role with the most permissions or null.
 export function getUnitRoleFromResource(resource) {

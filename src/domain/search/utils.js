@@ -10,7 +10,10 @@ import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
 import settings from '../../../config/settings';
 
-export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORTED_SEARCH_FILTERS) => {
+export const getFiltersFromUrl = (
+  location,
+  supportedFilters = constants.SUPPORTED_SEARCH_FILTERS
+) => {
   const query = new URLSearchParams(location.search);
   const defaultDate = moment().format(constants.DATE_FORMAT);
 
@@ -45,11 +48,11 @@ export const getUnitOptions = (units, locale) => {
   const options = units.map((unit) => {
     const finnishName = get(unit, 'name.fi');
 
-    return ({
+    return {
       value: unit.id,
       // Use name in Finnish in case it doesn't exist for current locale
       label: get(unit, `name[${locale}]`, finnishName),
-    });
+    };
   });
 
   return sortBy(options, 'label');
@@ -57,8 +60,8 @@ export const getUnitOptions = (units, locale) => {
 
 export const getPurposeOptions = (purposes, locale) => {
   const options = purposes
-    .filter(purpose => purpose.parent === null)
-    .map(unit => ({
+    .filter((purpose) => purpose.parent === null)
+    .map((unit) => ({
       value: unit.id,
       label: get(unit, `name[${locale}]`, ''),
     }));
@@ -75,14 +78,17 @@ export const getPeopleCapacityOptions = () => {
     ...range(1, 10),
     ...range(10, 35, 5),
     ...range(40, 110, 10),
-  ].map(number => ({ label: number, value: number }));
+  ].map((number) => ({ label: number, value: number }));
 };
 
 export const getClosestPeopleCapacityValue = (value) => {
   return getPeopleCapacityOptions()
-    .map(option => option.value)
+    .map((option) => option.value)
     .reduce((previous, current) => {
-      if (Math.abs(current - value) < Math.abs(previous - value) && current - value < 1) {
+      if (
+        Math.abs(current - value) < Math.abs(previous - value) &&
+        current - value < 1
+      ) {
         return current;
       }
 
@@ -98,14 +104,15 @@ export const getMunicipalityOptions = () => {
   let municipalities = constants.DEFAULT_MUNICIPALITY_OPTIONS;
 
   if (
-    Array.isArray(settings.CUSTOM_MUNICIPALITY_OPTIONS)
-    && settings.CUSTOM_MUNICIPALITY_OPTIONS.length
+    Array.isArray(settings.CUSTOM_MUNICIPALITY_OPTIONS) &&
+    settings.CUSTOM_MUNICIPALITY_OPTIONS.length
   ) {
     municipalities = settings.CUSTOM_MUNICIPALITY_OPTIONS;
   }
 
   return municipalities.map((municipality) => {
-    const municipalityStr = typeof municipality === 'string' ? municipality : municipality.toString();
+    const municipalityStr =
+      typeof municipality === 'string' ? municipality : municipality.toString();
 
     return {
       value: municipalityStr.toLowerCase(),

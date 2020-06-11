@@ -40,8 +40,10 @@ export class UnconnectedReservationControlsContainer extends Component {
   // The redux state also expects a normalized reservation object. This
   // is why we need to replace the inlined resource object wiht its id.
   get reduxReservation() {
-    const reservation = this.props.reservation;
-    const resourceId = reservation.resource ? reservation.resource.id : undefined;
+    const { reservation } = this.props;
+    const resourceId = reservation.resource
+      ? reservation.resource.id
+      : undefined;
 
     return camelCaseKeys({
       ...reservation,
@@ -72,9 +74,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   handleEditClick() {
-    const {
-      actions, resource, history,
-    } = this.props;
+    const { actions, resource, history } = this.props;
 
     if (!resource === null) {
       return;
@@ -82,7 +82,10 @@ export class UnconnectedReservationControlsContainer extends Component {
 
     const nextUrl = getEditReservationUrl(this.reduxReservation);
 
-    actions.selectReservationToEdit({ reservation: this.reduxReservation, slotSize: resource.slot_size });
+    actions.selectReservationToEdit({
+      reservation: this.reduxReservation,
+      slotSize: resource.slot_size,
+    });
     history.push(nextUrl);
   }
 
@@ -93,12 +96,7 @@ export class UnconnectedReservationControlsContainer extends Component {
   }
 
   render() {
-    const {
-      isAdmin,
-      reservation,
-      resource,
-    } = this.props;
-
+    const { isAdmin, reservation, resource } = this.props;
 
     return (
       <ReservationControls
@@ -140,8 +138,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(
-  connect(
-    null,
-    mapDispatchToProps,
-  )(UnconnectedReservationControlsContainer),
+  connect(null, mapDispatchToProps)(UnconnectedReservationControlsContainer)
 );

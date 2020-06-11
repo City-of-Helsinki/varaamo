@@ -9,9 +9,7 @@ describe('shared/background-image/BackgroundImage', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallow(
-      <BackgroundImage {...defaultProps} {...extraProps} />,
-    );
+    return shallow(<BackgroundImage {...defaultProps} {...extraProps} />);
   }
 
   test('renders div with correct className', () => {
@@ -21,7 +19,9 @@ describe('shared/background-image/BackgroundImage', () => {
 
   test('renders children if given', () => {
     const child = <div className="child" />;
-    const wrapper = shallow(<BackgroundImage {...defaultProps}>{child}</BackgroundImage>);
+    const wrapper = shallow(
+      <BackgroundImage {...defaultProps}>{child}</BackgroundImage>
+    );
     expect(wrapper.children().equals(child)).toBe(true);
   });
 
@@ -31,22 +31,18 @@ describe('shared/background-image/BackgroundImage', () => {
       expect(div.prop('style')).toEqual({});
     });
 
-    test(
-      'has correct backgroundImage style if only url and no dimensions are given',
-      () => {
-        const div = getWrapper().find('.image-container');
-        const expected = 'url(some/image.jpg)';
-        expect(div.prop('style').backgroundImage).toBe(expected);
-      },
-    );
+    test('has correct backgroundImage style if only url and no dimensions are given', () => {
+      const div = getWrapper().find('.image-container');
+      const expected = 'url(some/image.jpg)';
+      expect(div.prop('style').backgroundImage).toBe(expected);
+    });
 
-    test(
-      'has correct backgroundImage style if url and dimensions are given',
-      () => {
-        const div = getWrapper({ height: 400, width: 600 }).find('.image-container');
-        const expected = 'url(some/image.jpg?dim=600x400)';
-        expect(div.prop('style').backgroundImage).toBe(expected);
-      },
-    );
+    test('has correct backgroundImage style if url and dimensions are given', () => {
+      const div = getWrapper({ height: 400, width: 600 }).find(
+        '.image-container'
+      );
+      const expected = 'url(some/image.jpg?dim=600x400)';
+      expect(div.prop('style').backgroundImage).toBe(expected);
+    });
   });
 });

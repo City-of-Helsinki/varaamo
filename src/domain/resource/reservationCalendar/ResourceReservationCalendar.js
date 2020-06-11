@@ -17,15 +17,13 @@ class UntranslatedResourceReservationCalendar extends React.Component {
   };
 
   render() {
-    const {
-      date,
-      isStaff,
-      resource,
-      onDateChange,
-      onTimeChange,
-    } = this.props;
+    const { date, isStaff, resource, onDateChange, onTimeChange } = this.props;
 
-    const canMakeReservations = get(resource, 'user_permissions.can_make_reservations', false);
+    const canMakeReservations = get(
+      resource,
+      'user_permissions.can_make_reservations',
+      false
+    );
 
     return (
       <div className="app-ResourceReservationCalendar">

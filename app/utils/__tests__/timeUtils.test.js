@@ -54,35 +54,35 @@ describe('Utils: timeUtils', () => {
       expect(getDateStartAndEndTimes(date)).toEqual({});
     });
 
-    test(
-      'returns an object with availableBetween, end and start properties',
-      () => {
-        const date = '2015-10-10';
-        const actual = getDateStartAndEndTimes(date);
+    test('returns an object with availableBetween, end and start properties', () => {
+      const date = '2015-10-10';
+      const actual = getDateStartAndEndTimes(date);
 
-        expect(actual.availableBetween).toBeFalsy();
-        expect(actual.end).toBeDefined();
-        expect(actual.start).toBeDefined();
-      },
-    );
+      expect(actual.availableBetween).toBeFalsy();
+      expect(actual.end).toBeDefined();
+      expect(actual.start).toBeDefined();
+    });
 
-    test(
-      'returns an object with availableBetween, end and start in correct form',
-      () => {
-        const date = '2015-10-10';
-        const duration = 30;
-        const end = '18:00';
-        const start = '08:30';
-        const timeZone = moment().format('Z');
-        const useTimeRange = true;
-        const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
-        const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
+    test('returns an object with availableBetween, end and start in correct form', () => {
+      const date = '2015-10-10';
+      const duration = 30;
+      const end = '18:00';
+      const start = '08:30';
+      const timeZone = moment().format('Z');
+      const useTimeRange = true;
+      const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
+      const actual = getDateStartAndEndTimes(
+        date,
+        useTimeRange,
+        start,
+        end,
+        duration
+      );
 
-        expect(actual.availableBetween).toBe(expected);
-        expect(actual.end).toBe(`${date}T23:59:59Z`);
-        expect(actual.start).toBe(`${date}T00:00:00Z`);
-      },
-    );
+      expect(actual.availableBetween).toBe(expected);
+      expect(actual.end).toBe(`${date}T23:59:59Z`);
+      expect(actual.start).toBe(`${date}T00:00:00Z`);
+    });
 
     test('default timezone is your local timezone', () => {
       const timeZoneFromDate = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -91,39 +91,45 @@ describe('Utils: timeUtils', () => {
       expect(timeZoneFromMoment).toEqual(timeZoneFromDate);
     });
 
-    test(
-      'returns an object with availableBetween, end and start in correct form when end is 23:30',
-      () => {
-        const date = '2015-10-10';
-        const duration = 30;
-        const end = '23:30';
-        const start = '08:30';
-        const timeZone = moment().format('Z');
-        const useTimeRange = true;
-        const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
-        const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
+    test('returns an object with availableBetween, end and start in correct form when end is 23:30', () => {
+      const date = '2015-10-10';
+      const duration = 30;
+      const end = '23:30';
+      const start = '08:30';
+      const timeZone = moment().format('Z');
+      const useTimeRange = true;
+      const expected = `${date}T${start}:00${timeZone},${date}T${end}:00${timeZone},${duration}`;
+      const actual = getDateStartAndEndTimes(
+        date,
+        useTimeRange,
+        start,
+        end,
+        duration
+      );
 
-        expect(actual.availableBetween).toBe(expected);
-        expect(actual.end).toBe(`${date}T23:59:59Z`);
-        expect(actual.start).toBe(`${date}T00:00:00Z`);
-      },
-    );
+      expect(actual.availableBetween).toBe(expected);
+      expect(actual.end).toBe(`${date}T23:59:59Z`);
+      expect(actual.start).toBe(`${date}T00:00:00Z`);
+    });
 
-    test(
-      'returns an object without availableBetween property when useTimeRange flag is not enabled',
-      () => {
-        const date = '2015-10-10';
-        const duration = 30;
-        const end = '23:30';
-        const start = '08:30';
-        const useTimeRange = false;
-        const actual = getDateStartAndEndTimes(date, useTimeRange, start, end, duration);
+    test('returns an object without availableBetween property when useTimeRange flag is not enabled', () => {
+      const date = '2015-10-10';
+      const duration = 30;
+      const end = '23:30';
+      const start = '08:30';
+      const useTimeRange = false;
+      const actual = getDateStartAndEndTimes(
+        date,
+        useTimeRange,
+        start,
+        end,
+        duration
+      );
 
-        expect(actual.availableBetween).not.toBeDefined();
-        expect(actual.end).toBe(`${date}T23:59:59Z`);
-        expect(actual.start).toBe(`${date}T00:00:00Z`);
-      },
-    );
+      expect(actual.availableBetween).not.toBeDefined();
+      expect(actual.end).toBe(`${date}T23:59:59Z`);
+      expect(actual.start).toBe(`${date}T00:00:00Z`);
+    });
   });
 
   describe('getDateString', () => {
@@ -166,13 +172,10 @@ describe('Utils: timeUtils', () => {
   });
 
   describe('getDurationHours', () => {
-    test(
-      'returns default duration in hours if duration parameter is undefined',
-      () => {
-        const duration = undefined;
-        expect(getDurationHours(duration)).toBe(0.5);
-      },
-    );
+    test('returns default duration in hours if duration parameter is undefined', () => {
+      const duration = undefined;
+      expect(getDurationHours(duration)).toBe(0.5);
+    });
 
     test('returns default duration in hours if duration parameter is 0', () => {
       const duration = 0;
@@ -186,35 +189,26 @@ describe('Utils: timeUtils', () => {
   });
 
   describe('calculateDuration', () => {
-    test(
-      'returns duration when given duration fits between start and end time range',
-      () => {
-        const duration = 60;
-        const end = '18:00';
-        const start = '10:00';
-        expect(calculateDuration(duration, start, end)).toBe(duration);
-      },
-    );
+    test('returns duration when given duration fits between start and end time range', () => {
+      const duration = 60;
+      const end = '18:00';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).toBe(duration);
+    });
 
-    test(
-      'returns calculated duration when start and end time range less than given duration',
-      () => {
-        const duration = 360;
-        const end = '12:00';
-        const start = '10:00';
-        expect(calculateDuration(duration, start, end)).toBe(120);
-      },
-    );
+    test('returns calculated duration when start and end time range less than given duration', () => {
+      const duration = 360;
+      const end = '12:00';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).toBe(120);
+    });
 
-    test(
-      'returns duration when given duration first between start and end time range and end 23:30',
-      () => {
-        const duration = 360;
-        const end = '23:30';
-        const start = '10:00';
-        expect(calculateDuration(duration, start, end)).toBe(duration);
-      },
-    );
+    test('returns duration when given duration first between start and end time range and end 23:30', () => {
+      const duration = 360;
+      const end = '23:30';
+      const start = '10:00';
+      expect(calculateDuration(duration, start, end)).toBe(duration);
+    });
   });
 
   describe('calculateEndTime', () => {
@@ -286,7 +280,9 @@ describe('Utils: timeUtils', () => {
         const startTime = moment(slots[0].start);
         const endTime = moment(slots[0].end);
 
-        expect(moment.duration(endTime.diff(startTime)).asMinutes()).toEqual(30);
+        expect(moment.duration(endTime.diff(startTime)).asMinutes()).toEqual(
+          30
+        );
       });
 
       test('returns an empty array if start is missing', () => {
@@ -301,16 +297,13 @@ describe('Utils: timeUtils', () => {
         expect(actual).toEqual([]);
       });
 
-      test(
-        'uses empty array as default reservations if no reservations is given',
-        () => {
-          const timeSlots = getTimeSlots(start, end, period);
+      test('uses empty array as default reservations if no reservations is given', () => {
+        const timeSlots = getTimeSlots(start, end, period);
 
-          timeSlots.forEach((timeSlot) => {
-            expect(timeSlot.reserved).toBe(false);
-          });
-        },
-      );
+        timeSlots.forEach((timeSlot) => {
+          expect(timeSlot.reserved).toBe(false);
+        });
+      });
     });
 
     describe('When dividing 2 hours into 30 min slots', () => {
@@ -342,19 +335,13 @@ describe('Utils: timeUtils', () => {
         });
 
         test('the first time slot ends 30 minutes after start', () => {
-          const expected = moment
-            .utc(start)
-            .add(duration)
-            .toISOString();
+          const expected = moment.utc(start).add(duration).toISOString();
 
           expect(slots[0].end).toBe(expected);
         });
 
         test('the last time slot starts 30 minutes before the time range ends', () => {
-          const expected = moment
-            .utc(end)
-            .subtract(duration)
-            .toISOString();
+          const expected = moment.utc(end).subtract(duration).toISOString();
 
           expect(slots[3].start).toBe(expected);
         });
@@ -411,24 +398,18 @@ describe('Utils: timeUtils', () => {
         ];
         const slots = getTimeSlots(start, end, period, reservations);
 
-        test(
-          'slot is not marked reserved if reservation starts when slot ends',
-          () => {
-            expect(slots[0].reserved).toBe(false);
-          },
-        );
+        test('slot is not marked reserved if reservation starts when slot ends', () => {
+          expect(slots[0].reserved).toBe(false);
+        });
 
         test('marks all the slots that are during reservation as reserved', () => {
           expect(slots[1].reserved).toBe(true);
           expect(slots[2].reserved).toBe(true);
         });
 
-        test(
-          'slot is not marked reserved if slots starts when reservation ends',
-          () => {
-            expect(slots[3].reserved).toBe(false);
-          },
-        );
+        test('slot is not marked reserved if slots starts when reservation ends', () => {
+          expect(slots[3].reserved).toBe(false);
+        });
       });
 
       describe('with multiple reservations', () => {
@@ -491,26 +472,26 @@ describe('Utils: timeUtils', () => {
             end: '2015-10-09T09:30:00+03:00',
           },
         ];
-        const slots = getTimeSlots(start, end, period, reservations, reservationsToEdit);
-
-        test(
-          'slot is not marked as editing if reservation starts when slot ends',
-          () => {
-            expect(slots[0].editing).toBe(false);
-          },
+        const slots = getTimeSlots(
+          start,
+          end,
+          period,
+          reservations,
+          reservationsToEdit
         );
+
+        test('slot is not marked as editing if reservation starts when slot ends', () => {
+          expect(slots[0].editing).toBe(false);
+        });
 
         test('marks all the slots that are during reservation as editing', () => {
           expect(slots[1].editing).toBe(true);
           expect(slots[2].editing).toBe(true);
         });
 
-        test(
-          'slot is not marked editing if slots starts when reservation ends',
-          () => {
-            expect(slots[3].editing).toBe(false);
-          },
-        );
+        test('slot is not marked editing if slots starts when reservation ends', () => {
+          expect(slots[3].editing).toBe(false);
+        });
       });
 
       describe('with multiple reservationsToEdit', () => {
@@ -524,7 +505,13 @@ describe('Utils: timeUtils', () => {
             end: '2015-10-09T10:00:00+03:00',
           },
         ];
-        const slots = getTimeSlots(start, end, period, reservations, reservationsToEdit);
+        const slots = getTimeSlots(
+          start,
+          end,
+          period,
+          reservations,
+          reservationsToEdit
+        );
 
         test('uses all reservations to find slots that are edited', () => {
           expect(slots[0].editing).toBe(false);

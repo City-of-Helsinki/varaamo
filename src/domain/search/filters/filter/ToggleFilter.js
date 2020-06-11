@@ -2,19 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 
-function ToggleFilter({
-  id,
-  label,
-  onChange,
-  checked,
-}) {
+function ToggleFilter({ id, label, onChange, checked }) {
   return (
     <div className="app-ToggleFilter">
       <Toggle
         checked={checked}
         className="app-ToggleFilter__toggle"
         id={id}
-        onChange={event => onChange(event.target.checked)}
+        onChange={(event) => onChange(event.target.checked)}
       />
       <label className="app-ToggleFilter__label" htmlFor={id}>
         {label}

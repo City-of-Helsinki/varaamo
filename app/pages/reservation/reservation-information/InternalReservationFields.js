@@ -12,15 +12,13 @@ import { toCamelCase } from '../../../../src/common/data/utils';
 
 class InternalReservationFields extends Component {
   render() {
-    const {
-      t,
-      commentsMaxLengths,
-      valid,
-    } = this.props;
+    const { t, commentsMaxLengths, valid } = this.props;
 
     return (
       <div className="app-ReservationDetails">
-        <h2 className="app-ReservationPage__title">{t('ReservationForm.premiseStaffOnly')}</h2>
+        <h2 className="app-ReservationPage__title">
+          {t('ReservationForm.premiseStaffOnly')}
+        </h2>
         <Row>
           <Col md={1}>
             <Field
@@ -43,10 +41,12 @@ class InternalReservationFields extends Component {
           <Col md={1}>
             <Field
               component="input"
-              format={value => value === RESERVATION_TYPE.BLOCKED}
+              format={(value) => value === RESERVATION_TYPE.BLOCKED}
               label="markAsClosed"
               name="type"
-              normalize={value => (value ? RESERVATION_TYPE.BLOCKED : RESERVATION_TYPE.NORMAL)}
+              normalize={(value) =>
+                value ? RESERVATION_TYPE.BLOCKED : RESERVATION_TYPE.NORMAL
+              }
               type="checkbox"
             />
           </Col>
@@ -61,9 +61,7 @@ class InternalReservationFields extends Component {
         <Row>
           <Col md={12}>
             <div className="app-ReservationPage__formfield">
-              <span>
-                {t('common.comments')}
-              </span>
+              <span>{t('common.comments')}</span>
               <Field
                 component="textarea"
                 label="comments"
@@ -71,14 +69,13 @@ class InternalReservationFields extends Component {
                 name="comments"
                 rows={5}
               />
-              {
-                !valid
-                && (
+              {!valid && (
                 <span className="app-ReservationPage__error">
-                  {t('ReservationForm.maxLengthError', { maxLength: commentsMaxLengths })}
+                  {t('ReservationForm.maxLengthError', {
+                    maxLength: commentsMaxLengths,
+                  })}
                 </span>
-                )
-              }
+              )}
             </div>
           </Col>
         </Row>
@@ -96,26 +93,29 @@ InternalReservationFields.propTypes = {
 // eslint-disable-next-line import/no-mutable-exports
 let ConnectedReservationFields = InternalReservationFields;
 
-ConnectedReservationFields = injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-})(ConnectedReservationFields));
+ConnectedReservationFields = injectT(
+  reduxForm({
+    form: FormTypes.RESERVATION,
+  })(ConnectedReservationFields)
+);
 
-ConnectedReservationFields = connect(
-  (state) => {
-    const resource = state.ui.reservations.toEdit.length > 0
+ConnectedReservationFields = connect((state) => {
+  const resource =
+    state.ui.reservations.toEdit.length > 0
       ? state.ui.reservations.toEdit[0].resource
       : state.ui.reservations.selected[0].resource;
 
-    return {
-      initialValues: {
-        staffEvent: true,
-        type: RESERVATION_TYPE.NORMAL,
-        reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
-        reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
-        ...toCamelCase(state.ui.reservations.toEdit[0]),
-      },
-    };
-  },
-)(ConnectedReservationFields);
+  return {
+    initialValues: {
+      staffEvent: true,
+      type: RESERVATION_TYPE.NORMAL,
+      reservationExtraQuestionsDefault:
+        state.data.resources[resource].reservationExtraQuestions,
+      reservationExtraQuestions:
+        state.data.resources[resource].reservationExtraQuestions,
+      ...toCamelCase(state.ui.reservations.toEdit[0]),
+    },
+  };
+})(ConnectedReservationFields);
 
 export default ConnectedReservationFields;

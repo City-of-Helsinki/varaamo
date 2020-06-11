@@ -6,10 +6,21 @@ import classNames from 'classnames';
 import injectT from '../../../i18n/injectT';
 
 function CheckboxControl({
-  id, label, labelClassName, onConfirm, toggleClassName, value,
+  id,
+  label,
+  labelClassName,
+  onConfirm,
+  toggleClassName,
+  value,
 }) {
-  const toggleClassNames = classNames('app-CheckboxControl__toggle', toggleClassName);
-  const labelClassNames = classNames('app-CheckboxControl__label', labelClassName);
+  const toggleClassNames = classNames(
+    'app-CheckboxControl__toggle',
+    toggleClassName
+  );
+  const labelClassNames = classNames(
+    'app-CheckboxControl__label',
+    labelClassName
+  );
 
   return (
     <div className="app-CheckboxControl">
@@ -17,7 +28,7 @@ function CheckboxControl({
         className={toggleClassNames}
         defaultChecked={value}
         id={id}
-        onChange={e => onConfirm(e.target.checked)}
+        onChange={(e) => onConfirm(e.target.checked)}
       />
       <label className={labelClassNames} htmlFor={id}>
         {label}

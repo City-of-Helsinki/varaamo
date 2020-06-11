@@ -47,14 +47,11 @@ describe('shared/top-navbar/TopNavbarContainer', () => {
         expect(selected.userName).toBe('luke@skywalker.com');
       });
 
-      test(
-        'returns user email from emails array if no firstName or lastName',
-        () => {
-          const user = { emails: [{ value: 'luke@skywalker.com' }] };
-          const selected = selector(getState(null, user));
-          expect(selected.userName).toBe('luke@skywalker.com');
-        },
-      );
+      test('returns user email from emails array if no firstName or lastName', () => {
+        const user = { emails: [{ value: 'luke@skywalker.com' }] };
+        const selected = selector(getState(null, user));
+        expect(selected.userName).toBe('luke@skywalker.com');
+      });
     });
   });
 });

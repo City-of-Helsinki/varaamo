@@ -32,15 +32,18 @@ function isStaffEvent(reservation, resource) {
   if (!resource || !resource.requiredReservationExtraFields) {
     return false;
   }
-  return some(resource.requiredReservationExtraFields, field => (
-    !reservation[camelCase(field)]
-  ));
+  return some(
+    resource.requiredReservationExtraFields,
+    (field) => !reservation[camelCase(field)]
+  );
 }
 
 function getCurrentReservation(reservations) {
   const now = moment();
   return find(
-    reservations, reservation => moment(reservation.begin) < now && now < moment(reservation.end),
+    reservations,
+    (reservation) =>
+      moment(reservation.begin) < now && now < moment(reservation.end)
   );
 }
 
@@ -56,19 +59,30 @@ function getMissingValues(reservation) {
 
 function getNextAvailableTime(reservations, fromMoment = moment()) {
   const combinedReservations = combine(reservations);
-  if (!combinedReservations.length || fromMoment < moment(combinedReservations[0].begin)) {
+  if (
+    !combinedReservations.length ||
+    fromMoment < moment(combinedReservations[0].begin)
+  ) {
     return fromMoment;
   }
-  const ongoingReservation = find(combinedReservations, reservation => (
-    moment(reservation.begin) <= fromMoment && fromMoment < moment(reservation.end)
-  ));
+  const ongoingReservation = find(
+    combinedReservations,
+    (reservation) =>
+      moment(reservation.begin) <= fromMoment &&
+      fromMoment < moment(reservation.end)
+  );
   return ongoingReservation ? moment(ongoingReservation.end) : fromMoment;
 }
 
 function getNextReservation(reservations) {
   const now = moment();
-  const orderedReservations = sortBy(reservations, reservation => moment(reservation.begin));
-  return find(orderedReservations, reservation => now < moment(reservation.begin));
+  const orderedReservations = sortBy(reservations, (reservation) =>
+    moment(reservation.begin)
+  );
+  return find(
+    orderedReservations,
+    (reservation) => now < moment(reservation.begin)
+  );
 }
 
 // A reservation may be requested with the resource inlined. In these
@@ -94,15 +108,15 @@ function getReservationResourceId(resource) {
 }
 
 function getEditReservationUrl(reservation) {
-  const {
-    begin, end, id, resource,
-  } = reservation;
+  const { begin, end, id, resource } = reservation;
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');
   const endStr = moment(end).format('HH:mm');
   const resourceId = getReservationResourceId(resource);
 
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resourceId}`;
+  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${
+    id || ''
+  }&resource=${resourceId}`;
 }
 /**
  * Get reservation price from resource. Get time conver
@@ -138,9 +152,7 @@ function getReservationPricePerPeriod(resource) {
   const priceType = get(resource, 'products[0].price.type');
   const duration = moment.duration(pricePeriod);
   const hours = duration.asHours();
-  const period = hours >= 1
-    ? `${hours} h`
-    : `${duration.asMinutes()} min`;
+  const period = hours >= 1 ? `${hours} h` : `${duration.asMinutes()} min`;
   const priceEnding = priceType === 'fixed' ? '' : ` / ${period}`;
 
   return `${price}€${priceEnding}`;

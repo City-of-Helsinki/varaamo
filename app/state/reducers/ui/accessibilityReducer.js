@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 import types from '../../../constants/ActionTypes';
 import FontSizes from '../../../constants/FontSizes';
 
-
 const initialState = Immutable({
   fontSize: FontSizes.SMALL,
 });

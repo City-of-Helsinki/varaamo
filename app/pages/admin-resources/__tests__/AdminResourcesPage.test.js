@@ -39,7 +39,9 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<AdminResourcesPage {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <AdminResourcesPage {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('rendering', () => {
@@ -73,14 +75,11 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       });
 
       describe('Loader', () => {
-        test(
-          'is not loaded if fetching resources and no resources in the state',
-          () => {
-            const props = { isFetchingResources: true, resources: [] };
-            const loader = getIsAdminWrapper(props).find(Loader);
-            expect(loader.prop('loaded')).toBe(false);
-          },
-        );
+        test('is not loaded if fetching resources and no resources in the state', () => {
+          const props = { isFetchingResources: true, resources: [] };
+          const loader = getIsAdminWrapper(props).find(Loader);
+          expect(loader.prop('loaded')).toBe(false);
+        });
 
         test('is loaded if not fetching resource', () => {
           const props = { isFetchingResources: false, resources: [] };
@@ -89,7 +88,10 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         });
 
         test('is loaded if resources in state', () => {
-          const props = { isFetchingResources: true, resources: [{ id: 'r-1' }] };
+          const props = {
+            isFetchingResources: true,
+            resources: [{ id: 'r-1' }],
+          };
           const loader = getIsAdminWrapper(props).find(Loader);
           expect(loader.prop('loaded')).toBe(true);
         });
@@ -100,9 +102,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const wrapper = getIsAdminWrapper({ resources });
         const view = wrapper.find(AvailabilityView);
         expect(view).toHaveLength(1);
-        expect(view.prop('groups')).toEqual([
-          { name: '', resources },
-        ]);
+        expect(view.prop('groups')).toEqual([{ name: '', resources }]);
         expect(view.prop('date')).toEqual('2017-01-10');
         expect(view.prop('onDateChange')).toBe(changeAdminResourcesPageDate);
         expect(view.prop('onSelect')).toBe(wrapper.instance().handleSelect);
@@ -112,10 +112,18 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         const wrapper = getIsAdminWrapper();
         const resourceTypeFilter = wrapper.find(ResourceTypeFilter);
         expect(resourceTypeFilter).toHaveLength(1);
-        expect(resourceTypeFilter.prop('selectedResourceTypes')).toEqual(defaultProps.selectedResourceTypes);
-        expect(resourceTypeFilter.prop('resourceTypes')).toEqual(defaultProps.resourceTypes);
-        expect(resourceTypeFilter.prop('onSelectResourceType')).toBe(selectAdminResourceType);
-        expect(resourceTypeFilter.prop('onUnselectResourceType')).toBe(unselectAdminResourceType);
+        expect(resourceTypeFilter.prop('selectedResourceTypes')).toEqual(
+          defaultProps.selectedResourceTypes
+        );
+        expect(resourceTypeFilter.prop('resourceTypes')).toEqual(
+          defaultProps.resourceTypes
+        );
+        expect(resourceTypeFilter.prop('onSelectResourceType')).toBe(
+          selectAdminResourceType
+        );
+        expect(resourceTypeFilter.prop('onUnselectResourceType')).toBe(
+          unselectAdminResourceType
+        );
       });
     });
   });
@@ -141,20 +149,23 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
         expect(fetchFavoritedResources.callCount).toBe(1);
       });
 
-      test('fetches date\'s resources', () => {
-        const args = fetchFavoritedResources.lastCall.args;
+      test("fetches date's resources", () => {
+        const { args } = fetchFavoritedResources.lastCall;
         expect(args[0].format('YYYY-MM-DD')).toBe('2017-01-10');
       });
 
       test('passes adminResourcesPage as source', () => {
-        const args = fetchFavoritedResources.lastCall.args;
+        const { args } = fetchFavoritedResources.lastCall;
         expect(args[1]).toBe('adminResourcesPage');
       });
 
       test('starts fetching resources every ten minutes', () => {
         expect(window.setInterval.callCount).toBe(1);
         const interval = 10 * 60 * 1000;
-        expect(window.setInterval.lastCall.args).toEqual([instance.fetchResources, interval]);
+        expect(window.setInterval.lastCall.args).toEqual([
+          instance.fetchResources,
+          interval,
+        ]);
       });
 
       test('saves interval to this.updateResourcesTimer', () => {
@@ -185,15 +196,23 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
     });
 
     test('calls fetchResources if props have changed date', () => {
-      instance.componentWillReceiveProps({ ...defaultProps, date: '2017-01-12' });
+      instance.componentWillReceiveProps({
+        ...defaultProps,
+        date: '2017-01-12',
+      });
       expect(instance.fetchResources.callCount).toBe(1);
       expect(instance.fetchResources.lastCall.args).toEqual(['2017-01-12']);
     });
 
     test('calls fetchResources if props have changed location', () => {
-      instance.componentWillReceiveProps({ ...defaultProps, location: { id: '321' } });
+      instance.componentWillReceiveProps({
+        ...defaultProps,
+        location: { id: '321' },
+      });
       expect(instance.fetchResources.callCount).toBe(1);
-      expect(instance.fetchResources.lastCall.args).toEqual([defaultProps.date]);
+      expect(instance.fetchResources.lastCall.args).toEqual([
+        defaultProps.date,
+      ]);
     });
   });
 

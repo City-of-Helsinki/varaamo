@@ -12,7 +12,9 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<AdminReservationFilters {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <AdminReservationFilters {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('state filter', () => {

@@ -21,7 +21,8 @@ const selectUnit = createAction(types.UI.SELECT_SEARCH_RESULTS_UNIT);
 function getPiwikActionName(searchParams) {
   if (searchParams.search) {
     return searchParams.search;
-  } if (searchParams.purpose) {
+  }
+  if (searchParams.purpose) {
     return `category: ${searchParams.purpose}`;
   }
 
@@ -30,31 +31,23 @@ function getPiwikActionName(searchParams) {
 
 function searchResources(filters = {}) {
   const params = getFetchParamsFromFilters(filters);
-  const fetchParams = Object.assign({}, params, { pageSize: constants.SEARCH_PAGE_SIZE });
+  const fetchParams = { ...params, pageSize: constants.SEARCH_PAGE_SIZE };
   const piwikActionName = getPiwikActionName(fetchParams);
 
   return {
     [RSAA]: {
       types: [
-        getRequestTypeDescriptor(
-          types.API.SEARCH_RESULTS_GET_REQUEST,
-          {
-            meta: {
-              track: {
-                event: 'trackEvent',
-                args: [
-                  'Search',
-                  'search-get',
-                  piwikActionName,
-                ],
-              },
+        getRequestTypeDescriptor(types.API.SEARCH_RESULTS_GET_REQUEST, {
+          meta: {
+            track: {
+              event: 'trackEvent',
+              args: ['Search', 'search-get', piwikActionName],
             },
           },
-        ),
-        getSuccessTypeDescriptor(
-          types.API.SEARCH_RESULTS_GET_SUCCESS,
-          { schema: schemas.paginatedResourcesSchema },
-        ),
+        }),
+        getSuccessTypeDescriptor(types.API.SEARCH_RESULTS_GET_SUCCESS, {
+          schema: schemas.paginatedResourcesSchema,
+        }),
         getErrorTypeDescriptor(types.API.SEARCH_RESULTS_GET_ERROR),
       ],
       endpoint: buildAPIUrl('resource', fetchParams),

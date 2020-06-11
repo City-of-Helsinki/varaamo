@@ -61,7 +61,9 @@ describe('Utils: apiUtils', () => {
 
       describe('if normalizr Schema is provided', () => {
         test('uses the Schema to normalize data', () => {
-          const transformFunction = createTransformFunction(schemas.resourceSchema);
+          const transformFunction = createTransformFunction(
+            schemas.resourceSchema
+          );
           const initialResourceData = {
             id: 'r-1',
             unit: {
@@ -80,7 +82,9 @@ describe('Utils: apiUtils', () => {
             result: 'r-1',
           };
 
-          expect(transformFunction(initialResourceData)).toEqual(expectedResourceData);
+          expect(transformFunction(initialResourceData)).toEqual(
+            expectedResourceData
+          );
         });
       });
     });
@@ -125,7 +129,9 @@ describe('Utils: apiUtils', () => {
       });
 
       test('supports adding a countable property', () => {
-        const typeDescriptor = getErrorTypeDescriptor(actionType, { countable: true });
+        const typeDescriptor = getErrorTypeDescriptor(actionType, {
+          countable: true,
+        });
         const actual = typeDescriptor.meta(mockAction);
         const expected = {
           API_ACTION: {
@@ -139,7 +145,9 @@ describe('Utils: apiUtils', () => {
       });
 
       test('supports adding extra meta properties', () => {
-        const typeDescriptor = getErrorTypeDescriptor(actionType, { meta: { test: 'test' } });
+        const typeDescriptor = getErrorTypeDescriptor(actionType, {
+          meta: { test: 'test' },
+        });
         const actual = typeDescriptor.meta(mockAction);
         const expected = {
           API_ACTION: {
@@ -172,11 +180,10 @@ describe('Utils: apiUtils', () => {
         describe('if no additional headers are specified', () => {
           test('returns the required headers and Authorization header', () => {
             const creator = getHeadersCreator();
-            const expected = Object.assign(
-              {},
-              constants.REQUIRED_API_HEADERS,
-              authorizationHeader,
-            );
+            const expected = {
+              ...constants.REQUIRED_API_HEADERS,
+              ...authorizationHeader,
+            };
 
             expect(creator(state)).toEqual(expected);
           });
@@ -188,12 +195,11 @@ describe('Utils: apiUtils', () => {
               header: 'value',
             };
             const creator = getHeadersCreator(additionalHeaders);
-            const expected = Object.assign(
-              {},
-              constants.REQUIRED_API_HEADERS,
-              additionalHeaders,
-              authorizationHeader,
-            );
+            const expected = {
+              ...constants.REQUIRED_API_HEADERS,
+              ...additionalHeaders,
+              ...authorizationHeader,
+            };
 
             expect(creator(state)).toEqual(expected);
           });
@@ -219,7 +225,10 @@ describe('Utils: apiUtils', () => {
               header: 'value',
             };
             const creator = getHeadersCreator(additionalHeaders);
-            const expected = Object.assign({}, constants.REQUIRED_API_HEADERS, additionalHeaders);
+            const expected = {
+              ...constants.REQUIRED_API_HEADERS,
+              ...additionalHeaders,
+            };
 
             expect(creator(state)).toEqual(expected);
           });
@@ -255,7 +264,8 @@ describe('Utils: apiUtils', () => {
     });
 
     test('supports adding coutable property to meta object', () => {
-      const actual = getRequestTypeDescriptor(actionType, { countable: true }).meta;
+      const actual = getRequestTypeDescriptor(actionType, { countable: true })
+        .meta;
       const expected = {
         API_ACTION: {
           apiRequestStart: true,
@@ -268,7 +278,9 @@ describe('Utils: apiUtils', () => {
     });
 
     test('supports adding extra meta properties', () => {
-      const actual = getRequestTypeDescriptor(actionType, { meta: { test: 'test' } }).meta;
+      const actual = getRequestTypeDescriptor(actionType, {
+        meta: { test: 'test' },
+      }).meta;
       const expected = {
         API_ACTION: {
           apiRequestStart: true,
@@ -299,7 +311,9 @@ describe('Utils: apiUtils', () => {
 
     test('uses encodeURIComponent to both keys and values', () => {
       const params = { päräm: 'hellö' };
-      const expected = `${encodeURIComponent('päräm')}=${encodeURIComponent('hellö')}`;
+      const expected = `${encodeURIComponent('päräm')}=${encodeURIComponent(
+        'hellö'
+      )}`;
 
       expect(getSearchParamsString(params)).toBe(expected);
     });
@@ -326,7 +340,9 @@ describe('Utils: apiUtils', () => {
     });
 
     test('contains a payload function', () => {
-      expect(typeof getSuccessTypeDescriptor(actionType).payload).toBe('function');
+      expect(typeof getSuccessTypeDescriptor(actionType).payload).toBe(
+        'function'
+      );
     });
 
     test('contains a meta function', () => {
@@ -355,7 +371,9 @@ describe('Utils: apiUtils', () => {
       });
 
       test('supports adding a countable property', () => {
-        const typeDescriptor = getSuccessTypeDescriptor(actionType, { countable: true });
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, {
+          countable: true,
+        });
         const actual = typeDescriptor.meta(mockAction);
         const expected = {
           API_ACTION: {
@@ -369,13 +387,17 @@ describe('Utils: apiUtils', () => {
       });
 
       test('supports adding payload property', () => {
-        const typeDescriptor = getSuccessTypeDescriptor(actionType, { payload: 'mock-payload' });
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, {
+          payload: 'mock-payload',
+        });
 
         expect(typeDescriptor.payload).toBe('mock-payload');
       });
 
       test('supports adding extra meta properties', () => {
-        const typeDescriptor = getSuccessTypeDescriptor(actionType, { meta: { test: 'test' } });
+        const typeDescriptor = getSuccessTypeDescriptor(actionType, {
+          meta: { test: 'test' },
+        });
         const actual = typeDescriptor.meta(mockAction);
         const expected = {
           API_ACTION: {

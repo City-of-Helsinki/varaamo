@@ -6,9 +6,7 @@ import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import Unit from '../../../../utils/fixtures/Unit';
 import { shallowWithIntl } from '../../../../utils/testUtils';
-import {
-  UnconnectedReservationListContainer as ReservationListContainer,
-} from '../ReservationListContainer';
+import { UnconnectedReservationListContainer as ReservationListContainer } from '../ReservationListContainer';
 import ReservationListItem from '../ReservationListItem';
 
 // This project handles API responses differently based on the method
@@ -35,7 +33,9 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       page: 0,
       pages: 0,
     };
-    return shallowWithIntl(<ReservationListContainer {...defaults} {...props} />);
+    return shallowWithIntl(
+      <ReservationListContainer {...defaults} {...props} />
+    );
   }
 
   describe('with reservations', () => {
@@ -60,17 +60,25 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
 
     describe('rendering individual reservations', () => {
       test('renders a ReservationListItem for every reservation in props', () => {
-        const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
+        const reservationListItems = getWithReservationsWrapper().find(
+          ReservationListItem
+        );
         expect(reservationListItems).toHaveLength(props.reservations.length);
       });
 
       test('passes isAdmin and reservation', () => {
-        const reservationListItems = getWithReservationsWrapper().find(ReservationListItem);
+        const reservationListItems = getWithReservationsWrapper().find(
+          ReservationListItem
+        );
         reservationListItems.forEach((reservationListItem) => {
           const actualProps = reservationListItem.props();
           expect(actualProps.isAdmin).toBe(props.isAdmin);
-          expect(reservationListItems.at(0).prop('reservation')).toEqual(props.reservations[0]);
-          expect(reservationListItems.at(1).prop('reservation')).toEqual(props.reservations[1]);
+          expect(reservationListItems.at(0).prop('reservation')).toEqual(
+            props.reservations[0]
+          );
+          expect(reservationListItems.at(1).prop('reservation')).toEqual(
+            props.reservations[1]
+          );
         });
       });
     });
@@ -86,7 +94,9 @@ describe('pages/user-reservations/reservation-list/ReservationListContainer', ()
       const emptyMessage = 'No reservations found';
 
       test('displays the emptyMessage', () => {
-        const message = getWithouReservationsWrapper(emptyMessage).find('p').text();
+        const message = getWithouReservationsWrapper(emptyMessage)
+          .find('p')
+          .text();
         expect(message).toBe(emptyMessage);
       });
     });

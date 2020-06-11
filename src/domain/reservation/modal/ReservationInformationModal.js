@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal, Button, ControlLabel, FormControl,
-} from 'react-bootstrap';
+import { Modal, Button, ControlLabel, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import camelCase from 'lodash/camelCase';
@@ -16,12 +14,25 @@ import { getShowRefundPolicy } from '../utils';
 import ReservationInformationModalContentRow from './ReservationInformationModalContentRow';
 
 const ReservationInformationModal = ({
-  t, reservation, resource, onHide, isOpen, isAdmin, onEditClick, onEditReservation, onSaveComment,
+  t,
+  reservation,
+  resource,
+  onHide,
+  isOpen,
+  isAdmin,
+  onEditClick,
+  onEditReservation,
+  onSaveComment,
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
-  const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(false);
+  const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(
+    false
+  );
   const saveComment = () => onSaveComment(reservation, comment);
-  const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
+  const normalizedReservation = {
+    ...reservation,
+    resource: reservation.resource.id,
+  };
 
   const parentToggle = (bool) => {
     toggleReservationCancelModal(bool);
@@ -30,9 +41,9 @@ const ReservationInformationModal = ({
   const renderField = (label, value) => {
     return (
       <ReservationInformationModalContentRow
-        content={(<span>{value}</span>)}
+        content={<span>{value}</span>}
         key={label}
-        label={<span>{t(`common.${(camelCase(label))}Label`)}</span>}
+        label={<span>{t(`common.${camelCase(label)}Label`)}</span>}
       />
     );
   };
@@ -52,8 +63,10 @@ const ReservationInformationModal = ({
   const payerFirstName = get(reservation, 'billing_first_name', '');
   const payerLastName = get(reservation, 'billing_last_name', '');
   const payerEmail = get(reservation, 'billing_email_address', '');
-  const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
-  const showRefundPolicy = resource !== null && getShowRefundPolicy(isAdmin, reservation, resource);
+  const isRequestedReservation =
+    reservation.state === RESERVATION_STATE.REQUESTED;
+  const showRefundPolicy =
+    resource !== null && getShowRefundPolicy(isAdmin, reservation, resource);
 
   return (
     <Modal
@@ -67,13 +80,17 @@ const ReservationInformationModal = ({
       <Modal.Body>
         <ManageReservationsStatus reservation={reservation} />
         <div className="app-ReservationInformationModal__information">
-
           {/* Render default basic information fields */}
           <div className="app-ReservationInformationModal__information__account">
-            {renderField('user_name', get(reservation, 'user.display_name', ''))}
+            {renderField(
+              'user_name',
+              get(reservation, 'user.display_name', '')
+            )}
             {renderField('user_email', get(reservation, 'user.email', ''))}
           </div>
-          {payerFirstName && payerLastName && renderField('payment_name', `${payerFirstName} ${payerLastName}`)}
+          {payerFirstName &&
+            payerLastName &&
+            renderField('payment_name', `${payerFirstName} ${payerLastName}`)}
           {payerEmail && renderField('payment_email', payerEmail)}
           {renderField('reservation_time', getDateAndTime(reservation))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
@@ -84,62 +101,55 @@ const ReservationInformationModal = ({
             reservation={reservation}
           />
 
-          {showRefundPolicy
-            && renderInfoRow(
+          {showRefundPolicy &&
+            renderInfoRow(
               t('ReservationInformationForm.refundPolicyTitle'),
               <>
                 {t('ReservationInformationForm.refundPolicyText.1')}
-                <a href={`mailto:${t('ReservationInformationForm.refundPolicyText.2')}`}>
+                <a
+                  href={`mailto:${t(
+                    'ReservationInformationForm.refundPolicyText.2'
+                  )}`}
+                >
                   {t('ReservationInformationForm.refundPolicyText.2')}
                 </a>
                 {t('ReservationInformationForm.refundPolicyText.3')}
               </>,
-              { id: 'refund-policy' },
-            )
-          }
-
+              { id: 'refund-policy' }
+            )}
         </div>
         <div className="app-ReservationInformationModal__edit-reservation-btn">
-          <Button
-            bsStyle="primary"
-            onClick={() => onEditClick(reservation)}
-          >
+          <Button bsStyle="primary" onClick={() => onEditClick(reservation)}>
             {t('ReservationEditForm.startEdit')}
           </Button>
         </div>
         <div className="app-ReservationInformationModal__comments-section">
-          <ControlLabel>
-            {`${t('common.commentsLabel')}:`}
-          </ControlLabel>
+          <ControlLabel>{`${t('common.commentsLabel')}:`}</ControlLabel>
           <FormControl
             className="app-ReservationInformationModal__comments-field"
             componentClass="textarea"
-            onChange={e => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
             placeholder={t('common.commentsPlaceholder')}
             rows={5}
             value={comment}
           />
           <div className="app-ReservationInformationModal__save-comment">
-            <Button
-              bsStyle="primary"
-              onClick={saveComment}
-            >
+            <Button bsStyle="primary" onClick={saveComment}>
               {t('ReservationInfoModal.saveComment')}
             </Button>
           </div>
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          bsStyle="primary"
-          onClick={onHide}
-        >
+        <Button bsStyle="primary" onClick={onHide}>
           {t('common.back')}
         </Button>
 
         <Button
           bsStyle="default"
-          onClick={() => toggleReservationCancelModal(!isReservationCancelModalOpen)}
+          onClick={() =>
+            toggleReservationCancelModal(!isReservationCancelModalOpen)
+          }
         >
           {t('ReservationInfoModal.cancelButton')}
         </Button>
@@ -148,14 +158,24 @@ const ReservationInformationModal = ({
           <>
             <Button
               bsStyle="danger"
-              onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.DENIED)}
+              onClick={() =>
+                onEditReservation(
+                  normalizedReservation,
+                  RESERVATION_STATE.DENIED
+                )
+              }
             >
               {t('ReservationInfoModal.denyButton')}
             </Button>
 
             <Button
               bsStyle="success"
-              onClick={() => onEditReservation(normalizedReservation, RESERVATION_STATE.CONFIRMED)}
+              onClick={() =>
+                onEditReservation(
+                  normalizedReservation,
+                  RESERVATION_STATE.CONFIRMED
+                )
+              }
             >
               {t('ReservationInfoModal.approveButton')}
             </Button>

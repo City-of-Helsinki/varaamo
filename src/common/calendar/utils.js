@@ -7,12 +7,13 @@ import get from 'lodash/get';
  * @returns {Object} selected time range
  */
 export const getDefaultSelectedTimeRange = (reservation) => {
-  return reservation ? {
-    start: reservation.begin,
-    end: reservation.end,
-  } : null;
+  return reservation
+    ? {
+        start: reservation.begin,
+        end: reservation.end,
+      }
+    : null;
 };
-
 
 /**
  * isTimeRangeOverMaxPeriod();
@@ -24,7 +25,12 @@ export const getDefaultSelectedTimeRange = (reservation) => {
  * @param {boolean} isStaff Bypass this check if user is staff member
  * @returns {boolean} Selected time range is larger than max_period or not
  */
-export const isTimeRangeOverMaxPeriod = (resource, start, end, isStaff = false) => {
+export const isTimeRangeOverMaxPeriod = (
+  resource,
+  start,
+  end,
+  isStaff = false
+) => {
   const period = get(resource, 'max_period', null);
 
   if (!isStaff && period) {
@@ -32,7 +38,8 @@ export const isTimeRangeOverMaxPeriod = (resource, start, end, isStaff = false) 
     const endMoment = moment(end);
 
     const periodDuration = moment.duration(period);
-    const durationInMinutes = periodDuration.hours() * 60 + periodDuration.minutes();
+    const durationInMinutes =
+      periodDuration.hours() * 60 + periodDuration.minutes();
 
     if (endMoment.diff(startMoment, 'minutes') > durationInMinutes) {
       return true;
@@ -60,7 +67,8 @@ export const isTimeRangeUnderMinPeriod = (resource, start, end) => {
     const endMoment = moment(end);
 
     const periodDuration = moment.duration(period);
-    const durationInMinutes = periodDuration.hours() * 60 + periodDuration.minutes();
+    const durationInMinutes =
+      periodDuration.hours() * 60 + periodDuration.minutes();
 
     if (endMoment.diff(startMoment, 'minutes') < durationInMinutes) {
       return true;
@@ -107,7 +115,8 @@ export const getMinPeriodTimeRange = (resource, start, end) => {
 
   if (!minPeriod) {
     return {
-      start, end,
+      start,
+      end,
     };
   }
 
@@ -144,7 +153,8 @@ export const getMaxPeriodTimeRange = (resource, start, end, isStaff) => {
 
   if (!maxPeriod || isStaff) {
     return {
-      start, end,
+      start,
+      end,
     };
   }
 

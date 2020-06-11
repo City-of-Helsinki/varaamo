@@ -9,22 +9,14 @@ import isPlainObject from 'lodash/isPlainObject';
 import { currentUserSelector } from '../../state/selectors/authSelectors';
 import ReservationConfirmation from './reservation-confirmation/ReservationConfirmation';
 
-const translateEntity = (entity, locale) => (
-  Object
-    .entries(entity)
-    .reduce((acc, [key, value]) => {
-      const localizedValue = get(value, locale, value);
-      acc[key] = isPlainObject(localizedValue) ? null : localizedValue;
-      return acc;
-    }, {})
-);
+const translateEntity = (entity, locale) =>
+  Object.entries(entity).reduce((acc, [key, value]) => {
+    const localizedValue = get(value, locale, value);
+    acc[key] = isPlainObject(localizedValue) ? null : localizedValue;
+    return acc;
+  }, {});
 
-function PaymentSuccess({
-  reservation,
-  resource,
-  user,
-  intl: { locale },
-}) {
+function PaymentSuccess({ reservation, resource, user, intl: { locale } }) {
   const translatedReservation = translateEntity(reservation, locale);
   const translatedResource = translateEntity(resource, locale);
   return (
@@ -46,10 +38,8 @@ PaymentSuccess.propTypes = {
 };
 
 export default flow(
-  connect(
-    state => ({
-      user: currentUserSelector(state),
-    }),
-  ),
-  injectIntl,
+  connect((state) => ({
+    user: currentUserSelector(state),
+  })),
+  injectIntl
 )(PaymentSuccess);

@@ -16,7 +16,9 @@ describe('state/reducers/ui/modalsReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESERVATION_POST_SUCCESS', () => {
-      const reservationPostSuccessAction = createAction(types.API.RESERVATION_POST_SUCCESS);
+      const reservationPostSuccessAction = createAction(
+        types.API.RESERVATION_POST_SUCCESS
+      );
 
       test('adds ModalTypes.RESERVATION_SUCCESS to open', () => {
         const initialState = Immutable({ open: [] });
@@ -42,7 +44,9 @@ describe('state/reducers/ui/modalsReducer', () => {
         });
 
         test('does not affect other modals in open', () => {
-          const initialState = Immutable({ open: ['other-modal', 'some-modal'] });
+          const initialState = Immutable({
+            open: ['other-modal', 'some-modal'],
+          });
           const action = closeModal('some-modal');
           const nextState = modalsReducer(initialState, action);
           const expected = Immutable({ open: ['other-modal'] });
@@ -88,7 +92,9 @@ describe('state/reducers/ui/modalsReducer', () => {
       describe('if modal is already open', () => {
         test('does not change open in any way', () => {
           const action = openModal('some-modal');
-          const initialState = Immutable({ open: ['other-modal', 'some-modal'] });
+          const initialState = Immutable({
+            open: ['other-modal', 'some-modal'],
+          });
           const nextState = modalsReducer(initialState, action);
 
           expect(nextState).toEqual(initialState);

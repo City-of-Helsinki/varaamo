@@ -29,14 +29,18 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationInformation {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationInformation {...defaultProps} {...extraProps} />
+    );
   }
 
   test('renders an ReservationInformationForm element', () => {
     const form = getWrapper().find(ReservationInformationForm);
     expect(form).toHaveLength(1);
     expect(form.prop('isEditing')).toBe(defaultProps.isEditing);
-    expect(form.prop('isMakingReservations')).toBe(defaultProps.isMakingReservations);
+    expect(form.prop('isMakingReservations')).toBe(
+      defaultProps.isMakingReservations
+    );
     expect(form.prop('onBack')).toBe(defaultProps.onBack);
     expect(form.prop('onCancel')).toBe(defaultProps.onCancel);
     expect(form.prop('resource')).toBe(defaultProps.resource);
@@ -45,7 +49,9 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
   test('renders correct reservation details and time', () => {
     const details = getWrapper().find('.app-ReservationDetails__value');
     expect(details).toHaveLength(2);
-    expect(details.at(0).props().children).toContain(defaultProps.resource.name);
+    expect(details.at(0).props().children).toContain(
+      defaultProps.resource.name
+    );
     expect(details.at(0).props().children).toContain(defaultProps.unit.name);
     expect(details.at(1).props().children).toContain('10.10.2016');
     expect(details.at(1).props().children).toContain('(1 h)');
@@ -79,30 +85,24 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       expect(actual).toEqual(supportedFields);
     });
 
-    test(
-      'returns supportedReservationExtraFields and admin fields when is admin',
-      () => {
-        const wrapper = getWrapper({ isAdmin: true, resource });
-        const instance = wrapper.instance();
-        const actual = instance.getFormFields();
-        // const adminFields = ['comments',
-        // 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
-        const adminFields = ['comments'];
+    test('returns supportedReservationExtraFields and admin fields when is admin', () => {
+      const wrapper = getWrapper({ isAdmin: true, resource });
+      const instance = wrapper.instance();
+      const actual = instance.getFormFields();
+      // const adminFields = ['comments',
+      // 'reserverName', 'reserverEmailAddress', 'reserverPhoneNumber'];
+      const adminFields = ['comments'];
 
-        expect(actual).toEqual([...supportedFields, ...adminFields]);
-      },
-    );
+      expect(actual).toEqual([...supportedFields, ...adminFields]);
+    });
 
-    test(
-      'returns supportedReservationExtraFields and staffEvent when needManualConfirmation and is staff',
-      () => {
-        const wrapper = getWrapper({ isStaff: true, resource });
-        const instance = wrapper.instance();
-        const actual = instance.getFormFields();
+    test('returns supportedReservationExtraFields and staffEvent when needManualConfirmation and is staff', () => {
+      const wrapper = getWrapper({ isStaff: true, resource });
+      const instance = wrapper.instance();
+      const actual = instance.getFormFields();
 
-        expect(actual).toEqual([...supportedFields, 'staffEvent']);
-      },
-    );
+      expect(actual).toEqual([...supportedFields, 'staffEvent']);
+    });
 
     test('returns supportedReservationExtraFields and termsAndConditions', () => {
       const termsAndConditions = 'some terms and conditions';
@@ -149,19 +149,20 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
       expect(actual).toEqual(expected);
     });
 
-    test(
-      // eslint-disable-next-line max-len
-      'returns staffEvent true when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields',
-      () => {
-        const reservation2 = Reservation.build();
-        const expected = { staffEvent: true };
-        const wrapper = getWrapper({ isEditing: true, reservation: reservation2, resource });
-        const instance = wrapper.instance();
-        const actual = instance.getFormInitialValues();
+    test(// eslint-disable-next-line max-len
+    'returns staffEvent true when is editing and reservation supportedReservationExtraFields are empty but not requiredReservationExtraFields', () => {
+      const reservation2 = Reservation.build();
+      const expected = { staffEvent: true };
+      const wrapper = getWrapper({
+        isEditing: true,
+        reservation: reservation2,
+        resource,
+      });
+      const instance = wrapper.instance();
+      const actual = instance.getFormInitialValues();
 
-        expect(actual).toEqual(expected);
-      },
-    );
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe('getRequiredFormFields', () => {
@@ -179,9 +180,16 @@ describe('pages/reservation/reservation-information/ReservationInformation', () 
         requiredReservationExtraFields: ['some_field_1', 'some_field_2'],
       });
       const instance = getWrapper().instance();
-      const actual = instance.getRequiredFormFields(resource, 'terms and conditions');
+      const actual = instance.getRequiredFormFields(
+        resource,
+        'terms and conditions'
+      );
 
-      expect(actual).toEqual(['someField1', 'someField2', 'termsAndConditions']);
+      expect(actual).toEqual([
+        'someField1',
+        'someField2',
+        'termsAndConditions',
+      ]);
     });
   });
 });

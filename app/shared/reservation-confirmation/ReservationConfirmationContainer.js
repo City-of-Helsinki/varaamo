@@ -6,7 +6,11 @@ import first from 'lodash/first';
 import last from 'lodash/last';
 import orderBy from 'lodash/orderBy';
 
-import { deleteReservation, postReservation, putReservation } from '../../actions/reservationActions';
+import {
+  deleteReservation,
+  postReservation,
+  putReservation,
+} from '../../actions/reservationActions';
 import {
   cancelReservationEdit,
   closeConfirmReservationModal,
@@ -22,7 +26,8 @@ export class UnconnectedReservationConfirmationContainer extends Component {
     confirmReservationModalIsOpen: PropTypes.bool.isRequired,
     isMakingReservations: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
-    params: PropTypes.shape({ // eslint-disable-line react/no-unused-prop-types
+    params: PropTypes.shape({
+      // eslint-disable-line react/no-unused-prop-types
       id: PropTypes.string.isRequired,
     }).isRequired,
     recurringReservations: PropTypes.array.isRequired,
@@ -40,14 +45,17 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       ...reservationsToEdit[0],
       ...values,
     });
-  }
+  };
 
   handleReservation = (values = {}) => {
     const {
-      actions, recurringReservations, resource, selectedReservations,
+      actions,
+      recurringReservations,
+      resource,
+      selectedReservations,
     } = this.props;
     const orderedReservations = orderBy(selectedReservations, 'begin');
-    const selectedReservation = Object.assign({}, first(orderedReservations));
+    const selectedReservation = { ...first(orderedReservations) };
     selectedReservation.end = last(orderedReservations).end;
     const mergedReservations = [selectedReservation];
 
@@ -58,7 +66,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
         resource: resource.id,
       });
     });
-  }
+  };
 
   render() {
     const {
@@ -75,7 +83,7 @@ export class UnconnectedReservationConfirmationContainer extends Component {
       timeSlots,
     } = this.props;
 
-    const isAdmin = resource.userPermissions.isAdmin;
+    const { isAdmin } = resource.userPermissions;
     const isEditing = Boolean(reservationsToEdit.length);
 
     return (
@@ -116,6 +124,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(reservationConfirmationSelector, mapDispatchToProps)(
-  UnconnectedReservationConfirmationContainer,
-);
+export default connect(
+  reservationConfirmationSelector,
+  mapDispatchToProps
+)(UnconnectedReservationConfirmationContainer);

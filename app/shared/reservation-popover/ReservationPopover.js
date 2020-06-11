@@ -8,10 +8,10 @@ import moment from 'moment';
 import injectT from '../../i18n/injectT';
 
 function ReservationPopover(props) {
-  const {
-    begin, children, end, onCancel, t, reservationPrice = '',
-  } = props;
-  const reservationLength = end ? moment.duration(moment(end).diff(moment(begin))) : null;
+  const { begin, children, end, onCancel, t, reservationPrice = '' } = props;
+  const reservationLength = end
+    ? moment.duration(moment(end).diff(moment(begin)))
+    : null;
   const popover = (
     <Popover
       className="reservation-popover"
@@ -19,10 +19,7 @@ function ReservationPopover(props) {
       title={t('ReservationPopover.selectionInfoHeader')}
     >
       <span>
-        {moment(begin).format('HH:mm')}
-
-–
-        {end && moment(end).format('HH:mm')}
+        {moment(begin).format('HH:mm')}–{end && moment(end).format('HH:mm')}
       </span>
       {reservationPrice && (
         <span className="reservation-popover__price">
@@ -37,18 +34,30 @@ function ReservationPopover(props) {
         </span>
       )}
 
-      <Glyphicon className="reservation-popover__cancel" glyph="trash" onClick={onCancel} />
+      <Glyphicon
+        className="reservation-popover__cancel"
+        glyph="trash"
+        onClick={onCancel}
+      />
     </Popover>
   );
   return (
-    <OverlayTrigger defaultOverlayShown overlay={popover} placement="top" trigger={[]}>
+    <OverlayTrigger
+      defaultOverlayShown
+      overlay={popover}
+      placement="top"
+      trigger={[]}
+    >
       {children}
     </OverlayTrigger>
   );
 }
 
 ReservationPopover.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   onCancel: PropTypes.func.isRequired,
   begin: PropTypes.string.isRequired,
   end: PropTypes.string.isRequired,

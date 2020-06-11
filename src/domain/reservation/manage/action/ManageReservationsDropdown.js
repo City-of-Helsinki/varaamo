@@ -6,13 +6,16 @@ import injectT from '../../../../../app/i18n/injectT';
 import { RESERVATION_STATE } from '../../../../constants/ReservationState';
 
 const UntranslatedManageReservationsDropdown = ({
-  t, onInfoClick, reservation,
+  t,
+  onInfoClick,
+  reservation,
   onEditClick,
   onEditReservation,
   userCanModify,
   userCanCancel,
 }) => {
-  const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
+  const isRequestedReservation =
+    reservation.state === RESERVATION_STATE.REQUESTED;
 
   return (
     <div className="app-ManageReservationDropdown">
@@ -28,27 +31,35 @@ const UntranslatedManageReservationsDropdown = ({
           {isRequestedReservation && (
             <>
               <MenuItem
-                onClick={() => onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)}
+                onClick={() =>
+                  onEditReservation(reservation, RESERVATION_STATE.CONFIRMED)
+                }
               >
                 {t('ManageReservationsList.actionLabel.approve')}
               </MenuItem>
               <MenuItem
-                onClick={() => onEditReservation(reservation, RESERVATION_STATE.DENIED)}
+                onClick={() =>
+                  onEditReservation(reservation, RESERVATION_STATE.DENIED)
+                }
               >
                 {t('ManageReservationsList.actionLabel.deny')}
               </MenuItem>
             </>
           )}
 
-          <MenuItem
-            onClick={onEditClick}
-          >
+          <MenuItem onClick={onEditClick}>
             {t('ManageReservationsList.actionLabel.edit')}
           </MenuItem>
 
           {userCanCancel && (
             <MenuItem
-              onClick={() => onEditReservation(reservation, RESERVATION_STATE.CANCELLED, true)}
+              onClick={() =>
+                onEditReservation(
+                  reservation,
+                  RESERVATION_STATE.CANCELLED,
+                  true
+                )
+              }
             >
               {t('ManageReservationsList.actionLabel.cancel')}
             </MenuItem>

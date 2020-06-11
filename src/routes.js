@@ -22,7 +22,11 @@ export default () => (
       <Route component={HomePage} componentName="Home" exact path="/" />
       <Route component={SearchPage} componentName="Search" path="/search" />
       <Route component={AboutPage} componentName="About" path="/about" />
-      <Route component={ResourcePage} componentName="Resource" path="/resources/:id" />
+      <Route
+        component={ResourcePage}
+        componentName="Resource"
+        path="/resources/:id"
+      />
 
       <PrivateRoute
         component={AdminResourcesPage}
@@ -39,7 +43,11 @@ export default () => (
         componentName="MyReservations"
         path="/my-reservations"
       />
-      <PrivateRoute component={ReservationPage} componentName="Reservation" path="/reservation" />
+      <PrivateRoute
+        component={ReservationPage}
+        componentName="Reservation"
+        path="/reservation"
+      />
       <PrivateRoute
         component={ReservationPaymentReturnPage}
         componentName="ReservationPaymentReturn"

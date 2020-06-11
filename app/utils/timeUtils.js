@@ -14,7 +14,13 @@ function addToDate(date, daysToIncrement) {
   return newDate.format(constants.DATE_FORMAT);
 }
 
-function getDateStartAndEndTimes(date, useTimeRange, startTime, endTime, duration) {
+function getDateStartAndEndTimes(
+  date,
+  useTimeRange,
+  startTime,
+  endTime,
+  duration
+) {
   if (!date) {
     return {};
   }
@@ -40,7 +46,10 @@ function getDateString(date) {
 
 function getDuration(duration) {
   if (!duration) {
-    return moment(constants.FILTER.timePeriod, constants.FILTER.timePeriodType).minutes();
+    return moment(
+      constants.FILTER.timePeriod,
+      constants.FILTER.timePeriodType
+    ).minutes();
   }
   return duration;
 }
@@ -82,7 +91,10 @@ function getStartTimeString(startTime) {
       .startOf('hour')
       .add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
     while (nextPeriod.isBefore(now)) {
-      nextPeriod.add(constants.FILTER.timePeriod, constants.FILTER.timePeriodType);
+      nextPeriod.add(
+        constants.FILTER.timePeriod,
+        constants.FILTER.timePeriodType
+      );
     }
     return nextPeriod.format(constants.FILTER.timeFormat);
   }
@@ -90,10 +102,11 @@ function getStartTimeString(startTime) {
 }
 
 function getTimeSlots(
-  start, end,
+  start,
+  end,
   period = DEFAULT_SLOT_SIZE,
   reservations = [],
-  reservationsToEdit = [],
+  reservationsToEdit = []
 ) {
   if (!start || !end) {
     return [];
@@ -102,16 +115,12 @@ function getTimeSlots(
   const range = moment.range(moment(start), moment(end));
   const duration = moment.duration(period);
 
-  const reservationRanges = map(
-    reservations, reservation => moment.range(
-      moment(reservation.begin), moment(reservation.end),
-    ),
+  const reservationRanges = map(reservations, (reservation) =>
+    moment.range(moment(reservation.begin), moment(reservation.end))
   );
 
-  const editRanges = map(
-    reservationsToEdit, reservation => moment.range(
-      moment(reservation.begin), moment(reservation.end),
-    ),
+  const editRanges = map(reservationsToEdit, (reservation) =>
+    moment.range(moment(reservation.begin), moment(reservation.end))
   );
 
   const slots = map(
@@ -119,17 +128,19 @@ function getTimeSlots(
       range.by(constants.FILTER.timePeriodType, {
         excludeEnd: true,
         step: duration.as(constants.FILTER.timePeriodType),
-      }),
+      })
     ),
     (startMoment) => {
       const endMoment = moment(startMoment).add(duration);
       const asISOString = `${startMoment.toISOString()}/${endMoment.toISOString()}`;
-      const asString = `${startMoment.format(constants.TIME_FORMAT)}\u2013${endMoment.format(
-        constants.TIME_FORMAT,
-      )}`;
+      const asString = `${startMoment.format(
+        constants.TIME_FORMAT
+      )}\u2013${endMoment.format(constants.TIME_FORMAT)}`;
 
       const slotRange = moment.range(startMoment, endMoment);
-      const editing = editRanges.some(editRange => editRange.overlaps(slotRange));
+      const editing = editRanges.some((editRange) =>
+        editRange.overlaps(slotRange)
+      );
 
       let reserved = false;
       let reservation = null;
@@ -141,7 +152,8 @@ function getTimeSlots(
           reservation = reservations[index];
           const [reservationStart, reservationEnd] = reservationRange.toDate();
           const [slotStart, slotEnd] = slotRange.toDate();
-          reservationStarting = reservationStart.getTime() === slotStart.getTime();
+          reservationStarting =
+            reservationStart.getTime() === slotStart.getTime();
           reservationEnding = reservationEnd.getTime() === slotEnd.getTime();
         }
       });
@@ -157,7 +169,7 @@ function getTimeSlots(
         start: startMoment.toISOString(),
         end: endMoment.toISOString(),
       };
-    },
+    }
   );
 
   return slots;

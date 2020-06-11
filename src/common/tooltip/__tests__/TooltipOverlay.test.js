@@ -9,7 +9,7 @@ describe('TooltipOverlay', () => {
     const wrapper = shallow(
       <TooltipOverlay content={<span>bar</span>}>
         <span>foo</span>
-      </TooltipOverlay>,
+      </TooltipOverlay>
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();

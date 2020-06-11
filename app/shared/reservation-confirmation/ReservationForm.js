@@ -57,16 +57,17 @@ export function validate(values, { fields, requiredFields, t }) {
     }
     if (maxLengths[field]) {
       if (values[field] && values[field].length > maxLengths[field]) {
-        errors[field] = t('ReservationForm.maxLengthError', { maxLength: maxLengths[field] });
+        errors[field] = t('ReservationForm.maxLengthError', {
+          maxLength: maxLengths[field],
+        });
       }
     }
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
-        errors[field] = (
+        errors[field] =
           field === 'termsAndConditions'
             ? t('ReservationForm.termsAndConditionsError')
-            : t('ReservationForm.requiredError')
-        );
+            : t('ReservationForm.requiredError');
       }
     }
   });
@@ -94,9 +95,7 @@ class UnconnectedReservationForm extends Component {
   }
 
   renderTimeControls = () => {
-    const {
-      fields, maxReservationPeriod, t, timeSlots,
-    } = this.props;
+    const { fields, maxReservationPeriod, t, timeSlots } = this.props;
     if (!includes(fields, 'begin') || !includes(fields, 'end')) {
       return null;
     }
@@ -116,7 +115,7 @@ class UnconnectedReservationForm extends Component {
         </Col>
       </FormGroup>
     );
-  }
+  };
 
   render() {
     const {
@@ -139,14 +138,14 @@ class UnconnectedReservationForm extends Component {
       <div>
         <Form className="reservation-form" horizontal>
           {this.renderTimeControls()}
-          { includes(this.props.fields, 'staffEvent') && (
+          {includes(this.props.fields, 'staffEvent') && (
             <Well>
               {this.renderField(
                 'staffEvent',
                 'checkbox',
                 t('ReservationForm.staffEventLabel'),
                 {},
-                t('ReservationForm.staffEventHelp'),
+                t('ReservationForm.staffEventHelp')
               )}
             </Well>
           )}
@@ -156,24 +155,20 @@ class UnconnectedReservationForm extends Component {
             t('common.eventSubjectLabel'),
             {},
             null,
-            t('ReservationForm.eventSubjectInfo'),
+            t('ReservationForm.eventSubjectInfo')
           )}
-          {this.renderField(
-            'reserverId',
-            'text',
-            t('common.reserverIdLabel'),
-          )}
+          {this.renderField('reserverId', 'text', t('common.reserverIdLabel'))}
           {this.renderField(
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 },
+            { rows: 5 }
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' },
+            { min: '0' }
           )}
           {includes(this.props.fields, 'reserverAddressStreet') && (
             <Well>
@@ -182,19 +177,22 @@ class UnconnectedReservationForm extends Component {
                 'reserverAddressStreet',
                 'text',
                 t('common.addressStreetLabel'),
-                { name: 'street-address', autoComplete: INPUT_PURPOSES.STREET_ADDRESS },
+                {
+                  name: 'street-address',
+                  autoComplete: INPUT_PURPOSES.STREET_ADDRESS,
+                }
               )}
               {this.renderField(
                 'reserverAddressZip',
                 'text',
                 t('common.addressZipLabel'),
-                { name: 'zip', autoComplete: INPUT_PURPOSES.POSTAL_CODE },
+                { name: 'zip', autoComplete: INPUT_PURPOSES.POSTAL_CODE }
               )}
               {this.renderField(
                 'reserverAddressCity',
                 'text',
                 t('common.addressCityLabel'),
-                { name: 'city', autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2 },
+                { name: 'city', autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2 }
               )}
             </Well>
           )}
@@ -205,31 +203,42 @@ class UnconnectedReservationForm extends Component {
                 'billingAddressStreet',
                 'text',
                 t('common.addressStreetLabel'),
-                { name: 'billing-street-address', autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(' ') },
+                {
+                  name: 'billing-street-address',
+                  autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(
+                    ' '
+                  ),
+                }
               )}
               {this.renderField(
                 'billingAddressZip',
                 'text',
                 t('common.addressZipLabel'),
-                { name: 'billing-zip', autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(' ') },
+                {
+                  name: 'billing-zip',
+                  autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(
+                    ' '
+                  ),
+                }
               )}
               {this.renderField(
                 'billingAddressCity',
                 'text',
                 t('common.addressCityLabel'),
-                { name: 'billing-city', autoComplete: ['billing', INPUT_PURPOSES.ADDRESS_LEVEL_2].join(' ') },
+                {
+                  name: 'billing-city',
+                  autoComplete: [
+                    'billing',
+                    INPUT_PURPOSES.ADDRESS_LEVEL_2,
+                  ].join(' '),
+                }
               )}
             </Well>
           )}
-          {this.renderField(
-            'comments',
-            'textarea',
-            t('common.commentsLabel'),
-            {
-              placeholder: t('common.commentsPlaceholder'),
-              rows: 5,
-            },
-          )}
+          {this.renderField('comments', 'textarea', t('common.commentsLabel'), {
+            placeholder: t('common.commentsPlaceholder'),
+            rows: 5,
+          })}
           {termsAndConditions && (
             <div className="terms-and-conditions">
               <h5>{t('ReservationForm.termsAndConditionsHeader')}</h5>
@@ -241,15 +250,12 @@ class UnconnectedReservationForm extends Component {
               {this.renderField(
                 'termsAndConditions',
                 'checkbox',
-                t('ReservationForm.termsAndConditionsLabel'),
+                t('ReservationForm.termsAndConditionsLabel')
               )}
             </Well>
           )}
           <div className="form-controls">
-            <Button
-              bsStyle="default"
-              onClick={onCancel}
-            >
+            <Button bsStyle="default" onClick={onCancel}>
               {isEditing ? t('common.cancel') : t('common.back')}
             </Button>
             <Button
@@ -284,7 +290,9 @@ UnconnectedReservationForm.propTypes = {
 UnconnectedReservationForm = injectT(UnconnectedReservationForm);  // eslint-disable-line
 
 export { UnconnectedReservationForm };
-export default injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-  validate,
-})(UnconnectedReservationForm));
+export default injectT(
+  reduxForm({
+    form: FormTypes.RESERVATION,
+    validate,
+  })(UnconnectedReservationForm)
+);

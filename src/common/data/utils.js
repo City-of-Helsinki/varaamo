@@ -10,7 +10,7 @@ export const getLocalizedFieldValue = (field, locale, fallback = false) => {
     return localeValue;
   }
 
-  return values(field).find(fallbackValue => !!fallbackValue);
+  return values(field).find((fallbackValue) => !!fallbackValue);
 };
 
 /**
@@ -21,7 +21,7 @@ export const getLocalizedFieldValue = (field, locale, fallback = false) => {
  */
 
 export const parseData = (data) => {
-  return pickBy(data, value => value || value === 0);
+  return pickBy(data, (value) => value || value === 0);
 };
 
 export const toCamelCase = (obj) => {

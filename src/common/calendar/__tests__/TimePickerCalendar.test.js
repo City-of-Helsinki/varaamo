@@ -4,7 +4,10 @@ import toJson from 'enzyme-to-json';
 import TimePickerCalendar from '../TimePickerCalendar';
 import resource from '../../data/fixtures/resource';
 import reservation from '../../data/fixtures/reservation';
-import { globalDateMock, shallowWithIntl } from '../../../../app/utils/testUtils';
+import {
+  globalDateMock,
+  shallowWithIntl,
+} from '../../../../app/utils/testUtils';
 
 describe('TimePickerCalendar', () => {
   globalDateMock();
@@ -23,8 +26,8 @@ describe('TimePickerCalendar', () => {
     end: '2019-09-05T12:00:00+03:00',
   };
 
-
-  const getWrapper = props => shallowWithIntl(<TimePickerCalendar {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallowWithIntl(<TimePickerCalendar {...defaultProps} {...props} />);
 
   describe('FullCalendar', () => {
     test('render normally', () => {

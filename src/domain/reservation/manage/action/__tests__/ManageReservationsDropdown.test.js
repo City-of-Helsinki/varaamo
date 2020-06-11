@@ -5,17 +5,19 @@ import { UntranslatedManageReservationsDropdown as ManageReservationsDropdown } 
 import { shallowWithIntl } from '../../../../../../app/utils/testUtils';
 import reservation from '../../../../../common/data/fixtures/reservation';
 
-const findButtonByLabel = (wrapper, label) => wrapper.find({ children: `ManageReservationsList.actionLabel.${label}` });
+const findButtonByLabel = (wrapper, label) =>
+  wrapper.find({ children: `ManageReservationsList.actionLabel.${label}` });
 
 describe('ManageReservationsDropdown', () => {
   const defaultProps = {
     reservation: reservation.build({ state: null }),
-    t: path => path,
+    t: (path) => path,
     userCanModify: true,
   };
-  const getWrapper = props => shallowWithIntl(
-    <ManageReservationsDropdown {...defaultProps} {...props} />,
-  );
+  const getWrapper = (props) =>
+    shallowWithIntl(
+      <ManageReservationsDropdown {...defaultProps} {...props} />
+    );
 
   test('renders correctly', () => {
     expect(toJSON(getWrapper())).toMatchSnapshot();
@@ -37,10 +39,11 @@ describe('ManageReservationsDropdown', () => {
   });
 
   describe('when state is requested', () => {
-    const getWrapperInRequestedState = props => getWrapper({
-      reservation: { ...defaultProps.reservation, state: 'requested' },
-      ...props,
-    });
+    const getWrapperInRequestedState = (props) =>
+      getWrapper({
+        reservation: { ...defaultProps.reservation, state: 'requested' },
+        ...props,
+      });
 
     test('show approve and deny button', () => {
       const wrapper = getWrapperInRequestedState();

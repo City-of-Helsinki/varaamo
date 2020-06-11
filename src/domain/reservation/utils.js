@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import moment from 'moment';
 import find from 'lodash/find';
 import sortBy from 'lodash/sortBy';
@@ -31,13 +32,19 @@ export const combineReservations = (reservations) => {
 
 export const getNextAvailableTime = (reservations, fromMoment = moment()) => {
   const combinedReservations = combineReservations(reservations);
-  if (!combinedReservations.length || fromMoment < moment(combinedReservations[0].begin)) {
+  if (
+    !combinedReservations.length ||
+    fromMoment < moment(combinedReservations[0].begin)
+  ) {
     return fromMoment;
   }
 
-  const ongoingReservation = find(combinedReservations, reservation => (
-    moment(reservation.begin) <= fromMoment && fromMoment < moment(reservation.end)
-  ));
+  const ongoingReservation = find(
+    combinedReservations,
+    (reservation) =>
+      moment(reservation.begin) <= fromMoment &&
+      fromMoment < moment(reservation.end)
+  );
 
   return ongoingReservation ? moment(ongoingReservation.end) : fromMoment;
 };
@@ -57,7 +64,11 @@ export const getCurrentReservation = (reservations) => {
  * @returns {Promise}
  */
 export const putReservation = (reservation, fields) => {
-  return client.put(`reservation/${reservation.id}`, merge(reservation, fields), { include: 'resource_detail' });
+  return client.put(
+    `reservation/${reservation.id}`,
+    merge(reservation, fields),
+    { include: 'resource_detail' }
+  );
 };
 /**
  * Delete/Cancel reservation
@@ -76,14 +87,14 @@ export const cancelReservation = (reservation) => {
  * @returns {string} Reservation URL
  */
 export const getEditReservationUrl = (reservation) => {
-  const {
-    begin, end, id, resource,
-  } = reservation;
+  const { begin, end, id, resource } = reservation;
   const date = moment(begin).format('YYYY-MM-DD');
   const beginStr = moment(begin).format('HH:mm');
   const endStr = moment(end).format('HH:mm');
 
-  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${id || ''}&resource=${resource.id}`;
+  return `/reservation?begin=${beginStr}&date=${date}&end=${endStr}&id=${
+    id || ''
+  }&resource=${resource.id}`;
 };
 
 /**
@@ -96,8 +107,10 @@ export const getEditReservationUrl = (reservation) => {
  * @returns {Boolean} False by default
  */
 export const canUserModifyReservation = (reservation) => {
-  if (get(reservation, 'user_permissions.can_modify', false)
-      && reservation.state !== RESERVATION_STATE.CANCELLED) {
+  if (
+    get(reservation, 'user_permissions.can_modify', false) &&
+    reservation.state !== RESERVATION_STATE.CANCELLED
+  ) {
     return true;
   }
 
@@ -114,8 +127,10 @@ export const canUserModifyReservation = (reservation) => {
  * @returns {Boolean} False by default
  */
 export const canUserCancelReservation = (reservation) => {
-  if (get(reservation, 'user_permissions.can_delete', false)
-      && reservation.state !== RESERVATION_STATE.CANCELLED) {
+  if (
+    get(reservation, 'user_permissions.can_delete', false) &&
+    reservation.state !== RESERVATION_STATE.CANCELLED
+  ) {
     return true;
   }
 
@@ -132,7 +147,11 @@ export const canUserCancelReservation = (reservation) => {
  */
 export const getShowRefundPolicy = (isAdmin, reservation, resource) => {
   const isStaffEvent = get(reservation, 'staffEvent', false);
-  const price = getReservationPrice(reservation.begin, reservation.end, resource);
+  const price = getReservationPrice(
+    reservation.begin,
+    reservation.end,
+    resource
+  );
 
   return isAdmin && !isStaffEvent && price > 0;
 };

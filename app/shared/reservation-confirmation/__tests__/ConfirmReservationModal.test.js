@@ -24,15 +24,14 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
     recurringReservations: [],
     reservationsToEdit: Immutable([]),
     resource: Resource.build(),
-    selectedReservations: Immutable([
-      Reservation.build(),
-      Reservation.build(),
-    ]),
+    selectedReservations: Immutable([Reservation.build(), Reservation.build()]),
     show: true,
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ConfirmReservationModal {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ConfirmReservationModal {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('modal', () => {
@@ -56,20 +55,30 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
 
       describe('title', () => {
         test('is correct if editing', () => {
-          const modalTitle = getModalHeaderWrapper({ isEditing: true }).find(Modal.Title);
-          expect(modalTitle.prop('children')).toBe('ConfirmReservationModal.editTitle');
+          const modalTitle = getModalHeaderWrapper({ isEditing: true }).find(
+            Modal.Title
+          );
+          expect(modalTitle.prop('children')).toBe(
+            'ConfirmReservationModal.editTitle'
+          );
         });
 
         test('is correct if confirming preliminary reservation', () => {
-          const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: true })
-            .find(Modal.Title);
-          expect(modalTitle.prop('children')).toBe('ConfirmReservationModal.preliminaryReservationTitle');
+          const modalTitle = getModalHeaderWrapper({
+            isPreliminaryReservation: true,
+          }).find(Modal.Title);
+          expect(modalTitle.prop('children')).toBe(
+            'ConfirmReservationModal.preliminaryReservationTitle'
+          );
         });
 
         test('is correct if confirming regular reservation', () => {
-          const modalTitle = getModalHeaderWrapper({ isPreliminaryReservation: false })
-            .find(Modal.Title);
-          expect(modalTitle.prop('children')).toBe('ConfirmReservationModal.regularReservationTitle');
+          const modalTitle = getModalHeaderWrapper({
+            isPreliminaryReservation: false,
+          }).find(Modal.Title);
+          expect(modalTitle.prop('children')).toBe(
+            'ConfirmReservationModal.regularReservationTitle'
+          );
         });
       });
     });
@@ -93,27 +102,34 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
             Reservation.build(),
             Reservation.build(),
           ];
-          const list = getModalBodyWrapper({ ...props, recurringReservations })
-            .find(CompactReservationList);
+          const list = getModalBodyWrapper({
+            ...props,
+            recurringReservations,
+          }).find(CompactReservationList);
           expect(list).toHaveLength(1);
-          expect(list.prop('reservations')).toEqual(defaultProps.selectedReservations);
-          expect(list.prop('removableReservations')).toEqual(recurringReservations);
+          expect(list.prop('reservations')).toEqual(
+            defaultProps.selectedReservations
+          );
+          expect(list.prop('removableReservations')).toEqual(
+            recurringReservations
+          );
         });
 
         test('renders RecurringReservationControls if user is admin', () => {
           expect(
-            getModalBodyWrapper({ ...props, isAdmin: true }).find(RecurringReservationControls),
+            getModalBodyWrapper({ ...props, isAdmin: true }).find(
+              RecurringReservationControls
+            )
           ).toHaveLength(1);
         });
 
-        test(
-          'does not render RecurringReservationControls if user is not admin',
-          () => {
-            expect(
-              getModalBodyWrapper({ ...props, isAdmin: false }).find(RecurringReservationControls),
-            ).toHaveLength(0);
-          },
-        );
+        test('does not render RecurringReservationControls if user is not admin', () => {
+          expect(
+            getModalBodyWrapper({ ...props, isAdmin: false }).find(
+              RecurringReservationControls
+            )
+          ).toHaveLength(0);
+        });
       });
 
       describe('when editing reservation', () => {
@@ -123,22 +139,27 @@ describe('shared/reservation-confirmation/ConfirmReservationModal', () => {
         };
 
         test('renders one CompactReservationList with reservations to edit', () => {
-          const list = getModalBodyWrapper(props).find(CompactReservationList).at(0);
+          const list = getModalBodyWrapper(props)
+            .find(CompactReservationList)
+            .at(0);
           expect(list).toHaveLength(1);
           expect(list.prop('reservations')).toEqual(props.reservationsToEdit);
         });
 
-        test(
-          'renders one CompactReservationList with reservations selected reservations',
-          () => {
-            const list = getModalBodyWrapper(props).find(CompactReservationList).at(1);
-            expect(list).toHaveLength(1);
-            expect(list.prop('reservations')).toEqual(defaultProps.selectedReservations);
-          },
-        );
+        test('renders one CompactReservationList with reservations selected reservations', () => {
+          const list = getModalBodyWrapper(props)
+            .find(CompactReservationList)
+            .at(1);
+          expect(list).toHaveLength(1);
+          expect(list.prop('reservations')).toEqual(
+            defaultProps.selectedReservations
+          );
+        });
 
         test('does not render RecurringReservationControls', () => {
-          expect(getModalBodyWrapper(props).find(RecurringReservationControls)).toHaveLength(0);
+          expect(
+            getModalBodyWrapper(props).find(RecurringReservationControls)
+          ).toHaveLength(0);
         });
       });
     });

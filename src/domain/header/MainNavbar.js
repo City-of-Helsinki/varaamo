@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from 'react-bootstrap/lib/Navbar';
@@ -24,12 +24,16 @@ class MainNavbar extends React.Component {
   }
 
   toggleCollapse() {
-    this.setState(prevState => ({ expanded: !prevState.expanded }));
+    this.setState((prevState) => ({ expanded: !prevState.expanded }));
   }
 
   render() {
     const {
-      activeLink, clearSearchResults, isAdmin, isLoggedIn, t,
+      activeLink,
+      clearSearchResults,
+      isAdmin,
+      isLoggedIn,
+      t,
     } = this.props;
 
     return (
@@ -60,38 +64,55 @@ class MainNavbar extends React.Component {
             </LinkContainer>
             {isLoggedIn && (
               <LinkContainer to="/admin-resources">
-                <NavItem eventKey="admin-resources" onClick={() => this.collapseItem()}>
-                  {isAdmin ? t('Navbar.adminResources') : t('Navbar.userFavorites')}
+                <NavItem
+                  eventKey="admin-resources"
+                  onClick={() => this.collapseItem()}
+                >
+                  {isAdmin
+                    ? t('Navbar.adminResources')
+                    : t('Navbar.userFavorites')}
                 </NavItem>
               </LinkContainer>
             )}
             {isLoggedIn && (
               <LinkContainer to="/my-reservations">
-                <NavItem eventKey="my-reservations" onClick={() => this.collapseItem()}>
+                <NavItem
+                  eventKey="my-reservations"
+                  onClick={() => this.collapseItem()}
+                >
                   {t('Navbar.userResources')}
                 </NavItem>
               </LinkContainer>
             )}
-            {isAdmin
-              && (
-                <Fragment>
-                  <LinkContainer to="/manage-reservations">
-                    <NavItem eventKey="manage-reservations" onClick={() => this.collapseItem()}>
-                      {t('Navbar.manageReservations')}
-                    </NavItem>
-                  </LinkContainer>
-                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/" target="_blank">
-                    {t('Navbar.adminMaintenance')}
-                    <FAIcon icon={faExternalLinkAlt} />
+            {isAdmin && (
+              <>
+                <LinkContainer to="/manage-reservations">
+                  <NavItem
+                    eventKey="manage-reservations"
+                    onClick={() => this.collapseItem()}
+                  >
+                    {t('Navbar.manageReservations')}
                   </NavItem>
+                </LinkContainer>
+                <NavItem
+                  eventKey="adminMaintenance"
+                  href="https://api.hel.fi/respa/ra/"
+                  target="_blank"
+                >
+                  {t('Navbar.adminMaintenance')}
+                  <FAIcon icon={faExternalLinkAlt} />
+                </NavItem>
 
-                  <NavItem eventKey="adminGuide" href="https://cityofhelsinki.gitbook.io/varaamo" target="_blank">
-                    {t('Navbar.adminGuide')}
-                    <FAIcon icon={faExternalLinkAlt} />
-                  </NavItem>
-                </Fragment>
-              )
-            }
+                <NavItem
+                  eventKey="adminGuide"
+                  href="https://cityofhelsinki.gitbook.io/varaamo"
+                  target="_blank"
+                >
+                  {t('Navbar.adminGuide')}
+                  <FAIcon icon={faExternalLinkAlt} />
+                </NavItem>
+              </>
+            )}
             <LinkContainer to="/about">
               <NavItem eventKey="about" onClick={() => this.collapseItem()}>
                 {t('Navbar.aboutLink')}

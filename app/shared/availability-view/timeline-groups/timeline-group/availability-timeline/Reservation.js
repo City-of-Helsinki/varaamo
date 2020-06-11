@@ -6,7 +6,10 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Popover from 'react-bootstrap/lib/Popover';
 
-import { getReservationPrice, getHasOnlinePaymentSupport } from '../../../../../../src/domain/resource/utils';
+import {
+  getReservationPrice,
+  getHasOnlinePaymentSupport,
+} from '../../../../../../src/domain/resource/utils';
 import ReservationAccessCode from '../../../../reservation-access-code/ReservationAccessCode';
 import utils from '../utils';
 
@@ -36,13 +39,22 @@ function Reservation({ onClick, ...reservation }) {
   const startTime = moment(reservation.begin);
   const endTime = moment(reservation.end);
   const width = utils.getTimeSlotWidth({ startTime, endTime });
-  const reserverName = getReserverName(reservation.reserverName, reservation.user);
+  const reserverName = getReserverName(
+    reservation.reserverName,
+    reservation.user
+  );
   // This value is zero when no price is found.
-  const price = getReservationPrice(reservation.begin, reservation.end, { products: reservation.products });
+  const price = getReservationPrice(reservation.begin, reservation.end, {
+    products: reservation.products,
+  });
   const showPrice = getHasOnlinePaymentSupport(reservation);
 
   const popover = (
-    <Popover className="reservation-info-popover" id={`popover-${reservation.id}`} title={reservation.eventSubject}>
+    <Popover
+      className="reservation-info-popover"
+      id={`popover-${reservation.id}`}
+      title={reservation.eventSubject}
+    >
       <div>
         <Glyphicon glyph="time" />
         {`${startTime.format('HH:mm')} - ${endTime.format('HH:mm')}`}
@@ -50,18 +62,18 @@ function Reservation({ onClick, ...reservation }) {
       {reserverName && <div>{reserverName}</div>}
       {reservation.numberOfParticipants && (
         <div>
-          <Glyphicon glyph="user" />
-          {' '}
-          {reservation.numberOfParticipants}
+          <Glyphicon glyph="user" /> {reservation.numberOfParticipants}
         </div>
       )}
-      {reservation.accessCode && <div><ReservationAccessCode reservation={reservation} /></div>}
+      {reservation.accessCode && (
+        <div>
+          <ReservationAccessCode reservation={reservation} />
+        </div>
+      )}
       {reservation.comments && <hr />}
       {reservation.comments && (
         <div>
-          <Glyphicon glyph="comment" />
-          {' '}
-          {reservation.comments}
+          <Glyphicon glyph="comment" /> {reservation.comments}
         </div>
       )}
     </Popover>
@@ -69,8 +81,12 @@ function Reservation({ onClick, ...reservation }) {
 
   return (
     <button
-      className={classNames('reservation-link', { 'with-comments': reservation.comments })}
-      onClick={() => onClick && reservation.userPermissions.canModify && onClick(reservation)}
+      className={classNames('reservation-link', {
+        'with-comments': reservation.comments,
+      })}
+      onClick={() =>
+        onClick && reservation.userPermissions.canModify && onClick(reservation)
+      }
       type="button"
     >
       <OverlayTrigger
@@ -79,35 +95,44 @@ function Reservation({ onClick, ...reservation }) {
         trigger={['hover', 'focus']}
       >
         <span
-          className={classNames('reservation',
+          className={classNames(
+            'reservation',
             {
               requested: reservation.state === 'requested',
             },
             {
-              disabled: reservation.state === 'confirmed'
-                && !reservation.isOwn
-                && !reservation.userPermissions.canModify,
+              disabled:
+                reservation.state === 'confirmed' &&
+                !reservation.isOwn &&
+                !reservation.userPermissions.canModify,
             },
             {
-              reserved: reservation.state === 'confirmed'
-                && !reservation.isOwn
-                && reservation.userPermissions.canModify,
+              reserved:
+                reservation.state === 'confirmed' &&
+                !reservation.isOwn &&
+                reservation.userPermissions.canModify,
             },
             {
               waiting: reservation.state === 'waiting_for_payment',
             },
             {
-              paid: reservation.state === 'confirmed'
-                && !reservation.staffEvent
-                && price,
-            })}
+              paid:
+                reservation.state === 'confirmed' &&
+                !reservation.staffEvent &&
+                price,
+            }
+          )}
           style={{ width }}
         >
           <span className="names">
-            {reservation.eventSubject && <span className="event-subject">{reservation.eventSubject}</span>}
+            {reservation.eventSubject && (
+              <span className="event-subject">{reservation.eventSubject}</span>
+            )}
             <span className="reserver-name">{reserverName}</span>
             {showPrice && !reservation.staffEvent && (
-              <span className="price-tag" data-testid="price">{`${price} €`}</span>
+              <span className="price-tag" data-testid="price">
+                {`${price} €`}
+              </span>
             )}
           </span>
         </span>

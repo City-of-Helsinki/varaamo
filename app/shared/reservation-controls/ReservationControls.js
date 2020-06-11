@@ -5,7 +5,10 @@ import Button from 'react-bootstrap/lib/Button';
 
 import injectT from '../../i18n/injectT';
 import { hasProducts } from '../../utils/resourceUtils';
-import { getUnitRoleFromResource, getIsUnitStaff } from '../../../src/domain/resource/permissions/utils';
+import {
+  getUnitRoleFromResource,
+  getIsUnitStaff,
+} from '../../../src/domain/resource/permissions/utils';
 
 class ReservationControls extends Component {
   get buttons() {
@@ -40,11 +43,11 @@ class ReservationControls extends Component {
       edit: (
         <Button
           bsStyle="primary"
-          disabled={(
-            !this.isStaff
-            && !this.props.isAdmin
-            && hasProducts(this.props.resource))
-            || this.props.resource === null
+          disabled={
+            (!this.isStaff &&
+              !this.props.isAdmin &&
+              hasProducts(this.props.resource)) ||
+            this.props.resource === null
           }
           key="editButton"
           onClick={this.props.onEditClick}
@@ -91,9 +94,7 @@ class ReservationControls extends Component {
 
       case 'confirmed': {
         if (isAdmin) {
-          return isStaff
-            ? [buttons.cancel, buttons.edit]
-            : [buttons.cancel];
+          return isStaff ? [buttons.cancel, buttons.edit] : [buttons.cancel];
         }
         return [buttons.cancel];
       }
@@ -119,12 +120,16 @@ class ReservationControls extends Component {
 
   render() {
     const { isAdmin, reservation } = this.props;
-    const reservationIsInThePast = !reservation || moment() > moment(reservation.end);
+    const reservationIsInThePast =
+      !reservation || moment() > moment(reservation.end);
 
     return (
       <div className="buttons">
-        <div className="app-ReservationControls__info-button-wrapper">{this.buttons.info}</div>
-        {!reservationIsInThePast && this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
+        <div className="app-ReservationControls__info-button-wrapper">
+          {this.buttons.info}
+        </div>
+        {!reservationIsInThePast &&
+          this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
       </div>
     );
   }

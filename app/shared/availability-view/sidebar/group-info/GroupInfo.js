@@ -10,11 +10,13 @@ GroupInfo.propTypes = {
   selectedResourceId: PropTypes.string,
 };
 export default function GroupInfo(props) {
-  const date = props.date;
+  const { date } = props;
   return (
     <div className="group-info" title={props.name}>
-      <div className="group-name"><div className="name">{props.name}</div></div>
-      {props.resources.map(resource => (
+      <div className="group-name">
+        <div className="name">{props.name}</div>
+      </div>
+      {props.resources.map((resource) => (
         <ResourceInfoContainer
           date={date}
           id={resource}

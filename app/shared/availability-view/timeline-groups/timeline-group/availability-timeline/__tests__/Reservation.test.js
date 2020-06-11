@@ -14,7 +14,7 @@ function getOuterWrapper(props) {
     end: '2016-01-01T12:00:00Z',
     eventSubject: 'Meeting',
     id: 12345,
-    onClick: () => { },
+    onClick: () => {},
   };
   return shallow(<Reservation {...defaults} {...props} />);
 }
@@ -64,50 +64,38 @@ describe('shared/availability-view/Reservation', () => {
     expect(onClick.lastCall.args[0]).toEqual(reservation);
   });
 
-  test(
-    'adds class with-comments to reservation-link if reservation has comments',
-    () => {
-      const reservation = {
-        begin: '2016-01-01T10:00:00Z',
-        end: '2016-01-01T12:00:00Z',
-        eventSubject: 'Meeting',
-        id: 12345,
-        comments: 'comment',
-      };
-      const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-      expect(element).toHaveLength(1);
-    },
-  );
+  test('adds class with-comments to reservation-link if reservation has comments', () => {
+    const reservation = {
+      begin: '2016-01-01T10:00:00Z',
+      end: '2016-01-01T12:00:00Z',
+      eventSubject: 'Meeting',
+      id: 12345,
+      comments: 'comment',
+    };
+    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+    expect(element).toHaveLength(1);
+  });
 
-  test(
-    'does not add class with-comments to reservation-link if reservation has no comments',
-    () => {
-      const reservation = {
-        begin: '2016-01-01T10:00:00Z',
-        end: '2016-01-01T12:00:00Z',
-        eventSubject: 'Meeting',
-        id: 12345,
-      };
-      const element = getOuterWrapper({ ...reservation }).find('.with-comments');
-      expect(element).toHaveLength(0);
-    },
-  );
+  test('does not add class with-comments to reservation-link if reservation has no comments', () => {
+    const reservation = {
+      begin: '2016-01-01T10:00:00Z',
+      end: '2016-01-01T12:00:00Z',
+      eventSubject: 'Meeting',
+      id: 12345,
+    };
+    const element = getOuterWrapper({ ...reservation }).find('.with-comments');
+    expect(element).toHaveLength(0);
+  });
 
-  test(
-    'adds class requested to reservation if reservation state is requested',
-    () => {
-      const element = getWrapper({ state: 'requested' }).find('.requested');
-      expect(element).toHaveLength(1);
-    },
-  );
+  test('adds class requested to reservation if reservation state is requested', () => {
+    const element = getWrapper({ state: 'requested' }).find('.requested');
+    expect(element).toHaveLength(1);
+  });
 
-  test(
-    'does not add class requested to reservation if reservation state is not requested',
-    () => {
-      const element = getWrapper({ state: 'approved' }).find('.requested');
-      expect(element).toHaveLength(0);
-    },
-  );
+  test('does not add class requested to reservation if reservation state is not requested', () => {
+    const element = getWrapper({ state: 'approved' }).find('.requested');
+    expect(element).toHaveLength(0);
+  });
 
   test('has correct width', () => {
     const times = {
@@ -151,13 +139,16 @@ describe('shared/availability-view/Reservation', () => {
     });
 
     test('is rendered from email if no others', () => {
-      const props = { reserverName: undefined, user: { email: 'dv@dark.side' } };
+      const props = {
+        reserverName: undefined,
+        user: { email: 'dv@dark.side' },
+      };
       expect(getReserverName(props)).toBe('dv@dark.side');
     });
   });
 
   describe('when products prop does not include products of type RENT', () => {
-    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+    const findPrice = (wrapper) => wrapper.find('[data-testid="price"]');
 
     test('price should not be rendered', () => {
       const wrapper = findPrice(getWrapper({ products: [] }));
@@ -167,17 +158,21 @@ describe('shared/availability-view/Reservation', () => {
   });
 
   describe('when products prop includes products of type RENT', () => {
-    const findPrice = wrapper => wrapper.find('[data-testid="price"]');
+    const findPrice = (wrapper) => wrapper.find('[data-testid="price"]');
 
     test('price should not be rendered', () => {
-      const wrapper = findPrice(getWrapper({
-        products: [{
-          type: 'rent',
-          price: {
-            price_type: 'fixed',
-          },
-        }],
-      }));
+      const wrapper = findPrice(
+        getWrapper({
+          products: [
+            {
+              type: 'rent',
+              price: {
+                price_type: 'fixed',
+              },
+            },
+          ],
+        })
+      );
 
       expect(wrapper.length).toEqual(1);
     });

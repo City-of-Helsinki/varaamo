@@ -40,7 +40,10 @@ describe('pages/home/HomeSearchBox', () => {
   describe('handleChange', () => {
     test('calls this.props.onChange with correct value', () => {
       const instance = getWrapper().instance();
-      const mockEvent = { preventDefault: simple.mock(), target: { value: 'some value' } };
+      const mockEvent = {
+        preventDefault: simple.mock(),
+        target: { value: 'some value' },
+      };
       instance.handleChange(mockEvent);
       expect(instance.state.value).toBe(mockEvent.target.value);
     });

@@ -38,16 +38,13 @@ class ConfirmReservationModal extends Component {
     const { onClose, onConfirm } = this.props;
     onClose();
     onConfirm(values);
-  }
+  };
 
   getFormFields = (termsAndConditions) => {
-    const {
-      isAdmin,
-      isStaff,
-      resource,
-      showTimeControls,
-    } = this.props;
-    const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
+    const { isAdmin, isStaff, resource, showTimeControls } = this.props;
+    const formFields = [
+      ...resource.supportedReservationExtraFields,
+    ].map((value) => camelCase(value));
 
     if (showTimeControls) {
       formFields.push('begin', 'end');
@@ -69,7 +66,7 @@ class ConfirmReservationModal extends Component {
     }
 
     return uniq(formFields);
-  }
+  };
 
   getFormInitialValues = () => {
     const {
@@ -86,8 +83,12 @@ class ConfirmReservationModal extends Component {
       const orderedSelected = orderBy(selectedReservations, 'begin');
       const firstReservation = first(orderedSelected);
       const lastReservation = last(orderedSelected);
-      const endReservation = lastReservation ? { end: lastReservation.end } : {};
-      reservation = firstReservation ? Object.assign({}, firstReservation, endReservation) : null;
+      const endReservation = lastReservation
+        ? { end: lastReservation.end }
+        : {};
+      reservation = firstReservation
+        ? { ...firstReservation, ...endReservation }
+        : null;
     }
 
     let rv = reservation ? pick(reservation, this.getFormFields()) : {};
@@ -95,7 +96,7 @@ class ConfirmReservationModal extends Component {
       rv = { ...rv, staffEvent: isStaffEvent(reservation, resource) };
     }
     return rv;
-  }
+  };
 
   getModalTitle(isEditing, isPreliminaryReservation, t) {
     if (isEditing) {
@@ -108,9 +109,11 @@ class ConfirmReservationModal extends Component {
   }
 
   getRequiredFormFields(resource, termsAndConditions) {
-    const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field),
-    )];
+    const requiredFormFields = [
+      ...resource.requiredReservationExtraFields.map((field) =>
+        camelCase(field)
+      ),
+    ];
 
     if (termsAndConditions) {
       requiredFormFields.push('termsAndConditions');
@@ -123,7 +126,7 @@ class ConfirmReservationModal extends Component {
     const { onCancel, onClose } = this.props;
     onCancel();
     onClose();
-  }
+  };
 
   renderEditingTexts = () => {
     const { reservationsToEdit, t } = this.props;
@@ -133,7 +136,7 @@ class ConfirmReservationModal extends Component {
         <CompactReservationList reservations={reservationsToEdit} />
       </div>
     );
-  }
+  };
 
   renderReservationTimes = () => {
     const {
@@ -144,14 +147,21 @@ class ConfirmReservationModal extends Component {
       t,
     } = this.props;
 
-    const reservationsCount = selectedReservations.length + recurringReservations.length;
+    const reservationsCount =
+      selectedReservations.length + recurringReservations.length;
     const introText = isPreliminaryReservation
-      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
-      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+      ? t('ConfirmReservationModal.preliminaryReservationText', {
+          reservationsCount,
+        })
+      : t('ConfirmReservationModal.regularReservationText', {
+          reservationsCount,
+        });
 
     return (
       <div>
-        <p><strong>{introText}</strong></p>
+        <p>
+          <strong>{introText}</strong>
+        </p>
         <CompactReservationList
           onRemoveClick={onRemoveReservation}
           removableReservations={recurringReservations}
@@ -159,7 +169,7 @@ class ConfirmReservationModal extends Component {
         />
       </div>
     );
-  }
+  };
 
   renderInfoTexts = () => {
     const { isPreliminaryReservation, t } = this.props;
@@ -171,7 +181,7 @@ class ConfirmReservationModal extends Component {
         <p>{t('ConfirmReservationModal.formInfo')}</p>
       </div>
     );
-  }
+  };
 
   render() {
     const {

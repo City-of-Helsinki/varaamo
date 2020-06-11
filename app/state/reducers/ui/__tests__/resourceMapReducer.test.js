@@ -34,45 +34,34 @@ describe('state/reducers/ui/resourceMapReducer', () => {
             resources: keyBy(resources, 'id'),
             units: keyBy(units, 'id'),
           },
-        }),
+        })
       );
-      const units = [
-        Unit.build(),
-      ];
-      const resources = [
-        Resource.build({ unit: units[0].id }),
-      ];
+      const units = [Unit.build()];
+      const resources = [Resource.build({ unit: units[0].id })];
 
+      test('sets the unitId if given resource id is the same than state resourceId', () => {
+        const action = searchResourcesSuccess({ resources, units });
+        const initialState = Immutable({
+          resourceId: resources[0].id,
+          unitId: null,
+        });
+        const expected = units[0].id;
+        const nextState = resourceMapReducer(initialState, action);
 
-      test(
-        'sets the unitId if given resource id is the same than state resourceId',
-        () => {
-          const action = searchResourcesSuccess({ resources, units });
-          const initialState = Immutable({
-            resourceId: resources[0].id,
-            unitId: null,
-          });
-          const expected = units[0].id;
-          const nextState = resourceMapReducer(initialState, action);
+        expect(nextState.unitId).toEqual(expected);
+      });
 
-          expect(nextState.unitId).toEqual(expected);
-        },
-      );
+      test('does not set the unitId if given resource id is not the same than state resourceId', () => {
+        const action = searchResourcesSuccess({ resources, units });
+        const initialState = Immutable({
+          resourceId: 'qwertyqwerty',
+          unitId: null,
+        });
+        const expected = null;
+        const nextState = resourceMapReducer(initialState, action);
 
-      test(
-        'does not set the unitId if given resource id is not the same than state resourceId',
-        () => {
-          const action = searchResourcesSuccess({ resources, units });
-          const initialState = Immutable({
-            resourceId: 'qwertyqwerty',
-            unitId: null,
-          });
-          const expected = null;
-          const nextState = resourceMapReducer(initialState, action);
-
-          expect(nextState.unitId).toEqual(expected);
-        },
-      );
+        expect(nextState.unitId).toEqual(expected);
+      });
     });
 
     describe('UI.TOGGLE_SEARCH_SHOW_MAP', () => {
@@ -101,7 +90,7 @@ describe('state/reducers/ui/resourceMapReducer', () => {
       test('Sets resourceId from location pathname', () => {
         const resourcePageChange = createAction(
           'ENTER_OR_CHANGE_RESOURCE_PAGE',
-          location => (location),
+          (location) => location
         );
         const action = resourcePageChange({
           pathname: '/resources/qwertyasdfgh',

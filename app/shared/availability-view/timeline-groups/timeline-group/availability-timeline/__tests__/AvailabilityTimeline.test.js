@@ -27,11 +27,17 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
     const onReservationSlotMouseLeave = () => null;
     const wrapper = getWrapper({
       id,
-      items: [{
-        key: '1',
-        type: 'reservation-slot',
-        data: { begin: moment().format(), end: moment().format(), resourceId: '' },
-      }],
+      items: [
+        {
+          key: '1',
+          type: 'reservation-slot',
+          data: {
+            begin: moment().format(),
+            end: moment().format(),
+            resourceId: '',
+          },
+        },
+      ],
       onReservationSlotClick,
       onReservationSlotMouseEnter,
       onReservationSlotMouseLeave,
@@ -46,16 +52,18 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
 
   test('renders given reservation', () => {
     const wrapper = getWrapper({
-      items: [{
-        key: '1',
-        type: 'reservation',
-        data: {
-          begin: '',
-          end: '',
-          id: 12345,
-          name: 'My Reservation',
+      items: [
+        {
+          key: '1',
+          type: 'reservation',
+          data: {
+            begin: '',
+            end: '',
+            id: 12345,
+            name: 'My Reservation',
+          },
         },
-      }],
+      ],
     });
     const reservation = wrapper.find(Reservation);
     expect(reservation).toHaveLength(1);
@@ -78,7 +86,10 @@ describe('shared/availability-view/AvailabilityTimeline', () => {
           key: '2',
           type: 'reservation',
           data: {
-            begin: '', end: '', id: 12345, name: '',
+            begin: '',
+            end: '',
+            id: 12345,
+            name: '',
           },
         },
         {

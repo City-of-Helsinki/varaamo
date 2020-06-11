@@ -55,8 +55,9 @@ const maxLengths = {
 };
 
 function isTermsAndConditionsField(field) {
-  return field === 'termsAndConditions'
-    || field === 'paymentTermsAndConditions';
+  return (
+    field === 'termsAndConditions' || field === 'paymentTermsAndConditions'
+  );
 }
 
 function getTermsAndConditionsError(field) {
@@ -80,16 +81,16 @@ export function validate(values, { fields, requiredFields, t }) {
     }
     if (maxLengths[field]) {
       if (values[field] && values[field].length > maxLengths[field]) {
-        errors[field] = t('ReservationForm.maxLengthError', { maxLength: maxLengths[field] });
+        errors[field] = t('ReservationForm.maxLengthError', {
+          maxLength: maxLengths[field],
+        });
       }
     }
     if (includes(currentRequiredFields, field)) {
       if (!values[field]) {
-        errors[field] = (
-          isTermsAndConditionsField(field)
-            ? t(getTermsAndConditionsError(field))
-            : t('ReservationForm.requiredError')
-        );
+        errors[field] = isTermsAndConditionsField(field)
+          ? t(getTermsAndConditionsError(field))
+          : t('ReservationForm.requiredError');
       }
     }
   });
@@ -101,7 +102,9 @@ class UnconnectedReservationInformationForm extends Component {
     const { resource, t } = this.props;
     const maybeBillable = resource.minPricePerHour && resource.maxPricePerHour;
     if (resource.needManualConfirmation && maybeBillable) {
-      return `${t('ConfirmReservationModal.priceInfo')} ${t('ReservationForm.reservationFieldsAsteriskManualBilling')}`;
+      return `${t('ConfirmReservationModal.priceInfo')} ${t(
+        'ReservationForm.reservationFieldsAsteriskManualBilling'
+      )}`;
     }
     if (resource.needManualConfirmation && !hasProducts(resource)) {
       return t('ReservationForm.reservationFieldsAsteriskManualBilling');
@@ -138,7 +141,11 @@ class UnconnectedReservationInformationForm extends Component {
   renderTermsField(name) {
     const { t, isStaff } = this.props;
     // eslint-disable-next-line max-len
-    const label = `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}${isStaff ? '' : '*'}`;
+    const label = `${t(
+      'ReservationInformationForm.termsAndConditionsLabel'
+    )} ${t('ReservationInformationForm.termsAndConditionsLink')}${
+      isStaff ? '' : '*'
+    }`;
     return (
       <Field
         component={TermsField}
@@ -153,7 +160,11 @@ class UnconnectedReservationInformationForm extends Component {
   renderPaymentTermsField = () => {
     const { t, isStaff } = this.props;
     // eslint-disable-next-line max-len
-    const label = `${t('ReservationInformationForm.paymentTermsAndConditionsLabel')} ${t('ReservationInformationForm.paymentTermsAndConditionsLink')}${isStaff ? '' : '*'}`;
+    const label = `${t(
+      'ReservationInformationForm.paymentTermsAndConditionsLabel'
+    )} ${t('ReservationInformationForm.paymentTermsAndConditionsLink')}${
+      isStaff ? '' : '*'
+    }`;
     return (
       <Field
         component={TermsField}
@@ -163,15 +174,10 @@ class UnconnectedReservationInformationForm extends Component {
         type="terms"
       />
     );
-  }
+  };
 
   renderSaveButton() {
-    const {
-      isMakingReservations,
-      handleSubmit,
-      onConfirm,
-      t,
-    } = this.props;
+    const { isMakingReservations, handleSubmit, onConfirm, t } = this.props;
     return (
       <Button
         bsStyle="primary"
@@ -185,12 +191,7 @@ class UnconnectedReservationInformationForm extends Component {
   }
 
   renderPayButton() {
-    const {
-      isMakingReservations,
-      handleSubmit,
-      onConfirm,
-      t,
-    } = this.props;
+    const { isMakingReservations, handleSubmit, onConfirm, t } = this.props;
     return (
       <Button
         bsStyle="primary"
@@ -223,7 +224,11 @@ class UnconnectedReservationInformationForm extends Component {
 
     return (
       <div>
-        <Form className="reservation-form reservation-form-top-bottom" horizontal noValidate>
+        <Form
+          className="reservation-form reservation-form-top-bottom"
+          horizontal
+          noValidate
+        >
           {
             /**
              * Naming is a bit misleading in this case.
@@ -232,24 +237,21 @@ class UnconnectedReservationInformationForm extends Component {
              * and createIsStaffSelector returns isAdmin
              */
             isStaff && (
-            <InternalReservationFields
-              commentsMaxLengths={maxLengths.comments}
-              valid={valid}
-            />
+              <InternalReservationFields
+                commentsMaxLengths={maxLengths.comments}
+                valid={valid}
+              />
             )
           }
-          <p>
-            {this.getAsteriskExplanation()}
-          </p>
-          {includes(fields, 'reservationExtraQuestions')
-          && this.renderField(
-            'reservationExtraQuestions',
-            'textarea',
-            t('common.reservationExtraQuestions'),
-            { rows: 5 },
-          )
-          }
-          { includes(fields, 'reserverName') && (
+          <p>{this.getAsteriskExplanation()}</p>
+          {includes(fields, 'reservationExtraQuestions') &&
+            this.renderField(
+              'reservationExtraQuestions',
+              'textarea',
+              t('common.reservationExtraQuestions'),
+              { rows: 5 }
+            )}
+          {includes(fields, 'reserverName') && (
             <h2 className="app-ReservationPage__title">
               {t('ReservationInformationForm.reserverInformationTitle')}
             </h2>
@@ -259,105 +261,124 @@ class UnconnectedReservationInformationForm extends Component {
             'text',
             t('common.reserverNameLabel'),
             null,
-            { autoComplete: INPUT_PURPOSES.NAME, externalName: 'name' },
+            { autoComplete: INPUT_PURPOSES.NAME, externalName: 'name' }
           )}
-          {this.renderField(
-            'reserverId',
-            'text',
-            t('common.reserverIdLabel'),
-          )}
+          {this.renderField('reserverId', 'text', t('common.reserverIdLabel'))}
           {this.renderField(
             'reserverPhoneNumber',
             'text',
             t('common.reserverPhoneNumberLabel'),
             null,
-            { autoComplete: INPUT_PURPOSES.TEL, externalName: 'phone' },
+            { autoComplete: INPUT_PURPOSES.TEL, externalName: 'phone' }
           )}
           {this.renderField(
             'reserverEmailAddress',
             'email',
             t('common.reserverEmailAddressLabel'),
             null,
-            { autoComplete: INPUT_PURPOSES.EMAIL, externalName: 'email' },
+            { autoComplete: INPUT_PURPOSES.EMAIL, externalName: 'email' }
           )}
-          {includes(fields, 'reserverAddressStreet')
-            && this.renderField(
+          {includes(fields, 'reserverAddressStreet') &&
+            this.renderField(
               'reserverAddressStreet',
               'text',
               t('common.addressStreetLabel'),
               null,
-              { autoComplete: INPUT_PURPOSES.STREET_ADDRESS, externalName: 'address' },
+              {
+                autoComplete: INPUT_PURPOSES.STREET_ADDRESS,
+                externalName: 'address',
+              }
             )}
-          {includes(fields, 'reserverAddressZip')
-            && this.renderField(
+          {includes(fields, 'reserverAddressZip') &&
+            this.renderField(
               'reserverAddressZip',
               'text',
               t('common.addressZipLabel'),
               null,
-              { autoComplete: INPUT_PURPOSES.POSTAL_CODE, externalName: 'zip' },
+              { autoComplete: INPUT_PURPOSES.POSTAL_CODE, externalName: 'zip' }
             )}
-          {includes(fields, 'reserverAddressCity')
-            && this.renderField(
+          {includes(fields, 'reserverAddressCity') &&
+            this.renderField(
               'reserverAddressCity',
               'text',
               t('common.addressCityLabel'),
               null,
-              { autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2, externalName: 'city' },
-            )
-          }
-          {includes(fields, 'billingAddressStreet')
-            && <h2 className="app-ReservationPage__title">{t('common.billingAddressLabel')}</h2>
-          }
-          {includes(fields, 'billingAddressStreet')
-            && this.renderField(
+              {
+                autoComplete: INPUT_PURPOSES.ADDRESS_LEVEL_2,
+                externalName: 'city',
+              }
+            )}
+          {includes(fields, 'billingAddressStreet') && (
+            <h2 className="app-ReservationPage__title">
+              {t('common.billingAddressLabel')}
+            </h2>
+          )}
+          {includes(fields, 'billingAddressStreet') &&
+            this.renderField(
               'billingAddressStreet',
               'text',
               t('common.addressStreetLabel'),
               null,
-              { autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(' '), externalName: 'billing-address' },
-            )
-          }
-          {includes(fields, 'billingAddressZip')
-            && this.renderField(
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.STREET_ADDRESS].join(
+                  ' '
+                ),
+                externalName: 'billing-address',
+              }
+            )}
+          {includes(fields, 'billingAddressZip') &&
+            this.renderField(
               'billingAddressZip',
               'text',
               t('common.addressZipLabel'),
               null,
-              { autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(' '), externalName: 'billing-zip' },
-            )
-          }
-          {includes(fields, 'billingAddressCity')
-            && this.renderField(
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.POSTAL_CODE].join(' '),
+                externalName: 'billing-zip',
+              }
+            )}
+          {includes(fields, 'billingAddressCity') &&
+            this.renderField(
               'billingAddressCity',
               'text',
               t('common.addressCityLabel'),
               null,
-              { autoComplete: ['billing', INPUT_PURPOSES.ADDRESS_LEVEL_2].join(' '), externalName: 'billing-city' },
-            )
-          }
-          {includes(fields, 'billingFirstName')
-            && <h2 className="app-ReservationPage__title">{t('common.paymentInformationLabel')}</h2>
-          }
-          {includes(fields, 'billingFirstName')
-            && this.renderField(
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.ADDRESS_LEVEL_2].join(
+                  ' '
+                ),
+                externalName: 'billing-city',
+              }
+            )}
+          {includes(fields, 'billingFirstName') && (
+            <h2 className="app-ReservationPage__title">
+              {t('common.paymentInformationLabel')}
+            </h2>
+          )}
+          {includes(fields, 'billingFirstName') &&
+            this.renderField(
               'billingFirstName',
               'text',
               t('common.billingFirstNameLabel'),
               null,
-              { autoComplete: ['billing', INPUT_PURPOSES.GIVEN_NAME].join(' '), externalName: 'billing-fname' },
-            )
-          }
-          {includes(fields, 'billingLastName')
-            && this.renderField(
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.GIVEN_NAME].join(' '),
+                externalName: 'billing-fname',
+              }
+            )}
+          {includes(fields, 'billingLastName') &&
+            this.renderField(
               'billingLastName',
               'text',
               t('common.billingLastNameLabel'),
               null,
-              { autoComplete: ['billing', INPUT_PURPOSES.FAMILY_NAME].join(' '), externalName: 'billing-lname' },
-            )
-          }
-          {includes(fields, 'billingPhoneNumber')
-            && this.renderField(
+              {
+                autoComplete: ['billing', INPUT_PURPOSES.FAMILY_NAME].join(' '),
+                externalName: 'billing-lname',
+              }
+            )}
+          {includes(fields, 'billingPhoneNumber') &&
+            this.renderField(
               'billingPhoneNumber',
               'tel',
               t('common.billingPhoneNumberLabel'),
@@ -365,11 +386,10 @@ class UnconnectedReservationInformationForm extends Component {
               {
                 autoComplete: ['billing', INPUT_PURPOSES.TEL].join(' '),
                 externalName: ['billing', INPUT_PURPOSES.TEL].join('-'),
-              },
-            )
-          }
-          {includes(fields, 'billingEmailAddress')
-            && this.renderField(
+              }
+            )}
+          {includes(fields, 'billingEmailAddress') &&
+            this.renderField(
               'billingEmailAddress',
               'email',
               t('common.billingEmailAddressLabel'),
@@ -377,10 +397,11 @@ class UnconnectedReservationInformationForm extends Component {
               {
                 autoComplete: ['billing', INPUT_PURPOSES.EMAIL].join(' '),
                 externalName: ['billing', INPUT_PURPOSES.EMAIL].join('-'),
-              },
-            )
-          }
-          <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
+              }
+            )}
+          <h2 className="app-ReservationPage__title">
+            {t('ReservationInformationForm.eventInformationTitle')}
+          </h2>
           {includes(fields, 'eventSubject') && (
             <Notification
               closeButtonLabelText="dismiss"
@@ -396,68 +417,67 @@ class UnconnectedReservationInformationForm extends Component {
             'text',
             t('common.eventSubjectLabel'),
             {},
-            t('ReservationForm.eventSubjectInfo'),
+            t('ReservationForm.eventSubjectInfo')
           )}
           {this.renderField(
             'eventDescription',
             'textarea',
             t('common.eventDescriptionLabel'),
-            { rows: 5 },
+            { rows: 5 }
           )}
           {this.renderField(
             'numberOfParticipants',
             'number',
             t('common.numberOfParticipantsLabel'),
-            { min: '0' },
+            { min: '0' }
           )}
-          {termsAndConditions
-          && (
-          <React.Fragment>
-            <h2 className="app-ReservationPage__title">{t('ReservationTermsModal.resourceTermsTitle')}</h2>
-            <div className="terms-box">
-              <WrappedText text={resource.genericTerms} />
-            </div>
-            {this.renderTermsField('termsAndConditions')}
-          </React.Fragment>
-          )
-          }
-          {includes(fields, 'paymentTermsAndConditions')
-            && (
-            <React.Fragment>
-              <h2 className="app-ReservationPage__title">{t('paymentTerms.title')}</h2>
+          {termsAndConditions && (
+            <>
+              <h2 className="app-ReservationPage__title">
+                {t('ReservationTermsModal.resourceTermsTitle')}
+              </h2>
+              <div className="terms-box">
+                <WrappedText text={resource.genericTerms} />
+              </div>
+              {this.renderTermsField('termsAndConditions')}
+            </>
+          )}
+          {includes(fields, 'paymentTermsAndConditions') && (
+            <>
+              <h2 className="app-ReservationPage__title">
+                {t('paymentTerms.title')}
+              </h2>
               <div className="terms-box">
                 <WrappedText text={resource.paymentTerms} />
               </div>
               {this.renderPaymentTermsField()}
-            </React.Fragment>
-            )
-          }
+            </>
+          )}
           {resource.specificTerms && (
             <div>
-              <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
-              <WrappedText className="specificTermsContent" text={resource.specificTerms} />
+              <h2 className="app-ReservationPage__title">
+                {t('ReservationForm.specificTermsTitle')}
+              </h2>
+              <WrappedText
+                className="specificTermsContent"
+                text={resource.specificTerms}
+              />
             </div>
           )}
           <div>
-            <Button
-              onClick={onCancel}
-            >
-              {isEditing ? t('ReservationInformationForm.cancelEdit') : t('common.cancel')}
+            <Button onClick={onCancel}>
+              {isEditing
+                ? t('ReservationInformationForm.cancelEdit')
+                : t('common.cancel')}
             </Button>
-            {isEditing
-              && (
-              <Button
-                bsStyle="default"
-                onClick={onBack}
-              >
+            {isEditing && (
+              <Button bsStyle="default" onClick={onBack}>
                 {t('common.previous')}
               </Button>
-              )
-            }
+            )}
             {hasProducts(resource) && !isStaff
               ? this.renderPayButton()
-              : this.renderSaveButton()
-            }
+              : this.renderSaveButton()}
           </div>
         </Form>
       </div>
@@ -487,37 +507,40 @@ export { UnconnectedReservationInformationForm };
 // eslint-disable-next-line import/no-mutable-exports
 let ConnectedReservationInformationForm = UnconnectedReservationInformationForm;
 
-ConnectedReservationInformationForm = injectT(reduxForm({
-  form: FormTypes.RESERVATION,
-})(ConnectedReservationInformationForm));
+ConnectedReservationInformationForm = injectT(
+  reduxForm({
+    form: FormTypes.RESERVATION,
+  })(ConnectedReservationInformationForm)
+);
 
-ConnectedReservationInformationForm = connect(
-  (state) => {
-    const resource = state.ui.reservations.toEdit.length > 0
+ConnectedReservationInformationForm = connect((state) => {
+  const resource =
+    state.ui.reservations.toEdit.length > 0
       ? state.ui.reservations.toEdit[0].resource
       : state.ui.reservations.selected[0].resource;
 
-    return {
-      initialValues: {
-        internalReservation: true,
-        reservationExtraQuestionsDefault: state.data.resources[resource].reservationExtraQuestions,
-        reservationExtraQuestions: state.data.resources[resource].reservationExtraQuestions,
-        ...toCamelCase(state.ui.reservations.toEdit[0]),
-      },
-      onChange: (obj) => {
-        /**
-         * We separate creating new reservation and editing existing reservation with !obj.resource check.
-         * If we clear reservationExtraQuestions in the first place default reservationExtraQuestions is returned.
-         * We can override default value when editing existing reservation.
-         */
-        if (obj.reservationExtraQuestions === '' && !obj.resource) {
-          // eslint-disable-next-line no-param-reassign
-          obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
-        }
-      },
-      validate,
-    };
-  },
-)(ConnectedReservationInformationForm);
+  return {
+    initialValues: {
+      internalReservation: true,
+      reservationExtraQuestionsDefault:
+        state.data.resources[resource].reservationExtraQuestions,
+      reservationExtraQuestions:
+        state.data.resources[resource].reservationExtraQuestions,
+      ...toCamelCase(state.ui.reservations.toEdit[0]),
+    },
+    onChange: (obj) => {
+      /**
+       * We separate creating new reservation and editing existing reservation with !obj.resource check.
+       * If we clear reservationExtraQuestions in the first place default reservationExtraQuestions is returned.
+       * We can override default value when editing existing reservation.
+       */
+      if (obj.reservationExtraQuestions === '' && !obj.resource) {
+        // eslint-disable-next-line no-param-reassign
+        obj.reservationExtraQuestions = obj.reservationExtraQuestionsDefault;
+      }
+    },
+    validate,
+  };
+})(ConnectedReservationInformationForm);
 
 export default ConnectedReservationInformationForm;

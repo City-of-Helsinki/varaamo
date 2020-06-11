@@ -53,7 +53,9 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ReservationInfoModal {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationInfoModal {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('render', () => {
@@ -125,7 +127,9 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
 
           test('renders textarea FormControl for comments with correct props', () => {
             const wrapper = getWrapper(props);
-            const formControl = wrapper.find('.comments-form').find(FormControl);
+            const formControl = wrapper
+              .find('.comments-form')
+              .find(FormControl);
             const mockRef = { value: 'foo' };
 
             formControl.prop('inputRef')(mockRef);
@@ -142,8 +146,12 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             const wrapper = getWrapper(props);
             const button = wrapper.find('.comments-form').find(Button);
             const instance = wrapper.instance();
-            expect(button.props().children).toBe('ReservationInfoModal.saveComment');
-            expect(button.props().onClick).toBe(instance.handleSaveCommentsClick);
+            expect(button.props().children).toBe(
+              'ReservationInfoModal.saveComment'
+            );
+            expect(button.props().onClick).toBe(
+              instance.handleSaveCommentsClick
+            );
           });
         });
 
@@ -214,17 +222,14 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           expect(getDenyButton(props)).toHaveLength(0);
         });
 
-        test(
-          'is rendered if user is staff, reservation is editable and in "requested" state',
-          () => {
-            const props = {
-              userUnitRole: 'UNIT_ADMINISTRATOR',
-              reservationIsEditable: true,
-              reservation: { ...reservation, state: 'requested' },
-            };
-            expect(getDenyButton(props)).toHaveLength(1);
-          },
-        );
+        test('is rendered if user is staff, reservation is editable and in "requested" state', () => {
+          const props = {
+            userUnitRole: 'UNIT_ADMINISTRATOR',
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getDenyButton(props)).toHaveLength(1);
+        });
       });
 
       describe('confirm button', () => {
@@ -262,17 +267,14 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
           expect(getConfirmButton(props)).toHaveLength(0);
         });
 
-        test(
-          'is rendered if user is staff, reservation is editable and in "requested" state',
-          () => {
-            const props = {
-              userUnitRole: 'UNIT_ADMINISTRATOR',
-              reservationIsEditable: true,
-              reservation: { ...reservation, state: 'requested' },
-            };
-            expect(getConfirmButton(props)).toHaveLength(1);
-          },
-        );
+        test('is rendered if user is staff, reservation is editable and in "requested" state', () => {
+          const props = {
+            userUnitRole: 'UNIT_ADMINISTRATOR',
+            reservationIsEditable: true,
+            reservation: { ...reservation, state: 'requested' },
+          };
+          expect(getConfirmButton(props)).toHaveLength(1);
+        });
       });
 
       describe('cancel button', () => {
@@ -306,17 +308,14 @@ describe('shared/modals/reservation-info/ReservationInfoModal', () => {
             expect(getCancelButton(props)).toHaveLength(1);
           });
 
-          test(
-            'is rendered for regular users if reservation state is "requested"',
-            () => {
-              const props = {
-                isAdmin: false,
-                reservationIsEditable,
-                reservation: { ...reservation, state: 'requested' },
-              };
-              expect(getCancelButton(props)).toHaveLength(1);
-            },
-          );
+          test('is rendered for regular users if reservation state is "requested"', () => {
+            const props = {
+              isAdmin: false,
+              reservationIsEditable,
+              reservation: { ...reservation, state: 'requested' },
+            };
+            expect(getCancelButton(props)).toHaveLength(1);
+          });
 
           test('is not rendered for admins if reservation state is "requested"', () => {
             const props = {

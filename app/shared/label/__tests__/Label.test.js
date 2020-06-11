@@ -6,7 +6,11 @@ import Label from '../Label';
 
 function getWrapper(props, content = 'Some text') {
   const defaults = {};
-  return shallow(<Label {...defaults} {...props}>{content}</Label>);
+  return shallow(
+    <Label {...defaults} {...props}>
+      {content}
+    </Label>
+  );
 }
 
 describe('shared/label/Label', () => {

@@ -47,7 +47,7 @@ UnconnectedPrivateRoute.propTypes = {
   componentName: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   userId: userIdSelector(state),
 });
 
@@ -61,5 +61,5 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UnconnectedPrivateRoute);

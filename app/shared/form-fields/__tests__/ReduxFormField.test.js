@@ -38,7 +38,10 @@ describe('shared/form-fields/ReduxFormField', () => {
   describe('passing props', () => {
     test('controlProps contain both props.input and props.controlProps', () => {
       const actualProps = getWrapper().find(FormControl).props();
-      const expected = Object.assign({}, defaultProps.input, defaultProps.controlProps);
+      const expected = {
+        ...defaultProps.input,
+        ...defaultProps.controlProps,
+      };
       expect(actualProps.controlProps).toEqual(expected);
     });
 

@@ -41,31 +41,39 @@ class CreateNotifications extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribeAuthListener = firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ superuser: !!user, loading: false });
-    });
-
-    this.unsubscribeNotificationsListener = firebase.firestore().collection('notifications').onSnapshot((querySnap) => {
-      const notifications = [];
-      querySnap.forEach((doc) => {
-        const notification = formatValuesForUse(doc.data());
-        notification.id = doc.id;
-        notifications.push(notification);
+    this.unsubscribeAuthListener = firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        this.setState({ superuser: !!user, loading: false });
       });
-      this.setState({ notifications });
-    });
+
+    this.unsubscribeNotificationsListener = firebase
+      .firestore()
+      .collection('notifications')
+      .onSnapshot((querySnap) => {
+        const notifications = [];
+        querySnap.forEach((doc) => {
+          const notification = formatValuesForUse(doc.data());
+          notification.id = doc.id;
+          notifications.push(notification);
+        });
+        this.setState({ notifications });
+      });
   }
 
   componentWillUnmount() {
     this.unsubscribeAuthListener && this.unsubscribeAuthListener();
-    this.unsubscribeNotificationsListener && this.unsubscribeNotificationsListener();
+    this.unsubscribeNotificationsListener &&
+      this.unsubscribeNotificationsListener();
   }
 
   logIn = () => {
     const { email, password } = this.state;
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    // eslint-disable-next-line no-console
-      .catch(err => console.log('ERROR', err));
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      // eslint-disable-next-line no-console
+      .catch((err) => console.log('ERROR', err));
   };
 
   onFieldChange = (event, field, lang) => {
@@ -109,11 +117,16 @@ class CreateNotifications extends Component {
   };
 
   addNotification = () => {
-    let newNotification = JSON.parse(JSON.stringify(this.state.newNotification));
+    let newNotification = JSON.parse(
+      JSON.stringify(this.state.newNotification)
+    );
     // Modify data so it will be saved correctly
     newNotification = formatValuesForDatabase(newNotification);
 
-    firebase.firestore().collection('notifications').add(newNotification)
+    firebase
+      .firestore()
+      .collection('notifications')
+      .add(newNotification)
       .then(() => {
         // Reset values
         this.setState({
@@ -121,61 +134,86 @@ class CreateNotifications extends Component {
         });
       })
       // eslint-disable-next-line no-console
-      .catch(err => console.log('ERROR', err));
+      .catch((err) => console.log('ERROR', err));
   };
 
   saveNotification = () => {
-    let selectedNotification = JSON.parse(JSON.stringify(this.state.selectedNotification));
+    let selectedNotification = JSON.parse(
+      JSON.stringify(this.state.selectedNotification)
+    );
     selectedNotification = formatValuesForDatabase(selectedNotification);
 
-    firebase.firestore().collection('notifications').doc(selectedNotification.id).set(selectedNotification)
+    firebase
+      .firestore()
+      .collection('notifications')
+      .doc(selectedNotification.id)
+      .set(selectedNotification)
       .then(() => {
         this.setState({
           selectedNotification: {},
         });
       })
       // eslint-disable-next-line no-console
-      .catch(err => console.log('ERROR', err));
+      .catch((err) => console.log('ERROR', err));
   };
 
   deleteNotification = () => {
     const { selectedNotification } = this.state;
-    firebase.firestore().collection('notifications').doc(selectedNotification.id).delete()
+    firebase
+      .firestore()
+      .collection('notifications')
+      .doc(selectedNotification.id)
+      .delete()
       .then(() => {
         this.setState({
           selectedNotification: {},
         });
       })
-    // eslint-disable-next-line no-console
-      .catch(err => console.log('ERROR', err));
+      // eslint-disable-next-line no-console
+      .catch((err) => console.log('ERROR', err));
   };
 
   render() {
     const {
-      email, isOpen, password, superuser, loading, notifications, newNotification, selectedNotification,
+      email,
+      isOpen,
+      password,
+      superuser,
+      loading,
+      notifications,
+      newNotification,
+      selectedNotification,
     } = this.state;
 
     return (
       <div className="app-CreateNotifications">
         <Loader loaded={!loading}>
           <Grid>
-            {!superuser && !loading
-              && (
+            {!superuser && !loading && (
               <div className="login">
                 <div className="center">
                   <span>Email</span>
-                  <input onChange={e => this.setState({ email: e.target.value })} value={email} />
+                  <input
+                    onChange={(e) => this.setState({ email: e.target.value })}
+                    value={email}
+                  />
                   <span>Password</span>
-                  <input onChange={e => this.setState({ password: e.target.value })} type="password" value={password} />
-                  <button onClick={this.logIn} type="submit">Log in</button>
+                  <input
+                    onChange={(e) =>
+                      this.setState({ password: e.target.value })
+                    }
+                    type="password"
+                    value={password}
+                  />
+                  <button onClick={this.logIn} type="submit">
+                    Log in
+                  </button>
                 </div>
               </div>
-              )
-            }
+            )}
 
-            {superuser && !loading
-              && (
-              <React.Fragment>
+            {superuser && !loading && (
+              <>
                 <CreateNotificationsForm
                   addElement={this.addElement}
                   addNew={this.addNotification}
@@ -186,18 +224,21 @@ class CreateNotifications extends Component {
                   notifications={notifications}
                   onClick={this.onNotificationSelect}
                 />
-              </React.Fragment>
-              )
-            }
+              </>
+            )}
           </Grid>
         </Loader>
         <CreateNotificationModal
           addElement={this.addElement}
           isOpen={isOpen}
-          onDelete={() => this.setState({ isOpen: false }, () => this.deleteNotification())}
+          onDelete={() =>
+            this.setState({ isOpen: false }, () => this.deleteNotification())
+          }
           onFieldChange={this.onSelectedFieldChange}
           onHide={this.onHide}
-          save={() => this.setState({ isOpen: false }, () => this.saveNotification())}
+          save={() =>
+            this.setState({ isOpen: false }, () => this.saveNotification())
+          }
           selectedNotification={selectedNotification}
         />
       </div>

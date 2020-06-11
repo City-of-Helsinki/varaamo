@@ -48,7 +48,9 @@ class Html extends Component {
       <div>
         <script dangerouslySetInnerHTML={{ __html: scriptString }} />
         <noscript>
-          <p><img alt="" src={imgSrc} style={{ border: 0 }} /></p>
+          <p>
+            <img alt="" src={imgSrc} style={{ border: 0 }} />
+          </p>
         </noscript>
       </div>
     );
@@ -89,7 +91,10 @@ class Html extends Component {
           <div id="root" />
           <script
             dangerouslySetInnerHTML={{
-              __html: stringifyStateIntoWindow(ENV_NAMESPACE, pick(settings, CLIENT_ENV)),
+              __html: stringifyStateIntoWindow(
+                ENV_NAMESPACE,
+                pick(settings, CLIENT_ENV)
+              ),
             }}
           />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />

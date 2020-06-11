@@ -25,7 +25,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ReservationSuccessModal {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationSuccessModal {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('if reservation is preliminary', () => {
@@ -50,8 +52,12 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     test('renders a Modal with correct props', () => {
       const modalComponent = wrapper.find(Modal);
       expect(modalComponent.length).toBe(1);
-      expect(modalComponent.prop('className')).toBe('reservation-success-modal modal-city-theme');
-      expect(modalComponent.prop('onHide')).toBe(defaultProps.closeReservationSuccessModal);
+      expect(modalComponent.prop('className')).toBe(
+        'reservation-success-modal modal-city-theme'
+      );
+      expect(modalComponent.prop('onHide')).toBe(
+        defaultProps.closeReservationSuccessModal
+      );
       expect(modalComponent.prop('show')).toBe(defaultProps.show);
     });
 
@@ -64,7 +70,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     test('renders a ModalTitle with correct title', () => {
       const modalTitle = wrapper.find(Modal.Title);
       expect(modalTitle.length).toBe(1);
-      expect(modalTitle.prop('children')).toBe('ReservationSuccessModal.preliminaryReservationTitle');
+      expect(modalTitle.prop('children')).toBe(
+        'ReservationSuccessModal.preliminaryReservationTitle'
+      );
     });
 
     test('renders a ModalBody', () => {
@@ -104,12 +112,17 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
 
       test('renders correct intro text', () => {
-        expect(textContent).toContain('ReservationSuccessModal.preliminaryReservationLead');
-        expect(textContent).not.toContain('ReservationSuccessModal.regularReservationLead');
+        expect(textContent).toContain(
+          'ReservationSuccessModal.preliminaryReservationLead'
+        );
+        expect(textContent).not.toContain(
+          'ReservationSuccessModal.regularReservationLead'
+        );
       });
 
       test('renders additional info', () => {
-        const additionalInfo = wrapper.find(FormattedHTMLMessage)
+        const additionalInfo = wrapper
+          .find(FormattedHTMLMessage)
           .filter({ id: 'ReservationSuccessModal.preliminaryReservationInfo' });
         expect(additionalInfo).toHaveLength(1);
       });
@@ -128,7 +141,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
       test('has closeReservationSuccessModal as its onClick prop ', () => {
         const button = wrapper.find(Button);
-        expect(button.prop('onClick')).toBe(defaultProps.closeReservationSuccessModal);
+        expect(button.prop('onClick')).toBe(
+          defaultProps.closeReservationSuccessModal
+        );
       });
     });
   });
@@ -153,8 +168,12 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     test('renders a Modal with correct props', () => {
       const modalComponent = wrapper.find(Modal);
       expect(modalComponent.length).toBe(1);
-      expect(modalComponent.prop('className')).toBe('reservation-success-modal modal-city-theme');
-      expect(modalComponent.prop('onHide')).toBe(defaultProps.closeReservationSuccessModal);
+      expect(modalComponent.prop('className')).toBe(
+        'reservation-success-modal modal-city-theme'
+      );
+      expect(modalComponent.prop('onHide')).toBe(
+        defaultProps.closeReservationSuccessModal
+      );
       expect(modalComponent.prop('show')).toBe(defaultProps.show);
     });
 
@@ -167,7 +186,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
     test('renders a ModalTitle with correct title', () => {
       const modalTitle = wrapper.find(Modal.Title);
       expect(modalTitle.length).toBe(1);
-      expect(modalTitle.prop('children')).toBe('ReservationSuccessModal.regularReservationTitle');
+      expect(modalTitle.prop('children')).toBe(
+        'ReservationSuccessModal.regularReservationTitle'
+      );
     });
 
     test('renders a ModalBody', () => {
@@ -202,12 +223,17 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       });
 
       test('renders correct intro text', () => {
-        expect(textContent).toContain('ReservationSuccessModal.regularReservationLead');
-        expect(textContent).not.toContain('ReservationSuccessModal.preliminaryReservationLead');
+        expect(textContent).toContain(
+          'ReservationSuccessModal.regularReservationLead'
+        );
+        expect(textContent).not.toContain(
+          'ReservationSuccessModal.preliminaryReservationLead'
+        );
       });
 
       test('does not render additional info', () => {
-        const additionalInfo = wrapper.find(FormattedHTMLMessage)
+        const additionalInfo = wrapper
+          .find(FormattedHTMLMessage)
           .filter({ id: 'ReservationSuccessModal.preliminaryReservationInfo' });
         expect(additionalInfo).toHaveLength(0);
       });
@@ -226,14 +252,18 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
 
       test('has closeReservationSuccessModal as its onClick prop ', () => {
         const button = wrapper.find(Button);
-        expect(button.prop('onClick')).toBe(defaultProps.closeReservationSuccessModal);
+        expect(button.prop('onClick')).toBe(
+          defaultProps.closeReservationSuccessModal
+        );
       });
     });
   });
 
   describe('failed reservations', () => {
     function getFailedReservationsList(failedReservations) {
-      return getWrapper({ failedReservations }).find('.failed-reservations-list');
+      return getWrapper({ failedReservations }).find(
+        '.failed-reservations-list'
+      );
     }
 
     test('are rendered if there are any', () => {
@@ -256,15 +286,14 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
         }),
       ]);
 
-      test(
-        'renders ReservationAccessCode component with correct reservation',
-        () => {
-          const accessCode = getWrapper({ reservationsToShow }).find(ReservationAccessCode);
+      test('renders ReservationAccessCode component with correct reservation', () => {
+        const accessCode = getWrapper({ reservationsToShow }).find(
+          ReservationAccessCode
+        );
 
-          expect(accessCode.length).toBe(1);
-          expect(accessCode.prop('reservation')).toEqual(reservationsToShow[0]);
-        },
-      );
+        expect(accessCode.length).toBe(1);
+        expect(accessCode.prop('reservation')).toEqual(reservationsToShow[0]);
+      });
     });
 
     describe('if reservation does not have access code', () => {
@@ -275,7 +304,9 @@ describe('shared/modals/reservation-success/ReservationSuccessModal', () => {
       ]);
 
       test('does not render ReservationAccessCode component', () => {
-        const accessCode = getWrapper({ reservationsToShow }).find(ReservationAccessCode);
+        const accessCode = getWrapper({ reservationsToShow }).find(
+          ReservationAccessCode
+        );
 
         expect(accessCode.length).toBe(0);
       });

@@ -73,13 +73,17 @@ class PositionControl extends React.Component {
             onChange={this.handleDistanceSliderChange}
             step={this.state.step}
             tipFormatter={this.distanceFormatter}
-            tipProps={{ overlayClassName: 'app-PositionControl__distance_slider_tooltip' }}
+            tipProps={{
+              overlayClassName: 'app-PositionControl__distance_slider_tooltip',
+            }}
             value={this.state.distance}
           />
         )}
         {this.state.toggled && (
           <div>
-            {`${t('PositionControl.maxDistance')} : ${this.distanceFormatter(this.state.distance)}`}
+            {`${t('PositionControl.maxDistance')} : ${this.distanceFormatter(
+              this.state.distance
+            )}`}
           </div>
         )}
       </div>

@@ -3,11 +3,13 @@ import {
   closeReservationCommentModal,
   closeReservationSuccessModal,
 } from '../../actions/uiActions';
-import recurringReservations, { populateReservations } from '../recurringReservations';
+import recurringReservations, {
+  populateReservations,
+} from '../recurringReservations';
 
 describe('state/recurringReservations', () => {
   describe('reducer', () => {
-    const reducer = recurringReservations.reducer;
+    const { reducer } = recurringReservations;
     const initialState = {
       baseTime: null,
       frequency: '',
@@ -22,7 +24,7 @@ describe('state/recurringReservations', () => {
     });
 
     describe('changeBaseTime', () => {
-      const changeBaseTime = recurringReservations.changeBaseTime;
+      const { changeBaseTime } = recurringReservations;
 
       test('changes baseTime to action.payload', () => {
         const state = {
@@ -39,7 +41,7 @@ describe('state/recurringReservations', () => {
     });
 
     describe('changeFrequency', () => {
-      const changeFrequency = recurringReservations.changeFrequency;
+      const { changeFrequency } = recurringReservations;
 
       test('changes frequency to action.payload', () => {
         const state = {
@@ -60,11 +62,13 @@ describe('state/recurringReservations', () => {
           numberOfOccurrences: 1,
           reservations: [],
         };
-        const reservations = reducer(state, changeFrequency('days')).reservations;
-        const expected = [{
-          begin: '2017-04-19T15:00:00.000Z',
-          end: '2017-04-19T16:00:00.000Z',
-        }];
+        const { reservations } = reducer(state, changeFrequency('days'));
+        const expected = [
+          {
+            begin: '2017-04-19T15:00:00.000Z',
+            end: '2017-04-19T16:00:00.000Z',
+          },
+        ];
         expect(reservations).toEqual(expected);
       });
 
@@ -85,7 +89,7 @@ describe('state/recurringReservations', () => {
     });
 
     describe('changeNumberOfOccurrences', () => {
-      const changeNumberOfOccurrences = recurringReservations.changeNumberOfOccurrences;
+      const { changeNumberOfOccurrences } = recurringReservations;
 
       test('changes numberOfOccurrences to action.payload', () => {
         const state = {
@@ -106,7 +110,7 @@ describe('state/recurringReservations', () => {
           numberOfOccurrences: 1,
           reservations: [],
         };
-        const reservations = reducer(state, changeNumberOfOccurrences(2)).reservations;
+        const { reservations } = reducer(state, changeNumberOfOccurrences(2));
         const expected = [
           {
             begin: '2017-04-19T15:00:00.000Z',
@@ -153,7 +157,7 @@ describe('state/recurringReservations', () => {
       });
 
       describe('changeLastTime', () => {
-        const changeLastTime = recurringReservations.changeLastTime;
+        const { changeLastTime } = recurringReservations;
 
         test('changes lastTime to action.payload', () => {
           const lastTime = '2017-04-18';
@@ -217,7 +221,7 @@ describe('state/recurringReservations', () => {
       });
 
       describe('removeReservation', () => {
-        const removeReservation = recurringReservations.removeReservation;
+        const { removeReservation } = recurringReservations;
         const reservations = [
           {
             begin: '2017-04-18T15:00:00.000Z',
@@ -234,24 +238,29 @@ describe('state/recurringReservations', () => {
             ...initialState,
             reservations,
           };
-          const actual = reducer(state, removeReservation('2017-04-18T15:00:00.000Z'));
-          expect(actual.reservations).toEqual([{
-            begin: '2017-04-19T15:00:00.000Z',
-            end: '2017-04-19T16:00:00.000Z',
-          }]);
+          const actual = reducer(
+            state,
+            removeReservation('2017-04-18T15:00:00.000Z')
+          );
+          expect(actual.reservations).toEqual([
+            {
+              begin: '2017-04-19T15:00:00.000Z',
+              end: '2017-04-19T16:00:00.000Z',
+            },
+          ]);
         });
 
-        test(
-          'does not change reservations if begin time is not in reservations',
-          () => {
-            const state = {
-              ...initialState,
-              reservations,
-            };
-            const actual = reducer(state, removeReservation('2017-04-17T15:00:00.000Z'));
-            expect(actual.reservations).toEqual(reservations);
-          },
-        );
+        test('does not change reservations if begin time is not in reservations', () => {
+          const state = {
+            ...initialState,
+            reservations,
+          };
+          const actual = reducer(
+            state,
+            removeReservation('2017-04-17T15:00:00.000Z')
+          );
+          expect(actual.reservations).toEqual(reservations);
+        });
       });
 
       describe('UI.CLOSE_MODAL', () => {
@@ -302,12 +311,18 @@ describe('state/recurringReservations', () => {
     }
 
     test('returns an empty array if baseTime is not set', () => {
-      const reservations = getReservations({ baseTime: null, frequency: 'days' });
+      const reservations = getReservations({
+        baseTime: null,
+        frequency: 'days',
+      });
       expect(reservations).toEqual([]);
     });
 
     test('returns an empty array if frequency is not set', () => {
-      const reservations = getReservations({ baseTime: { foo: 'bar' }, frequency: '' });
+      const reservations = getReservations({
+        baseTime: { foo: 'bar' },
+        frequency: '',
+      });
       expect(reservations).toEqual([]);
     });
 
@@ -318,7 +333,11 @@ describe('state/recurringReservations', () => {
       };
       const frequency = 'days';
       const numberOfOccurrences = 3;
-      const reservations = getReservations({ baseTime, frequency, numberOfOccurrences });
+      const reservations = getReservations({
+        baseTime,
+        frequency,
+        numberOfOccurrences,
+      });
       const expected = [
         {
           begin: '2017-04-19T15:00:00.000Z',
@@ -343,7 +362,11 @@ describe('state/recurringReservations', () => {
       };
       const frequency = 'weeks';
       const numberOfOccurrences = 3;
-      const reservations = getReservations({ baseTime, frequency, numberOfOccurrences });
+      const reservations = getReservations({
+        baseTime,
+        frequency,
+        numberOfOccurrences,
+      });
       const expected = [
         {
           begin: '2017-04-25T15:00:00.000Z',
@@ -368,7 +391,11 @@ describe('state/recurringReservations', () => {
       };
       const frequency = 'months';
       const numberOfOccurrences = 3;
-      const reservations = getReservations({ baseTime, frequency, numberOfOccurrences });
+      const reservations = getReservations({
+        baseTime,
+        frequency,
+        numberOfOccurrences,
+      });
       const expected = [
         {
           begin: '2017-05-18T15:00:00.000Z',
@@ -393,7 +420,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { foo: 'bar' },
         };
-        expect(recurringReservations.select(state)).toEqual(state.recurringReservations);
+        expect(recurringReservations.select(state)).toEqual(
+          state.recurringReservations
+        );
       });
     });
 
@@ -402,9 +431,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { baseTime: { begin: '', end: '' } },
         };
-        expect(
-          recurringReservations.selectBaseTime(state),
-        ).toEqual(state.recurringReservations.baseTime);
+        expect(recurringReservations.selectBaseTime(state)).toEqual(
+          state.recurringReservations.baseTime
+        );
       });
     });
 
@@ -413,9 +442,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { frequency: 'days' },
         };
-        expect(
-          recurringReservations.selectFrequency(state),
-        ).toBe(state.recurringReservations.frequency);
+        expect(recurringReservations.selectFrequency(state)).toBe(
+          state.recurringReservations.frequency
+        );
       });
     });
 
@@ -424,9 +453,9 @@ describe('state/recurringReservations', () => {
         const state = {
           recurringReservations: { numberOfOccurrences: 12 },
         };
-        expect(
-          recurringReservations.selectNumberOfOccurrences(state),
-        ).toBe(state.recurringReservations.numberOfOccurrences);
+        expect(recurringReservations.selectNumberOfOccurrences(state)).toBe(
+          state.recurringReservations.numberOfOccurrences
+        );
       });
     });
 
@@ -434,12 +463,15 @@ describe('state/recurringReservations', () => {
       test('returns recurringReservations.reservations', () => {
         const state = {
           recurringReservations: {
-            reservations: [{ begin: '', end: '' }, { begin: '', end: '' }],
+            reservations: [
+              { begin: '', end: '' },
+              { begin: '', end: '' },
+            ],
           },
         };
-        expect(
-          recurringReservations.selectReservations(state),
-        ).toEqual(state.recurringReservations.reservations);
+        expect(recurringReservations.selectReservations(state)).toEqual(
+          state.recurringReservations.reservations
+        );
       });
     });
   });

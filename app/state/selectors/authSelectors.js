@@ -1,22 +1,24 @@
 import { createSelector } from 'reselect';
 
-import { getUnitRoleFromResource, getIsUnitStaff } from '../../../src/domain/resource/permissions/utils';
+import {
+  getUnitRoleFromResource,
+  getIsUnitStaff,
+} from '../../../src/domain/resource/permissions/utils';
 
-const userIdSelector = state => state.auth.userId;
-const usersSelector = state => state.data.users;
+const userIdSelector = (state) => state.auth.userId;
+const usersSelector = (state) => state.data.users;
 
 const currentUserSelector = createSelector(
   userIdSelector,
   usersSelector,
-  (userId, users) => users[userId] || {},
+  (userId, users) => users[userId] || {}
 );
 
 /**
  * Check if the user is staff and can see the private route.
  */
-const isAdminSelector = createSelector(
-  currentUserSelector,
-  currentUser => Boolean(currentUser.isStaff),
+const isAdminSelector = createSelector(currentUserSelector, (currentUser) =>
+  Boolean(currentUser.isStaff)
 );
 
 function isLoggedInSelector(state) {
@@ -27,9 +29,8 @@ function isLoggedInSelector(state) {
  * Returns user's role in the unit the resource belongs to.
  */
 function createUserUnitRoleSelector(resourceSelector) {
-  return createSelector(
-    resourceSelector,
-    resource => getUnitRoleFromResource(resource),
+  return createSelector(resourceSelector, (resource) =>
+    getUnitRoleFromResource(resource)
   );
 }
 
@@ -43,7 +44,7 @@ function createUserUnitRoleSelector(resourceSelector) {
 function createIsStaffSelector(resourceSelector) {
   return createSelector(
     createUserUnitRoleSelector(resourceSelector),
-    uiUnitRole => getIsUnitStaff(uiUnitRole),
+    (uiUnitRole) => getIsUnitStaff(uiUnitRole)
   );
 }
 

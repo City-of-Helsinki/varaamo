@@ -7,6 +7,4 @@ function getServiceMapUrl(unit) {
   return `https://palvelukartta.hel.fi/unit/${unitId}#!route-details`;
 }
 
-export {
-  getServiceMapUrl,
-};
+export { getServiceMapUrl };

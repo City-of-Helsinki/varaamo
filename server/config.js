@@ -1,5 +1,4 @@
 import path from 'path';
-
 import hashFile from 'hash-file';
 
 import settings from '../config/settings';
@@ -22,13 +21,13 @@ module.exports = {
   assetsSources: {
     appCss: isProduction
       ? `/_assets/app.css?${getAssetHash(
-        path.resolve(__dirname, '../dist/app.css'),
-      )}`
+          path.resolve(__dirname, '../dist/app.css')
+        )}`
       : '',
     appJs: isProduction
       ? `/_assets/app.js?${getAssetHash(
-        path.resolve(__dirname, '../dist/app.js'),
-      )}`
+          path.resolve(__dirname, '../dist/app.js')
+        )}`
       : '/app.js',
   },
   isProduction,

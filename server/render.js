@@ -5,7 +5,7 @@ import config from './config';
 import Html from './Html';
 
 function render(req, res) {
-  const user = req.user;
+  const { user } = req;
   let initialState = {};
   if (user && user.id && user.token) {
     initialState = {
@@ -25,7 +25,7 @@ function render(req, res) {
       initialState={initialState}
       isProduction={config.isProduction}
       piwikSiteId={config.piwikSiteId}
-    />,
+    />
   );
   const html = `<!DOCTYPE html>${htmlContent}`;
 

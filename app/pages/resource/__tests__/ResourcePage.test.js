@@ -17,7 +17,7 @@ import ResourceMapInfo from '../resource-map-info/ResourceMapInfo';
 
 describe('pages/resource/ResourcePage', () => {
   const unit = Unit.build();
-  const history = { replace: () => { }, goBack: () => { } };
+  const history = { replace: () => {}, goBack: () => {} };
   const resource = Resource.build({
     images: [
       {
@@ -95,7 +95,9 @@ describe('pages/resource/ResourcePage', () => {
       const resourceInfo = wrapper.find(ResourceHeader);
       expect(resourceInfo).toHaveLength(1);
       expect(resourceInfo.prop('onBackClick')).toBe(instance.handleBackButton);
-      expect(resourceInfo.prop('onMapClick')).toEqual(defaultProps.actions.toggleResourceMap);
+      expect(resourceInfo.prop('onMapClick')).toEqual(
+        defaultProps.actions.toggleResourceMap
+      );
       expect(resourceInfo.prop('resource')).toEqual(defaultProps.resource);
       expect(resourceInfo.prop('showMap')).toEqual(defaultProps.showMap);
       expect(resourceInfo.prop('unit')).toEqual(defaultProps.unit);
@@ -112,7 +114,9 @@ describe('pages/resource/ResourcePage', () => {
       const wrapper = getWrapper();
       const calendar = wrapper.find(ResourceCalendar);
       expect(calendar).toHaveLength(1);
-      expect(calendar.prop('onDateChange')).toBe(wrapper.instance().handleDateChange);
+      expect(calendar.prop('onDateChange')).toBe(
+        wrapper.instance().handleDateChange
+      );
       expect(calendar.prop('resourceId')).toBe(defaultProps.resource.id);
       expect(calendar.prop('selectedDate')).toBe(defaultProps.date);
     });
@@ -123,22 +127,20 @@ describe('pages/resource/ResourcePage', () => {
       expect(images).toHaveLength(defaultProps.resource.images.length + 1);
 
       images.forEach((image, index) => {
-        const imageProps = defaultProps.resource.images[index > 0 ? index - 1 : 0];
+        const imageProps =
+          defaultProps.resource.images[index > 0 ? index - 1 : 0];
         expect(image.props().alt).toBe(imageProps.caption);
         expect(image.props().src).toBe(`${imageProps.url}?dim=700x420`);
       });
     });
 
-    test(
-      'renders NotFoundPage when resource empty and not fetching resource',
-      () => {
-        const notFoundPage = getWrapper({
-          isFetchingResource: false,
-          resource: {},
-        }).find(NotFoundPage);
-        expect(notFoundPage).toHaveLength(1);
-      },
-    );
+    test('renders NotFoundPage when resource empty and not fetching resource', () => {
+      const notFoundPage = getWrapper({
+        isFetchingResource: false,
+        resource: {},
+      }).find(NotFoundPage);
+      expect(notFoundPage).toHaveLength(1);
+    });
 
     describe('handleBackButton', () => {
       let historyMock;
@@ -188,7 +190,9 @@ describe('pages/resource/ResourcePage', () => {
     test('calls clearReservations and fetchResource', () => {
       const clearReservations = simple.mock();
       const fetchResource = simple.mock();
-      const instance = getWrapper({ actions: { clearReservations } }).instance();
+      const instance = getWrapper({
+        actions: { clearReservations },
+      }).instance();
       instance.fetchResource = fetchResource;
       instance.componentDidMount();
 
@@ -201,7 +205,10 @@ describe('pages/resource/ResourcePage', () => {
 
   describe('componentWillUpdate', () => {
     describe('if date changed', () => {
-      const nextProps = { date: '2016-12-12', isLoggedIn: defaultProps.isLoggedIn };
+      const nextProps = {
+        date: '2016-12-12',
+        isLoggedIn: defaultProps.isLoggedIn,
+      };
       const fetchResource = simple.mock();
 
       beforeAll(() => {
@@ -219,7 +226,10 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('if date did not change', () => {
-      const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
+      const nextProps = {
+        date: defaultProps.date,
+        isLoggedIn: defaultProps.isLoggedIn,
+      };
       const fetchResource = simple.mock();
 
       beforeAll(() => {
@@ -234,7 +244,10 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('if isLoggedIn changed', () => {
-      const nextProps = { date: defaultProps.date, isLoggedIn: !defaultProps.isLoggedIn };
+      const nextProps = {
+        date: defaultProps.date,
+        isLoggedIn: !defaultProps.isLoggedIn,
+      };
       const fetchResource = simple.mock();
 
       beforeAll(() => {
@@ -252,7 +265,10 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('if isLoggedIn did not change', () => {
-      const nextProps = { date: defaultProps.date, isLoggedIn: defaultProps.isLoggedIn };
+      const nextProps = {
+        date: defaultProps.date,
+        isLoggedIn: defaultProps.isLoggedIn,
+      };
       const fetchResource = simple.mock();
 
       beforeAll(() => {
@@ -319,7 +335,9 @@ describe('pages/resource/ResourcePage', () => {
     });
 
     describe('resource.reservableAfter is defined', () => {
-      const instance = getWrapper({ resource: { reservableAfter: '2019-03-09T00:00:00Z' } }).instance();
+      const instance = getWrapper({
+        resource: { reservableAfter: '2019-03-09T00:00:00Z' },
+      }).instance();
 
       test('returns true if the day is before reservableAfter', () => {
         const dayBefore = '2019-03-06T00:00:00Z';
@@ -361,10 +379,7 @@ describe('pages/resource/ResourcePage', () => {
   describe('Full sized image', () => {
     test('is opened when an image is clicked', () => {
       const wrapper = getWrapper();
-      wrapper
-        .find('.app-ResourceInfo__image-button')
-        .first()
-        .simulate('click');
+      wrapper.find('.app-ResourceInfo__image-button').first().simulate('click');
 
       const lightbox = wrapper.find(Lightbox);
       expect(lightbox.length).toBe(1);

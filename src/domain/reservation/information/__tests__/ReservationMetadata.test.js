@@ -10,15 +10,22 @@ describe('ReservationMetadata', () => {
   const reservation = reservationCreator.build();
 
   test('render normally', () => {
-    const wrapper = shallowWithIntl(<ReservationMetadata reservation={reservation} />);
+    const wrapper = shallowWithIntl(
+      <ReservationMetadata reservation={reservation} />
+    );
 
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
   test('render custom field if specified', () => {
-    const customField = fieldName => <div key={fieldName}>foo</div>;
+    const customField = (fieldName) => <div key={fieldName}>foo</div>;
 
-    const wrapper = shallowWithIntl(<ReservationMetadata customField={customField} reservation={reservation} />);
+    const wrapper = shallowWithIntl(
+      <ReservationMetadata
+        customField={customField}
+        reservation={reservation}
+      />
+    );
 
     expect(wrapper).toBeDefined();
   });

@@ -25,7 +25,7 @@ describe('shared/availability-view/TimelineGroup', () => {
   test('renders hours', () => {
     const hours = getWrapper().find('.hour');
     expect(hours).toHaveLength(24);
-    const texts = hours.map(hour => hour.text());
+    const texts = hours.map((hour) => hour.text());
     expect(texts).toEqual([
       '00:00',
       '01:00',
@@ -111,7 +111,10 @@ describe('shared/availability-view/TimelineGroup', () => {
       const instance = getWrapper().instance();
       instance.componentDidMount();
       expect(window.setInterval.callCount).toBe(1);
-      expect(window.setInterval.lastCall.args).toEqual([instance.updateTime, 60000]);
+      expect(window.setInterval.lastCall.args).toEqual([
+        instance.updateTime,
+        60000,
+      ]);
       expect(instance.updateTimeInterval).toBe(interval);
     });
   });
@@ -165,7 +168,7 @@ describe('shared/availability-view/TimelineGroup', () => {
 
     test('returns correct value if during day', () => {
       const offset = getOffset('2017-01-02', '2017-01-02T12:32:00');
-      const minutes = (12 * 60) + 32;
+      const minutes = 12 * 60 + 32;
       const expected = (minutes / slotSize) * slotWidth;
       expect(offset).toBe(expected);
     });

@@ -14,13 +14,21 @@ const CreateNotificationsForm = (props) => {
   const [activeLanguage, setActiveLanguage] = useState('fi');
 
   const {
-    addElement, addNew, isEditing, newNotification, onFieldChange,
+    addElement,
+    addNew,
+    isEditing,
+    newNotification,
+    onFieldChange,
   } = props;
 
-  const { targetOptions, urgencyOptions, activeOptions } = createSelectOptions();
+  const {
+    targetOptions,
+    urgencyOptions,
+    activeOptions,
+  } = createSelectOptions();
   const languageButtons = ['fi', 'en', 'sv'];
   // Because this component is used inside modal, count dimensions and set sm value based on that
-  const current = formContainer.current;
+  const { current } = formContainer;
   let dimensions = {
     width: 601,
   };
@@ -31,18 +39,20 @@ const CreateNotificationsForm = (props) => {
   return (
     <div ref={formContainer}>
       {!isEditing && (
-        <React.Fragment>
+        <>
           <div className="button-row">
-            <button onClick={() => firebase.auth().signOut()} type="button">Sign out</button>
+            <button onClick={() => firebase.auth().signOut()} type="button">
+              Sign out
+            </button>
           </div>
           <h4>Create new notification</h4>
-        </React.Fragment>
+        </>
       )}
       <Row>
         <Col sm={dimensions && dimensions.width > 600 ? 3 : 12}>
           <span>Name</span>
           <input
-            onChange={event => onFieldChange(event, 'name')}
+            onChange={(event) => onFieldChange(event, 'name')}
             value={newNotification.name || ''}
           />
         </Col>
@@ -51,7 +61,9 @@ const CreateNotificationsForm = (props) => {
           <Select
             className="app-Select"
             classNamePrefix="app-Select"
-            onChange={event => onFieldChange({ target: { value: event } }, 'target')}
+            onChange={(event) =>
+              onFieldChange({ target: { value: event } }, 'target')
+            }
             options={targetOptions}
             placeholder="Select"
             value={newNotification.target}
@@ -62,7 +74,9 @@ const CreateNotificationsForm = (props) => {
           <Select
             className="app-Select"
             classNamePrefix="app-Select"
-            onChange={event => onFieldChange({ target: { value: event } }, 'urgency')}
+            onChange={(event) =>
+              onFieldChange({ target: { value: event } }, 'urgency')
+            }
             options={urgencyOptions}
             placeholder="Select"
             value={newNotification.urgency}
@@ -81,7 +95,9 @@ const CreateNotificationsForm = (props) => {
             <Select
               className="app-Select"
               classNamePrefix="app-Select"
-              onChange={event => onFieldChange({ target: { value: event } }, 'active')}
+              onChange={(event) =>
+                onFieldChange({ target: { value: event } }, 'active')
+              }
               options={activeOptions}
               placeholder="Select"
               value={newNotification.active}
@@ -92,7 +108,12 @@ const CreateNotificationsForm = (props) => {
       <Row className="action-row">
         <Col sm={12}>
           <button
-            onClick={() => addElement('<a href="http://" target="_blank">Text</a>', activeLanguage)}
+            onClick={() =>
+              addElement(
+                '<a href="http://" target="_blank">Text</a>',
+                activeLanguage
+              )
+            }
             type="button"
           >
             {'</a>'}
@@ -109,10 +130,10 @@ const CreateNotificationsForm = (props) => {
       <Row>
         <Col sm={12}>
           <div className="language-row">
-            {languageButtons.map(lang => (
+            {languageButtons.map((lang) => (
               <button
                 className={classNames('language-button', {
-                  'active': activeLanguage === lang,
+                  active: activeLanguage === lang,
                 })}
                 key={lang}
                 onClick={() => setActiveLanguage(lang)}
@@ -123,19 +144,28 @@ const CreateNotificationsForm = (props) => {
             ))}
           </div>
           <textarea
-            onChange={event => onFieldChange(event, 'message', activeLanguage)}
+            onChange={(event) =>
+              onFieldChange(event, 'message', activeLanguage)
+            }
             placeholder={`Notification message for ${activeLanguage.toUpperCase()}`}
             rows={5}
-            value={(newNotification.message && newNotification.message[activeLanguage]) || ''}
+            value={
+              (newNotification.message &&
+                newNotification.message[activeLanguage]) ||
+              ''
+            }
           />
         </Col>
       </Row>
       <Row>
         <Col className="button-row" sm={12}>
-          {!isEditing && <button onClick={addNew} type="submit">Add</button>}
+          {!isEditing && (
+            <button onClick={addNew} type="submit">
+              Add
+            </button>
+          )}
         </Col>
       </Row>
-
     </div>
   );
 };

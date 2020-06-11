@@ -13,17 +13,17 @@ class HomeSearchBox extends React.Component {
 
   state = {
     value: '',
-  }
+  };
 
   handleChange = (event) => {
     event.preventDefault();
     this.setState({ value: event.target.value });
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch(this.state.value);
-  }
+  };
 
   render() {
     const { t } = this.props;

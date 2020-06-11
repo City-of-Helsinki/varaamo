@@ -15,23 +15,29 @@ function useDropdownDocumentEvents(dropdown, setIsMenuVisible) {
     return false;
   }, [dropdown]);
 
-  const handleDocumentClick = React.useCallback((event) => {
-    const target = event.target;
-    const current = dropdown && dropdown.current;
+  const handleDocumentClick = React.useCallback(
+    (event) => {
+      const { target } = event;
+      const current = dropdown && dropdown.current;
 
-    if (!elementContains(current, target)) {
-      setIsMenuVisible(false);
-    }
-  }, [dropdown, setIsMenuVisible]);
+      if (!elementContains(current, target)) {
+        setIsMenuVisible(false);
+      }
+    },
+    [dropdown, setIsMenuVisible]
+  );
 
-  const handleDocumentFocusin = React.useCallback((event) => {
-    const target = event.target;
-    const current = dropdown && dropdown.current;
+  const handleDocumentFocusin = React.useCallback(
+    (event) => {
+      const { target } = event;
+      const current = dropdown && dropdown.current;
 
-    if (!elementContains(current, target)) {
-      setIsMenuVisible(false);
-    }
-  }, [dropdown, setIsMenuVisible]);
+      if (!elementContains(current, target)) {
+        setIsMenuVisible(false);
+      }
+    },
+    [dropdown, setIsMenuVisible]
+  );
 
   const handleDocumentKeyDown = React.useCallback(
     (event) => {
@@ -45,7 +51,7 @@ function useDropdownDocumentEvents(dropdown, setIsMenuVisible) {
           break;
       }
     },
-    [isComponentFocused, setIsMenuVisible],
+    [isComponentFocused, setIsMenuVisible]
   );
 
   const setUp = React.useCallback(() => {

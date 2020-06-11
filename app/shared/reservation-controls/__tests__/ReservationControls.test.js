@@ -32,7 +32,10 @@ describe('shared/reservation-controls/ReservationControls', () => {
     const defaultResource = makeResource();
     const resource = {
       ...defaultResource,
-      user_permissions: { ...defaultResource.user_permissions, is_admin: isStaff },
+      user_permissions: {
+        ...defaultResource.user_permissions,
+        is_admin: isStaff,
+      },
     };
     const props = {
       isAdmin,
@@ -51,7 +54,10 @@ describe('shared/reservation-controls/ReservationControls', () => {
     const isAdmin = true;
 
     describe('with regular reservation', () => {
-      const reservation = makeReservation({ needManualConfirmation: false, state: 'confirmed' });
+      const reservation = makeReservation({
+        needManualConfirmation: false,
+        state: 'confirmed',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders three buttons', () => {
@@ -59,20 +65,38 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+        makeButtonTests(
+          buttons.at(1),
+          'edit',
+          'ReservationControls.edit',
+          onEditClick
+        );
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(
+          buttons.at(2),
+          'cancel',
+          'ReservationControls.cancel',
+          onCancelClick
+        );
       });
     });
 
     describe('with preliminary reservation in requested state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'requested' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'requested',
+      });
 
       describe('if user has staff permissions', () => {
         const isStaff = true;
@@ -83,19 +107,39 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+          makeButtonTests(
+            buttons.at(0),
+            'info',
+            'ReservationControls.info',
+            onInfoClick
+          );
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'confirm', 'ReservationControls.confirm', onConfirmClick);
+          makeButtonTests(
+            buttons.at(1),
+            'confirm',
+            'ReservationControls.confirm',
+            onConfirmClick
+          );
         });
 
         describe('the third button', () => {
-          makeButtonTests(buttons.at(2), 'deny', 'ReservationControls.deny', onDenyClick);
+          makeButtonTests(
+            buttons.at(2),
+            'deny',
+            'ReservationControls.deny',
+            onDenyClick
+          );
         });
 
         describe('the fourth button', () => {
-          makeButtonTests(buttons.at(3), 'edit', 'ReservationControls.edit', onEditClick);
+          makeButtonTests(
+            buttons.at(3),
+            'edit',
+            'ReservationControls.edit',
+            onEditClick
+          );
         });
       });
 
@@ -108,17 +152,30 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+          makeButtonTests(
+            buttons.at(0),
+            'info',
+            'ReservationControls.info',
+            onInfoClick
+          );
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+          makeButtonTests(
+            buttons.at(1),
+            'edit',
+            'ReservationControls.edit',
+            onEditClick
+          );
         });
       });
     });
 
     describe('with preliminary reservation in cancelled state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'cancelled' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'cancelled',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
@@ -126,12 +183,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
     });
 
     describe('with preliminary reservation in denied state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'denied' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'denied',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
@@ -139,12 +204,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
     });
 
     describe('with preliminary reservation in confirmed state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'confirmed' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'confirmed',
+      });
 
       describe('if user has staff permissions', () => {
         const isStaff = true;
@@ -155,15 +228,30 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+          makeButtonTests(
+            buttons.at(0),
+            'info',
+            'ReservationControls.info',
+            onInfoClick
+          );
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+          makeButtonTests(
+            buttons.at(1),
+            'cancel',
+            'ReservationControls.cancel',
+            onCancelClick
+          );
         });
 
         describe('the third button', () => {
-          makeButtonTests(buttons.at(2), 'edit', 'ReservationControls.edit', onEditClick);
+          makeButtonTests(
+            buttons.at(2),
+            'edit',
+            'ReservationControls.edit',
+            onEditClick
+          );
         });
       });
 
@@ -176,11 +264,21 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the first button', () => {
-          makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+          makeButtonTests(
+            buttons.at(0),
+            'info',
+            'ReservationControls.info',
+            onInfoClick
+          );
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+          makeButtonTests(
+            buttons.at(1),
+            'cancel',
+            'ReservationControls.cancel',
+            onCancelClick
+          );
         });
       });
     });
@@ -190,7 +288,10 @@ describe('shared/reservation-controls/ReservationControls', () => {
     const isAdmin = false;
 
     describe('with regular reservation', () => {
-      const reservation = makeReservation({ needManualConfirmation: false, state: 'confirmed' });
+      const reservation = makeReservation({
+        needManualConfirmation: false,
+        state: 'confirmed',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders three buttons', () => {
@@ -198,20 +299,38 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+        makeButtonTests(
+          buttons.at(1),
+          'edit',
+          'ReservationControls.edit',
+          onEditClick
+        );
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(
+          buttons.at(2),
+          'cancel',
+          'ReservationControls.cancel',
+          onCancelClick
+        );
       });
     });
 
     describe('with preliminary reservation in requested state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'requested' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'requested',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders three buttons', () => {
@@ -219,20 +338,38 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'edit', 'ReservationControls.edit', onEditClick);
+        makeButtonTests(
+          buttons.at(1),
+          'edit',
+          'ReservationControls.edit',
+          onEditClick
+        );
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(
+          buttons.at(2),
+          'cancel',
+          'ReservationControls.cancel',
+          onCancelClick
+        );
       });
     });
 
     describe('with preliminary reservation in cancelled state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'cancelled' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'cancelled',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
@@ -240,12 +377,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
     });
 
     describe('with preliminary reservation in denied state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'denied' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'denied',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders one button', () => {
@@ -253,12 +398,20 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
     });
 
     describe('with preliminary reservation in confirmed state', () => {
-      const reservation = makeReservation({ needManualConfirmation: true, state: 'confirmed' });
+      const reservation = makeReservation({
+        needManualConfirmation: true,
+        state: 'confirmed',
+      });
       const buttons = getWrapper(reservation, isAdmin).find(Button);
 
       test('renders two buttons', () => {
@@ -266,11 +419,21 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the first button', () => {
-        makeButtonTests(buttons.at(0), 'info', 'ReservationControls.info', onInfoClick);
+        makeButtonTests(
+          buttons.at(0),
+          'info',
+          'ReservationControls.info',
+          onInfoClick
+        );
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(
+          buttons.at(1),
+          'cancel',
+          'ReservationControls.cancel',
+          onCancelClick
+        );
       });
     });
   });

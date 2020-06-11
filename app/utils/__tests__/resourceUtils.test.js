@@ -114,7 +114,9 @@ describe('Utils: resourceUtils', () => {
           const reservations = [];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(openingHours.opens).format(constants.TIME_FORMAT);
+          const expectedTime = moment(openingHours.opens).format(
+            constants.TIME_FORMAT
+          );
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
@@ -144,7 +146,9 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(reservations[0].end).format(constants.TIME_FORMAT);
+          const expectedTime = moment(reservations[0].end).format(
+            constants.TIME_FORMAT
+          );
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
@@ -174,7 +178,9 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(openingHours.opens).format(constants.TIME_FORMAT);
+          const expectedTime = moment(openingHours.opens).format(
+            constants.TIME_FORMAT
+          );
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
@@ -225,7 +231,9 @@ describe('Utils: resourceUtils', () => {
           ];
           const resource = getResource(openingHours, reservations);
           const availabilityData = getAvailabilityDataForNow(resource);
-          const expectedTime = moment(reservations[0].end).format(constants.TIME_FORMAT);
+          const expectedTime = moment(reservations[0].end).format(
+            constants.TIME_FORMAT
+          );
           const expected = {
             status: 'availableAt',
             bsStyle: 'danger',
@@ -484,7 +492,10 @@ describe('Utils: resourceUtils', () => {
             },
           ];
           const resource = getResource(openingHours, reservations);
-          const availabilityData = getAvailabilityDataForWholeDay(resource, '2015-10-11');
+          const availabilityData = getAvailabilityDataForWholeDay(
+            resource,
+            '2015-10-11'
+          );
           const expected = {
             status: 'availableTime',
             bsStyle: 'success',
@@ -587,36 +598,30 @@ describe('Utils: resourceUtils', () => {
       expect(getOpeningHours(resource)).toEqual({});
     });
 
-    test(
-      'returns closes and opens from the first openingHours object if not date passed',
-      () => {
-        const resource = {
-          openingHours: [
-            { closes: 'first-closes', opens: 'first-opens', date: 'date' },
-            { closes: 'second-closes', opens: 'second-opens', date: 'date' },
-          ],
-        };
-        const expected = { closes: 'first-closes', opens: 'first-opens' };
+    test('returns closes and opens from the first openingHours object if not date passed', () => {
+      const resource = {
+        openingHours: [
+          { closes: 'first-closes', opens: 'first-opens', date: 'date' },
+          { closes: 'second-closes', opens: 'second-opens', date: 'date' },
+        ],
+      };
+      const expected = { closes: 'first-closes', opens: 'first-opens' };
 
-        expect(getOpeningHours(resource)).toEqual(expected);
-      },
-    );
+      expect(getOpeningHours(resource)).toEqual(expected);
+    });
 
-    test(
-      'returns closes and opens from the right date openingHours object',
-      () => {
-        const resource = {
-          openingHours: [
-            { closes: 'first-closes', opens: 'first-opens', date: 'date1' },
-            { closes: 'second-closes', opens: 'second-opens', date: 'date2' },
-            { closes: 'third-closes', opens: 'third-opens', date: 'date3' },
-          ],
-        };
-        const expected = { closes: 'second-closes', opens: 'second-opens' };
+    test('returns closes and opens from the right date openingHours object', () => {
+      const resource = {
+        openingHours: [
+          { closes: 'first-closes', opens: 'first-opens', date: 'date1' },
+          { closes: 'second-closes', opens: 'second-opens', date: 'date2' },
+          { closes: 'third-closes', opens: 'third-opens', date: 'date3' },
+        ],
+      };
+      const expected = { closes: 'second-closes', opens: 'second-opens' };
 
-        expect(getOpeningHours(resource, 'date2')).toEqual(expected);
-      },
-    );
+      expect(getOpeningHours(resource, 'date2')).toEqual(expected);
+    });
   });
 
   describe('getOpenReservations', () => {
@@ -634,7 +639,10 @@ describe('Utils: resourceUtils', () => {
         { id: 4, state: 'something' },
       ];
       const resource = { reservations };
-      const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
 
       expect(getOpenReservations(resource)).toEqual(expected);
     });
@@ -647,7 +655,10 @@ describe('Utils: resourceUtils', () => {
         { id: 4, state: 'something' },
       ];
       const resource = { reservations };
-      const expected = [{ id: 2, state: 'confirmed' }, { id: 4, state: 'something' }];
+      const expected = [
+        { id: 2, state: 'confirmed' },
+        { id: 4, state: 'something' },
+      ];
 
       expect(getOpenReservations(resource)).toEqual(expected);
     });
@@ -699,7 +710,10 @@ describe('Utils: resourceUtils', () => {
       const date = '2015-10-10';
       const time = '2015-10-10T08:00:00+03:00';
       const resourcePageUrl = getResourcePageUrl(resource, date, time);
-      const expected = `/resources/${resource.id}?${queryString.stringify({ date, time })}`;
+      const expected = `/resources/${resource.id}?${queryString.stringify({
+        date,
+        time,
+      })}`;
 
       expect(resourcePageUrl).toBe(expected);
     });
@@ -734,7 +748,10 @@ describe('Utils: resourceUtils', () => {
     test('returns correct url if date is given', () => {
       const resource = { id: 'some-id' };
       const date = '2015-10-10';
-      const resourcePageUrlComponents = getResourcePageUrlComponents(resource, date);
+      const resourcePageUrlComponents = getResourcePageUrlComponents(
+        resource,
+        date
+      );
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = 'date=2015-10-10';
 
@@ -745,7 +762,10 @@ describe('Utils: resourceUtils', () => {
     test('returns correct url if date is given in datetime format', () => {
       const resource = { id: 'some-id' };
       const date = '2015-10-10T08:00:00+03:00';
-      const resourcePageUrlComponents = getResourcePageUrlComponents(resource, date);
+      const resourcePageUrlComponents = getResourcePageUrlComponents(
+        resource,
+        date
+      );
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = 'date=2015-10-10';
 
@@ -757,7 +777,11 @@ describe('Utils: resourceUtils', () => {
       const resource = { id: 'some-id' };
       const date = '2015-10-10';
       const time = '2015-10-10T08:00:00+03:00';
-      const resourcePageUrlComponents = getResourcePageUrlComponents(resource, date, time);
+      const resourcePageUrlComponents = getResourcePageUrlComponents(
+        resource,
+        date,
+        time
+      );
       const expectedPathname = `/resources/${resource.id}`;
       const expectedQuery = queryString.stringify({ date, time });
 
@@ -842,13 +866,19 @@ describe('Utils: resourceUtils', () => {
       const date = '2016-10-10';
 
       test('returns false if user is an admin', () => {
-        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const resource = {
+          userPermissions: { isAdmin: true },
+          reservableBefore,
+        };
         const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).toBe(false);
       });
 
       test('returns false if user is a regular user', () => {
-        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const resource = {
+          userPermissions: { isAdmin: false },
+          reservableBefore,
+        };
         const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).toBe(false);
       });
@@ -859,13 +889,19 @@ describe('Utils: resourceUtils', () => {
       const date = '2016-10-10';
 
       test('returns false if user is an admin', () => {
-        const resource = { userPermissions: { isAdmin: true }, reservableBefore };
+        const resource = {
+          userPermissions: { isAdmin: true },
+          reservableBefore,
+        };
         const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).toBe(false);
       });
 
       test('returns true if user is a regular user', () => {
-        const resource = { userPermissions: { isAdmin: false }, reservableBefore };
+        const resource = {
+          userPermissions: { isAdmin: false },
+          reservableBefore,
+        };
         const isLimited = reservingIsRestricted(resource, date);
         expect(isLimited).toBe(true);
       });

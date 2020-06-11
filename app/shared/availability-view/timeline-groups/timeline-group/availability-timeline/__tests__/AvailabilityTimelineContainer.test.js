@@ -70,36 +70,48 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
       test('contains slots if no reservations', () => {
         const actual = getSelected({ id: 'resource-2' }).items;
         expect(actual).toHaveLength((24 * 60) / slotSize);
-        actual.forEach(slot => expect(slot.type).toBe('reservation-slot'));
+        actual.forEach((slot) => expect(slot.type).toBe('reservation-slot'));
       });
 
       test('contains slots if no reservations for date', () => {
         const actual = getSelected({ date: '2016-01-02T00:00:00' }).items;
         expect(actual).toHaveLength((24 * 60) / slotSize);
-        actual.forEach(slot => expect(slot.type).toBe('reservation-slot'));
+        actual.forEach((slot) => expect(slot.type).toBe('reservation-slot'));
       });
 
       test('contains reservations and slots', () => {
         const state = getState();
-        const reservations = state.data.resources['resource-1'].reservations;
+        const { reservations } = state.data.resources['resource-1'];
         const props = { id: 'resource-1', date: '2016-01-01' };
         const actual = selector()(state, props).items;
         expect(actual[0].type).toBe('reservation-slot');
         expect(actual[1].type).toBe('reservation-slot');
         expect(actual[2].type).toBe('reservation-slot');
         expect(actual[3].type).toBe('reservation-slot');
-        expect(actual[4]).toEqual({ key: '4', type: 'reservation', data: reservations[0] });
+        expect(actual[4]).toEqual({
+          key: '4',
+          type: 'reservation',
+          data: reservations[0],
+        });
         expect(actual[5].type).toBe('reservation-slot');
         expect(actual[6].type).toBe('reservation-slot');
         expect(actual[7].type).toBe('reservation-slot');
-        expect(actual[8]).toEqual({ key: '8', type: 'reservation', data: reservations[1] });
-        expect(actual[9]).toEqual({ key: '9', type: 'reservation', data: reservations[2] });
+        expect(actual[8]).toEqual({
+          key: '8',
+          type: 'reservation',
+          data: reservations[1],
+        });
+        expect(actual[9]).toEqual({
+          key: '9',
+          type: 'reservation',
+          data: reservations[2],
+        });
         expect(actual[10].type).toBe('reservation-slot');
       });
 
       test('contains selectability info', () => {
         const state = getState();
-        const reservations = state.data.resources['resource-1'].reservations;
+        const { reservations } = state.data.resources['resource-1'];
         const selection = {
           begin: '2016-01-01T10:00:00',
           end: '2016-01-01T10:30:00',
@@ -111,12 +123,24 @@ describe('shared/availability-view/AvailabilityTimelineContainer', () => {
         expect(actual[1].data.isSelectable).toBe(false);
         expect(actual[2].data.isSelectable).toBe(false);
         expect(actual[3].data.isSelectable).toBe(false);
-        expect(actual[4]).toEqual({ key: '4', type: 'reservation', data: reservations[0] });
+        expect(actual[4]).toEqual({
+          key: '4',
+          type: 'reservation',
+          data: reservations[0],
+        });
         expect(actual[5].data.isSelectable).toBe(true);
         expect(actual[6].data.isSelectable).toBe(true);
         expect(actual[7].data.isSelectable).toBe(true);
-        expect(actual[8]).toEqual({ key: '8', type: 'reservation', data: reservations[1] });
-        expect(actual[9]).toEqual({ key: '9', type: 'reservation', data: reservations[2] });
+        expect(actual[8]).toEqual({
+          key: '8',
+          type: 'reservation',
+          data: reservations[1],
+        });
+        expect(actual[9]).toEqual({
+          key: '9',
+          type: 'reservation',
+          data: reservations[2],
+        });
         expect(actual[10].data.isSelectable).toBe(false);
       });
     });

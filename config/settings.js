@@ -1,5 +1,4 @@
 const path = require('path');
-
 const dotenv = require('dotenv');
 
 const DEFAULT_API_URL = 'https://api.hel.fi/respa-test/v1';
@@ -27,8 +26,8 @@ function getAsArray(value) {
 
 function getSettings() {
   if (
-    typeof window !== 'undefined'
-    && typeof window[ENV_NAMESPACE] !== 'undefined'
+    typeof window !== 'undefined' &&
+    typeof window[ENV_NAMESPACE] !== 'undefined'
   ) {
     // Needed in browser run context
     return window[ENV_NAMESPACE];
@@ -50,7 +49,7 @@ function getSettings() {
     // strings. If we want to use them as arrays, we have to parse the string
     // into an array value.
     CUSTOM_MUNICIPALITY_OPTIONS: getAsArray(
-      process.env.CUSTOM_MUNICIPALITY_OPTIONS,
+      process.env.CUSTOM_MUNICIPALITY_OPTIONS
     ),
     TIME_ZONE: process.env.TIME_ZONE || DEFAULT_TIME_ZONE,
     CLIENT_ID: process.env.CLIENT_ID,

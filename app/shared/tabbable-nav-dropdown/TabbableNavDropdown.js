@@ -8,16 +8,17 @@ import AsPolymorph from '../as-polymorph/AsPolymorph';
 
 const BOOTSTRAP_INJECTED_PROPS = ['activeKey', 'activeHref'];
 
-function TabbableNavDropdown({
-  renderToggle, children, className, ...rest
-}) {
+function TabbableNavDropdown({ renderToggle, children, className, ...rest }) {
   const dropdown = React.useRef();
   const [isOpen, setOpen] = React.useState(false);
-  const [setUpDocumentEvents, tearDownDocumentEvents] = useDropdownDocumentEvents(dropdown, setOpen);
+  const [
+    setUpDocumentEvents,
+    tearDownDocumentEvents,
+  ] = useDropdownDocumentEvents(dropdown, setOpen);
 
   const handleToggleElementClick = (event) => {
     event.preventDefault();
-    setOpen(prevIsOpen => !prevIsOpen);
+    setOpen((prevIsOpen) => !prevIsOpen);
   };
 
   const closeMenu = React.useCallback(() => {
@@ -29,7 +30,7 @@ function TabbableNavDropdown({
     return () => {
       tearDownDocumentEvents();
     };
-  });
+  }, [setUpDocumentEvents, tearDownDocumentEvents]);
 
   // This component is used as a child of a bootstrap component that injects
   // props to its children. Here we are ignoring at least some of them in order
@@ -42,17 +43,17 @@ function TabbableNavDropdown({
     //
     // With this implementation we can use the styles for the dropdown directly
     // from bootstrap.
-    <AsPolymorph ref={dropdown} {...safeRest} className={classNames(className, { open: isOpen })}>
+    <AsPolymorph
+      ref={dropdown}
+      {...safeRest}
+      className={classNames(className, { open: isOpen })}
+    >
       {renderToggle({
         'aria-expanded': isOpen,
         'aria-haspopup': true,
         onClick: handleToggleElementClick,
       })}
-      {isOpen && (
-        <ul className="dropdown-menu">
-          {children({ closeMenu })}
-        </ul>
-      )}
+      {isOpen && <ul className="dropdown-menu">{children({ closeMenu })}</ul>}
     </AsPolymorph>
   );
 }

@@ -3,10 +3,10 @@ import { Factory } from 'rosie';
 import { DEFAULT_SLOT_SIZE } from '../../constants/SlotConstants';
 
 const Resource = new Factory()
-  .sequence('id', index => `r-${index}`)
-  .sequence('name', index => `Resource-${index}`)
+  .sequence('id', (index) => `r-${index}`)
+  .sequence('name', (index) => `Resource-${index}`)
   .attr('public', true)
-  .sequence('unit', index => `u-${index}`)
+  .sequence('unit', (index) => `u-${index}`)
   .attr('availableHours', [])
   .attr('equipment', [])
   .attr('needManualConfirmation', false)

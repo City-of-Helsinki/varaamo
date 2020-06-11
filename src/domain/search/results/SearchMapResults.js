@@ -84,10 +84,22 @@ class SearchMapResults extends React.Component {
     let minLongitude = null;
 
     const compareCoordinates = (coordinates) => {
-      maxLatitude = maxLatitude !== null ? Math.max(maxLatitude, coordinates[0]) : coordinates[0];
-      minLatitude = minLatitude !== null ? Math.min(minLatitude, coordinates[0]) : coordinates[0];
-      maxLongitude = maxLongitude !== null ? Math.max(maxLongitude, coordinates[1]) : coordinates[1];
-      minLongitude = minLongitude !== null ? Math.min(minLongitude, coordinates[1]) : coordinates[1];
+      maxLatitude =
+        maxLatitude !== null
+          ? Math.max(maxLatitude, coordinates[0])
+          : coordinates[0];
+      minLatitude =
+        minLatitude !== null
+          ? Math.min(minLatitude, coordinates[0])
+          : coordinates[0];
+      maxLongitude =
+        maxLongitude !== null
+          ? Math.max(maxLongitude, coordinates[1])
+          : coordinates[1];
+      minLongitude =
+        minLongitude !== null
+          ? Math.min(minLongitude, coordinates[1])
+          : coordinates[1];
     };
 
     units.forEach((unit) => {
@@ -120,21 +132,20 @@ class SearchMapResults extends React.Component {
       position,
     } = this.props;
 
-    const {
-      selectedUnit,
-      unitResources,
-    } = this.state;
+    const { selectedUnit, unitResources } = this.state;
 
     const groupedResources = groupResourcesByUnit(resources);
+    // eslint-disable-next-line no-restricted-globals
     const filters = searchUtils.getFiltersFromUrl(location);
 
-    // eslint-disable-next-line max-len
-    const tileLayerUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw';
+    const tileLayerUrl =
+      // eslint-disable-next-line max-len
+      'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw';
 
     return (
       <div className="app-SearchMapResults">
         <Loader loaded={!isLoading}>
-          <React.Fragment>
+          <>
             <Map
               bounds={this.getMapBounds()}
               boundsOptions={{ padding: [50, 50] }}
@@ -167,14 +178,18 @@ class SearchMapResults extends React.Component {
             </Map>
             {selectedUnit && (
               <ResourceCardSlider
-                date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
+                date={get(
+                  filters,
+                  'date',
+                  moment().format(constants.DATE_FORMAT)
+                )}
                 onFavoriteClick={onFavoriteClick}
                 onFilterClick={this.onFilterClick}
                 resources={unitResources}
                 unit={selectedUnit}
               />
             )}
-          </React.Fragment>
+          </>
         </Loader>
       </div>
     );

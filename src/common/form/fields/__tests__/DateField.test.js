@@ -17,9 +17,7 @@ describe('DateField', () => {
 
     globalDateMock();
 
-    const wrapper = shallow(
-      <DateField {...props} />,
-    );
+    const wrapper = shallow(<DateField {...props} />);
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

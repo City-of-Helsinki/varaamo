@@ -5,9 +5,7 @@ import DayPicker from 'react-day-picker';
 import moment from 'moment';
 
 const DatePickerWrapper = ({ children }) => (
-  <div className="app-NotificatorDatePicker__datePicker">
-    {children}
-  </div>
+  <div className="app-NotificatorDatePicker__datePicker">{children}</div>
 );
 
 DatePickerWrapper.propTypes = {
@@ -24,7 +22,10 @@ class NotificatorDatePicker extends Component {
 
     this.setState({ isOpen: false });
 
-    onChange({ target: { value: moment(newDate).endOf('day').toDate() } }, 'until');
+    onChange(
+      { target: { value: moment(newDate).endOf('day').toDate() } },
+      'until'
+    );
   };
 
   render() {
@@ -32,7 +33,11 @@ class NotificatorDatePicker extends Component {
     const { isOpen } = this.state;
     return (
       <div className="app-NotificatorDatePicker">
-        <div className="date-holder" onClick={() => this.setState({ isOpen: true })}>
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div
+          className="date-holder"
+          onClick={() => this.setState({ isOpen: true })}
+        >
           {moment(date).format('DD.MM.YYYY')}
         </div>
         <Overlay
@@ -45,7 +50,7 @@ class NotificatorDatePicker extends Component {
         >
           <DatePickerWrapper>
             <DayPicker
-              onDayClick={newDate => this.onChange(newDate)}
+              onDayClick={(newDate) => this.onChange(newDate)}
               selectedDays={date}
             />
           </DatePickerWrapper>

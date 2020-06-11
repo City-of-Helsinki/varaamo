@@ -15,25 +15,31 @@ const defaultProps = {
   units: [unit.build()],
   purposes: [purpose.build()],
   filters: {},
-  t: value => value,
+  t: (value) => value,
 };
-const findDateFilter = wrapper => wrapper.find(DateFilter);
-const findTimeRangeFilter = wrapper => wrapper.find(TimeRangeFilter);
+const findDateFilter = (wrapper) => wrapper.find(DateFilter);
+const findTimeRangeFilter = (wrapper) => wrapper.find(TimeRangeFilter);
 // This selector breaks easily
-const findSubmitButton = wrapper => wrapper.find({ children: 'SearchFilters.searchButton' });
-const makeDatetime = (dateVal, timeVal) => moment(`${dateVal} ${timeVal}`, 'YYYY-MM-DD HH:mm')
-  .format('YYYY-MM-DD[T]HH:mmZZ');
-const availableBetweenFilter = value => value.availableBetween;
+const findSubmitButton = (wrapper) =>
+  wrapper.find({ children: 'SearchFilters.searchButton' });
+const makeDatetime = (dateVal, timeVal) =>
+  moment(`${dateVal} ${timeVal}`, 'YYYY-MM-DD HH:mm').format(
+    'YYYY-MM-DD[T]HH:mmZZ'
+  );
+const availableBetweenFilter = (value) => value.availableBetween;
 
 const startTime = '11:00';
 const endTime = '13:00';
 const duration = 30;
-const datetimeRange = (date0, date1) => [`${date0}T${startTime}`, `${date1 || date0}T${endTime}`, 30];
+const datetimeRange = (date0, date1) => [
+  `${date0}T${startTime}`,
+  `${date1 || date0}T${endTime}`,
+  30,
+];
 
 describe('ResourceMap', () => {
-  const getWrapper = props => shallowWithIntl(
-    <ISearchFilters {...defaultProps} {...props} />,
-  );
+  const getWrapper = (props) =>
+    shallowWithIntl(<ISearchFilters {...defaultProps} {...props} />);
 
   test('renders correctly', () => {
     const originalDate = Date;
@@ -57,11 +63,17 @@ describe('ResourceMap', () => {
     };
     const wrapper = getWrapper({ filters });
 
-    expect(wrapper.state().filters.availableBetween).toEqual([startTime, endTime, duration].join(','));
+    expect(wrapper.state().filters.availableBetween).toEqual(
+      [startTime, endTime, duration].join(',')
+    );
 
-    wrapper.setProps({ filters: { availableBetween: datetimeRange(date1).join(',') } });
+    wrapper.setProps({
+      filters: { availableBetween: datetimeRange(date1).join(',') },
+    });
 
-    expect(wrapper.state().filters.availableBetween).toEqual([startTime, endTime, duration].join(','));
+    expect(wrapper.state().filters.availableBetween).toEqual(
+      [startTime, endTime, duration].join(',')
+    );
   });
 
   test('makes searches with an availableBetween value that includes current selected date and timezone offset', () => {
@@ -74,11 +86,13 @@ describe('ResourceMap', () => {
     findTimeRangeFilter(wrapper).prop('onChange')(timeRange.join(','));
     findSubmitButton(wrapper).prop('onClick')();
 
-    expect(onChange).toHaveLastReturnedWith([
-      makeDatetime(date, timeRange[0]),
-      makeDatetime(date, timeRange[1]),
-      timeRange[2],
-    ].join(','));
+    expect(onChange).toHaveLastReturnedWith(
+      [
+        makeDatetime(date, timeRange[0]),
+        makeDatetime(date, timeRange[1]),
+        timeRange[2],
+      ].join(',')
+    );
   });
 
   test('does not inject date when availableBetween is undefined', () => {
@@ -103,11 +117,13 @@ describe('ResourceMap', () => {
     findDateFilter(wrapper).prop('onChange')(date);
     findSubmitButton(wrapper).prop('onClick')();
 
-    expect(onChange).toHaveLastReturnedWith([
-      makeDatetime(date, startTime0),
-      makeDatetime(date, endTime0),
-      duration0,
-    ].join(','));
+    expect(onChange).toHaveLastReturnedWith(
+      [
+        makeDatetime(date, startTime0),
+        makeDatetime(date, endTime0),
+        duration0,
+      ].join(',')
+    );
   });
 
   test('ignores availableBetween spanning multiple dates and always uses date instead', () => {
@@ -122,10 +138,12 @@ describe('ResourceMap', () => {
 
     findSubmitButton(wrapper).prop('onClick')();
 
-    expect(onChange).toHaveLastReturnedWith([
-      makeDatetime(date0, startTime),
-      makeDatetime(date0, endTime),
-      duration,
-    ].join(','));
+    expect(onChange).toHaveLastReturnedWith(
+      [
+        makeDatetime(date0, startTime),
+        makeDatetime(date0, endTime),
+        duration,
+      ].join(',')
+    );
   });
 });

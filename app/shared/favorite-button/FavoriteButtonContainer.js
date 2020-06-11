@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { favoriteResource, unfavoriteResource } from '../../actions/resourceActions';
+import {
+  favoriteResource,
+  unfavoriteResource,
+} from '../../actions/resourceActions';
 import FavoriteButton from './FavoriteButton';
 
 export class UnconnectedFavoriteButtonContainer extends Component {
@@ -48,4 +51,7 @@ function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
-export default connect(null, mapDispatchToProps)(UnconnectedFavoriteButtonContainer);
+export default connect(
+  null,
+  mapDispatchToProps
+)(UnconnectedFavoriteButtonContainer);

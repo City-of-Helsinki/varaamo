@@ -8,12 +8,11 @@ const initialState = Immutable([]);
 function addNotification(state, notification) {
   const mutableState = Immutable.asMutable(state);
 
-  mutableState.push(Object.assign(
-    {},
-    NOTIFICATION_DEFAULT,
-    notification,
-    { id: (state.length || 0) + 1 },
-  ));
+  mutableState.push({
+    ...NOTIFICATION_DEFAULT,
+    ...notification,
+    id: (state.length || 0) + 1,
+  });
 
   return Immutable(mutableState);
 }
@@ -34,16 +33,18 @@ function getErrorNotification(error) {
       ...defaults,
       messageId: 'Notifications.loginMessage',
     };
-  } if (
-    error.response
-    && error.response.non_field_errors
-    && error.response.non_field_errors.length
+  }
+  if (
+    error.response &&
+    error.response.non_field_errors &&
+    error.response.non_field_errors.length
   ) {
     return {
       ...defaults,
       message: error.response.non_field_errors.join('. '),
     };
-  } if (error.response && error.response.detail) {
+  }
+  if (error.response && error.response.detail) {
     return {
       ...defaults,
       message: error.response.detail,
@@ -54,7 +55,7 @@ function getErrorNotification(error) {
 
 function notificationsReducer(state = initialState, action) {
   switch (action.type) {
-  // Notification handling
+    // Notification handling
 
     case types.UI.ADD_NOTIFICATION: {
       const notification = action.payload;

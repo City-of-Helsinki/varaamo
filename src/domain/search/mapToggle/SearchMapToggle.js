@@ -15,27 +15,31 @@ SearchMapToggle.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const BUTTONS = [{
-  key: 'list',
-  label: 'MapToggle.showList',
-}, {
-  key: 'map',
-  label: 'MapToggle.showMap',
-}];
+const BUTTONS = [
+  {
+    key: 'list',
+    label: 'MapToggle.showList',
+  },
+  {
+    key: 'map',
+    label: 'MapToggle.showMap',
+  },
+];
 
-function SearchMapToggle({
-  active,
-  onClick,
-  resultCount,
-  t,
-}) {
+function SearchMapToggle({ active, onClick, resultCount, t }) {
   return (
     <div className="app-SearchMapToggle">
       <Grid>
         <Row>
           <Col sm={6}>
-            <div className="app-SearchMapToggle__results-count" data-testid="result-count" role="status">
-              {resultCount ? t('MapToggle.resultsText', { count: resultCount }) : t('MapToggle.noResultsText')}
+            <div
+              className="app-SearchMapToggle__results-count"
+              data-testid="result-count"
+              role="status"
+            >
+              {resultCount
+                ? t('MapToggle.resultsText', { count: resultCount })
+                : t('MapToggle.noResultsText')}
             </div>
           </Col>
           <Col sm={6}>
@@ -49,7 +53,7 @@ function SearchMapToggle({
                     className={classNames(
                       'app-SearchMapToggle__button',
                       `app-SearchMapToggle__button-${button.key}`,
-                      { 'app-SearchMapToggle__button--selected': isSelected },
+                      { 'app-SearchMapToggle__button--selected': isSelected }
                     )}
                     key={button.key}
                     onClick={() => onClick(button.key)}

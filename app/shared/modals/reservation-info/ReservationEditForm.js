@@ -12,9 +12,15 @@ import Well from 'react-bootstrap/lib/Well';
 import { Field, Fields, reduxForm } from 'redux-form';
 import moment from 'moment';
 
-import { resourceRoles, resourcePermissionTypes } from '../../../../src/domain/resource/permissions/constants';
+import {
+  resourceRoles,
+  resourcePermissionTypes,
+} from '../../../../src/domain/resource/permissions/constants';
 import { hasPermissionForResource } from '../../../../src/domain/resource/permissions/utils';
-import { getReservationPrice, getTaxPercentage } from '../../../../src/domain/resource/utils';
+import {
+  getReservationPrice,
+  getTaxPercentage,
+} from '../../../../src/domain/resource/utils';
 import FormTypes from '../../../constants/FormTypes';
 import { hasProducts } from '../../../utils/resourceUtils';
 import ReduxFormField from '../../form-fields/ReduxFormField';
@@ -30,7 +36,7 @@ import { getShowRefundPolicy } from '../../../../src/domain/reservation/utils';
 const getReservationOpeningHoursByDate = (resource, reservationDate) => {
   const openHours = resource.openingHours || [];
 
-  return openHours.find(openHour => openHour.date === reservationDate);
+  return openHours.find((openHour) => openHour.date === reservationDate);
 };
 
 class UnconnectedReservationEditForm extends Component {
@@ -52,15 +58,15 @@ class UnconnectedReservationEditForm extends Component {
 
   renderAddressRow(addressType) {
     const { reservation, t } = this.props;
-    const hasAddress = (
-      reservation.reserverAddressStreet || reservation.reserverAddressStreet === ''
-    );
+    const hasAddress =
+      reservation.reserverAddressStreet ||
+      reservation.reserverAddressStreet === '';
     if (!hasAddress) return null;
     const label = t(`common.${addressType}Label`);
     const value = this.getAddress(
       reservation[`${addressType}Street`],
       reservation[`${addressType}Zip`],
-      reservation[`${addressType}City`],
+      reservation[`${addressType}City`]
     );
     return this.renderInfoRow(label, value);
   }
@@ -111,17 +117,20 @@ class UnconnectedReservationEditForm extends Component {
   }
 
   renderReservationTime() {
-    const {
-      isEditing, reservation, resource, t, userUnitRole,
-    } = this.props;
+    const { isEditing, reservation, resource, t, userUnitRole } = this.props;
 
     if (isEditing) {
       const canIgnoreOpeningHours = hasPermissionForResource(
         userUnitRole,
-        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS,
+        resourcePermissionTypes.CAN_IGNORE_OPENING_HOURS
       );
-      const reservationDate = moment(reservation.begin).format(constants.DATE_FORMAT);
-      const openingHoursForReservationDate = getReservationOpeningHoursByDate(resource, reservationDate);
+      const reservationDate = moment(reservation.begin).format(
+        constants.DATE_FORMAT
+      );
+      const openingHoursForReservationDate = getReservationOpeningHoursByDate(
+        resource,
+        reservationDate
+      );
       const getConstraints = (openingHours) => {
         if (!openingHours || canIgnoreOpeningHours) {
           return undefined;
@@ -142,7 +151,9 @@ class UnconnectedReservationEditForm extends Component {
             <Fields
               component={ReservationTimeControls}
               constraints={getConstraints(openingHoursForReservationDate)}
-              disabled={!canIgnoreOpeningHours && !openingHoursForReservationDate}
+              disabled={
+                !canIgnoreOpeningHours && !openingHoursForReservationDate
+              }
               names={['begin', 'end']}
               period={resource.slotSize}
             />
@@ -150,8 +161,13 @@ class UnconnectedReservationEditForm extends Component {
         </FormGroup>
       );
     }
-    const staticReservationTime = <TimeRange begin={reservation.begin} end={reservation.end} />;
-    return this.renderInfoRow(t('common.reservationTimeLabel'), staticReservationTime);
+    const staticReservationTime = (
+      <TimeRange begin={reservation.begin} end={reservation.end} />
+    );
+    return this.renderInfoRow(
+      t('common.reservationTimeLabel'),
+      staticReservationTime
+    );
   }
 
   render() {
@@ -171,7 +187,11 @@ class UnconnectedReservationEditForm extends Component {
 
     if (isEmpty(reservation)) return <span />;
 
-    const price = getReservationPrice(reservation.begin, reservation.end, resource);
+    const price = getReservationPrice(
+      reservation.begin,
+      reservation.end,
+      resource
+    );
     const tax = getTaxPercentage(resource);
     const tVariables = {
       price,
@@ -179,15 +199,23 @@ class UnconnectedReservationEditForm extends Component {
     };
     const canViewExtraFields = hasPermissionForResource(
       userUnitRole,
-      resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS,
+      resourcePermissionTypes.CAN_VIEW_RESERVATION_EXTRA_FIELDS
     );
 
     const {
-      billingFirstName, billingLastName, billingEmailAddress, isOwn, user,
+      billingFirstName,
+      billingLastName,
+      billingEmailAddress,
+      isOwn,
+      user,
     } = reservation;
 
-    const isAdminOrOwner = (isAdmin || isOwn);
-    const showRefundPolicy = getShowRefundPolicy(isAdmin, reservation, resource);
+    const isAdminOrOwner = isAdmin || isOwn;
+    const showRefundPolicy = getShowRefundPolicy(
+      isAdmin,
+      reservation,
+      resource
+    );
 
     return (
       <Form
@@ -201,10 +229,17 @@ class UnconnectedReservationEditForm extends Component {
             {this.renderUserInfoRow('email', 'userEmail')}
           </Well>
         )}
-        { billingFirstName
-        && billingLastName
-        && this.renderInfoRow(t('common.paymentNameLabel'), `${billingFirstName} ${billingLastName}`)}
-        {billingEmailAddress && this.renderInfoRow(t('common.paymentEmailLabel'), billingEmailAddress)}
+        {billingFirstName &&
+          billingLastName &&
+          this.renderInfoRow(
+            t('common.paymentNameLabel'),
+            `${billingFirstName} ${billingLastName}`
+          )}
+        {billingEmailAddress &&
+          this.renderInfoRow(
+            t('common.paymentEmailLabel'),
+            billingEmailAddress
+          )}
 
         {this.renderEditableInfoRow('eventSubject', 'text')}
         {this.renderStaticInfoRow('reserverName')}
@@ -212,23 +247,29 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderEditableInfoRow('numberOfParticipants', 'number')}
         {this.renderReservationTime()}
         {this.renderInfoRow(t('common.resourceLabel'), resource.name)}
-        {!reservation.staffEvent
-          && price > 0
-          && this.renderInfoRow(t('common.priceLabel'), t('ReservationEditForm.priceWithTax', tVariables))}
+        {!reservation.staffEvent &&
+          price > 0 &&
+          this.renderInfoRow(
+            t('common.priceLabel'),
+            t('ReservationEditForm.priceWithTax', tVariables)
+          )}
 
-        {showRefundPolicy
-          && this.renderInfoRow(
+        {showRefundPolicy &&
+          this.renderInfoRow(
             t('ReservationInformationForm.refundPolicyTitle'),
             <>
               {t('ReservationInformationForm.refundPolicyText.1')}
-              <a href={`mailto:${t('ReservationInformationForm.refundPolicyText.2')}`}>
+              <a
+                href={`mailto:${t(
+                  'ReservationInformationForm.refundPolicyText.2'
+                )}`}
+              >
                 {t('ReservationInformationForm.refundPolicyText.2')}
               </a>
               {t('ReservationInformationForm.refundPolicyText.3')}
             </>,
-            { id: 'refund-policy' },
-          )
-        }
+            { id: 'refund-policy' }
+          )}
         {canViewExtraFields && this.renderStaticInfoRow('reserverId')}
         {this.renderStaticInfoRow('reserverPhoneNumber')}
         {this.renderStaticInfoRow('reserverEmailAddress')}
@@ -236,7 +277,9 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
         {this.renderStaticInfoRow('reservationExtraQuestions')}
-        {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
+        {isAdmin &&
+          !reservationIsEditable &&
+          this.renderStaticInfoRow('comments')}
         {isAdminOrOwner && reservationIsEditable && (
           <div className="form-controls">
             {isAdminOrOwner && !isEditing && (
@@ -258,11 +301,7 @@ class UnconnectedReservationEditForm extends Component {
               </Button>
             )}
             {isAdmin && isEditing && (
-              <Button
-                bsStyle="primary"
-                disabled={isSaving}
-                type="submit"
-              >
+              <Button bsStyle="primary" disabled={isSaving} type="submit">
                 {t('ReservationEditForm.saveChanges')}
               </Button>
             )}
@@ -289,6 +328,8 @@ UnconnectedReservationEditForm.propTypes = {
 UnconnectedReservationEditForm = injectT(UnconnectedReservationEditForm);  // eslint-disable-line
 
 export { UnconnectedReservationEditForm };
-export default injectT(reduxForm({
-  form: FormTypes.RESERVATION_EDIT,
-})(UnconnectedReservationEditForm));
+export default injectT(
+  reduxForm({
+    form: FormTypes.RESERVATION_EDIT,
+  })(UnconnectedReservationEditForm)
+);

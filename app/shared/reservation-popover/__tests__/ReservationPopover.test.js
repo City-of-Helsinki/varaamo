@@ -35,7 +35,9 @@ describe('shared/reservation-popover/ReservationPopover', () => {
     const extraProps = {
       reservationPrice: '24.8',
     };
-    const span = getInternalPopover(extraProps).find('.reservation-popover__price');
+    const span = getInternalPopover(extraProps).find(
+      '.reservation-popover__price'
+    );
     expect(span.text()).toBe('24.8€');
   });
 
@@ -44,13 +46,17 @@ describe('shared/reservation-popover/ReservationPopover', () => {
       begin: '2016-01-01T10:00:00Z',
       end: '2016-01-01T10:30:00Z',
     };
-    const span = getInternalPopover(extraProps).find('.reservation-popover__length');
+    const span = getInternalPopover(extraProps).find(
+      '.reservation-popover__length'
+    );
     expect(span.text()).toBe('(30min)');
   });
 
   test('renders cancel icon', () => {
     const onCancel = () => null;
-    const icon = getInternalPopover({ onCancel }).find('.reservation-popover__cancel');
+    const icon = getInternalPopover({ onCancel }).find(
+      '.reservation-popover__cancel'
+    );
     expect(icon.is(Glyphicon)).toBe(true);
     expect(icon.prop('glyph')).toBe('trash');
     expect(icon.prop('onClick')).toBe(onCancel);

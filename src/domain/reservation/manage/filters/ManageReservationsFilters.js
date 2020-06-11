@@ -5,12 +5,7 @@ import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
 import { injectIntl, intlShape } from 'react-intl';
-import {
-  Row,
-  Col,
-  Grid,
-  Button,
-} from 'react-bootstrap';
+import { Row, Col, Grid, Button } from 'react-bootstrap';
 
 import injectT from '../../../../../app/i18n/injectT';
 import TextField from '../../../../common/form/fields/TextField';
@@ -56,16 +51,13 @@ class ManageReservationsFilters extends React.Component {
     startFilter = startFilter.startOf('day').toISOString();
     endFilter = endFilter.endOf('day').toISOString();
 
-    const newFilters = Object.assign({}, filters, { start: startFilter, end: endFilter });
+    const newFilters = { ...filters, start: startFilter, end: endFilter };
 
     onSearchChange(omit(newFilters, 'page'));
-  }
+  };
 
   onFilterChange = (filterName, filterValue) => {
-    const {
-      filters,
-      onSearchChange,
-    } = this.props;
+    const { filters, onSearchChange } = this.props;
 
     const newFilters = {
       ...omit(filters, filterName),
@@ -97,10 +89,22 @@ class ManageReservationsFilters extends React.Component {
     const { t } = this.props;
 
     return [
-      { value: RESERVATION_STATE.CONFIRMED, label: t('Reservation.stateLabelConfirmed') },
-      { value: RESERVATION_STATE.CANCELLED, label: t('Reservation.stateLabelCancelled') },
-      { value: RESERVATION_STATE.DENIED, label: t('Reservation.stateLabelDenied') },
-      { value: RESERVATION_STATE.REQUESTED, label: t('Reservation.stateLabelRequested') },
+      {
+        value: RESERVATION_STATE.CONFIRMED,
+        label: t('Reservation.stateLabelConfirmed'),
+      },
+      {
+        value: RESERVATION_STATE.CANCELLED,
+        label: t('Reservation.stateLabelCancelled'),
+      },
+      {
+        value: RESERVATION_STATE.DENIED,
+        label: t('Reservation.stateLabelDenied'),
+      },
+      {
+        value: RESERVATION_STATE.REQUESTED,
+        label: t('Reservation.stateLabelRequested'),
+      },
     ];
   };
 
@@ -109,13 +113,11 @@ class ManageReservationsFilters extends React.Component {
 
     return [
       {
-        value:
-        RESERVATION_SHOWONLY_FILTERS.FAVORITE,
+        value: RESERVATION_SHOWONLY_FILTERS.FAVORITE,
         label: t('ManageReservationsFilters.showOnly.favoriteButtonLabel'),
       },
       {
-        value:
-        RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY,
+        value: RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY,
         label: t('ManageReservationsFilters.showOnly.canModifyButtonLabel'),
       },
     ];
@@ -134,7 +136,7 @@ class ManageReservationsFilters extends React.Component {
     const state = get(filters, 'state', null);
     const startDate = get(filters, 'start', null);
     const endDate = get(filters, 'end', null);
-    const locale = intl.locale;
+    const { locale } = intl;
 
     return (
       <div className="app-ManageReservationsFilters">
@@ -144,7 +146,7 @@ class ManageReservationsFilters extends React.Component {
               <ButtonGroupField
                 id="stateField"
                 label={t('ManageReservationsFilters.statusLabel')}
-                onChange={value => this.onFilterChange('state', value)}
+                onChange={(value) => this.onFilterChange('state', value)}
                 options={this.getStatusOptions()}
                 type="checkbox"
                 value={state ? state.split(',') : null}
@@ -158,7 +160,9 @@ class ManageReservationsFilters extends React.Component {
                   onChange={(startDateValue) => {
                     this.onDateFilterChange(startDateValue, endDate);
                   }}
-                  placeholder={t('ManageReservationsFilters.startDatePlaceholder')}
+                  placeholder={t(
+                    'ManageReservationsFilters.startDatePlaceholder'
+                  )}
                   value={startDate ? moment(startDate).toDate() : null}
                 />
                 <div className="separator">-</div>
@@ -168,7 +172,9 @@ class ManageReservationsFilters extends React.Component {
                   onChange={(endDateValue) => {
                     this.onDateFilterChange(startDate, endDateValue);
                   }}
-                  placeholder={t('ManageReservationsFilters.endDatePlaceholder')}
+                  placeholder={t(
+                    'ManageReservationsFilters.endDatePlaceholder'
+                  )}
                   value={endDate ? moment(endDate).toDate() : null}
                 />
               </div>
@@ -177,7 +183,12 @@ class ManageReservationsFilters extends React.Component {
               <TextField
                 id="searchField"
                 label={t('ManageReservationsFilters.searchLabel')}
-                onChange={event => this.onFilterChange('reserver_info_search', event.target.value)}
+                onChange={(event) =>
+                  this.onFilterChange(
+                    'reserver_info_search',
+                    event.target.value
+                  )
+                }
                 placeholder={t('ManageReservationsFilters.searchPlaceholder')}
                 value={get(filters, 'reserver_info_search', '')}
               />
@@ -189,8 +200,8 @@ class ManageReservationsFilters extends React.Component {
               <SelectField
                 id="unitField"
                 label={t('ManageReservationsFilters.unitLabel')}
-                onChange={item => this.onFilterChange('unit', item.value)}
-                options={units.map(unit => ({
+                onChange={(item) => this.onFilterChange('unit', item.value)}
+                options={units.map((unit) => ({
                   value: unit.id,
                   label: dataUtils.getLocalizedFieldValue(unit.name, locale),
                 }))}
@@ -201,7 +212,7 @@ class ManageReservationsFilters extends React.Component {
               <ButtonGroupField
                 id="showOnlyField"
                 label={t('ManageReservationsFilters.showOnly.title')}
-                onChange={value => onShowOnlyFiltersChange(value)}
+                onChange={(value) => onShowOnlyFiltersChange(value)}
                 options={this.getShowOnlyOptions()}
                 type="checkbox"
                 value={showOnlyFilters}
@@ -227,5 +238,7 @@ class ManageReservationsFilters extends React.Component {
   }
 }
 
-export const UnwrappedManageReservationsFilters = injectT(ManageReservationsFilters);
+export const UnwrappedManageReservationsFilters = injectT(
+  ManageReservationsFilters
+);
 export default injectIntl(UnwrappedManageReservationsFilters);

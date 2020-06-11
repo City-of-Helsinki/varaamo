@@ -97,12 +97,12 @@ class ReservationTimeControls extends Component {
       Array.from(
         range.by(constants.FILTER.timePeriodType, {
           step: duration.as(constants.FILTER.timePeriodType),
-        }),
+        })
       ),
-      beginMoment => ({
+      (beginMoment) => ({
         label: beginMoment.format(timeFormat),
         value: beginMoment.format(timeFormat),
-      }),
+      })
     );
 
     return options;
@@ -111,7 +111,9 @@ class ReservationTimeControls extends Component {
   handleBeginTimeChange({ value }) {
     const { begin, timeFormat } = this.props;
     if (value) {
-      begin.input.onChange(updateWithTime(begin.input.value, value, timeFormat));
+      begin.input.onChange(
+        updateWithTime(begin.input.value, value, timeFormat)
+      );
     }
   }
 
@@ -134,7 +136,10 @@ class ReservationTimeControls extends Component {
     return (
       <div className="reservation-time-controls">
         <div className="reservation-time-controls-date-control">
-          <DatePicker onChange={this.handleDateChange} value={begin.input.value} />
+          <DatePicker
+            onChange={this.handleDateChange}
+            value={begin.input.value}
+          />
         </div>
         <div className="reservation-time-controls-time-control">
           <SelectControl

@@ -7,11 +7,7 @@ import { shallowWithIntl } from '../../../../app/utils/testUtils';
 describe('Pagination', () => {
   test('renders correctly', () => {
     const wrapper = shallowWithIntl(
-      <Pagination
-        onChange={() => null}
-        page={1}
-        pages={10}
-      />,
+      <Pagination onChange={() => null} page={1} pages={10} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -20,11 +16,7 @@ describe('Pagination', () => {
   test('onChange', () => {
     const onChange = jest.fn();
     const wrapper = shallowWithIntl(
-      <Pagination
-        onChange={onChange}
-        page={2}
-        pages={10}
-      />,
+      <Pagination onChange={onChange} page={2} pages={10} />
     );
 
     wrapper.find('.app-SearchPagination__prev').simulate('click');

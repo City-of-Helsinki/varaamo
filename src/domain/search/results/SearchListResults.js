@@ -69,7 +69,7 @@ class SearchListResults extends React.Component {
           <Row>
             <Col md={4} mdOffset={8} sm={6}>
               <SearchSort
-                onChange={sort => this.onSortChange(sort)}
+                onChange={(sort) => this.onSortChange(sort)}
                 value={get(filters, 'orderBy', '')}
               />
             </Col>
@@ -77,30 +77,40 @@ class SearchListResults extends React.Component {
         </div>
         <Loader loaded={!isLoading}>
           <div className="app-SearchListResults__results">
-            {resources && resources.map((resource) => {
-              const unit = find(units, item => item.id === resource.unit);
+            {resources &&
+              resources.map((resource) => {
+                const unit = find(units, (item) => item.id === resource.unit);
 
-              if (unit) {
-                return (
-                  <ResourceCard
-                    date={get(filters, 'date', moment().format(constants.DATE_FORMAT))}
-                    key={`resourceCard-${resource.id}`}
-                    onFavoriteClick={onFavoriteClick}
-                    onFilterClick={this.onFilterClick}
-                    resource={resource}
-                    unit={unit}
-                  />
-                );
-              }
+                if (unit) {
+                  return (
+                    <ResourceCard
+                      date={get(
+                        filters,
+                        'date',
+                        moment().format(constants.DATE_FORMAT)
+                      )}
+                      key={`resourceCard-${resource.id}`}
+                      onFavoriteClick={onFavoriteClick}
+                      onFilterClick={this.onFilterClick}
+                      resource={resource}
+                      unit={unit}
+                    />
+                  );
+                }
 
-              return null;
-            })}
+                return null;
+              })}
           </div>
         </Loader>
         <Pagination
-          onChange={newPage => history.push({
-            search: searchUtils.getSearchFromFilters({ ...filters, page: newPage }),
-          })}
+          onChange={(newPage) =>
+            history.push({
+              search: searchUtils.getSearchFromFilters({
+                ...filters,
+                page: newPage,
+              }),
+            })
+          }
           page={filters && filters.page ? Number(filters.page) : 1}
           pages={Math.ceil(totalCount / constants.SEARCH_PAGE_SIZE)}
         />

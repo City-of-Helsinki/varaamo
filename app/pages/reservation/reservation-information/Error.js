@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Error({ error }) {
-  return (
-    <span className="app-ReservationPage__error">{error}</span>
-  );
+  return <span className="app-ReservationPage__error">{error}</span>;
 }
 
 Error.propTypes = {

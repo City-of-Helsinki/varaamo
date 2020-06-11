@@ -2,7 +2,10 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import { clearSearchResults } from '../../../app/actions/searchActions';
-import { isAdminSelector, isLoggedInSelector } from '../../../app/state/selectors/authSelectors';
+import {
+  isAdminSelector,
+  isLoggedInSelector,
+} from '../../../app/state/selectors/authSelectors';
 import changeLocale from '../../../app/i18n/changeLocale';
 import MainNavbar from './MainNavbar';
 

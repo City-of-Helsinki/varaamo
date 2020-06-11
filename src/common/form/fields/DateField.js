@@ -13,9 +13,7 @@ import iconCalendar from './images/calendar.svg';
 import injectT from '../../../../app/i18n/injectT';
 
 const DatePickerWrapper = ({ children }) => (
-  <div className="app-DateField__datePicker">
-    {children}
-  </div>
+  <div className="app-DateField__datePicker">{children}</div>
 );
 
 DatePickerWrapper.propTypes = {
@@ -50,24 +48,25 @@ class UntranslatedDateField extends React.Component {
   };
 
   render() {
-    const {
-      locale,
-      label,
-      placeholder,
-      value,
-    } = this.props;
+    const { locale, label, placeholder, value } = this.props;
     const { isOpen } = this.state;
     const date = value || moment().toDate();
 
     return (
       <div className="app-DateField">
         <FormGroup onClick={() => this.setState({ isOpen: !isOpen })}>
-          {label && <ControlLabel className="app-DateField__label">{label}</ControlLabel>}
+          {label && (
+            <ControlLabel className="app-DateField__label">
+              {label}
+            </ControlLabel>
+          )}
           <InputGroup>
             <InputGroup.Addon className="app-DateField__input">
               <img alt="" className="app-DateField__icon" src={iconCalendar} />
-              {value && <span className="value">{moment(value).format('L')}</span>}
-              {(!value && placeholder) && (
+              {value && (
+                <span className="value">{moment(value).format('L')}</span>
+              )}
+              {!value && placeholder && (
                 <span className="placeholder">{placeholder}</span>
               )}
             </InputGroup.Addon>
@@ -89,7 +88,7 @@ class UntranslatedDateField extends React.Component {
               initialMonth={date}
               locale={locale}
               localeUtils={MomentLocaleUtils}
-              onDayClick={newDate => this.onChange(newDate)}
+              onDayClick={(newDate) => this.onChange(newDate)}
               selectedDays={date}
               showOutsideDays
               showWeekNumbers

@@ -12,8 +12,8 @@ const filteredResourceIdsSelector = createSelector(
     if (!unitId) {
       return resourceIds;
     }
-    return resourceIds.filter(id => resources[id].unit === unitId);
-  },
+    return resourceIds.filter((id) => resources[id].unit === unitId);
+  }
 );
 
 export default createStructuredSelector({

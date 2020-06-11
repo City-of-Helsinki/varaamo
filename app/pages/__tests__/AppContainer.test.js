@@ -7,7 +7,10 @@ import Header from '../../../src/domain/header/Header';
 import AccessibilityShortcuts from '../../shared/accessibility-shortcuts/AccessibilityShortcuts';
 import { getState } from '../../utils/testUtils';
 import * as customizationUtils from '../../utils/customizationUtils';
-import { selector, UnconnectedAppContainer as AppContainer } from '../AppContainer';
+import {
+  selector,
+  UnconnectedAppContainer as AppContainer,
+} from '../AppContainer';
 
 describe('pages/AppContainer', () => {
   function getWrapper(props) {
@@ -90,15 +93,16 @@ describe('pages/AppContainer', () => {
 
       languages.forEach((code) => {
         expect(
-          getWrapper({ language: code }).find(Helmet).props().htmlAttributes.lang,
+          getWrapper({ language: code }).find(Helmet).props().htmlAttributes
+            .lang
         ).toEqual(code);
       });
     });
 
     test('html class attribute is set correctly for font sizes', () => {
-      expect(
-        getWrapper().find(Helmet).props().htmlAttributes.class,
-      ).toEqual('fontSizeSmall');
+      expect(getWrapper().find(Helmet).props().htmlAttributes.class).toEqual(
+        'fontSizeSmall'
+      );
     });
   });
 
@@ -106,14 +110,16 @@ describe('pages/AppContainer', () => {
     const mockCity = 'ESPOO';
 
     beforeAll(() => {
-      simple.mock(customizationUtils, 'getCustomizationClassName').returnWith(mockCity);
+      simple
+        .mock(customizationUtils, 'getCustomizationClassName')
+        .returnWith(mockCity);
     });
 
     afterAll(() => {
       simple.restore();
     });
 
-    const getAppWrapper = props => getWrapper(props).find('.app');
+    const getAppWrapper = (props) => getWrapper(props).find('.app');
 
     test('render app className normally', () => {
       expect(getAppWrapper().length).toBeGreaterThan(0);
@@ -127,7 +133,9 @@ describe('pages/AppContainer', () => {
   describe('componentDidMount', () => {
     test('calls removeFacebookAppendedHash', () => {
       const instance = getWrapper().instance();
-      simple.mock(instance, 'removeFacebookAppendedHash').returnWith('some text');
+      simple
+        .mock(instance, 'removeFacebookAppendedHash')
+        .returnWith('some text');
       instance.componentDidMount();
 
       expect(instance.removeFacebookAppendedHash.callCount).toBe(1);

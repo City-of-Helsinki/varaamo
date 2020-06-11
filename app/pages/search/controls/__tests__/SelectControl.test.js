@@ -68,18 +68,15 @@ describe('pages/search/controls/SelectControl', () => {
     expect(select.prop('value')).toBe(defaults.options[0]);
   });
 
-  test(
-    'renders a Select with props className contain app-Select, so the styling will work',
-    () => {
-      const select = getWrapper({ className: 'foo' }).find(Select);
-      const defaultSelect = getWrapper().find(Select);
+  test('renders a Select with props className contain app-Select, so the styling will work', () => {
+    const select = getWrapper({ className: 'foo' }).find(Select);
+    const defaultSelect = getWrapper().find(Select);
 
-      expect(select).toHaveLength(1);
-      expect(select.prop('className')).toContain('app-Select');
-      expect(select.prop('className')).toContain('foo');
-      expect(defaultSelect.prop('className')).toContain('app-Select');
-    },
-  );
+    expect(select).toHaveLength(1);
+    expect(select.prop('className')).toContain('app-Select');
+    expect(select.prop('className')).toContain('foo');
+    expect(defaultSelect.prop('className')).toContain('app-Select');
+  });
 
   test('Select onChange calls prop onChange', () => {
     const onChange = simple.mock();
@@ -90,29 +87,23 @@ describe('pages/search/controls/SelectControl', () => {
     expect(onChange.lastCall.args[0]).toEqual(defaults.options[1]);
   });
 
-  test(
-    'Select onChange calls prop onChange when clear multi selected field',
-    () => {
-      const onChange = simple.mock();
-      const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
-      expect(multiSelect).toHaveLength(1);
-      multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
-      expect(onChange.callCount).toBe(1);
-      expect(onChange.lastCall.args[0]).toEqual([]);
-    },
-  );
+  test('Select onChange calls prop onChange when clear multi selected field', () => {
+    const onChange = simple.mock();
+    const multiSelect = getWrapper({ onChange, isMulti: true }).find(Select);
+    expect(multiSelect).toHaveLength(1);
+    multiSelect.prop('onChange')(defaults.options, { action: 'clear' });
+    expect(onChange.callCount).toBe(1);
+    expect(onChange.lastCall.args[0]).toEqual([]);
+  });
 
-  test(
-    'Select onChange calls prop onChange when clear non multi selected field',
-    () => {
-      const onChange = simple.mock();
-      const select = getWrapper({ onChange }).find(Select);
-      expect(select).toHaveLength(1);
-      select.prop('onChange')(defaults.options, { action: 'clear' });
-      expect(onChange.callCount).toBe(1);
-      expect(onChange.lastCall.args[0]).toEqual({});
-    },
-  );
+  test('Select onChange calls prop onChange when clear non multi selected field', () => {
+    const onChange = simple.mock();
+    const select = getWrapper({ onChange }).find(Select);
+    expect(select).toHaveLength(1);
+    select.prop('onChange')(defaults.options, { action: 'clear' });
+    expect(onChange.callCount).toBe(1);
+    expect(onChange.lastCall.args[0]).toEqual({});
+  });
 
   test('Select onChange calls prop onChange as fallback', () => {
     const onChange = simple.mock();
@@ -135,21 +126,25 @@ describe('pages/search/controls/SelectControl', () => {
   describe('getValue', () => {
     test('fill selected option when default value is passed in', () => {
       const wrapper = getWrapper({});
-      const selectedOption = wrapper.instance().getValue(
-        defaults.options[0].value, defaults.options,
-      );
+      const selectedOption = wrapper
+        .instance()
+        .getValue(defaults.options[0].value, defaults.options);
       expect(selectedOption).toEqual(defaults.options[0]);
     });
 
     test('return underfined if value is not exist in any options', () => {
       const wrapper = getWrapper({});
-      const selectedOption = wrapper.instance().getValue('foo', defaults.options);
+      const selectedOption = wrapper
+        .instance()
+        .getValue('foo', defaults.options);
       expect(selectedOption).toBeUndefined();
     });
 
     test('return array of options if value is array', () => {
       const wrapper = getWrapper({});
-      const selectedOption = wrapper.instance().getValue(['filter-1', 'filter-2'], defaults.options);
+      const selectedOption = wrapper
+        .instance()
+        .getValue(['filter-1', 'filter-2'], defaults.options);
       expect(selectedOption).toEqual(defaults.options);
     });
   });
@@ -162,7 +157,11 @@ describe('pages/search/controls/SelectControl', () => {
     });
 
     test('selected all values in multi', () => {
-      const wrapper = getWrapper({ isMulti: true, menuIsOpen: true, value: ['filter-1', 'filter-2'] });
+      const wrapper = getWrapper({
+        isMulti: true,
+        menuIsOpen: true,
+        value: ['filter-1', 'filter-2'],
+      });
       const text = wrapper.render().text();
       expect(text).toContain('SelectControl.noOptions');
     });

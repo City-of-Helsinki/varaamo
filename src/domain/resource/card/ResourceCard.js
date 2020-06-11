@@ -70,7 +70,7 @@ class ResourceCard extends React.Component {
       t,
       isNormalFontSize,
     } = this.props;
-    const locale = intl.locale;
+    const { locale } = intl;
     const typeName = resource.type
       ? dataUtils.getLocalizedFieldValue(resource.type.name, locale)
       : '';
@@ -97,7 +97,9 @@ class ResourceCard extends React.Component {
         </Link>
         <div className="app-resourceCard2__content">
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h3>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h3>
+            <h3>
+              {dataUtils.getLocalizedFieldValue(resource.name, locale, true)}
+            </h3>
             <div className="app-resourceCard2__unit-name">
               <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
               <div className="app-resourceCard2__unit-name-labels">
@@ -110,7 +112,7 @@ class ResourceCard extends React.Component {
             {dataUtils.getLocalizedFieldValue(
               resource.description,
               locale,
-              true,
+              true
             )}
           </div>
         </div>
@@ -126,19 +128,20 @@ class ResourceCard extends React.Component {
             icon={iconUser}
             onClick={
               resource.people_capacity
-                ? () => onFilterClick(
-                  'people',
-                  searchUtils.getClosestPeopleCapacityValue(
-                    resource.people_capacity,
-                  ),
-                )
+                ? () =>
+                    onFilterClick(
+                      'people',
+                      searchUtils.getClosestPeopleCapacityValue(
+                        resource.people_capacity
+                      )
+                    )
                 : null
             }
             text={
               resource.people_capacity
                 ? t('ResourceCard.peopleCapacity', {
-                  people: resource.people_capacity,
-                })
+                    people: resource.people_capacity,
+                  })
                 : '-'
             }
           />
@@ -178,7 +181,8 @@ class ResourceCard extends React.Component {
 const UnconnectedResourceCard = injectT(ResourceCard);
 export { UnconnectedResourceCard };
 
-const isNormalFontSizeSelector = state => state.ui.accessibility.fontSize !== FontSizes.LARGE;
+const isNormalFontSizeSelector = (state) =>
+  state.ui.accessibility.fontSize !== FontSizes.LARGE;
 
 const selector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
@@ -186,5 +190,5 @@ const selector = createStructuredSelector({
 });
 
 export default flowRight([injectIntl, connect(selector)])(
-  UnconnectedResourceCard,
+  UnconnectedResourceCard
 );

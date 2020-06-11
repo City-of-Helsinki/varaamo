@@ -27,25 +27,24 @@ export class UnconnectedResourceCompactList extends React.Component {
   onPreviousResource = () => {
     // Javascript mod operator (%) does not work as expected an the module of a negative number
     // is calculated like -(i % i_max) which would lead on a negative resourcePosition.
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       resourcePosition:
         // eslint-disable-next-line no-mixed-operators
-        (prevState.resourcePosition - 1 + this.props.resourceIds.length)
-        % this.props.resourceIds.length,
+        (prevState.resourcePosition - 1 + this.props.resourceIds.length) %
+        this.props.resourceIds.length,
     }));
   };
 
   onNextResource = () => {
-    this.setState(prevState => ({
-      resourcePosition: (prevState.resourcePosition + 1) % this.props.resourceIds.length,
+    this.setState((prevState) => ({
+      resourcePosition:
+        (prevState.resourcePosition + 1) % this.props.resourceIds.length,
     }));
   };
 
   render() {
     const { resourcePosition } = this.state;
-    const {
-      resourceIds, location, history, date,
-    } = this.props;
+    const { resourceIds, location, history, date } = this.props;
     const resourceIdsLength = resourceIds.length;
     return (
       <div className="app-ResourceCompactList">

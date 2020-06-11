@@ -19,7 +19,9 @@ describe('state/reducers/api/shouldFetchReducer', () => {
 
   describe('handling actions', () => {
     describe('API.RESOURCES_GET_SUCCESS', () => {
-      const fetchResourcesSuccess = createAction(types.API.RESOURCES_GET_SUCCESS);
+      const fetchResourcesSuccess = createAction(
+        types.API.RESOURCES_GET_SUCCESS
+      );
 
       test('sets resources to false', () => {
         const action = fetchResourcesSuccess();

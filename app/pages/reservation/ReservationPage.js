@@ -13,7 +13,10 @@ import queryString from 'query-string';
 import { decamelizeKeys } from 'humps';
 
 import { addNotification } from '../../actions/notificationsActions';
-import { postReservation, putReservation } from '../../actions/reservationActions';
+import {
+  postReservation,
+  putReservation,
+} from '../../actions/reservationActions';
 import { fetchResource } from '../../actions/resourceActions';
 import {
   clearReservations,
@@ -52,16 +55,18 @@ class UnconnectedReservationPage extends Component {
       history,
     } = this.props;
     if (
-      isEmpty(reservationCreated)
-      && isEmpty(reservationEdited)
-      && isEmpty(reservationToEdit)
-      && isEmpty(selected)
+      isEmpty(reservationCreated) &&
+      isEmpty(reservationEdited) &&
+      isEmpty(reservationToEdit) &&
+      isEmpty(selected)
     ) {
       const query = queryString.parse(location.search);
       if (!query.id && query.resource) {
         history.replace(`/resources/${query.resource}`);
       } else {
-        history.replace(query.path ? '/manage-reservations' : '/my-reservations');
+        history.replace(
+          query.path ? '/manage-reservations' : '/my-reservations'
+        );
       }
     } else {
       this.fetchResource();
@@ -70,11 +75,14 @@ class UnconnectedReservationPage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { reservationCreated: nextCreated, reservationEdited: nextEdited } = nextProps;
+    const {
+      reservationCreated: nextCreated,
+      reservationEdited: nextEdited,
+    } = nextProps;
     const { reservationCreated, reservationEdited } = this.props;
     if (
-      (!isEmpty(nextCreated) || !isEmpty(nextEdited))
-      && (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
+      (!isEmpty(nextCreated) || !isEmpty(nextEdited)) &&
+      (nextCreated !== reservationCreated || nextEdited !== reservationEdited)
     ) {
       // Reservation created for resource with product/order: proceed to payment!
       if (has(nextCreated, 'order.paymentUrl')) {
@@ -101,9 +109,7 @@ class UnconnectedReservationPage extends Component {
   };
 
   handleCancel = () => {
-    const {
-      reservationToEdit, resource, history, location,
-    } = this.props;
+    const { reservationToEdit, resource, history, location } = this.props;
     if (!isEmpty(reservationToEdit)) {
       const query = queryString.parse(location.search);
       history.replace(query.path ? '/manage-reservations' : '/my-reservations');
@@ -125,15 +131,19 @@ class UnconnectedReservationPage extends Component {
 
   handleReservation = (values = {}) => {
     const {
-      actions, reservationToEdit, resource, selected, recurringReservations = [],
+      actions,
+      reservationToEdit,
+      resource,
+      selected,
+      recurringReservations = [],
     } = this.props;
     if (!isEmpty(selected)) {
       const { begin } = first(selected);
       const { end } = last(selected);
 
       if (!isEmpty(reservationToEdit)) {
-        const reservation = Object.assign({}, reservationToEdit);
-        const decamelizeValues = decamelizeKeys(Object.assign({}, values));
+        const reservation = { ...reservationToEdit };
+        const decamelizeValues = decamelizeKeys({ ...values });
         actions.putReservation({
           ...reservation,
           ...decamelizeValues,
@@ -146,41 +156,38 @@ class UnconnectedReservationPage extends Component {
         const isOrder = hasProducts(resource);
         const order = isOrder
           ? {
-            order: {
-              order_lines: [{
-                product: get(resource, 'products[0].id'),
-              }],
-              return_url: this.createPaymentReturnUrl(),
-            },
-          } : {};
+              order: {
+                order_lines: [
+                  {
+                    product: get(resource, 'products[0].id'),
+                  },
+                ],
+                return_url: this.createPaymentReturnUrl(),
+              },
+            }
+          : {};
 
         if (isOrder) {
           this.setState({ view: 'payment' });
         }
-        allReservations.forEach(reservation => actions.postReservation({
-          ...values,
-          ...order,
-          begin: reservation.begin,
-          end: reservation.end,
-          resource: resource.id,
-        }));
+        allReservations.forEach((reservation) =>
+          actions.postReservation({
+            ...values,
+            ...order,
+            begin: reservation.begin,
+            end: reservation.end,
+            resource: resource.id,
+          })
+        );
       }
     }
   };
 
   fetchResource() {
-    const {
-      actions, date, resource, location,
-    } = this.props;
+    const { actions, date, resource, location } = this.props;
 
-    const start = moment(date)
-      .subtract(1, 'M')
-      .startOf('month')
-      .toISOString();
-    const end = moment(date)
-      .add(1, 'M')
-      .endOf('month')
-      .toISOString();
+    const start = moment(date).subtract(1, 'M').startOf('month').toISOString();
+    const end = moment(date).add(1, 'M').endOf('month').toISOString();
     const params = queryString.parse(location.search);
 
     if (!isEmpty(resource)) {
@@ -202,29 +209,37 @@ class UnconnectedReservationPage extends Component {
       isStaff,
     } = this.props;
 
-    const reservationsCount = selectedReservations.length + recurringReservations.length;
+    const reservationsCount =
+      selectedReservations.length + recurringReservations.length;
     const introText = resource.needManualConfirmation
-      ? t('ConfirmReservationModal.preliminaryReservationText', { reservationsCount })
-      : t('ConfirmReservationModal.regularReservationText', { reservationsCount });
+      ? t('ConfirmReservationModal.preliminaryReservationText', {
+          reservationsCount,
+        })
+      : t('ConfirmReservationModal.regularReservationText', {
+          reservationsCount,
+        });
 
-    return (
-      isStaff
-        ? (
-          <>
-            {/* Recurring selection dropdown  */}
-            <RecurringReservationControls />
-            {<p><strong>{introText}</strong></p>}
+    return isStaff ? (
+      <>
+        {/* Recurring selection dropdown  */}
+        <RecurringReservationControls />
+        {
+          <p>
+            <strong>{introText}</strong>
+          </p>
+        }
 
-            {/* Selected recurring info */}
-            <CompactReservationList
-              onRemoveClick={actions.removeReservation}
-              removableReservations={recurringReservations}
-              reservations={selectedReservations}
-            />
-          </>
-        ) : ''
+        {/* Selected recurring info */}
+        <CompactReservationList
+          onRemoveClick={actions.removeReservation}
+          removableReservations={recurringReservations}
+          reservations={selectedReservations}
+        />
+      </>
+    ) : (
+      ''
     );
-  }
+  };
 
   render() {
     const {
@@ -249,11 +264,11 @@ class UnconnectedReservationPage extends Component {
     const { view } = this.state;
 
     if (
-      isEmpty(resource)
-      && isEmpty(reservationCreated)
-      && isEmpty(reservationEdited)
-      && isEmpty(reservationToEdit)
-      && !isFetchingResource
+      isEmpty(resource) &&
+      isEmpty(reservationCreated) &&
+      isEmpty(reservationEdited) &&
+      isEmpty(reservationToEdit) &&
+      !isFetchingResource
     ) {
       return <div />;
     }
@@ -264,7 +279,9 @@ class UnconnectedReservationPage extends Component {
     const end = !isEmpty(selected) ? last(selected).end : null;
     const selectedTime = begin && end ? { begin, end } : null;
     const title = t(
-      `ReservationPage.${isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'}`,
+      `ReservationPage.${
+        isEditing || isEdited ? 'editReservationTitle' : 'newReservationTitle'
+      }`
     );
 
     return (
@@ -318,16 +335,17 @@ class UnconnectedReservationPage extends Component {
                     <p>{t('ReservationPage.paymentText')}</p>
                   </div>
                 )}
-                {view === 'confirmation' && (reservationCreated || reservationEdited) && (
-                  <ReservationConfirmation
-                    failedReservations={failedReservations}
-                    isEdited={isEdited}
-                    location={location}
-                    reservation={reservationCreated || reservationEdited}
-                    resource={resource}
-                    user={user}
-                  />
-                )}
+                {view === 'confirmation' &&
+                  (reservationCreated || reservationEdited) && (
+                    <ReservationConfirmation
+                      failedReservations={failedReservations}
+                      isEdited={isEdited}
+                      location={location}
+                      reservation={reservationCreated || reservationEdited}
+                      resource={resource}
+                      user={user}
+                    />
+                  )}
               </Loader>
             </div>
           </div>
@@ -378,5 +396,5 @@ function mapDispatchToProps(dispatch) {
 export { UnconnectedReservationPage };
 export default connect(
   reservationPageSelector,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UnconnectedReservationPage);

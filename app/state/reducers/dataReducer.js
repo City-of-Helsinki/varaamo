@@ -28,7 +28,7 @@ function handleReservation(state, reservation) {
   if (state.resources[reservation.resource]) {
     const reservations = reject(
       state.resources[reservation.resource].reservations,
-      current => current.url === reservation.url,
+      (current) => current.url === reservation.url
     );
     entities.resources = {
       [reservation.resource]: {
@@ -54,12 +54,15 @@ function dataReducer(state = initialState, action) {
     }
 
     case types.API.RESOURCES_GET_SUCCESS: {
-      const resources = mapValues(action.payload.entities.resources, (resource) => {
-        if (!resource.reservations) {
+      const resources = mapValues(
+        action.payload.entities.resources,
+        (resource) => {
+          if (!resource.reservations) {
           delete resource.reservations; // eslint-disable-line
+          }
+          return resource;
         }
-        return resource;
-      });
+      );
       return handleData(state, { resources });
     }
 
@@ -70,7 +73,7 @@ function dataReducer(state = initialState, action) {
     }
 
     case types.API.RESERVATION_DELETE_SUCCESS: {
-      reservation = Object.assign({}, action.payload, { state: 'cancelled' });
+      reservation = { ...action.payload, state: 'cancelled' };
       return handleReservation(state, reservation);
     }
 
@@ -80,17 +83,19 @@ function dataReducer(state = initialState, action) {
     }
 
     case types.API.RESOURCE_UNFAVORITE_POST_SUCCESS: {
-      const id = action.meta.id;
+      const { id } = action.meta;
       return state.setIn(['resources', id, 'isFavorite'], false);
     }
     case types.API.RESOURCE_FAVORITE_POST_SUCCESS: {
-      const id = action.meta.id;
+      const { id } = action.meta;
       return state.setIn(['resources', id, 'isFavorite'], true);
     }
 
     case types.DATA.RESERVATION_BATCH_ADD: {
       const { reservations } = action;
-      const transform = createTransformFunction(arrayOf(schemas.batchAddReservationSchema));
+      const transform = createTransformFunction(
+        arrayOf(schemas.batchAddReservationSchema)
+      );
       const result = transform(reservations);
 
       return handleData(state, result.entities);

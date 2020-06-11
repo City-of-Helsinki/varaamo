@@ -5,38 +5,166 @@ import resourceFixture from '../../../common/data/fixtures/resource';
 
 const DATE = '2019-08-15';
 const OPENING_HOURS = [
-  { date: '2019-07-31', opens: '2019-07-31T08:00:00+03:00', closes: '2019-07-31T20:00:00+03:00' },
-  { date: '2019-08-01', opens: '2019-08-01T08:00:00+03:00', closes: '2019-08-01T20:00:00+03:00' },
-  { date: '2019-08-02', opens: '2019-08-02T08:00:00+03:00', closes: '2019-08-02T20:00:00+03:00' },
-  { date: '2019-08-03', opens: '2019-08-03T10:00:00+03:00', closes: '2019-08-03T17:00:00+03:00' },
-  { date: '2019-08-04', opens: '2019-08-04T10:00:00+03:00', closes: '2019-08-04T17:00:00+03:00' },
-  { date: '2019-08-05', opens: '2019-08-05T08:00:00+03:00', closes: '2019-08-05T20:00:00+03:00' },
-  { date: '2019-08-06', opens: '2019-08-06T08:00:00+03:00', closes: '2019-08-06T20:00:00+03:00' },
-  { date: '2019-08-07', opens: '2019-08-07T08:00:00+03:00', closes: '2019-08-07T20:00:00+03:00' },
-  { date: '2019-08-08', opens: '2019-08-08T08:00:00+03:00', closes: '2019-08-08T20:00:00+03:00' },
-  { date: '2019-08-09', opens: '2019-08-09T08:00:00+03:00', closes: '2019-08-09T20:00:00+03:00' },
-  { date: '2019-08-10', opens: '2019-08-10T10:00:00+03:00', closes: '2019-08-10T17:00:00+03:00' },
-  { date: '2019-08-11', opens: '2019-08-11T10:00:00+03:00', closes: '2019-08-11T17:00:00+03:00' },
-  { date: '2019-08-12', opens: '2019-08-12T08:00:00+03:00', closes: '2019-08-12T20:00:00+03:00' },
-  { date: '2019-08-13', opens: '2019-08-13T08:00:00+03:00', closes: '2019-08-13T20:00:00+03:00' },
-  { date: '2019-08-14', opens: '2019-08-14T08:00:00+03:00', closes: '2019-08-14T20:00:00+03:00' },
-  { date: '2019-08-15', opens: '2019-08-15T08:00:00+03:00', closes: '2019-08-15T20:00:00+03:00' },
-  { date: '2019-08-16', opens: '2019-08-16T08:00:00+03:00', closes: '2019-08-16T20:00:00+03:00' },
-  { date: '2019-08-17', opens: '2019-08-17T10:00:00+03:00', closes: '2019-08-17T17:00:00+03:00' },
-  { date: '2019-08-18', opens: '2019-08-18T10:00:00+03:00', closes: '2019-08-18T17:00:00+03:00' },
-  { date: '2019-08-19', opens: '2019-08-19T08:00:00+03:00', closes: '2019-08-19T20:00:00+03:00' },
-  { date: '2019-08-20', opens: '2019-08-20T08:00:00+03:00', closes: '2019-08-20T20:00:00+03:00' },
-  { date: '2019-08-21', opens: '2019-08-21T08:00:00+03:00', closes: '2019-08-21T20:00:00+03:00' },
-  { date: '2019-08-22', opens: '2019-08-22T08:00:00+03:00', closes: '2019-08-22T20:00:00+03:00' },
-  { date: '2019-08-23', opens: '2019-08-23T08:00:00+03:00', closes: '2019-08-23T20:00:00+03:00' },
-  { date: '2019-08-24', opens: '2019-08-24T10:00:00+03:00', closes: '2019-08-24T17:00:00+03:00' },
-  { date: '2019-08-25', opens: '2019-08-25T10:00:00+03:00', closes: '2019-08-25T17:00:00+03:00' },
-  { date: '2019-08-26', opens: '2019-08-26T08:00:00+03:00', closes: '2019-08-26T20:00:00+03:00' },
-  { date: '2019-08-27', opens: '2019-08-27T08:00:00+03:00', closes: '2019-08-27T20:00:00+03:00' },
-  { date: '2019-08-28', opens: '2019-08-28T08:00:00+03:00', closes: '2019-08-28T20:00:00+03:00' },
-  { date: '2019-08-29', opens: '2019-08-29T08:00:00+03:00', closes: '2019-08-29T20:00:00+03:00' },
-  { date: '2019-08-30', opens: '2019-08-30T08:00:00+03:00', closes: '2019-08-30T20:00:00+03:00' },
-  { date: '2019-08-31', opens: '2019-08-31T10:00:00+03:00', closes: '2019-08-31T17:00:00+03:00' },
+  {
+    date: '2019-07-31',
+    opens: '2019-07-31T08:00:00+03:00',
+    closes: '2019-07-31T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-01',
+    opens: '2019-08-01T08:00:00+03:00',
+    closes: '2019-08-01T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-02',
+    opens: '2019-08-02T08:00:00+03:00',
+    closes: '2019-08-02T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-03',
+    opens: '2019-08-03T10:00:00+03:00',
+    closes: '2019-08-03T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-04',
+    opens: '2019-08-04T10:00:00+03:00',
+    closes: '2019-08-04T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-05',
+    opens: '2019-08-05T08:00:00+03:00',
+    closes: '2019-08-05T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-06',
+    opens: '2019-08-06T08:00:00+03:00',
+    closes: '2019-08-06T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-07',
+    opens: '2019-08-07T08:00:00+03:00',
+    closes: '2019-08-07T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-08',
+    opens: '2019-08-08T08:00:00+03:00',
+    closes: '2019-08-08T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-09',
+    opens: '2019-08-09T08:00:00+03:00',
+    closes: '2019-08-09T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-10',
+    opens: '2019-08-10T10:00:00+03:00',
+    closes: '2019-08-10T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-11',
+    opens: '2019-08-11T10:00:00+03:00',
+    closes: '2019-08-11T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-12',
+    opens: '2019-08-12T08:00:00+03:00',
+    closes: '2019-08-12T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-13',
+    opens: '2019-08-13T08:00:00+03:00',
+    closes: '2019-08-13T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-14',
+    opens: '2019-08-14T08:00:00+03:00',
+    closes: '2019-08-14T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-15',
+    opens: '2019-08-15T08:00:00+03:00',
+    closes: '2019-08-15T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-16',
+    opens: '2019-08-16T08:00:00+03:00',
+    closes: '2019-08-16T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-17',
+    opens: '2019-08-17T10:00:00+03:00',
+    closes: '2019-08-17T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-18',
+    opens: '2019-08-18T10:00:00+03:00',
+    closes: '2019-08-18T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-19',
+    opens: '2019-08-19T08:00:00+03:00',
+    closes: '2019-08-19T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-20',
+    opens: '2019-08-20T08:00:00+03:00',
+    closes: '2019-08-20T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-21',
+    opens: '2019-08-21T08:00:00+03:00',
+    closes: '2019-08-21T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-22',
+    opens: '2019-08-22T08:00:00+03:00',
+    closes: '2019-08-22T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-23',
+    opens: '2019-08-23T08:00:00+03:00',
+    closes: '2019-08-23T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-24',
+    opens: '2019-08-24T10:00:00+03:00',
+    closes: '2019-08-24T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-25',
+    opens: '2019-08-25T10:00:00+03:00',
+    closes: '2019-08-25T17:00:00+03:00',
+  },
+  {
+    date: '2019-08-26',
+    opens: '2019-08-26T08:00:00+03:00',
+    closes: '2019-08-26T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-27',
+    opens: '2019-08-27T08:00:00+03:00',
+    closes: '2019-08-27T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-28',
+    opens: '2019-08-28T08:00:00+03:00',
+    closes: '2019-08-28T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-29',
+    opens: '2019-08-29T08:00:00+03:00',
+    closes: '2019-08-29T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-30',
+    opens: '2019-08-30T08:00:00+03:00',
+    closes: '2019-08-30T20:00:00+03:00',
+  },
+  {
+    date: '2019-08-31',
+    opens: '2019-08-31T10:00:00+03:00',
+    closes: '2019-08-31T17:00:00+03:00',
+  },
 ];
 
 describe('domain resource utility function', () => {
@@ -92,12 +220,18 @@ describe('domain resource utility function', () => {
     });
 
     test('return address zip if exist', () => {
-      const address = resourceUtils.getUnitAddress({ ...unit, address_zip: '1234' });
+      const address = resourceUtils.getUnitAddress({
+        ...unit,
+        address_zip: '1234',
+      });
       expect(address).toContain('1234');
     });
 
     test('return municipality if exist', () => {
-      const address = resourceUtils.getUnitAddress({ ...unit, municipality: 'espoo' });
+      const address = resourceUtils.getUnitAddress({
+        ...unit,
+        municipality: 'espoo',
+      });
       expect(address).toContain('espoo');
     });
   });
@@ -125,69 +259,90 @@ describe('domain resource utility function', () => {
   });
 
   describe('getPriceFromSnakeCaseResource', () => {
-    const fakeT = foo => foo;
+    const fakeT = (foo) => foo;
     test('return free text if there is no price', () => {
       const price = resourceUtils.getPriceFromSnakeCaseResource({}, fakeT);
       expect(price).toContain('free');
     });
 
     test('return free text if price is 0', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '0.00',
-        price_type: 'hourly',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '0.00',
+          price_type: 'hourly',
+        },
+        fakeT
+      );
 
       expect(price).toContain('free');
     });
 
     test('return price even if there is 1 price', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '123.00',
-        price_type: 'hourly',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '123.00',
+          price_type: 'hourly',
+        },
+        fakeT
+      );
 
       expect(price).toContain('123');
     });
 
     test('return price range if both min and max price included', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '123.00',
-        max_price: '234.00',
-        price_type: 'hourly',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '123.00',
+          max_price: '234.00',
+          price_type: 'hourly',
+        },
+        fakeT
+      );
 
       expect(price).toEqual('123 - 234 €/common.unit.time.hour');
     });
 
     test('return null if price exist but not number', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: 'foo',
-        price_type: 'hourly',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: 'foo',
+          price_type: 'hourly',
+        },
+        fakeT
+      );
       expect(price).toBeNull();
     });
 
     test('supports daily prices', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '100.00',
-        price_type: 'daily',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '100.00',
+          price_type: 'daily',
+        },
+        fakeT
+      );
       expect(price).toEqual('100 €/common.unit.time.day');
     });
 
     test('supports weekly prices', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '100.00',
-        price_type: 'weekly',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '100.00',
+          price_type: 'weekly',
+        },
+        fakeT
+      );
       expect(price).toEqual('100 €/common.unit.time.week');
     });
 
     test('supports fixed prices', () => {
-      const price = resourceUtils.getPriceFromSnakeCaseResource({
-        min_price: '100.00',
-        price_type: 'fixed',
-      }, fakeT);
+      const price = resourceUtils.getPriceFromSnakeCaseResource(
+        {
+          min_price: '100.00',
+          price_type: 'fixed',
+        },
+        fakeT
+      );
       expect(price).toEqual('100 €');
     });
   });
@@ -243,15 +398,17 @@ describe('domain resource utility function', () => {
 
     const openingHours = resourceUtils.getOpeningHoursForWeek(resource, DATE);
     expect(openingHours.length).toBe(7);
-    expect(openingHours.map(item => item.date).sort()).toEqual([
-      '2019-08-12',
-      '2019-08-13',
-      '2019-08-14',
-      '2019-08-15',
-      '2019-08-16',
-      '2019-08-17',
-      '2019-08-18',
-    ].sort());
+    expect(openingHours.map((item) => item.date).sort()).toEqual(
+      [
+        '2019-08-12',
+        '2019-08-13',
+        '2019-08-14',
+        '2019-08-15',
+        '2019-08-16',
+        '2019-08-17',
+        '2019-08-18',
+      ].sort()
+    );
   });
 
   test('getFullCalendarBusinessHours', () => {
@@ -259,7 +416,10 @@ describe('domain resource utility function', () => {
       opening_hours: OPENING_HOURS,
     });
 
-    const businessHours = resourceUtils.getFullCalendarBusinessHours(resource, DATE);
+    const businessHours = resourceUtils.getFullCalendarBusinessHours(
+      resource,
+      DATE
+    );
     expect(businessHours).toEqual([
       { daysOfWeek: [1], startTime: '08:00', endTime: '20:00' },
       { daysOfWeek: [2], startTime: '08:00', endTime: '20:00' },
@@ -276,10 +436,18 @@ describe('domain resource utility function', () => {
       opening_hours: OPENING_HOURS,
     });
 
-    const minTimeDay = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridDay');
+    const minTimeDay = resourceUtils.getFullCalendarMinTime(
+      resource,
+      DATE,
+      'timeGridDay'
+    );
     expect(minTimeDay).toBe('06:00:00');
 
-    const minTimeWeek = resourceUtils.getFullCalendarMinTime(resource, DATE, 'timeGridWeek');
+    const minTimeWeek = resourceUtils.getFullCalendarMinTime(
+      resource,
+      DATE,
+      'timeGridWeek'
+    );
     expect(minTimeWeek).toBe('06:00:00');
   });
 
@@ -289,22 +457,36 @@ describe('domain resource utility function', () => {
         opening_hours: OPENING_HOURS,
       });
 
-      const maxTimeDay = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridDay');
+      const maxTimeDay = resourceUtils.getFullCalendarMaxTime(
+        resource,
+        DATE,
+        'timeGridDay'
+      );
       expect(maxTimeDay).toBe('20:30:00');
 
-      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek');
+      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(
+        resource,
+        DATE,
+        'timeGridWeek'
+      );
       expect(maxTimeWeek).toBe('20:30:00');
     });
 
     test('does not overflow date when opening hours end at 23:59', () => {
       const resource = resourceFixture.build({
-        opening_hours: [{
-          date: DATE,
-          opens: `${DATE}T08:00:00+03:00`,
-          closes: `${DATE}T23:59:00+03:00`,
-        }],
+        opening_hours: [
+          {
+            date: DATE,
+            opens: `${DATE}T08:00:00+03:00`,
+            closes: `${DATE}T23:59:00+03:00`,
+          },
+        ],
       });
-      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(resource, DATE, 'timeGridWeek');
+      const maxTimeWeek = resourceUtils.getFullCalendarMaxTime(
+        resource,
+        DATE,
+        'timeGridWeek'
+      );
 
       expect(maxTimeWeek).toBe('23:59:00');
     });
@@ -315,19 +497,30 @@ describe('domain resource utility function', () => {
       opening_hours: OPENING_HOURS,
     });
 
-    const businessHours = resourceUtils.getFullCalendarBusinessHoursForDate(resource, DATE);
-    expect(businessHours).toEqual({ daysOfWeek: [4], startTime: '08:00', endTime: '20:00' });
+    const businessHours = resourceUtils.getFullCalendarBusinessHoursForDate(
+      resource,
+      DATE
+    );
+    expect(businessHours).toEqual({
+      daysOfWeek: [4],
+      startTime: '08:00',
+      endTime: '20:00',
+    });
   });
 
   test('getFullCalendarSlotLabelInterval', () => {
-    const interval15min = resourceUtils
-      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '00:15:00' }));
-    const interval30min = resourceUtils
-      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '00:30:00' }));
-    const interval1h = resourceUtils
-      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '01:00:00' }));
-    const interval3h = resourceUtils
-      .getFullCalendarSlotLabelInterval(resourceFixture.build({ slot_size: '03:00:00' }));
+    const interval15min = resourceUtils.getFullCalendarSlotLabelInterval(
+      resourceFixture.build({ slot_size: '00:15:00' })
+    );
+    const interval30min = resourceUtils.getFullCalendarSlotLabelInterval(
+      resourceFixture.build({ slot_size: '00:30:00' })
+    );
+    const interval1h = resourceUtils.getFullCalendarSlotLabelInterval(
+      resourceFixture.build({ slot_size: '01:00:00' })
+    );
+    const interval3h = resourceUtils.getFullCalendarSlotLabelInterval(
+      resourceFixture.build({ slot_size: '03:00:00' })
+    );
 
     expect(interval15min).toBe('00:30:00');
     expect(interval30min).toBe('01:00:00');
@@ -341,7 +534,11 @@ describe('domain resource utility function', () => {
       slot_size: '00:30:00',
     });
 
-    const slotDuration = resourceUtils.getFullCalendarSlotDuration(resource, DATE, 'timeGridWeek');
+    const slotDuration = resourceUtils.getFullCalendarSlotDuration(
+      resource,
+      DATE,
+      'timeGridWeek'
+    );
     expect(slotDuration).toBe('00:30:00');
   });
 
@@ -371,7 +568,9 @@ describe('domain resource utility function', () => {
     });
 
     expect(resourceUtils.isDateReservable(resourceReservable, DATE)).toBe(true);
-    expect(resourceUtils.isDateReservable(resourceNotReservable, DATE)).toBe(false);
+    expect(resourceUtils.isDateReservable(resourceNotReservable, DATE)).toBe(
+      false
+    );
     expect(resourceUtils.isDateReservable(resourceAdmin, DATE)).toBe(true);
   });
 
@@ -387,11 +586,22 @@ describe('domain resource utility function', () => {
 
     advanceTo(new Date(2019, 7, 15, 8, 0, 0));
 
-    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`))
-      .toBe(true);
+    expect(
+      resourceUtils.isTimeRangeReservable(
+        resource,
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`
+      )
+    ).toBe(true);
 
-    expect(resourceUtils.isTimeRangeReservable(resource, `${DATE}T08:00:00Z`, `${DATE}T16:00:00Z`, true))
-      .toBe(true);
+    expect(
+      resourceUtils.isTimeRangeReservable(
+        resource,
+        `${DATE}T08:00:00Z`,
+        `${DATE}T16:00:00Z`,
+        true
+      )
+    ).toBe(true);
 
     clear();
     Date.now();
@@ -408,61 +618,86 @@ describe('domain resource utility function', () => {
   describe('getReservationPrice', () => {
     test('return the correct price when the period is one hour', () => {
       const resource = resourceFixture.build({
-        products: [{
-          price: { amount: 20, type: 'per_period', period: '01:00:00' },
-
-        }],
+        products: [
+          {
+            price: { amount: 20, type: 'per_period', period: '01:00:00' },
+          },
+        ],
       });
 
-      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      const price = resourceUtils.getReservationPrice(
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`,
+        resource
+      );
       expect(price).toBe(40);
     });
 
     test('return the correct price when the supplied period is more than an hour', () => {
       const resource = resourceFixture.build({
-        products: [{
-          price: { amount: 20, type: 'per_period', period: '02:00:00' },
-
-        }],
+        products: [
+          {
+            price: { amount: 20, type: 'per_period', period: '02:00:00' },
+          },
+        ],
       });
 
-      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      const price = resourceUtils.getReservationPrice(
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`,
+        resource
+      );
       expect(price).toBe(20);
     });
 
     test('return the correct price when the supplied period is less than an hour', () => {
       const resource = resourceFixture.build({
-        products: [{
-          price: { amount: 20, type: 'per_period', period: '00:30:00' },
-
-        }],
+        products: [
+          {
+            price: { amount: 20, type: 'per_period', period: '00:30:00' },
+          },
+        ],
       });
 
-      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      const price = resourceUtils.getReservationPrice(
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`,
+        resource
+      );
       expect(price).toBe(80);
     });
 
     test('return 0 if the supplied period is 0', () => {
       const resource = resourceFixture.build({
-        products: [{
-          price: { amount: 20, type: 'per_period', period: '00:00:00' },
-
-        }],
+        products: [
+          {
+            price: { amount: 20, type: 'per_period', period: '00:00:00' },
+          },
+        ],
       });
 
-      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      const price = resourceUtils.getReservationPrice(
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`,
+        resource
+      );
       expect(price).toBe(0);
     });
 
     test('returns the correct price when price type is fixed', () => {
       const resource = resourceFixture.build({
-        products: [{
-          price: { amount: 200, type: 'fixed' },
-
-        }],
+        products: [
+          {
+            price: { amount: 200, type: 'fixed' },
+          },
+        ],
       });
 
-      const price = resourceUtils.getReservationPrice(`${DATE}T08:00:00Z`, `${DATE}T10:00:00Z`, resource);
+      const price = resourceUtils.getReservationPrice(
+        `${DATE}T08:00:00Z`,
+        `${DATE}T10:00:00Z`,
+        resource
+      );
       expect(price).toBe(200);
     });
   });

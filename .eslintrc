@@ -1,16 +1,12 @@
 {
-  "extends": "airbnb",
-
+  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
   "env": {
     "browser": true,
     "node": true,
     "jest": true
   },
-
   "parser": "babel-eslint",
-
   "plugins": ["import", "react", "react-hooks"],
-
   "settings": {
     "import/resolver": {
       "webpack": {
@@ -18,13 +14,8 @@
       }
     }
   },
-
   "rules": {
-
-    "class-methods-use-this": "off",
-
-    "import/no-extraneous-dependencies": "off",
-
+    // Project's own preferences.
     "import/order": [
       "error",
       {
@@ -36,75 +27,34 @@
         "newlines-between": "always"
       }
     ],
-
-    "no-debugger": "warn",
-
-    "no-unused-vars": "warn",
-
-    "import/prefer-default-export": "off",
-
     "new-cap": ["error", { "capIsNew": false, "newIsCap": true }],
-
-    "no-underscore-dangle": ["error", { "allow": ["_paq"] }],
-
-    "no-unused-expressions": "off",
-
-    "no-use-before-define": ["error", "nofunc"],
-
-    "react/forbid-prop-types": "off",
-
-    "react/jsx-filename-extension": "off",
-
     "react/jsx-sort-props": ["error", { "ignoreCase": true }],
-
-    "react/no-string-refs": "off",
-
-    "react/no-unused-state": "warn",
-
-    "react/no-unused-prop-types": ["warn", { "skipShapeProps": true }],
-
-    "react/prefer-stateless-function": "off",
-
     "react-hooks/rules-of-hooks": "error",
-
     "react-hooks/exhaustive-deps": "warn",
+    "max-len": ["warn", { "code": 120 }],
+    // Configure prettier to use single quotes.
+    "prettier/prettier": ["error", { "singleQuote": true }],
 
-    "linebreak-style": 0,
-
-    "no-restricted-globals": ["error", "history"],
-    
-    "prefer-destructuring": "off",
-
-    "react/destructuring-assignment": "off",
-
+    // Some airbnb rules are turned off in this project.
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-unused-expressions": "off",
+    "no-use-before-define": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_paq"] }],
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
-    
-    "jsx-a11y/click-events-have-key-events": "off",
-
-    "jsx-a11y/anchor-is-valid": "off",
-
-    "jsx-a11y/label-has-for": "off",
-
-    "jsx-a11y/label-has-associated-control": {
-      "some": [ "nesting", "id" ]
-    },
-
-    "jsx-a11y/no-static-element-interactions": "off",
-    
-    "jsx-a11y/no-noninteractive-tabindex": "off",
-    
+    "react/state-in-constructor": "off",
+    "react/forbid-prop-types": "off",
+    "react/destructuring-assignment": "off",
+    "react/static-property-placement": "off",
+    "react/prefer-stateless-function": "off",
     "react/no-array-index-key": "off",
-
-    "max-len": ["warn", { "code":  120}],
-
+    // These next ones at least should generally be considered for
+    // removal from this file.
+    "no-restricted-globals": "off",
     "no-plusplus": "off",
-
-    "no-undef": "warn",
-
-    "arrow-body-style": "off",
-
-    "quote-props": "off",
-
     "no-case-declarations": "off"
   }
 }

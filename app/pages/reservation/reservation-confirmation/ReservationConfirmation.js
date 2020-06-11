@@ -12,7 +12,10 @@ import constants from '../../../constants/AppConstants';
 import injectT from '../../../i18n/injectT';
 import ReservationDate from '../../../shared/reservation-date/ReservationDate';
 import { hasProducts } from '../../../utils/resourceUtils';
-import { getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
+import {
+  getReservationPrice,
+  getReservationPricePerPeriod,
+} from '../../../utils/reservationUtils';
 import apiClient from '../../../../src/common/api/client';
 import CompactReservationList from '../../../shared/compact-reservation-list/CompactReservationList';
 
@@ -29,13 +32,17 @@ class ReservationConfirmation extends Component {
 
   state = {
     reservationPrice: null,
-  }
+  };
 
   componentDidMount() {
     const { reservation, resource } = this.props;
     if (hasProducts(resource)) {
-      getReservationPrice(apiClient, reservation.begin, reservation.end, resource.products)
-        .then(reservationPrice => this.setState({ reservationPrice }));
+      getReservationPrice(
+        apiClient,
+        reservation.begin,
+        reservation.end,
+        resource.products
+      ).then((reservationPrice) => this.setState({ reservationPrice }));
     }
   }
 
@@ -49,7 +56,10 @@ class ReservationConfirmation extends Component {
 
   renderField(field, label, value) {
     return (
-      <Row className="app-ReservationConfirmation__field" key={`reservation-confirmation-field-${field}`}>
+      <Row
+        className="app-ReservationConfirmation__field"
+        key={`reservation-confirmation-field-${field}`}
+      >
         <Col md={4} xs={6}>
           <span className="app-ReservationDetails__name">{label}</span>
         </Col>
@@ -62,7 +72,12 @@ class ReservationConfirmation extends Component {
 
   render() {
     const {
-      failedReservations, isEdited, reservation, resource, t, user,
+      failedReservations,
+      isEdited,
+      reservation,
+      resource,
+      t,
+      user,
     } = this.props;
     const { reservationPrice } = this.state;
     const refUrl = window.location.href;
@@ -84,7 +99,11 @@ class ReservationConfirmation extends Component {
         <Col md={6} xs={12}>
           <div className="app-ReservationDetails">
             <h2 className="app-ReservationPage__title app-ReservationPage__title--big app-ReservationPage__header">
-              {t(`ReservationConfirmation.reservation${isEdited ? 'Edited' : 'Created'}Title`)}
+              {t(
+                `ReservationConfirmation.reservation${
+                  isEdited ? 'Edited' : 'Created'
+                }Title`
+              )}
             </h2>
             <div className="app-ReservationConfirmation__highlight">
               <ReservationDate
@@ -102,19 +121,22 @@ class ReservationConfirmation extends Component {
               </p>
             </div>
             {!isEdited && (
-            <p>
-              <FormattedHTMLMessage
-                id="ReservationConfirmation.confirmationText"
-                values={{ email }}
-              />
-            </p>
+              <p>
+                <FormattedHTMLMessage
+                  id="ReservationConfirmation.confirmationText"
+                  values={{ email }}
+                />
+              </p>
             )}
             <p>
-              <FormattedHTMLMessage id="ReservationConfirmation.feedbackText" values={{ href }} />
+              <FormattedHTMLMessage
+                id="ReservationConfirmation.feedbackText"
+                values={{ href }}
+              />
             </p>
 
-            {Array.isArray(failedReservations) && Boolean(failedReservations.length)
-              && (
+            {Array.isArray(failedReservations) &&
+              Boolean(failedReservations.length) && (
                 <div>
                   <h5 className="app-ReservationConfirmation__error-msg-title">
                     {t('ReservationSuccessModal.failedReservationsHeader')}
@@ -125,12 +147,14 @@ class ReservationConfirmation extends Component {
                     subtitle="failReason"
                   />
                 </div>
-              )
-            }
+              )}
 
             <p className="app-ReservationConfirmation__button-wrapper">
               <Link to={this.getReturnUrl(isEdited)}>
-                <Button bsStyle="primary" className="app-ReservationConfirmation__button">
+                <Button
+                  bsStyle="primary"
+                  className="app-ReservationConfirmation__button"
+                >
                   {t('ReservationConfirmation.ownReservationButton')}
                 </Button>
               </Link>
@@ -139,121 +163,131 @@ class ReservationConfirmation extends Component {
         </Col>
         <Col md={6} xs={12}>
           <div className="app-ReservationDetails">
-            <h2 className="app-ReservationPage__title">{t('ReservationConfirmation.reservationDetailsTitle')}</h2>
-            {reservationPrice
-              && this.renderField(
+            <h2 className="app-ReservationPage__title">
+              {t('ReservationConfirmation.reservationDetailsTitle')}
+            </h2>
+            {reservationPrice &&
+              this.renderField(
                 'pricePerPeriod',
                 t('common.priceLabel'),
-                getReservationPricePerPeriod(resource),
+                getReservationPricePerPeriod(resource)
               )}
-            {reservationPrice
-              && this.renderField(
+            {reservationPrice &&
+              this.renderField(
                 'reservationPrice',
                 t('common.totalPriceLabel'),
-                `${reservationPrice}€`,
+                `${reservationPrice}€`
               )}
-            {reservation.reserverName
-              && this.renderField(
+            {reservation.reserverName &&
+              this.renderField(
                 'reserverName',
                 t('common.reserverNameLabel'),
-                reservation.reserverName,
+                reservation.reserverName
               )}
-            {reservation.reserverId
-              && this.renderField('reserverId', t('common.reserverIdLabel'), reservation.reserverId)}
-            {reservation.reserverPhoneNumber
-              && this.renderField(
+            {reservation.reserverId &&
+              this.renderField(
+                'reserverId',
+                t('common.reserverIdLabel'),
+                reservation.reserverId
+              )}
+            {reservation.reserverPhoneNumber &&
+              this.renderField(
                 'reserverPhoneNumber',
                 t('common.reserverPhoneNumberLabel'),
-                reservation.reserverPhoneNumber,
+                reservation.reserverPhoneNumber
               )}
-            {reservation.reserverEmailAddress
-              && this.renderField(
+            {reservation.reserverEmailAddress &&
+              this.renderField(
                 'reserverEmailAddress',
                 t('common.reserverEmailAddressLabel'),
-                reservation.reserverEmailAddress,
+                reservation.reserverEmailAddress
               )}
-            {reservation.eventSubject
-              && this.renderField(
+            {reservation.eventSubject &&
+              this.renderField(
                 'eventSubject',
                 t('common.eventSubjectLabel'),
-                reservation.eventSubject,
+                reservation.eventSubject
               )}
-            {reservation.eventDescription
-              && this.renderField(
+            {reservation.eventDescription &&
+              this.renderField(
                 'eventDescription',
                 t('common.eventDescriptionLabel'),
-                reservation.eventDescription,
+                reservation.eventDescription
               )}
-            {reservation.numberOfParticipants
-              && this.renderField(
+            {reservation.numberOfParticipants &&
+              this.renderField(
                 'numberOfParticipants',
                 t('common.numberOfParticipantsLabel'),
-                reservation.numberOfParticipants,
+                reservation.numberOfParticipants
               )}
-            {reservation.comments
-              && this.renderField('comments', t('common.commentsLabel'), reservation.comments)}
-            {reservation.reserverAddressStreet
-              && this.renderField(
+            {reservation.comments &&
+              this.renderField(
+                'comments',
+                t('common.commentsLabel'),
+                reservation.comments
+              )}
+            {reservation.reserverAddressStreet &&
+              this.renderField(
                 'reserverAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.reserverAddressStreet,
+                reservation.reserverAddressStreet
               )}
-            {reservation.reserverAddressZip
-              && this.renderField(
+            {reservation.reserverAddressZip &&
+              this.renderField(
                 'reserverAddressZip',
                 t('common.addressZipLabel'),
-                reservation.reserverAddressZip,
+                reservation.reserverAddressZip
               )}
-            {reservation.reserverAddressCity
-              && this.renderField(
+            {reservation.reserverAddressCity &&
+              this.renderField(
                 'reserverAddressCity',
                 t('common.addressCityLabel'),
-                reservation.reserverAddressCity,
+                reservation.reserverAddressCity
               )}
             {reservation.billingAddressStreet && (
               <Col xs={12}>{t('common.billingAddressLabel')}</Col>
             )}
-            {reservation.billingFirstName
-              && this.renderField(
+            {reservation.billingFirstName &&
+              this.renderField(
                 'billingFirstName',
                 t('common.billingFirstNameLabel'),
-                reservation.billingFirstName,
+                reservation.billingFirstName
               )}
-            {reservation.billingLastName
-              && this.renderField(
+            {reservation.billingLastName &&
+              this.renderField(
                 'billingLastName',
                 t('common.billingLastNameLabel'),
-                reservation.billingLastName,
+                reservation.billingLastName
               )}
-            {reservation.billingPhoneNumber
-              && this.renderField(
+            {reservation.billingPhoneNumber &&
+              this.renderField(
                 'billingPhoneNumber',
                 t('common.billingPhoneNumberLabel'),
-                reservation.billingPhoneNumber,
+                reservation.billingPhoneNumber
               )}
-            {reservation.billingEmailAddress
-              && this.renderField(
+            {reservation.billingEmailAddress &&
+              this.renderField(
                 'billingEmailAddress',
                 t('common.billingEmailAddressLabel'),
-                reservation.billingEmailAddress,
+                reservation.billingEmailAddress
               )}
-            {reservation.billingAddressStreet
-              && this.renderField(
+            {reservation.billingAddressStreet &&
+              this.renderField(
                 'billingAddressStreet',
                 t('common.addressStreetLabel'),
-                reservation.billingAddressStreet,
+                reservation.billingAddressStreet
               )}
-            {reservation.billingAddressZip
-              && this.renderField(
+            {reservation.billingAddressZip &&
+              this.renderField(
                 'billingAddressZip',
                 t('common.addressZipLabel'),
-                reservation.billingAddressZip,
+                reservation.billingAddressZip
               )}
-            {reservation.billingAddressCity
-              && this.renderField(
+            {reservation.billingAddressCity &&
+              this.renderField(
                 'billingAddressCity',
                 t('common.addressCityLabel'),
-                reservation.billingAddressCity,
+                reservation.billingAddressCity
               )}
           </div>
         </Col>

@@ -50,10 +50,7 @@ describe('state/selectors/dataSelectors', () => {
         const expected = [
           {
             id: 1,
-            images: [
-              { caption: 'some caption' },
-              { caption: 'other caption' },
-            ],
+            images: [{ caption: 'some caption' }, { caption: 'other caption' }],
             regularArray: ['foo', 'bar'],
           },
         ];
@@ -117,10 +114,7 @@ describe('state/selectors/dataSelectors', () => {
         const expected = {
           1: {
             id: 1,
-            images: [
-              { caption: 'some caption' },
-              { caption: 'other caption' },
-            ],
+            images: [{ caption: 'some caption' }, { caption: 'other caption' }],
             regularArray: ['foo', 'bar'],
           },
         };

@@ -6,10 +6,15 @@ import Label from '../label/Label';
 import injectT from '../../i18n/injectT';
 
 function ReservationStateLabel({ reservation, t }) {
-  if (!reservation.needManualConfirmation && reservation.state !== 'cancelled') {
+  if (
+    !reservation.needManualConfirmation &&
+    reservation.state !== 'cancelled'
+  ) {
     return <span />;
   }
-  const { labelBsStyle, labelTextId } = constants.RESERVATION_STATE_LABELS[reservation.state];
+  const { labelBsStyle, labelTextId } = constants.RESERVATION_STATE_LABELS[
+    reservation.state
+  ];
 
   return (
     <div className="reservation-state-label-container">

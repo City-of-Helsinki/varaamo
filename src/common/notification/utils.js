@@ -12,7 +12,13 @@ import { NOTIFICATION_TYPE } from './constants';
  * @param {function} callback
  * @returns {void}
  */
-export const createNotification = (type, message = '', title = '', fadeTime = 2000, callback) => {
+export const createNotification = (
+  type,
+  message = '',
+  title = '',
+  fadeTime = 2000,
+  callback
+) => {
   switch (type) {
     case NOTIFICATION_TYPE.INFO:
       NotificationManager.info(message, title, fadeTime, callback);

@@ -19,7 +19,10 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
     });
 
     test('returns true if reservation is not preliminary', () => {
-      const reservation = { id: 'reservation-1', needManualConfirmation: false };
+      const reservation = {
+        id: 'reservation-1',
+        needManualConfirmation: false,
+      };
       const selected = getSelected({
         'ui.reservations.toCancel': [reservation],
       });
@@ -34,25 +37,24 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       expect(selected.cancelAllowed).toBe(true);
     });
 
-    test(
-      'returns false if user is not admin and reservation is confirmed and preliminary',
-      () => {
-        const reservation = {
-          id: 'reservation-1',
-          needManualConfirmation: true,
-          state: 'confirmed',
-        };
-        const selected = getSelected({
-          'ui.reservations.toCancel': [reservation],
-        });
-        expect(selected.cancelAllowed).toBe(false);
-      },
-    );
+    test('returns false if user is not admin and reservation is confirmed and preliminary', () => {
+      const reservation = {
+        id: 'reservation-1',
+        needManualConfirmation: true,
+        state: 'confirmed',
+      };
+      const selected = getSelected({
+        'ui.reservations.toCancel': [reservation],
+      });
+      expect(selected.cancelAllowed).toBe(false);
+    });
   });
 
   describe('isCancellingReservations', () => {
     test('returns true if RESERVATION_DELETE_REQUEST is active', () => {
-      const activeRequests = { [ActionTypes.API.RESERVATION_DELETE_REQUEST]: 1 };
+      const activeRequests = {
+        [ActionTypes.API.RESERVATION_DELETE_REQUEST]: 1,
+      };
       const selected = getSelected({
         'api.activeRequests': activeRequests,
       });
@@ -91,14 +93,11 @@ describe('shared/modals/reservation-cancel/reservationCancelModalSelector', () =
       expect(selected.show).toBe(true);
     });
 
-    test(
-      'returns false if modals.open does not contain RESERVATION_CANCEL',
-      () => {
-        const selected = getSelected({
-          'ui.modals.open': [],
-        });
-        expect(selected.show).toBe(false);
-      },
-    );
+    test('returns false if modals.open does not contain RESERVATION_CANCEL', () => {
+      const selected = getSelected({
+        'ui.modals.open': [],
+      });
+      expect(selected.show).toBe(false);
+    });
   });
 });

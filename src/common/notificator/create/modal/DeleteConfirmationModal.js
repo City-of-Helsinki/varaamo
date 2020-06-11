@@ -17,8 +17,12 @@ const DeleteConfirmationDialog = (props) => {
         <span>Are you sure you want to delete this notification?</span>
       </Modal.Body>
       <Modal.Footer className="modal-footer">
-        <button onClick={onHide} type="button">Cancel</button>
-        <button onClick={deleteConfirm} type="button">Delete</button>
+        <button onClick={onHide} type="button">
+          Cancel
+        </button>
+        <button onClick={deleteConfirm} type="button">
+          Delete
+        </button>
       </Modal.Footer>
     </Modal>
   );

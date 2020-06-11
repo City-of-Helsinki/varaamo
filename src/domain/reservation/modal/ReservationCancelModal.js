@@ -17,9 +17,16 @@ const mapStateToProps = (state) => {
 };
 
 const UnconnectedReservationCancelModal = ({
+  onEditReservation,
+  parentToggle,
+  reservation,
+  toggleShow,
+  t,
   // Remove eslint-disable later!
   // eslint-disable-next-line no-unused-vars
-  onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
+  userId,
+  // eslint-disable-next-line no-unused-vars
+  users,
 }) => {
   const [show, setShow] = useState(toggleShow);
   /**
@@ -47,7 +54,7 @@ const UnconnectedReservationCancelModal = ({
    */
 
   const reservationCopyId = JSON.parse(JSON.stringify(reservation));
-  const id = reservationCopyId.resource.id;
+  const { id } = reservationCopyId.resource;
   reservationCopyId.resource = id;
 
   /**
@@ -73,11 +80,13 @@ const UnconnectedReservationCancelModal = ({
   const renderCheckBox = (notice, onConfirm) => {
     return (
       <div>
-        <p><strong>{notice}</strong></p>
+        <p>
+          <strong>{notice}</strong>
+        </p>
         <Toggle
           defaultChecked={false}
           id="checkbox"
-          onChange={e => onConfirm(e.target.checked)}
+          onChange={(e) => onConfirm(e.target.checked)}
         />
       </div>
     );
@@ -88,10 +97,7 @@ const UnconnectedReservationCancelModal = ({
   };
 
   return (
-    <Modal
-      onHide={handleClose}
-      show={show}
-    >
+    <Modal onHide={handleClose} show={show}>
       <Modal.Header closeButton>
         <Modal.Title>
           {t('ReservationCancelModal.cancelAllowedTitle')}
@@ -100,33 +106,30 @@ const UnconnectedReservationCancelModal = ({
 
       <Modal.Body>
         <div>
-          <p><strong>{t('ReservationCancelModal.lead')}</strong></p>
-          {reservation.resource
-            && (
-              <CompactReservationList
-                reservations={[reservationCopyId]}
-                resources={{ [reservationCopy.resource.id]: reservationCopy.resource }}
-              />
-            )
-          }
-          {
-            reservation.resource
-            && billable
-            && renderCheckBox(
+          <p>
+            <strong>{t('ReservationCancelModal.lead')}</strong>
+          </p>
+          {reservation.resource && (
+            <CompactReservationList
+              reservations={[reservationCopyId]}
+              resources={{
+                [reservationCopy.resource.id]: reservationCopy.resource,
+              }}
+            />
+          )}
+          {reservation.resource &&
+            billable &&
+            renderCheckBox(
               t('ReservationInformationForm.refundCheckBox'),
               () => {
                 disableCheckbox(!checkboxDisabled);
-              },
-            )
-          }
+              }
+            )}
         </div>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          bsStyle="default"
-          onClick={handleClose}
-        >
+        <Button bsStyle="default" onClick={handleClose}>
           {t('ReservationCancelModal.cancelAllowedCancel')}
         </Button>
         <Button
@@ -153,6 +156,8 @@ UnconnectedReservationCancelModal.propTypes = {
 
 export { UnconnectedReservationCancelModal };
 
-const ConnectedReservationCancelModal = injectT(UnconnectedReservationCancelModal);
+const ConnectedReservationCancelModal = injectT(
+  UnconnectedReservationCancelModal
+);
 
 export default connect(mapStateToProps)(ConnectedReservationCancelModal);

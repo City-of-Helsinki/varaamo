@@ -6,9 +6,7 @@ import injectT from '../../i18n/injectT';
 function GeneratedAccessCode({ accessCode, t, text }) {
   return (
     <span className="reservation-access-code">
-      {text || t('ReservationAccessCode.defaultText')}
-      {' '}
-      {accessCode}
+      {text || t('ReservationAccessCode.defaultText')} {accessCode}
     </span>
   );
 }

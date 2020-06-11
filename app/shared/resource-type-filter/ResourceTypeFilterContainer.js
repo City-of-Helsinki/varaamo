@@ -25,14 +25,14 @@ class ResourceTypeFilterContainer extends Component {
     } else {
       onSelectResourceType(resourceType);
     }
-  }
+  };
 
   render() {
     const { t, selectedResourceTypes, resourceTypes } = this.props;
     return (
       <div className="resource-type-filter-container">
         <h6>{t('ResourceTypeFilter.title')}</h6>
-        { resourceTypes.map(resourceType => (
+        {resourceTypes.map((resourceType) => (
           <ResourceTypeFilterButton
             active={includes(selectedResourceTypes, resourceType)}
             key={`resource-type-${resourceType}`}

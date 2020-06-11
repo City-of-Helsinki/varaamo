@@ -14,10 +14,7 @@ describe('UnitMarker', () => {
 
   test('renders correctly', () => {
     const wrapper = shallow(
-      <UnitMarker
-        resources={[{ id: 'foo' }]}
-        unit={unit}
-      />,
+      <UnitMarker resources={[{ id: 'foo' }]} unit={unit} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -25,13 +22,7 @@ describe('UnitMarker', () => {
 
   test('show number of resources when more than 1 resources', () => {
     const wrapper = shallow(
-      <UnitMarker
-        resources={[
-          { id: 'foo' },
-          { id: 'bar' },
-        ]}
-        unit={unit}
-      />,
+      <UnitMarker resources={[{ id: 'foo' }, { id: 'bar' }]} unit={unit} />
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -40,17 +31,10 @@ describe('UnitMarker', () => {
   test('onClick function works', () => {
     const onClick = jest.fn();
     const wrapper = shallow(
-      <UnitMarker
-        onClick={onClick}
-        resources={[
-          { id: 'foo' },
-        ]}
-        unit={unit}
-      />,
+      <UnitMarker onClick={onClick} resources={[{ id: 'foo' }]} unit={unit} />
     );
 
-    wrapper
-      .simulate('click');
+    wrapper.simulate('click');
 
     expect(onClick.mock.calls.length).toBe(1);
     expect(onClick.mock.calls[0][0].id).toBe('testUnit');

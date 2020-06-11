@@ -38,12 +38,8 @@ function Footer({ t }) {
             </Link>
           </Col>
           <Col lg={6} md={6} xs={12}>
-            <p>
-              {t(cityNameId)}
-            </p>
-            <p>
-              {feedbackLink}
-            </p>
+            <p>{t(cityNameId)}</p>
+            <p>{feedbackLink}</p>
           </Col>
           <Col lg={3} md={3} xs={12}>
             <div className="app-varaamo-version-wrapper">

@@ -43,7 +43,9 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
   };
 
   function getWrapper(extraProps = {}) {
-    return shallowWithIntl(<ReservationEditForm {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationEditForm {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('render', () => {
@@ -124,13 +126,21 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
 
       describe('reserverId', () => {
         test('is rendered if user is UNIT_ADMINISTRATOR, UNIT_MANAGER or UNIT_VIEWER', () => {
-          expect(getData({ userUnitRole: 'UNIT_ADMINISTRATOR' })).toContain(reservation.reserverId);
-          expect(getData({ userUnitRole: 'UNIT_MANAGER' })).toContain(reservation.reserverId);
-          expect(getData({ userUnitRole: 'UNIT_VIEWER' })).toContain(reservation.reserverId);
+          expect(getData({ userUnitRole: 'UNIT_ADMINISTRATOR' })).toContain(
+            reservation.reserverId
+          );
+          expect(getData({ userUnitRole: 'UNIT_MANAGER' })).toContain(
+            reservation.reserverId
+          );
+          expect(getData({ userUnitRole: 'UNIT_VIEWER' })).toContain(
+            reservation.reserverId
+          );
         });
 
         test('is not rendered if user has some other role', () => {
-          expect(getData({ userUnitRole: null })).not.toContain(reservation.reserverId);
+          expect(getData({ userUnitRole: null })).not.toContain(
+            reservation.reserverId
+          );
         });
       });
 
@@ -154,15 +164,16 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
         });
 
         test('renders reservation user name when reserverName is empty', () => {
-          expect(getData({ reservation: userReservation })).toContain(user.displayName);
+          expect(getData({ reservation: userReservation })).toContain(
+            user.displayName
+          );
         });
 
-        test(
-          'renders reservation user email when reserverEmailAddress is empty',
-          () => {
-            expect(getData({ reservation: userReservation })).toContain(user.email);
-          },
-        );
+        test('renders reservation user email when reserverEmailAddress is empty', () => {
+          expect(getData({ reservation: userReservation })).toContain(
+            user.email
+          );
+        });
       });
     });
 
@@ -194,13 +205,15 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
           const getTimeTestingWrapper = (
             props,
             openHoursDate = '2017-07-07',
-            reservationBegin = '2017-07-07T12:45',
+            reservationBegin = '2017-07-07T12:45'
           ) => {
-            const resourceOpenHours = [{
-              date: openHoursDate,
-              opens: '2017-07-07T09:00',
-              closes: '2017-07-07T16:00',
-            }];
+            const resourceOpenHours = [
+              {
+                date: openHoursDate,
+                opens: '2017-07-07T09:00',
+                closes: '2017-07-07T16:00',
+              },
+            ];
             const resource0 = { ...resource, openingHours: resourceOpenHours };
             const reservation0 = { ...reservation, begin: reservationBegin };
 
@@ -210,28 +223,40 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
               ...props,
             });
           };
-          const findTimeControls = wrapper => wrapper.find(Fields)
-            .filter({ names: ['begin', 'end'] });
+          const findTimeControls = (wrapper) =>
+            wrapper.find(Fields).filter({ names: ['begin', 'end'] });
 
           test('renders ReservationTimeControls', () => {
-            const timeControls = findTimeControls(getWrapper({ isEditing: true }));
+            const timeControls = findTimeControls(
+              getWrapper({ isEditing: true })
+            );
             expect(timeControls).toHaveLength(1);
           });
 
           describe('when user has role UNIT_VIEWER', () => {
             test('time options are constrained to resource.openingHours on reservation.begin date', () => {
-              const timeControlProps = findTimeControls(getTimeTestingWrapper({
-                isEditing: true, userUnitRole: 'UNIT_VIEWER',
-              })).props();
+              const timeControlProps = findTimeControls(
+                getTimeTestingWrapper({
+                  isEditing: true,
+                  userUnitRole: 'UNIT_VIEWER',
+                })
+              ).props();
 
               expect(timeControlProps.constraints.startTime).toEqual('09:00');
               expect(timeControlProps.constraints.endTime).toEqual('16:00');
             });
 
             test('time controls are disabled if no opening hours are found', () => {
-              const timeControlProps = findTimeControls(getTimeTestingWrapper({
-                isEditing: true, userUnitRole: 'UNIT_VIEWER',
-              }, undefined, '2017-07-08T12:45')).props();
+              const timeControlProps = findTimeControls(
+                getTimeTestingWrapper(
+                  {
+                    isEditing: true,
+                    userUnitRole: 'UNIT_VIEWER',
+                  },
+                  undefined,
+                  '2017-07-08T12:45'
+                )
+              ).props();
 
               expect(timeControlProps.disabled).toEqual(true);
             });
@@ -338,9 +363,11 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
             isAdmin: true,
             resource: {
               ...resource,
-              products: [{
-                price: {},
-              }],
+              products: [
+                {
+                  price: {},
+                },
+              ],
             },
           });
           const isUser = getEditButton({
@@ -352,9 +379,11 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
             },
             resource: {
               ...resource,
-              products: [{
-                price: {},
-              }],
+              products: [
+                {
+                  price: {},
+                },
+              ],
             },
           });
 

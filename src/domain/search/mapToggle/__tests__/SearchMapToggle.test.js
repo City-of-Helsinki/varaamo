@@ -4,20 +4,25 @@ import React from 'react';
 import SearchMapToggle from '../SearchMapToggle';
 import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 
-const findListButton = wrapper => wrapper.find({ children: 'MapToggle.showList' });
-const findMapButton = wrapper => wrapper.find({ children: 'MapToggle.showMap' });
-const getButtonClass = modifier => `app-SearchMapToggle__button${modifier && `--${modifier}`}`;
-const findButtons = wrapper => wrapper.find(getButtonClass());
-const findResultCount = wrapper => wrapper.find('[data-testid="result-count"]');
+const findListButton = (wrapper) =>
+  wrapper.find({ children: 'MapToggle.showList' });
+const findMapButton = (wrapper) =>
+  wrapper.find({ children: 'MapToggle.showMap' });
+const getButtonClass = (modifier) =>
+  `app-SearchMapToggle__button${modifier && `--${modifier}`}`;
+const findButtons = (wrapper) => wrapper.find(getButtonClass());
+const findResultCount = (wrapper) =>
+  wrapper.find('[data-testid="result-count"]');
 
 describe('SearchMapToggle', () => {
   const defaultProps = {
     onClick: () => {},
     resultCount: 50,
     active: 'list',
-    t: path => path,
+    t: (path) => path,
   };
-  const getWrapper = props => shallowWithIntl(<SearchMapToggle {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallowWithIntl(<SearchMapToggle {...defaultProps} {...props} />);
 
   test('renders correctly', () => {
     const wrapper = getWrapper();
@@ -39,7 +44,8 @@ describe('SearchMapToggle', () => {
       expect(button.prop('aria-selected')).toBe(not);
       expect(button.hasClass(getButtonClass('selected'))).toBe(not);
     };
-    expectButtonToBeActive.not = button => expectButtonToBeActive(button, false);
+    expectButtonToBeActive.not = (button) =>
+      expectButtonToBeActive(button, false);
 
     test('buttons have accessibility props', () => {
       const buttons = findButtons(getWrapper());

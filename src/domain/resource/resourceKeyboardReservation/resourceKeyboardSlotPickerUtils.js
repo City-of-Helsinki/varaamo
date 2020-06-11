@@ -39,7 +39,7 @@ export function getSlots(startTime, endTime, slotSize) {
     // Count how many slot sizes can be fit between start and end times.
     // Use .toFixed to round the final result and ignore the possible
     // error in floating point math.
-    ((new Date(endTimeInMs).getTime() - statTimeInMs) / slotSizeInMs).toFixed(0),
+    ((new Date(endTimeInMs).getTime() - statTimeInMs) / slotSizeInMs).toFixed(0)
   );
   const slots = Array.from({ length: slotCount }, (_, index) => {
     const slotStartTime = statTimeInMs + index * slotSizeInMs;
@@ -48,8 +48,7 @@ export function getSlots(startTime, endTime, slotSize) {
     const slotEndTime = slotStartTime + (slotSizeInMs - 1);
 
     return {
-      start:
-        new Date(slotStartTime).toJSON(),
+      start: new Date(slotStartTime).toJSON(),
       end: new Date(slotEndTime).toJSON(),
     };
   });
@@ -70,8 +69,9 @@ export function getIsSlotReserved(slot, reservations) {
   return reservations.reduce((acc, reservation) => {
     const timeInSlot = new Date(new Date(slot.start).getTime() + 1);
 
-    const isReserved = new Date(reservation.begin).getTime() < timeInSlot.getTime()
-      && new Date(reservation.end).getTime() > timeInSlot.getTime();
+    const isReserved =
+      new Date(reservation.begin).getTime() < timeInSlot.getTime() &&
+      new Date(reservation.end).getTime() > timeInSlot.getTime();
 
     return acc || isReserved;
   }, false);
@@ -101,8 +101,8 @@ export function getIsSlotInPast(slot) {
  */
 export function getNextFreeSlot(slots, reservations) {
   const upComingFreeSlots = slots
-    .filter(slot => !getIsSlotInPast(slot))
-    .filter(slot => !getIsSlotReserved(slot, reservations));
+    .filter((slot) => !getIsSlotInPast(slot))
+    .filter((slot) => !getIsSlotReserved(slot, reservations));
 
   if (upComingFreeSlots && upComingFreeSlots.length >= 1) {
     return upComingFreeSlots[0];

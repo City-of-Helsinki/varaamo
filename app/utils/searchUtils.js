@@ -6,27 +6,27 @@ import constants from '../constants/AppConstants';
 import { getDateStartAndEndTimes, getDateString } from './timeUtils';
 
 function getFetchParamsFromFilters(filters) {
-  const all = Object.assign(
-    {},
-    pickSupportedFilters(filters),
-    getDateStartAndEndTimes(
+  const all = {
+    ...pickSupportedFilters(filters),
+    ...getDateStartAndEndTimes(
       filters.date,
       filters.useTimeRange,
       filters.start,
       filters.end,
-      filters.duration,
+      filters.duration
     ),
-    { purpose: filters.purpose === 'all' ? '' : filters.purpose },
-    { page: filters.page || 1 },
-  );
+    purpose: filters.purpose === 'all' ? '' : filters.purpose,
+    page: filters.page || 1,
+  };
 
   return omit(all, 'date', 'duration', 'useTimeRange');
 }
 
 function getSearchPageUrl(filters = {}) {
-  const query = queryString.stringify(
-    Object.assign({}, filters, { date: getDateString(filters.date) }),
-  );
+  const query = queryString.stringify({
+    ...filters,
+    date: getDateString(filters.date),
+  });
 
   return `/search?${query}`;
 }
@@ -40,5 +40,8 @@ function textBoolean(value) {
 }
 
 export {
-  getFetchParamsFromFilters, getSearchPageUrl, pickSupportedFilters, textBoolean,
+  getFetchParamsFromFilters,
+  getSearchPageUrl,
+  pickSupportedFilters,
+  textBoolean,
 };

@@ -35,9 +35,7 @@ const ManageReservationsStatus = ({ reservation, t }) => {
 
   return (
     <div className="app-ManageReservationsStatus">
-      <Label bsStyle={getLabelStyle(status)}>
-        {getLabelText(status, t)}
-      </Label>
+      <Label bsStyle={getLabelStyle(status)}>{getLabelText(status, t)}</Label>
     </div>
   );
 };

@@ -13,15 +13,16 @@ import apiClient from '../../../src/common/api/client';
 import PaymentFailed from './PaymentFailed';
 import PaymentSuccess from './PaymentSuccess';
 
-
 const stepIds = [
   'ReservationPhase.informationTitle',
   'ReservationPhase.paymentTitle',
   'ReservationPhase.confirmationTitle',
 ];
 
-const loadReservation = id => apiClient.get(`reservation/${id}`).then(({ data }) => camelizeKeysDeep(data));
-const loadResource = id => apiClient.get(`resource/${id}`).then(({ data }) => camelizeKeysDeep(data));
+const loadReservation = (id) =>
+  apiClient.get(`reservation/${id}`).then(({ data }) => camelizeKeysDeep(data));
+const loadResource = (id) =>
+  apiClient.get(`resource/${id}`).then(({ data }) => camelizeKeysDeep(data));
 
 class ReservationPaymentReturnPage extends Component {
   state = {
@@ -37,7 +38,9 @@ class ReservationPaymentReturnPage extends Component {
   loadData = () => {
     const reservationId = this.getQueryParam('reservation_id');
     const reservationPromise = loadReservation(reservationId);
-    const resourcePromise = reservationPromise.then(r => loadResource(r.resource));
+    const resourcePromise = reservationPromise.then((r) =>
+      loadResource(r.resource)
+    );
     Promise.all([reservationPromise, resourcePromise])
       .then(([reservation, resource]) => {
         this.setState({
@@ -58,15 +61,12 @@ class ReservationPaymentReturnPage extends Component {
 
   render() {
     const { t } = this.props;
-    const {
-      reservation,
-      resource,
-      isLoading,
-    } = this.state;
+    const { reservation, resource, isLoading } = this.state;
     const status = this.getQueryParam('payment_status');
     const title = t('ReservationPage.newReservationTitle');
-    const steps = stepIds.map(msgId => t(msgId));
-    const completedSteps = status === 'success' ? steps : [t('ReservationPhase.informationTitle')];
+    const steps = stepIds.map((msgId) => t(msgId));
+    const completedSteps =
+      status === 'success' ? steps : [t('ReservationPhase.informationTitle')];
     return (
       <PageWrapper title={title} transparent>
         <div>
@@ -83,7 +83,9 @@ class ReservationPaymentReturnPage extends Component {
               {status === 'success' && (
                 <PaymentSuccess reservation={reservation} resource={resource} />
               )}
-              {status === 'failure' && <PaymentFailed resourceId={resource ? resource.id : ''} />}
+              {status === 'failure' && (
+                <PaymentFailed resourceId={resource ? resource.id : ''} />
+              )}
             </Loader>
           </div>
         </div>

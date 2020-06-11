@@ -35,7 +35,4 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
   return { actions: bindActionCreators(actionCreators, dispatch) };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(UnconnectedRoute);
+export default connect(null, mapDispatchToProps)(UnconnectedRoute);

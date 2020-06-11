@@ -6,7 +6,10 @@ import { fetchUser } from '../userActions';
 describe('Actions: userActions', () => {
   let getRequestTypeDescriptorMock;
   beforeEach(() => {
-    getRequestTypeDescriptorMock = simple.mock(apiUtils, 'getRequestTypeDescriptor');
+    getRequestTypeDescriptorMock = simple.mock(
+      apiUtils,
+      'getRequestTypeDescriptor'
+    );
   });
 
   describe('fetchUser', () => {
@@ -15,11 +18,7 @@ describe('Actions: userActions', () => {
       fetchUser(id);
       expect(getRequestTypeDescriptorMock.lastCall.args[1].meta.track).toEqual({
         event: 'trackEvent',
-        args: [
-          'User',
-          'user-get',
-          id,
-        ],
+        args: ['User', 'user-get', id],
       });
     });
   });

@@ -25,11 +25,15 @@ describe('shared/favorite-button/FavoriteButton', () => {
   });
 
   test('has favorite-button class name', () => {
-    expect(getWrapper({ favorited: false }).prop('className')).toBe('favorite-button');
+    expect(getWrapper({ favorited: false }).prop('className')).toBe(
+      'favorite-button'
+    );
   });
 
   test('has favorite class modifier if it is favorited', () => {
-    expect(getWrapper({ favorited: true }).prop('className')).toBe('favorite-button favorite-button--favorite');
+    expect(getWrapper({ favorited: true }).prop('className')).toBe(
+      'favorite-button favorite-button--favorite'
+    );
   });
 
   test('passes onClick prop', () => {

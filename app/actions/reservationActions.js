@@ -16,41 +16,33 @@ import { getMissingValues, isStaffEvent } from '../utils/reservationUtils';
 function commentReservation(reservation, resource, comments) {
   const missingValues = getMissingValues(reservation);
   const staffEvent = isStaffEvent(reservation, resource);
-  return putReservation(Object.assign(
-    {},
-    reservation,
-    missingValues,
-    { comments },
-    { staffEvent },
-  ));
+  return putReservation({
+    ...reservation,
+    ...missingValues,
+    comments,
+    staffEvent,
+  });
 }
 
 function confirmPreliminaryReservation(reservation) {
-  return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));
+  return putReservation({ ...reservation, state: 'confirmed' });
 }
 
 function deleteReservation(reservation) {
   return {
     [RSAA]: {
       types: [
-        getRequestTypeDescriptor(
-          types.API.RESERVATION_DELETE_REQUEST,
-          {
-            countable: true,
-            meta: { track: getTrackingInfo('cancel', reservation.resource) },
-          },
-        ),
-        getSuccessTypeDescriptor(
-          types.API.RESERVATION_DELETE_SUCCESS,
-          {
-            countable: true,
-            payload: () => reservation,
-          },
-        ),
-        getErrorTypeDescriptor(
-          types.API.RESERVATION_DELETE_ERROR,
-          { countable: true },
-        ),
+        getRequestTypeDescriptor(types.API.RESERVATION_DELETE_REQUEST, {
+          countable: true,
+          meta: { track: getTrackingInfo('cancel', reservation.resource) },
+        }),
+        getSuccessTypeDescriptor(types.API.RESERVATION_DELETE_SUCCESS, {
+          countable: true,
+          payload: () => reservation,
+        }),
+        getErrorTypeDescriptor(types.API.RESERVATION_DELETE_ERROR, {
+          countable: true,
+        }),
       ],
       endpoint: reservation.url,
       method: 'DELETE',
@@ -60,20 +52,19 @@ function deleteReservation(reservation) {
 }
 
 function denyPreliminaryReservation(reservation) {
-  return putReservation(Object.assign({}, reservation, { state: 'denied' }));
+  return putReservation({ ...reservation, state: 'denied' });
 }
 
 function fetchReservations(params = {}) {
-  const fetchParams = Object.assign({}, params);
+  const fetchParams = { ...params };
   if (!fetchParams.pageSize) fetchParams.pageSize = 100;
   return {
     [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESERVATIONS_GET_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.RESERVATIONS_GET_SUCCESS,
-          { schema: schemas.paginatedReservationsSchema },
-        ),
+        getSuccessTypeDescriptor(types.API.RESERVATIONS_GET_SUCCESS, {
+          schema: schemas.paginatedReservationsSchema,
+        }),
         getErrorTypeDescriptor(types.API.RESERVATIONS_GET_ERROR),
       ],
       endpoint: buildAPIUrl('reservation', fetchParams),
@@ -84,7 +75,7 @@ function fetchReservations(params = {}) {
 }
 
 function parseReservationData(reservation) {
-  const parsed = pickBy(reservation, value => value || value === 0);
+  const parsed = pickBy(reservation, (value) => value || value === 0);
   return JSON.stringify(decamelizeKeys(parsed));
 }
 
@@ -94,21 +85,17 @@ function postReservation(reservation) {
   return {
     [RSAA]: {
       types: [
-        getRequestTypeDescriptor(
-          types.API.RESERVATION_POST_REQUEST,
-          {
-            countable: true,
-            meta: { track: getTrackingInfo('add', reservation.resource) },
-          },
-        ),
-        getSuccessTypeDescriptor(
-          types.API.RESERVATION_POST_SUCCESS,
-          { countable: true },
-        ),
-        getErrorTypeDescriptor(
-          types.API.RESERVATION_POST_ERROR,
-          { countable: true, meta: { reservation } },
-        ),
+        getRequestTypeDescriptor(types.API.RESERVATION_POST_REQUEST, {
+          countable: true,
+          meta: { track: getTrackingInfo('add', reservation.resource) },
+        }),
+        getSuccessTypeDescriptor(types.API.RESERVATION_POST_SUCCESS, {
+          countable: true,
+        }),
+        getErrorTypeDescriptor(types.API.RESERVATION_POST_ERROR, {
+          countable: true,
+          meta: { reservation },
+        }),
       ],
       endpoint: url,
       method: 'POST',
@@ -122,21 +109,16 @@ function putReservation(reservation) {
   return {
     [RSAA]: {
       types: [
-        getRequestTypeDescriptor(
-          types.API.RESERVATION_PUT_REQUEST,
-          {
-            countable: true,
-            meta: { track: getTrackingInfo('edit', reservation.resource) },
-          },
-        ),
-        getSuccessTypeDescriptor(
-          types.API.RESERVATION_PUT_SUCCESS,
-          { countable: true },
-        ),
-        getErrorTypeDescriptor(
-          types.API.RESERVATION_PUT_ERROR,
-          { countable: true },
-        ),
+        getRequestTypeDescriptor(types.API.RESERVATION_PUT_REQUEST, {
+          countable: true,
+          meta: { track: getTrackingInfo('edit', reservation.resource) },
+        }),
+        getSuccessTypeDescriptor(types.API.RESERVATION_PUT_SUCCESS, {
+          countable: true,
+        }),
+        getErrorTypeDescriptor(types.API.RESERVATION_PUT_ERROR, {
+          countable: true,
+        }),
       ],
       endpoint: reservation.url,
       method: 'PUT',
@@ -147,14 +129,10 @@ function putReservation(reservation) {
 }
 
 function getTrackingInfo(type, resource) {
-  return ({
+  return {
     event: 'trackEvent',
-    args: [
-      'Reservation',
-      `reservation-${type}`,
-      resource,
-    ],
-  });
+    args: ['Reservation', `reservation-${type}`, resource],
+  };
 }
 
 /**

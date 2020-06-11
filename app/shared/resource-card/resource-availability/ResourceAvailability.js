@@ -4,7 +4,10 @@ import React from 'react';
 
 import Label from '../../label/Label';
 import injectT from '../../../i18n/injectT';
-import { getAvailabilityDataForNow, getAvailabilityDataForWholeDay } from '../../../utils/resourceUtils';
+import {
+  getAvailabilityDataForNow,
+  getAvailabilityDataForWholeDay,
+} from '../../../utils/resourceUtils';
 
 function ResourceAvailability({ date, resource, t }) {
   const { externalReservationUrl } = resource;
@@ -17,9 +20,9 @@ function ResourceAvailability({ date, resource, t }) {
     ? getAvailabilityDataForNow(resource, date)
     : getAvailabilityDataForWholeDay(resource, date);
 
-  const bsStyle = availabilityData.bsStyle;
-  const status = availabilityData.status;
-  const values = availabilityData.values;
+  const { bsStyle } = availabilityData;
+  const { status } = availabilityData;
+  const { values } = availabilityData;
 
   return (
     <Label bsStyle={bsStyle} className="resource-availability">

@@ -34,14 +34,18 @@ class Pagination extends React.Component {
     for (let i = start - 1; i < end; ++i) {
       buttons.push(
         <Button
-          className={classNames('app-SearchPagination__page', `app-SearchPagination__page-${i + 1}`, {
-            'app-SearchPagination__selected': i + 1 === page,
-          })}
+          className={classNames(
+            'app-SearchPagination__page',
+            `app-SearchPagination__page-${i + 1}`,
+            {
+              'app-SearchPagination__selected': i + 1 === page,
+            }
+          )}
           key={`pageButton-${i}`}
           onClick={() => onChange(i + 1)}
         >
           {i + 1}
-        </Button>,
+        </Button>
       );
     }
 
@@ -49,12 +53,7 @@ class Pagination extends React.Component {
   };
 
   render() {
-    const {
-      pages,
-      page,
-      onChange,
-      t,
-    } = this.props;
+    const { pages, page, onChange, t } = this.props;
 
     return (
       <div className="app-SearchPagination">

@@ -99,17 +99,18 @@ describe('shared/private-route/PrivateRoute', () => {
     test('calls updateRoute with componentName prop', () => {
       mapDispatchToProps(dispatch, ownProps);
 
-      expect(routeActions.updateRoute.calls[0].arg).toBe(ownProps.componentName);
+      expect(routeActions.updateRoute.calls[0].arg).toBe(
+        ownProps.componentName
+      );
     });
 
     test('calls bindActionCreators with the correct arguments', () => {
       mapDispatchToProps(dispatch, ownProps);
 
-      expect(redux.bindActionCreators.calls[0].args[0])
-        .toHaveProperty(
-          'updateRoute',
-          routeActions.updateRoute(ownProps.componentName),
-        );
+      expect(redux.bindActionCreators.calls[0].args[0]).toHaveProperty(
+        'updateRoute',
+        routeActions.updateRoute(ownProps.componentName)
+      );
       expect(redux.bindActionCreators.calls[0].args[1]).toBe(dispatch);
     });
   });

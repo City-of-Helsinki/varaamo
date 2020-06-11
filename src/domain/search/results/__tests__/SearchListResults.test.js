@@ -9,8 +9,8 @@ import { globalDateMock } from '../../../../../app/utils/testUtils';
 import SearchSort from '../../sort/SearchSort';
 import Pagination from '../../../../common/pagination/Pagination';
 
-const findSearchSort = wrapper => wrapper.find(SearchSort);
-const findPagination = wrapper => wrapper.find(Pagination);
+const findSearchSort = (wrapper) => wrapper.find(SearchSort);
+const findPagination = (wrapper) => wrapper.find(Pagination);
 
 describe('SearchListResults', () => {
   globalDateMock();
@@ -24,9 +24,8 @@ describe('SearchListResults', () => {
     resources: [resource.build()],
     units: [unit.build()],
   };
-  const getWrapper = props => shallow(
-    <UnwrappedSearchListResults {...defaultProps} {...props} />,
-  );
+  const getWrapper = (props) =>
+    shallow(<UnwrappedSearchListResults {...defaultProps} {...props} />);
   test('renders correctly', () => {
     const wrapper = getWrapper();
 

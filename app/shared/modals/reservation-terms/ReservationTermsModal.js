@@ -12,12 +12,7 @@ import reservationTermsModalSelector from './reservationTermsModalSelector';
 
 class UnconnectedReservationTermsModal extends Component {
   render() {
-    const {
-      actions,
-      resource,
-      show,
-      t,
-    } = this.props;
+    const { actions, resource, show, t } = this.props;
 
     const { genericTerms, name } = resource;
 
@@ -35,8 +30,12 @@ class UnconnectedReservationTermsModal extends Component {
 
         <Modal.Body>
           <div>
-            <span>{t('ReservationTermsModal.resourceTermsSubTitle', { name })}</span>
-            <span><WrappedText text={genericTerms} /></span>
+            <span>
+              {t('ReservationTermsModal.resourceTermsSubTitle', { name })}
+            </span>
+            <span>
+              <WrappedText text={genericTerms} />
+            </span>
           </div>
         </Modal.Body>
 
@@ -72,6 +71,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export { UnconnectedReservationTermsModal };
-export default connect(reservationTermsModalSelector, mapDispatchToProps)(
-  UnconnectedReservationTermsModal,
-);
+export default connect(
+  reservationTermsModalSelector,
+  mapDispatchToProps
+)(UnconnectedReservationTermsModal);

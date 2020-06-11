@@ -6,18 +6,15 @@ import Row from 'react-bootstrap/lib/Row';
 import injectT from '../../../i18n/injectT';
 import ResourcePanel from '../resource-info/ResourcePanel';
 
-function ResourceEquipment({
-  equipment = [],
-  t,
-}) {
-  const equipmentColumns = equipment.map(
-    (item, i) => <Col key={i} lg={3} md={3} xs={6}>{item.name}</Col>,
-  );
+function ResourceEquipment({ equipment = [], t }) {
+  const equipmentColumns = equipment.map((item, i) => (
+    <Col key={i} lg={3} md={3} xs={6}>
+      {item.name}
+    </Col>
+  ));
   return (
     <ResourcePanel header={t('ResourceEquipment.headingText')}>
-      <Row>
-        {equipmentColumns}
-      </Row>
+      <Row>{equipmentColumns}</Row>
     </ResourcePanel>
   );
 }

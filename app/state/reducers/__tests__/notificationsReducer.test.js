@@ -61,11 +61,13 @@ describe('state/reducers/notificationReducer', () => {
     describe('UI.HIDE_NOTIFICATION', () => {
       const hideNotification = createAction(types.UI.HIDE_NOTIFICATION);
 
-      const initialState = Immutable([{
-        message: 'foo',
-        id: 1,
-        hidden: false,
-      }]);
+      const initialState = Immutable([
+        {
+          message: 'foo',
+          id: 1,
+          hidden: false,
+        },
+      ]);
 
       test('hide current notification', () => {
         const action = hideNotification({
@@ -125,7 +127,9 @@ describe('state/reducers/notificationReducer', () => {
         });
 
         const actualNotifications = notificationsReducer(initialState, action);
-        expect(actualNotifications[0].messageId).toEqual('Notifications.loginMessage');
+        expect(actualNotifications[0].messageId).toEqual(
+          'Notifications.loginMessage'
+        );
       });
 
       test('show detail message when response is specified', () => {

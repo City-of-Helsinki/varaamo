@@ -10,7 +10,8 @@ describe('CreateNotificationList', () => {
     notifications: [],
     onClick: simple.stub(),
   };
-  const getWrapper = props => shallow(<CreateNotificationsList {...defaultProps} {...props} />);
+  const getWrapper = (props) =>
+    shallow(<CreateNotificationsList {...defaultProps} {...props} />);
 
   test('Renders correctly', () => {
     const wrapper = getWrapper();

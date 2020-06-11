@@ -20,7 +20,7 @@ import CompactReservationList from '../../../shared/compact-reservation-list/Com
 describe('pages/reservation/ReservationPage', () => {
   const resource = Immutable(Resource.build());
   const history = {
-    replace: () => { },
+    replace: () => {},
   };
   const defaultProps = {
     history,
@@ -63,22 +63,23 @@ describe('pages/reservation/ReservationPage', () => {
   };
 
   function getWrapper(extraProps) {
-    return shallowWithIntl(<ReservationPage {...defaultProps} {...extraProps} />);
+    return shallowWithIntl(
+      <ReservationPage {...defaultProps} {...extraProps} />
+    );
   }
 
   describe('PageWrapper title', () => {
-    test(
-      'renders new reservation title when reservationToEdit and reservationEdited is empty',
-      () => {
-        const pageWrapper = getWrapper({
-          reservationToEdit: null,
-          reservationEdited: null,
-        }).find(PageWrapper);
+    test('renders new reservation title when reservationToEdit and reservationEdited is empty', () => {
+      const pageWrapper = getWrapper({
+        reservationToEdit: null,
+        reservationEdited: null,
+      }).find(PageWrapper);
 
-        expect(pageWrapper).toHaveLength(1);
-        expect(pageWrapper.prop('title')).toBe('ReservationPage.newReservationTitle');
-      },
-    );
+      expect(pageWrapper).toHaveLength(1);
+      expect(pageWrapper.prop('title')).toBe(
+        'ReservationPage.newReservationTitle'
+      );
+    });
 
     test('renders edit reservation title when reservationToEdit not empty', () => {
       const pageWrapper = getWrapper({
@@ -86,7 +87,9 @@ describe('pages/reservation/ReservationPage', () => {
       }).find(PageWrapper);
 
       expect(pageWrapper).toHaveLength(1);
-      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
+      expect(pageWrapper.prop('title')).toBe(
+        'ReservationPage.editReservationTitle'
+      );
     });
 
     test('renders edit reservation title when reservationEdited not empty', () => {
@@ -95,7 +98,9 @@ describe('pages/reservation/ReservationPage', () => {
       }).find(PageWrapper);
 
       expect(pageWrapper).toHaveLength(1);
-      expect(pageWrapper.prop('title')).toBe('ReservationPage.editReservationTitle');
+      expect(pageWrapper.prop('title')).toBe(
+        'ReservationPage.editReservationTitle'
+      );
     });
   });
 
@@ -157,7 +162,9 @@ describe('pages/reservation/ReservationPage', () => {
   describe('RecurringReservation', () => {
     test('render RecurringReservationControls component if user is admin', () => {
       defaultProps.isStaff = true; // RecurringReservation visibility is based on isStaff value!
-      const controls = getWrapper({ isAdmin: true }).find(RecurringReservationControls);
+      const controls = getWrapper({ isAdmin: true }).find(
+        RecurringReservationControls
+      );
       expect(controls).toHaveLength(1);
     });
 
@@ -169,7 +176,9 @@ describe('pages/reservation/ReservationPage', () => {
 
     test('does not render RecurringReservationControls component if user is not admin', () => {
       defaultProps.isStaff = false; // RecurringReservation visibility is based on isStaff value!
-      const controls = getWrapper({ isAdmin: false }).find(RecurringReservationControls);
+      const controls = getWrapper({ isAdmin: false }).find(
+        RecurringReservationControls
+      );
       expect(controls).toHaveLength(0);
     });
 
@@ -181,28 +190,24 @@ describe('pages/reservation/ReservationPage', () => {
   });
 
   describe('ReservationInformation', () => {
-    test(
-      'renders ReservationInformation when view is information and selected not empty',
-      () => {
-        const reservationInformation = getWrapper().find(ReservationInformation);
-        expect(reservationInformation).toHaveLength(1);
-      },
-    );
+    test('renders ReservationInformation when view is information and selected not empty', () => {
+      const reservationInformation = getWrapper().find(ReservationInformation);
+      expect(reservationInformation).toHaveLength(1);
+    });
 
-    test(
-      'does not render ReservationInformation by default when reservationToEdit is not empty',
-      () => {
-        const reservationInformation = getWrapper({
-          reservationToEdit: Reservation.build(),
-        }).find(ReservationInformation);
-        expect(reservationInformation).toHaveLength(0);
-      },
-    );
+    test('does not render ReservationInformation by default when reservationToEdit is not empty', () => {
+      const reservationInformation = getWrapper({
+        reservationToEdit: Reservation.build(),
+      }).find(ReservationInformation);
+      expect(reservationInformation).toHaveLength(0);
+    });
   });
 
   describe('ReservationConfirmation', () => {
     test('does not render ReservationInformation by default', () => {
-      const reservationConfirmation = getWrapper().find(ReservationConfirmation);
+      const reservationConfirmation = getWrapper().find(
+        ReservationConfirmation
+      );
       expect(reservationConfirmation).toHaveLength(0);
     });
   });
@@ -299,29 +304,23 @@ describe('pages/reservation/ReservationPage', () => {
   });
 
   describe('componentWillUpdate', () => {
-    test(
-      'sets state view confirmation when next props has reservationCreated',
-      () => {
-        const instance = getWrapper().instance();
-        const nextProps = {
-          reservationCreated: Reservation.build(),
-        };
-        instance.componentWillUpdate(nextProps);
-        expect(instance.state.view).toBe('confirmation');
-      },
-    );
+    test('sets state view confirmation when next props has reservationCreated', () => {
+      const instance = getWrapper().instance();
+      const nextProps = {
+        reservationCreated: Reservation.build(),
+      };
+      instance.componentWillUpdate(nextProps);
+      expect(instance.state.view).toBe('confirmation');
+    });
 
-    test(
-      'sets state view confirmation when next props has reservationEdited',
-      () => {
-        const instance = getWrapper().instance();
-        const nextProps = {
-          reservationCreated: Reservation.build(),
-        };
-        instance.componentWillUpdate(nextProps);
-        expect(instance.state.view).toBe('confirmation');
-      },
-    );
+    test('sets state view confirmation when next props has reservationEdited', () => {
+      const instance = getWrapper().instance();
+      const nextProps = {
+        reservationCreated: Reservation.build(),
+      };
+      instance.componentWillUpdate(nextProps);
+      expect(instance.state.view).toBe('confirmation');
+    });
   });
   describe('componentWillUnmount', () => {
     const clearReservations = simple.mock();
@@ -394,35 +393,29 @@ describe('pages/reservation/ReservationPage', () => {
       simple.restore();
     });
 
-    test(
-      'calls browserHistory.replace() with /my-reservations when reservationToEdit not empty',
-      () => {
-        historyMock.reset();
-        const expectedPath = '/my-reservations';
-        const instance = getWrapper({
-          reservationToEdit: Reservation.build(),
-        }).instance();
-        instance.handleCancel();
+    test('calls browserHistory.replace() with /my-reservations when reservationToEdit not empty', () => {
+      historyMock.reset();
+      const expectedPath = '/my-reservations';
+      const instance = getWrapper({
+        reservationToEdit: Reservation.build(),
+      }).instance();
+      instance.handleCancel();
 
-        expect(historyMock.callCount).toBe(1);
-        expect(historyMock.lastCall.args).toEqual([expectedPath]);
-      },
-    );
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
+    });
 
-    test(
-      'calls history.replace() with /resources when reservationToEdit empty',
-      () => {
-        historyMock.reset();
-        const expectedPath = `/resources/${resource.id}`;
-        const instance = getWrapper({
-          reservationToEdit: null,
-        }).instance();
-        instance.handleCancel();
+    test('calls history.replace() with /resources when reservationToEdit empty', () => {
+      historyMock.reset();
+      const expectedPath = `/resources/${resource.id}`;
+      const instance = getWrapper({
+        reservationToEdit: null,
+      }).instance();
+      instance.handleCancel();
 
-        expect(historyMock.callCount).toBe(1);
-        expect(historyMock.lastCall.args).toEqual([expectedPath]);
-      },
-    );
+      expect(historyMock.callCount).toBe(1);
+      expect(historyMock.lastCall.args).toEqual([expectedPath]);
+    });
   });
 
   describe('handleConfirmTime', () => {

@@ -17,10 +17,7 @@ function ReservationDate({ beginDate, endDate, className = '' }) {
   const beginTime = reservationBegin.format('HH:mm');
   const endTime = reservationEnd.format('HH:mm');
   const hours = reservationEnd.diff(reservationBegin, 'hours', true);
-  const classes = classNames(
-    className,
-    'reservation-date',
-  );
+  const classes = classNames(className, 'reservation-date');
   return (
     <div className={classes}>
       <div className="reservation-date__content">

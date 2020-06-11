@@ -81,8 +81,16 @@ describe('shared/availability-view/AvailabilityView', () => {
     });
 
     test('returns selection with hoverSelection.end if both', () => {
-      const selection = { begin: '1-begin', end: '1-end', resourceId: '1-resourceId' };
-      const hoverSelection = { begin: '2-begin', end: '2-end', resourceId: '2-resourceId' };
+      const selection = {
+        begin: '1-begin',
+        end: '1-end',
+        resourceId: '1-resourceId',
+      };
+      const hoverSelection = {
+        begin: '2-begin',
+        end: '2-end',
+        resourceId: '2-resourceId',
+      };
       expect(getSelection(selection, hoverSelection)).toEqual({
         begin: '1-begin',
         end: '2-end',
@@ -111,7 +119,9 @@ describe('shared/availability-view/AvailabilityView', () => {
     test('does nothing if existing hoverSelection is different', () => {
       const selection = { begin, end, resourceId };
       const hoverSelection = { begin: 'foo' };
-      expect(getHoverSelection(selection, { hoverSelection })).toBe(hoverSelection);
+      expect(getHoverSelection(selection, { hoverSelection })).toBe(
+        hoverSelection
+      );
     });
 
     test('sets hoverSelection to null if existing is the same', () => {
@@ -146,7 +156,9 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T09:30:00Z',
         resourceId,
       };
-      expect(getHoverSelection(selection, { selection: existing })).toBe(selection);
+      expect(getHoverSelection(selection, { selection: existing })).toBe(
+        selection
+      );
     });
 
     test('does not update hoverSelection if different resource', () => {
@@ -156,7 +168,9 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T09:30:00Z',
         resourceId: 'xiauenqi',
       };
-      expect(getHoverSelection(selection, { selection: existing })).toBeUndefined();
+      expect(
+        getHoverSelection(selection, { selection: existing })
+      ).toBeUndefined();
     });
 
     test('does not update hoverSelection if before selection', () => {
@@ -166,7 +180,9 @@ describe('shared/availability-view/AvailabilityView', () => {
         end: '2017-01-01T11:00:00Z',
         resourceId,
       };
-      expect(getHoverSelection(selection, { selection: existing })).toBeUndefined();
+      expect(
+        getHoverSelection(selection, { selection: existing })
+      ).toBeUndefined();
     });
   });
 
@@ -174,7 +190,10 @@ describe('shared/availability-view/AvailabilityView', () => {
     function handleSelectionCancel() {
       const wrapper = getWrapper();
       const instance = wrapper.instance();
-      instance.state = { selection: { some: 'data' }, hoverSelection: { more: 'data' } };
+      instance.state = {
+        selection: { some: 'data' },
+        hoverSelection: { more: 'data' },
+      };
       instance.handleSelectionCancel();
       return wrapper.state();
     }
@@ -235,9 +254,16 @@ describe('shared/availability-view/AvailabilityView', () => {
           const wrapper = doSelect(
             {},
             { resourceId, begin: '2016-01-01T10:00:00Z' },
-            { resourceId, begin: '2016-01-01T10:00:00Z', end: '2016-01-01T10:30:00Z' },
+            {
+              resourceId,
+              begin: '2016-01-01T10:00:00Z',
+              end: '2016-01-01T10:30:00Z',
+            }
           );
-          expect(wrapper.state()).toEqual({ hoverSelection: null, selection: null });
+          expect(wrapper.state()).toEqual({
+            hoverSelection: null,
+            selection: null,
+          });
         });
 
         test('calls props.onSelect', () => {
@@ -245,15 +271,25 @@ describe('shared/availability-view/AvailabilityView', () => {
           const resourceId = 'resource-id';
           doSelect(
             { onSelect },
-            { resourceId, begin: '2016-01-01T10:30:00Z', end: '2016-01-01T11:00:00Z' },
-            { resourceId, begin: '2016-01-01T11:00:00Z', end: '2016-01-01T11:30:00Z' },
+            {
+              resourceId,
+              begin: '2016-01-01T10:30:00Z',
+              end: '2016-01-01T11:00:00Z',
+            },
+            {
+              resourceId,
+              begin: '2016-01-01T11:00:00Z',
+              end: '2016-01-01T11:30:00Z',
+            }
           );
           expect(onSelect.callCount).toBe(1);
-          expect(onSelect.lastCall.args).toEqual([{
-            resourceId,
-            begin: '2016-01-01T10:30:00Z',
-            end: '2016-01-01T11:30:00Z',
-          }]);
+          expect(onSelect.lastCall.args).toEqual([
+            {
+              resourceId,
+              begin: '2016-01-01T10:30:00Z',
+              end: '2016-01-01T11:30:00Z',
+            },
+          ]);
         });
       });
 
@@ -261,7 +297,10 @@ describe('shared/availability-view/AvailabilityView', () => {
         function checkInvalid(begin, end) {
           const onSelect = simple.mock();
           const wrapper = doSelect({ onSelect }, begin, end);
-          expect(wrapper.state()).toEqual({ hoverSelection: null, selection: begin });
+          expect(wrapper.state()).toEqual({
+            hoverSelection: null,
+            selection: begin,
+          });
           expect(onSelect.called).toBe(false);
         }
 
@@ -269,7 +308,11 @@ describe('shared/availability-view/AvailabilityView', () => {
           const resourceId = 'resource';
           checkInvalid(
             { resourceId, begin: '2016-01-01T10:00:00Z' },
-            { resourceId, begin: '2016-01-01T09:30:00Z', end: '2016-01-01T10:00:00Z' },
+            {
+              resourceId,
+              begin: '2016-01-01T09:30:00Z',
+              end: '2016-01-01T10:00:00Z',
+            }
           );
         });
 
@@ -280,7 +323,7 @@ describe('shared/availability-view/AvailabilityView', () => {
               resourceId: 'r2',
               begin: '2016-01-01T10:30:00Z',
               end: '2016-01-01T11:00:00Z',
-            },
+            }
           );
         });
       });

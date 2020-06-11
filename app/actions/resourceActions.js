@@ -24,10 +24,9 @@ function fetchResource(id, params = {}) {
     [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_GET_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.RESOURCE_GET_SUCCESS,
-          { schema: schemas.resourceSchema },
-        ),
+        getSuccessTypeDescriptor(types.API.RESOURCE_GET_SUCCESS, {
+          schema: schemas.resourceSchema,
+        }),
         getErrorTypeDescriptor(types.API.RESOURCE_GET_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}`, params),
@@ -38,18 +37,15 @@ function fetchResource(id, params = {}) {
 }
 
 function fetchResources(params = {}, source) {
-  const fetchParams = Object.assign({}, params, { pageSize: 500 });
+  const fetchParams = { ...params, pageSize: 500 };
   return {
     [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCES_GET_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.RESOURCES_GET_SUCCESS,
-          {
-            meta: { source },
-            schema: schemas.paginatedResourcesSchema,
-          },
-        ),
+        getSuccessTypeDescriptor(types.API.RESOURCES_GET_SUCCESS, {
+          meta: { source },
+          schema: schemas.paginatedResourcesSchema,
+        }),
         getErrorTypeDescriptor(types.API.RESOURCES_GET_ERROR),
       ],
       endpoint: buildAPIUrl('resource', fetchParams),
@@ -64,10 +60,9 @@ function favoriteResource(id) {
     [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.RESOURCE_FAVORITE_POST_SUCCESS,
-          { meta: { id } },
-        ),
+        getSuccessTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_SUCCESS, {
+          meta: { id },
+        }),
         getErrorTypeDescriptor(types.API.RESOURCE_FAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/favorite`),
@@ -82,10 +77,9 @@ function unfavoriteResource(id) {
     [RSAA]: {
       types: [
         getRequestTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_REQUEST),
-        getSuccessTypeDescriptor(
-          types.API.RESOURCE_UNFAVORITE_POST_SUCCESS,
-          { meta: { id } },
-        ),
+        getSuccessTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_SUCCESS, {
+          meta: { id },
+        }),
         getErrorTypeDescriptor(types.API.RESOURCE_UNFAVORITE_POST_ERROR),
       ],
       endpoint: buildAPIUrl(`resource/${id}/unfavorite`),
@@ -94,7 +88,6 @@ function unfavoriteResource(id) {
     },
   };
 }
-
 
 export {
   fetchFavoritedResources,
