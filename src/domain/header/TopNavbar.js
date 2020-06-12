@@ -5,6 +5,8 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import Nav from 'react-bootstrap/lib/Nav';
 
+import getIsFeatureEnabled from '../feature-flags/getIsFeatureEnabled';
+import FeatureFlags from '../feature-flags/FeatureFlags';
 import injectT from '../../../app/i18n/injectT';
 import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
@@ -42,6 +44,7 @@ class TopNavbar extends Component {
     const {
       currentLanguage, isLoggedIn, t, userName,
     } = this.props;
+    const isFontSizeControlEnabled = getIsFeatureEnabled(FeatureFlags.FONT_SIZE_CONTROLS);
 
     return (
       <Navbar className="app-TopNavbar" fluid>
@@ -54,9 +57,11 @@ class TopNavbar extends Component {
         </Navbar.Header>
 
         <Nav activeKey="none" pullRight>
-          <BootstrapGuardedLI>
-            <HeaderFontSizeControl />
-          </BootstrapGuardedLI>
+          {isFontSizeControlEnabled && (
+            <BootstrapGuardedLI>
+              <HeaderFontSizeControl />
+            </BootstrapGuardedLI>
+          )}
           <TabbableNavDropdown
             as="li"
             className="app-TopNavbar__language"

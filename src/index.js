@@ -16,9 +16,6 @@ import getRoutes from './routes';
 import BrowserWarning from '../app/pages/browser-warning/BrowserWarning';
 import settings from '../config/settings';
 
-// Import as last one to override other HDS sheets.
-import './hds-integration.scss';
-
 const isIEBrowser = browserName === 'IE';
 
 /* eslint-disable no-undef */
