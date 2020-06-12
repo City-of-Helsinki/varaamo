@@ -1,0 +1,23 @@
+.app-ResourcePageKeyboardTimePicker {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  @media (min-width: $screen-sm-min) {
+    align-items: flex-start;
+  }
+
+  &__field-grid {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    grid-column-gap: $spacing-m;
+    grid-row-gap: $spacing-m;
+
+    @media (min-width: $screen-sm-min) {
+      align-self: stretch;
+      grid-template-rows: auto;
+      grid-template-columns: auto auto;
+    }
+  }
+}

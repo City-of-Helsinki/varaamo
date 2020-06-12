@@ -3,17 +3,20 @@
 $card-border-color: #d6d6d6;
 $image-items-margin: 5px;
 $resourceCardPadding: 15px;
+$resourceCardTitleBottomMargin: 6px;
 
-.app-resourceCard {
+.app-resourceCard2 {
   margin: 20px 0;
   background-color: white;
   display: flow-root;
 
-  @media (min-width: $screen-md-min) {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    height: $app-ResourceCard-height;
+  &--normal-font-size {
+    @media (min-width: $screen-md-min) {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      height: $app-ResourceCard-height;
+    }
   }
 
   a {
@@ -31,6 +34,12 @@ $resourceCardPadding: 15px;
       min-width: $app-ResourceCard-height;
       max-width: 200px;
       height: 100%;
+
+      &--large-font-size {
+        height: $app-ResourceCard-height;
+        width: 100%;
+        max-width: none;
+      }
     }
     @media (max-width: $screen-md-min) {
       height: $app-ResourceCard-height;
@@ -56,9 +65,10 @@ $resourceCardPadding: 15px;
     }
   }
 
-  h4 {
+  h3 {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: $resourceCardTitleBottomMargin;
+
     @media (max-width: $screen-xs-max) {
       font-size: 1.6rem;
       line-height: 1;

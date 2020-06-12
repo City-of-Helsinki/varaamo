@@ -1,0 +1,27 @@
+.app-HeaderFontSizeButton {
+  margin: 0;
+  padding: 0;
+  
+  background: none;
+  border: none;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  &--small {
+    font-size: 16px;
+  }
+
+  &--medium {
+    font-size: 20px;
+  }
+
+  &--large {
+    font-size: 24px;
+  }
+
+  &[aria-pressed="true"] {
+    text-decoration: underline;
+  }
+}

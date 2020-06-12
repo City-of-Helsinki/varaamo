@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import camelCaseKeys from 'camelcase-keys';
+import camelCaseKeys from 'camelcase-keys-deep';
 
 import {
   confirmPreliminaryReservation,

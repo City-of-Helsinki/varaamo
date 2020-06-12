@@ -5,6 +5,19 @@ $resource-page-width: 700px;
 $margin-between-items: 10px;
 $content-padding: 10px;
 
+// https://github.com/twbs/bootstrap/blob/a4a04cd9ec741050390746f8056cc79a9c04c8df/scss/mixins/_screen-reader.scss
+@mixin sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important; // Fix for https://github.com/twbs/bootstrap/issues/25686
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 @import './resource-header/resource-header';
 @import './resource-info/image-carousel';
 @import './resource-info/resource-info';
@@ -88,7 +101,7 @@ $content-padding: 10px;
 
     .app-ResourcePage__map-icon {
       color: $brand-primary;
-      font-size: 33px;
+      font-size: 3.3rem;
       margin-right: 3px;
       vertical-align: middle;
     }
@@ -147,13 +160,19 @@ $content-padding: 10px;
     }
   }
 
+  &__keyboard-reservation {
+    &:not(:focus-within) {
+      @include sr-only();
+    }
+  }
+
   @media (min-width: $screen-xs-max) {
     .app-ResourceHeader__content {
       padding: 15px 15px 15px 15px;
     }
 
     .h1, h1 {
-      font-size: 32px;
+      font-size: 3.2rem;
     }
 
     .app-ResourcePage__content {
@@ -169,7 +188,7 @@ $content-padding: 10px;
       padding: 15px 15px 15px 15px;
     }
     .h1, h1 {
-      font-size: 24px;
+      font-size: 2.4rem;
     }
     .app-ResourcePage__content {
       padding: 0;

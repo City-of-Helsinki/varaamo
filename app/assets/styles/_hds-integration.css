@@ -1,0 +1,41 @@
+/* Varaamo uses a root font size of 10px whereas HDS assumes 16px. */
+/* Because of this HDS components don\'t render as intended and text */
+/* sizes may not be legible. */
+
+/* Here we override the default variables with an implementation that */
+/* yields expected sizes, at least during the time this file was added. */
+:root {
+  /* Base root font size is 10px and HDS assumes 16px */
+  --hds-root-font-size: 1.6rem;
+
+  --spacing-layout-2-xs: calc(1 * var(--hds-root-font-size)); /* 16px */
+  --spacing-layout-xs: calc(1.5 * var(--hds-root-font-size)); /* 24px */
+  --spacing-layout-s: calc(2 * var(--hds-root-font-size)); /* 32px */
+  --spacing-layout-m: calc(3 * var(--hds-root-font-size)); /* 48px */
+  --spacing-layout-l: calc(4 * var(--hds-root-font-size)); /* 64px */
+  --spacing-layout-xl: calc(6 * var(--hds-root-font-size)); /* 96px */
+  --spacing-layout-2-xl: calc(8 * var(--hds-root-font-size)); /* 128px */
+  --spacing-4-xs: calc(0.125 * var(--hds-root-font-size)); /* 2px */
+  --spacing-3-xs: calc(0.25 * var(--hds-root-font-size)); /* 4px */
+  --spacing-2-xs: calc(0.5 * var(--hds-root-font-size)); /* 8px */
+  --spacing-xs: calc(0.75 * var(--hds-root-font-size)); /* 12px */
+  --spacing-s: calc(1 * var(--hds-root-font-size)); /* 16px */
+  --spacing-m: calc(1.5 * var(--hds-root-font-size)); /* 24px */
+  --spacing-l: calc(2 * var(--hds-root-font-size)); /* 32px */
+  --spacing-xl: calc(2.5 * var(--hds-root-font-size)); /* 40px */
+  --spacing-2-xl: calc(3.0 * var(--hds-root-font-size)); /* 48px */
+  --spacing-3-xl: calc(3.5 * var(--hds-root-font-size)); /* 56px */
+  --spacing-4-xl: calc(4 * var(--hds-root-font-size)); /* 64px */
+  --spacing-5-xl: calc(4.5 * var(--hds-root-font-size)); /* 72px */
+
+  --fontsize-h-1: calc(3.25 * var(--hds-root-font-size)); /* 52px */
+  --fontsize-h-2: calc(2.25 * var(--hds-root-font-size)); /* 36px */
+  --fontsize-h-3: calc(1.5 * var(--hds-root-font-size)); /* 24px */
+  --fontsize-h-4: calc(1.25 * var(--hds-root-font-size)); /* 20px */
+  --fontsize-h-5: calc(1.125 * var(--hds-root-font-size)); /* 18px */
+  --fontsize-subtitle: calc(1 * var(--hds-root-font-size)); /* 16px */
+  --fontsize-body-default: calc(1 * var(--hds-root-font-size)); /* 16px */
+  --fontsize-body-small: calc(0.875 * var(--hds-root-font-size)); /* 14px */
+  --fontsize-body-medium: calc(1.125 * var(--hds-root-font-size)); /* 18px */
+  --fontsize-body-large: calc(1.25 * var(--hds-root-font-size)); /* 20px */
+}

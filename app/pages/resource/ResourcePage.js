@@ -30,6 +30,10 @@ import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
 import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
+// eslint-disable-next-line max-len
+import ResourceKeyboardReservation from '../../../src/domain/resource/resourceKeyboardReservation/ResourceKeyboardReservation';
+// eslint-disable-next-line max-len
+import ResourceReservationButton from '../../../src/domain/resource/resourceReservationButton/ResourceReservationButton';
 import ResourcePanel from './resource-info/ResourcePanel';
 
 class UnconnectedResourcePage extends Component {
@@ -51,6 +55,10 @@ class UnconnectedResourcePage extends Component {
   state = {
     photoIndex: 0,
     isOpen: false,
+    selected: {
+      start: null,
+      end: null,
+    },
   };
 
   componentDidMount() {
@@ -172,6 +180,15 @@ class UnconnectedResourcePage extends Component {
     }));
   };
 
+  handleTimeChange = (selected) => {
+    this.setState({
+      selected: {
+        start: selected.start,
+        end: selected.end,
+      },
+    });
+  }
+
   render() {
     const {
       actions,
@@ -186,7 +203,7 @@ class UnconnectedResourcePage extends Component {
       unit,
     } = this.props;
 
-    const { isOpen, photoIndex } = this.state;
+    const { isOpen, photoIndex, selected } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
@@ -196,6 +213,15 @@ class UnconnectedResourcePage extends Component {
     const mainImageIndex = findIndex(images, image => image.type === 'main');
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
+    const resourceReservationButton = (
+      <ResourceReservationButton
+        isLoggedIn={isLoggedIn}
+        onReserve={this.onReserve}
+        resource={resource}
+        selected={selected}
+        t={t}
+      />
+    );
 
     return (
       <div className="app-ResourcePage">
@@ -258,15 +284,24 @@ class UnconnectedResourcePage extends Component {
                             resourceId={resource.id}
                             selectedDate={date}
                           />
+                          <div className="app-ResourcePage__keyboard-reservation">
+                            <ResourceKeyboardReservation
+                              onDateChange={this.handleDateChange}
+                              onTimeChange={this.handleTimeChange}
+                              resource={resource}
+                              selectedDate={date}
+                              selectedTime={selected}
+                            />
+                            {resourceReservationButton}
+                          </div>
                           <ResourceReservationCalendar
-                            addNotification={actions.addNotification}
                             date={date}
-                            isLoggedIn={isLoggedIn}
                             isStaff={isStaff}
                             onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-                            onReserve={this.onReserve}
+                            onTimeChange={this.handleTimeChange}
                             resource={decamelizeKeys(resource)}
                           />
+                          {resourceReservationButton}
                         </div>
                         )}
                       </>

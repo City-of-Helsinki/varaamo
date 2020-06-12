@@ -1,6 +1,15 @@
 # Unreleased
 
-# 0.10.0
+# 0.11.0
+  **MINOR CHANGES**
+  - Fixed fixed prices always being zero ([#1151](https://github.com/City-of-Helsinki/varaamo/pull/1151))
+  - Fixed some buttons being enabled on first load on user reservations page when they should not have been ([#1156](https://github.com/City-of-Helsinki/varaamo/pull/1156))
+  - Removed link to resource unit in search results ([#1153](https://github.com/City-of-Helsinki/varaamo/pull/1153))
+  
+  **CHANGELOG**
+  - [#1155](https://github.com/City-of-Helsinki/varaamo/pull/1155) Added keyboard friendly form into resource page for making reservations
+
+# 0.10.1
   **MINOR CHANGES**
   - Fixed refund policy test being visible to regular users
   - Fixed enabled edit button for paid reservations when the user does not have admin level privileges

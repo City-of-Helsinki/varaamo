@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/lib/Form';
 import { Field, reduxForm } from 'redux-form';
 import isEmail from 'validator/lib/isEmail';
 import { connect } from 'react-redux';
-import { Notification } from 'hds-react';
 
 import TermsField from '../../../shared/form-fields/TermsField';
 import constants from '../../../constants/AppConstants';
@@ -18,6 +17,7 @@ import WrappedText from '../../../shared/wrapped-text/WrappedText';
 import InternalReservationFields from './InternalReservationFields';
 import { toCamelCase } from '../../../../src/common/data/utils';
 import { INPUT_PURPOSES } from '../../../../src/constants/InputPurposes';
+import ReservationInformationNotification from './ReservationInformationNotification';
 
 const validators = {
   reserverEmailAddress: (t, { reserverEmailAddress }) => {
@@ -382,14 +382,11 @@ class UnconnectedReservationInformationForm extends Component {
           }
           <h2 className="app-ReservationPage__title">{t('ReservationInformationForm.eventInformationTitle')}</h2>
           {includes(fields, 'eventSubject') && (
-            <Notification
-              closeButtonLabelText="dismiss"
+            <ReservationInformationNotification
               labelText={t('ReservationForm.publicFieldsNoticeLabel')}
-              onClose={() => {}}
-              type="warning"
             >
               {t('ReservationForm.publicFieldsNotice')}
-            </Notification>
+            </ReservationInformationNotification>
           )}
           {this.renderField(
             'eventSubject',

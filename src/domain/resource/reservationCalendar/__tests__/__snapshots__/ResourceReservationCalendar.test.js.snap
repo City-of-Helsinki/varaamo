@@ -8,7 +8,6 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
     date="2019-08-15"
     disabled={true}
     onDateChange={[MockFunction]}
-    onTimeChange={[Function]}
     resource={
       Object {
         "available_hours": Array [],
@@ -37,21 +36,5 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
       }
     }
   />
-  <div
-    className="app-ResourceReservationCalendar__selectedInfo"
-  >
-    <div
-      className="app-ResourceReservationCalendar__loginInfo"
-    />
-    <Button
-      active={false}
-      block={false}
-      bsClass="btn"
-      bsStyle="primary"
-      className="app-ResourceReservationCalendar__loginButton"
-      disabled={false}
-      onClick={[Function]}
-    />
-  </div>
 </div>
 `;

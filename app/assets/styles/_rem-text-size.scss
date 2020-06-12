@@ -1,0 +1,40 @@
+/* 
+ * This file configures bootstrap 3 and its Helsinki variant in a way
+ * which allows font sizes to scale based on the root font size. This
+ * feature is used by the font size change feature within the app.
+ */
+
+$font-size-base:          1.6rem;  /* ~16px */
+$font-size-large:         1.8rem;  /* ~18px */
+$font-size-small:         1.8rem;  /* ~12px */ 
+
+$font-size-h1:            4.2rem ; /* ~42px */
+$font-size-h2:            3.6rem ; /* ~34px */
+$font-size-h3:            2.8rem ; /* ~28px */
+$font-size-h4:            2.4rem ; /* ~24px */
+$font-size-h5:            2.0rem ; /* ~20px */
+$font-size-h6:            1.6rem ; /* ~16px */
+
+/* Headings */
+h1, .h1 { font-size: $font-size-h1; }
+h2, .h2 { font-size: $font-size-h2; }
+h3, .h3 { font-size: $font-size-h3; }
+h4, .h4 { font-size: $font-size-h4; }
+h5, .h5 { font-size: $font-size-h5; }
+h6, .h6 { font-size: $font-size-h6; }
+
+/* Button */
+.btn {
+  font-size: $font-size-base;
+}
+/* Forms */
+.form-control {
+  font-size: $font-size-base;
+}
+/* Nav */
+.navbar-nav > li > a {
+  font-size: 1.5rem;
+}
+.navbar-brand {
+  font-size: $font-size-base;
+}
