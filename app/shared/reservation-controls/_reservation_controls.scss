@@ -1,7 +1,26 @@
 .app-ReservationControls {
-  &__info-button-wrapper {
-    &:not(:last-child) {
-      margin-bottom: 14px;
+  $vertical-spacing: 20px;
+  $container-min-height: 180px;
+  $button-gap: 14px;
+  $button-width: 100px;
+
+  align-content: end;
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-template-columns: 1fr;
+  grid-gap: $button-gap;
+  padding: $vertical-spacing 0;
+  min-height: $container-min-height;
+
+  @media (min-width: $screen-sm-min) {
+    grid-template-columns: 1fr 1fr;
+
+    & button {
+      grid-row-start: 2;
     }
+  }
+
+  & #info {
+    grid-area: 1 / 1;
   }
 }
