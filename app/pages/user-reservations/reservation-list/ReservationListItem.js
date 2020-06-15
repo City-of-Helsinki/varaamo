@@ -64,7 +64,7 @@ class ReservationListItem extends Component {
     };
 
     return (
-      <li className="reservation" ref={this.wrapperRef}>
+      <li className="reservation container" ref={this.wrapperRef}>
         <div className="col-md-3 col-lg-2 image-container">
           <Link
             aria-hidden="true"
