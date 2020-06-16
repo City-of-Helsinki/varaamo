@@ -32,6 +32,15 @@ const validators = {
     }
     return null;
   },
+  numberOfParticipants: (t, { numberOfParticipants }) => {
+    const isNumber = !isNaN(numberOfParticipants);
+
+    if (!isNumber) {
+      return t('ReservationForm.numberOfParticipantsError');
+    }
+
+    return null;
+  },
 };
 
 const maxLengths = {

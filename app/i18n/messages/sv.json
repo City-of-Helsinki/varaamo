@@ -228,6 +228,7 @@
   "ReservationForm.reservationFieldsAsteriskNormal": "Uppgifterna markerade med en asterisk (*) är obligatoriska.",
   "ReservationForm.cancel": "Tillbaka",
   "ReservationForm.emailError": "Mata in en giltig e-postadress",
+  "ReservationForm.numberOfParticipantsError": "Ange ett nummer",
   "ReservationForm.eventSubjectInfo": "Genom att ge evenemanget ett namn så kan vi lotsa besökarna till de rätta utrymmen. Kom ihåg att berätta evenemangets namn även till besökarna.",
   "ReservationForm.publicFieldsNotice": "Fyll aldrig i personuppgifter eller personlig information i dessa fält.",
   "ReservationForm.publicFieldsNoticeLabel": "Obs. Offentliga uppgifter visas på plattor eller skärm vid utrymmen.",
