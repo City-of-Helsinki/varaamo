@@ -102,7 +102,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       streetAddress: 'Test street 12',
       wwwUrl: 'some-url',
     });
-    const expected = 'https://palvelukartta.hel.fi/unit/123#!route-details';
+    const expected = 'https://palvelukartta.hel.fi/unit/123';
     const link = getWrapper({ unit })
       .find('.app-ResourceInfo__servicemap')
       .find('a');

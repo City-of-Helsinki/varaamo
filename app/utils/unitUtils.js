@@ -4,7 +4,7 @@ function getServiceMapUrl(unit) {
   }
   const unitIdSplit = unit ? unit.id.split(':') : [];
   const unitId = unitIdSplit.length === 2 ? unitIdSplit[1] : '';
-  return `https://palvelukartta.hel.fi/unit/${unitId}#!route-details`;
+  return `https://palvelukartta.hel.fi/unit/${unitId}`;
 }
 
 export {
