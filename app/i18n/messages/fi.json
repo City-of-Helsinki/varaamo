@@ -226,6 +226,7 @@
   "ReservationForm.reservationFieldsAsteriskNormal": "Tähdellä (*) merkityt tiedot ovat pakollisia.",
   "ReservationForm.cancel": "Takaisin",
   "ReservationForm.emailError": "Syötä kunnollinen sähköpostiosoite",
+  "ReservationForm.numberOfParticipantsError": "Syötä kenttään numero",
   "ReservationForm.eventSubjectInfo": "Antamalla tilaisuudelle nimen helpotat saapuvien vieraiden opastamista oikeaan tilaan. Muistathan ilmoittaa nimen myös tilaisuuteen saapuville.",
   "ReservationForm.publicFieldsNotice": "Älä koskaan täytä henkilötietoja tai muita arkaluontoisia tietoja näihin kenttiin.",
   "ReservationForm.publicFieldsNoticeLabel": "Huom. Julkiset kentät näkyvät huoneen näytöllä.",

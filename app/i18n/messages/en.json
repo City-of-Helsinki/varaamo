@@ -226,6 +226,7 @@
   "ReservationForm.reservationFieldsAsteriskNormal": "The fields marked with an asterisk (*) are mandatory.",
   "ReservationForm.cancel": "Back",
   "ReservationForm.emailError": "Enter a valid e-mail address",
+  "ReservationForm.numberOfParticipantsError": "Enter a number",
   "ReservationForm.eventSubjectInfo": "Giving a name to the event makes it easier to guide the guests to the right space. Please remember to also tell the name to people arriving to the event.",
   "ReservationForm.publicFieldsNotice": "Never enter personal information in these fields.",
   "ReservationForm.publicFieldsNoticeLabel": "Note. Public information is displayed on meeting room screen.",
