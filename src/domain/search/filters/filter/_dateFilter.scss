@@ -12,6 +12,18 @@
     width: 22px;
   }
 
+  &__input {
+    // The date input makes use of input addons. These addons may scale
+    // based on font size. However, the form-control element itself is
+    // hard coded to a height of 40px. This causes a glitch in the UI.
+    // This behaviour became a problem when we added controls for
+    // increasing font size.
+    //
+    // The fix here is to unset the height of the input so that it may
+    // scale based on fon-size as well.
+    height: unset;
+  }
+
   &__triangle {
     text-align: right;
   }

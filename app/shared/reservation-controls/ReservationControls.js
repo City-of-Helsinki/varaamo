@@ -55,6 +55,7 @@ class ReservationControls extends Component {
       info: (
         <Button
           bsStyle="default"
+          id="info"
           key="infoButton"
           onClick={this.props.onInfoClick}
         >
@@ -122,8 +123,8 @@ class ReservationControls extends Component {
     const reservationIsInThePast = !reservation || moment() > moment(reservation.end);
 
     return (
-      <div className="buttons">
-        <div className="app-ReservationControls__info-button-wrapper">{this.buttons.info}</div>
+      <div className="app-ReservationControls">
+        {this.buttons.info}
         {!reservationIsInThePast && this.renderButtons(this.buttons, isAdmin, this.isStaff, reservation)}
       </div>
     );
