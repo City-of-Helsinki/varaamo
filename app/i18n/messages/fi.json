@@ -123,6 +123,7 @@
   "Footer.feedbackLink": "Palautteesi voit lähettää täältä.",
   "Footer.helsinkiText": "Varaamo on Helsingin kaupungin tilanvarauspalvelu. Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.",
   "Footer.vantaaText": "Varaamo on Helsingin kaupungin tilanvarauspalvelu, jota kokeillaan Vantaalla alkuvaiheessa Tikkurilan kirjaston ja Pointin tiloissa. Kyseessä on pilottiversio, josta toivomme Sinulta palautetta.",
+  "HeaderContrastControl.label": "Kontrasti",
   "HeaderFontSizeControl.label": "Tekstikoko",
   "HeaderFontSizeControl.fontSizeSmall": "pieni tekstikoko",
   "HeaderFontSizeControl.fontSizeMedium": "keskisuuri tekstikoko",

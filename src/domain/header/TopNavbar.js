@@ -12,6 +12,7 @@ import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
 import TabbableNavItem from '../../../app/shared/tabbable-nav-dropdown/TabbableNavItem';
 import HeaderFontSizeControl from './HeaderFontSizeControl';
+import HeaderContrastControl from './HeaderContrastControl';
 
 // Bootstrap uses magic to force props on child elements based on
 // element type. Because our vanilla elements don't make use of those
@@ -45,6 +46,7 @@ class TopNavbar extends Component {
       currentLanguage, isLoggedIn, t, userName,
     } = this.props;
     const isFontSizeControlEnabled = getIsFeatureEnabled(FeatureFlags.FONT_SIZE_CONTROLS);
+    const isContrastEnabled = getIsFeatureEnabled(FeatureFlags.CONTRAST_CONTROL);
 
     return (
       <Navbar className="app-TopNavbar" fluid>
@@ -57,6 +59,11 @@ class TopNavbar extends Component {
         </Navbar.Header>
 
         <Nav activeKey="none" pullRight>
+          {isContrastEnabled && (
+            <BootstrapGuardedLI>
+              <HeaderContrastControl />
+            </BootstrapGuardedLI>
+          )}
           {isFontSizeControlEnabled && (
             <BootstrapGuardedLI>
               <HeaderFontSizeControl />

@@ -123,6 +123,7 @@
   "Footer.feedbackLink": "You can send your feedback here.",
   "Footer.helsinkiText": "Varaamo is the City of Helsinki’s reservation booking system. This is a pilot version, so please feel free to send us any feedback you may have.",
   "Footer.vantaaText": "Varaamo is the City of Helsinki’s reservation booking system, which is also used by the cities of Espoo and Vantaa. This is a pilot version, so please feel free to send us any feedback you may have.",
+  "HeaderContrastControl.label": "Contrast",
   "HeaderFontSizeControl.label": "Text size",
   "HeaderFontSizeControl.fontSizeSmall": "small text size",
   "HeaderFontSizeControl.fontSizeMedium": "medium text size",

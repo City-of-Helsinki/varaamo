@@ -125,6 +125,7 @@
   "Footer.feedbackLink": "Du kan ge din respons här.",
   "Footer.helsinkiText": "Varaamo är Helsingfors stads utrymmesbokningstjänst. Det är frågan om en pilotversion och vi hoppas att Du  ger oss respons på den.",
   "Footer.vantaaText": "Varaamo är Helsingfors stads utrymmesbokningstjänst, som kommer att provas under ett års tid i vissa av Vanda biblioteks utrymmen. Det är frågan om en pilotversion och vi hoppas att Du ger oss respons på den.",
+  "HeaderContrastControl.label": "Kontrast",
   "HeaderFontSizeControl.label": "Textstorlek",
   "HeaderFontSizeControl.fontSizeSmall": "liten textstorlek",
   "HeaderFontSizeControl.fontSizeMedium": "medelstor textstorlek",
