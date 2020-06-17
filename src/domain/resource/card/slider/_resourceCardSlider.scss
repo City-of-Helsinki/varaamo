@@ -3,13 +3,7 @@
   $button-offset: 10px;
   $button-offset-mobile: 2px;
 
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 0 15px 15px 15px;
-  width: 100%;
-  max-width: $app-SearchPage-max-width;
-  z-index: 2;
+  position: relative;
 
   @media (max-width: $screen-sm-max) {
     width: calc(100% - 30px);
