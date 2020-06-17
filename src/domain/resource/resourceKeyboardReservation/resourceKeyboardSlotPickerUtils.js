@@ -63,10 +63,14 @@ export function getSlots(startTime, endTime, slotSize) {
  * returns false otherwise.
  *
  * @param {object} slot
- * @param {array} reservations
+ * @param {array} [reservations]
  * @returns {boolean}
  */
 export function getIsSlotReserved(slot, reservations) {
+  if (!reservations) {
+    return false;
+  }
+
   return reservations.reduce((acc, reservation) => {
     const timeInSlot = new Date(new Date(slot.start).getTime() + 1);
 
