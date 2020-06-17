@@ -158,6 +158,7 @@
   "Navbar.manageReservations": "Manage Reservations",
   "Navbar.search": "Search",
   "Navbar.userResources": "Your reservations",
+  "Navbar.accessibilityMenuToggle.label": "Accessibility settings",
   "NotFoundPage.checkAddress": "If you entered the address manually, please check it is written correctly.",
   "NotFoundPage.contactUs": "If you arrived at this page through another part of this site, please contact us so we can fix the problem.",
   "NotFoundPage.helpHeader": "You can also try:",

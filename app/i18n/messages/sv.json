@@ -160,6 +160,7 @@
   "Navbar.manageReservations": "Administrera Bokningar",
   "Navbar.search": "Sök",
   "Navbar.userResources": "Mina bokningar",
+  "Navbar.accessibilityMenuToggle.label": "Inställningar för tillgänglighet",
   "NotFoundPage.checkAddress": "Om du matade in webbadressen manuellt, kontrollera att den är korrekt.",
   "NotFoundPage.contactUs": "Om du kom hit från någon annan del av vår webbplats, ta kontakt med oss så att vi kan åtgärda problemet.",
   "NotFoundPage.helpHeader": "Du kan försöka göra följande:",

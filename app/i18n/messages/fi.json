@@ -158,6 +158,7 @@
   "Navbar.manageReservations": " Varausten hallinta",
   "Navbar.search": "Haku",
   "Navbar.userResources": "Omat varaukset",
+  "Navbar.accessibilityMenuToggle.label": "Saavutettavuusasetukset",
   "NotFoundPage.checkAddress": "Jos syötit sivun osoitteen käsin, tarkista että se on oikein.",
   "NotFoundPage.contactUs": "Jos tulit tälle sivulle jostain toisesta sivustomme osasta, ota meihin yhteyttä, jotta voimme korjata virheen.",
   "NotFoundPage.helpHeader": "Voit yrittää seuraavaa:",
