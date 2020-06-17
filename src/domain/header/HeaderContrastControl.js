@@ -8,12 +8,15 @@ import { toggleContrast } from '../../../app/actions/uiActions';
 import injectT from '../../../app/i18n/injectT';
 import HeaderOption from './HeaderOption';
 
+const CONTRAST_CONTROL_ID = 'contrast-control';
+
 const HeaderContrastControl = ({ isHighContrast, onToggleContrast, t }) => {
   return (
     <HeaderOption
-      label={t('HeaderContrastControl.label')}
+      label={<label htmlFor={CONTRAST_CONTROL_ID}>{t('HeaderContrastControl.label')}</label>}
     >
       <Toggle
+        id={CONTRAST_CONTROL_ID}
         onChange={onToggleContrast}
         value={JSON.stringify(isHighContrast)}
       />

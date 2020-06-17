@@ -5,5 +5,11 @@
 
   &__label {
     margin-right: $spacing-xs;
+
+    & label {
+      margin: 0;
+
+      font-weight: normal;
+    }
   }
 }
