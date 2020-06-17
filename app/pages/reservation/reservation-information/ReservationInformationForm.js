@@ -75,12 +75,13 @@ function getTermsAndConditionsError(field) {
     termsAndConditions: 'ReservationForm.termsAndConditionsError',
     specificTerms: 'ReservationForm.specificTermsError',
   };
+  const errorLabel = errorLabels[field];
 
-  if (!errorLabels) {
+  if (!errorLabel) {
     return errorLabels.termsAndConditions;
   }
 
-  return errorLabels[field];
+  return errorLabel;
 }
 
 export function validate(values, { fields, requiredFields, t }) {
