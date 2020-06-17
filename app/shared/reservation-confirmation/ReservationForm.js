@@ -28,7 +28,7 @@ const validators = {
   numberOfParticipants: (t, { numberOfParticipants }) => {
     const isNumber = !isNaN(numberOfParticipants);
 
-    if (!isNumber) {
+    if (numberOfParticipants && !isNumber) {
       return t('ReservationForm.numberOfParticipantsError');
     }
 
