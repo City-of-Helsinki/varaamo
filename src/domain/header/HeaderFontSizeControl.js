@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { changeFontSize } from '../../../app/actions/uiActions';
 import injectT from '../../../app/i18n/injectT';
 import FontSizes from '../../../app/constants/FontSizes';
+import HeaderOption from './HeaderOption';
 import HeaderFontSizeButton from './HeaderFontSizeButton';
 
 function getVariant(fontSize) {
@@ -23,22 +24,19 @@ function getVariant(fontSize) {
 
 const HeaderFontSizeControl = ({ fontSize, setFontSize, t }) => {
   return (
-    <div className="app-HeaderFontSizeControl">
-      <span className="app-HeaderFontSizeControl__label">
-        {t('HeaderFontSizeControl.label')}
-      </span>
-      <div className="app-HeaderFontSizeControl__option-list">
-        {Object.values(FontSizes).map(fontSizeOption => (
-          <HeaderFontSizeButton
-            aria-label={t(`HeaderFontSizeControl.${fontSizeOption}`)}
-            aria-pressed={fontSize === fontSizeOption}
-            key={fontSizeOption}
-            onClick={() => setFontSize(fontSizeOption)}
-            variant={getVariant(fontSizeOption)}
-          />
-        ))}
-      </div>
-    </div>
+    <HeaderOption
+      label={t('HeaderFontSizeControl.label')}
+    >
+      {Object.values(FontSizes).map(fontSizeOption => (
+        <HeaderFontSizeButton
+          aria-label={t(`HeaderFontSizeControl.${fontSizeOption}`)}
+          aria-pressed={fontSize === fontSizeOption}
+          key={fontSizeOption}
+          onClick={() => setFontSize(fontSizeOption)}
+          variant={getVariant(fontSizeOption)}
+        />
+      ))}
+    </HeaderOption>
   );
 };
 

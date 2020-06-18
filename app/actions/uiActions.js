@@ -99,6 +99,8 @@ const myPremisessSetSelectedTimeSlots = createAction(types.UI.MY_PREMISES_SET_SE
 
 const changeFontSize = createAction(types.UI.CHANGE_FONTSIZE, fontsize => fontsize);
 
+const toggleContrast = createAction(types.UI.TOGGLE_HIGH_CONTRAST);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -131,4 +133,5 @@ export {
   setSelectedTimeSlots,
   myPremisessSetSelectedTimeSlots,
   changeFontSize,
+  toggleContrast,
 };

@@ -12,6 +12,8 @@ import { SUPPORTED_LANGUAGES } from '../../../app/i18n/TranslationConstants';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
 import TabbableNavItem from '../../../app/shared/tabbable-nav-dropdown/TabbableNavItem';
 import HeaderFontSizeControl from './HeaderFontSizeControl';
+import HeaderContrastControl from './HeaderContrastControl';
+import HeaderUniversalAccessIcon from './HeaderUniversalAccessIcon';
 
 // Bootstrap uses magic to force props on child elements based on
 // element type. Because our vanilla elements don't make use of those
@@ -19,7 +21,7 @@ import HeaderFontSizeControl from './HeaderFontSizeControl';
 // blocking bootstrap from applying these props.
 const BootstrapGuardedLI = (props) => {
   // eslint-disable-next-line react/prop-types
-  return <li>{props.children}</li>;
+  return <li className={props.className}>{props.children}</li>;
 };
 
 class TopNavbar extends Component {
@@ -45,6 +47,9 @@ class TopNavbar extends Component {
       currentLanguage, isLoggedIn, t, userName,
     } = this.props;
     const isFontSizeControlEnabled = getIsFeatureEnabled(FeatureFlags.FONT_SIZE_CONTROLS);
+    const isContrastEnabled = getIsFeatureEnabled(FeatureFlags.CONTRAST_CONTROL);
+    const contrastControl = isFontSizeControlEnabled ? <HeaderContrastControl /> : null;
+    const fontSizeControl = isContrastEnabled ? <HeaderFontSizeControl /> : null;
 
     return (
       <Navbar className="app-TopNavbar" fluid>
@@ -57,9 +62,35 @@ class TopNavbar extends Component {
         </Navbar.Header>
 
         <Nav activeKey="none" pullRight>
-          {isFontSizeControlEnabled && (
-            <BootstrapGuardedLI>
-              <HeaderFontSizeControl />
+          {(contrastControl || fontSizeControl) && (
+            <TabbableNavDropdown
+              as="li"
+              className="app-TopNavbar__mobile-accessibility-menu-toggle"
+              renderToggle={props => (
+                <LinkButton
+                  {...props}
+                  aria-label={t('Navbar.accessibilityMenuToggle.label')}
+                >
+                  <HeaderUniversalAccessIcon />
+                </LinkButton>
+              )}
+            >
+              {() => (
+                <>
+                  {contrastControl}
+                  {fontSizeControl}
+                </>
+              )}
+            </TabbableNavDropdown>
+          )}
+          {contrastControl && (
+            <BootstrapGuardedLI className="app-TopNavbar__non-mobile-accessibility-control">
+              {contrastControl}
+            </BootstrapGuardedLI>
+          )}
+          {fontSizeControl && (
+            <BootstrapGuardedLI className="app-TopNavbar__non-mobile-accessibility-control">
+              {fontSizeControl}
             </BootstrapGuardedLI>
           )}
           <TabbableNavDropdown
