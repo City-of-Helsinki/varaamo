@@ -11,7 +11,7 @@ function getIsFeatureEnabled(flagName) {
     case FeatureFlags.FONT_SIZE_CONTROLS:
       return true;
     case FeatureFlags.CONTRAST_CONTROL:
-      return true;
+      return false;
     default:
       return false;
   }
