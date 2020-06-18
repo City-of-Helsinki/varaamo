@@ -48,8 +48,8 @@ class TopNavbar extends Component {
     } = this.props;
     const isFontSizeControlEnabled = getIsFeatureEnabled(FeatureFlags.FONT_SIZE_CONTROLS);
     const isContrastEnabled = getIsFeatureEnabled(FeatureFlags.CONTRAST_CONTROL);
-    const contrastControl = isFontSizeControlEnabled ? <HeaderContrastControl /> : null;
-    const fontSizeControl = isContrastEnabled ? <HeaderFontSizeControl /> : null;
+    const contrastControl = isContrastEnabled ? <HeaderContrastControl /> : null;
+    const fontSizeControl = isFontSizeControlEnabled ? <HeaderFontSizeControl /> : null;
 
     return (
       <Navbar className="app-TopNavbar" fluid>
