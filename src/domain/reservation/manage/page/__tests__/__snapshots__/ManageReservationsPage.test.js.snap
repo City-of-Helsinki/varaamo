@@ -31,7 +31,6 @@ exports[`ManageReservationsPage renders correctly 1`] = `
       filters={
         Object {
           "date": "2017-12-10",
-          "municipality": undefined,
         }
       }
       onSearchChange={[Function]}
