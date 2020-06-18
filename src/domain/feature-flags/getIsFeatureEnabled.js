@@ -9,6 +9,8 @@ import FeatureFlags from './FeatureFlags';
 function getIsFeatureEnabled(flagName) {
   switch (flagName) {
     case FeatureFlags.FONT_SIZE_CONTROLS:
+      return true;
+    case FeatureFlags.CONTRAST_CONTROL:
       return false;
     default:
       return false;

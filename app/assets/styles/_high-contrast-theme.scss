@@ -1,0 +1,100 @@
+$bg-color: #000;
+$bg-color-2: #222;
+$fg-color: #fff;
+$grey: #888;
+
+.is-high-contrast {
+  & > body {
+    filter: contrast(9) grayscale(1);
+  }
+
+  & .app-HomePage {
+    // Hide home page background image.
+    background-image: none;
+  }
+
+  & .app-HomePage__content {
+    color: $bg-color;
+  }
+
+  & .form-control::placeholder {
+    color: #333;
+  }
+
+  & .app-resourceCard2__image-link {
+    display: none;
+  }
+
+  & .app-resourceCard2 {
+    border: 1px solid $bg-color;
+  }
+
+  & .app-Select__option {
+    &--is-focused {
+      background-color: $grey;
+    }
+
+    &--is-selected {
+      color: $fg-color;
+
+      background-color: $bg-color;
+    }
+  }
+
+  & .app-ResourcePage .panel {
+    border-top-color: $grey;
+  }
+
+  & .fc-unthemed th,
+  & .fc-unthemed td,
+  & .fc-unthemed thead,
+  & .fc-unthemed tbody,
+  & .fc-unthemed .fc-divider,
+  & .fc-unthemed .fc-row,
+  & .fc-unthemed .fc-content,
+  & .fc-unthemed .fc-popover,
+  & .fc-unthemed .fc-list-view,
+  & .fc-unthemed .fc-list-heading td {
+    border-color: $grey;
+  }
+
+  & .fc-bgevent {
+    border-color: #555;
+  }
+
+  & input,
+  & textarea,
+  & .terms-box,
+  & .app-ReservationDetails {
+    border: 1px solid $bg-color;
+  }
+
+  & .progress-step-separator {
+    border-top-color: $grey;
+  }
+
+  & .progress-steps-numerical .progress-step-numerical {
+    border-color: $grey;
+    color: $grey;
+  }
+
+  & .reservation {
+    border: 1px solid $bg-color;
+  }
+
+  & .image-container {
+    display: none;
+  }
+
+  & .availability-view .reservation-slot {
+    background-color: $grey;
+  }
+
+  & .availability-view .reservation-slot-selectable {
+    background-color: #555;
+  }
+
+  & .availability-view .reservation-slot-selectable.reservation-slot-selected {
+    background-color: #777;
+  }
+}

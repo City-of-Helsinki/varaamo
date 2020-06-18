@@ -1,5 +1,5 @@
 .app-UserNotificator {
-  height: 60px;
+  min-height: 60px;
   width: 100%;
   background-color: #73c0ff;
   position: relative;
@@ -15,6 +15,7 @@
     right: 20px;
     top: 5px;
     color: $gray;
+    z-index: 1;
   }
 
   .close-notificator:hover {

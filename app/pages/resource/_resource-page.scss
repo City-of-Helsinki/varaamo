@@ -37,6 +37,18 @@ $content-padding: 10px;
     }
   }
 
+  &__columns {
+    &--is-large-font-size {
+      // Use a single column layout on ResourcePage when font size is
+      // large. Otherwise the resource calendar doesn't have enough
+      // room to render its content.
+      & > div {
+        width: 100%;
+        float: unset;
+      }
+    }
+  }
+
   &__content {
     padding: 30px 0;
     background-color: $white;

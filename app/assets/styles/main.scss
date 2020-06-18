@@ -10,6 +10,7 @@
 /* they do not re-apply vanilla HDS CSS variables that assume 16px root */
 /* font size, when Varaamo uses 10px and may change the root font size */
 /* to allow a more accessible experience. */
+@import './hds_integration.scss';
 @import './_hds-integration.css';
 
 @import '~hel-bootstrap-3/src/sass/helsinki-variables';
@@ -43,3 +44,5 @@
 @import './modals';
 @import './react-select';
 @import './react-toggle';
+
+@import './high-contrast-theme';

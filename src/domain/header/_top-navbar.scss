@@ -33,6 +33,25 @@
     }
   }
 
+  & &__mobile-accessibility-menu-toggle {
+    @media (min-width: $screen-sm-min) {
+      display: none;
+    }
+
+    & .dropdown-menu {
+      padding: 0 $spacing-s;
+      min-width: 180px;
+    }
+  }
+
+  & &__non-mobile-accessibility-control {
+    display: none;
+
+    @media (min-width: $screen-sm-min) {
+      display: initial;
+    }
+  }
+
   .nav {
     li {
       a {
@@ -65,13 +84,17 @@
 
     > li {
       float: left;
+      margin-right: $spacing-s;
+      
+      @media (min-width: $screen-xs-min) {
+        margin-right: $spacing-m;
+      }
 
       > a {
         padding-top: 18px;
         padding-bottom: 18px;
         position: relative;
         padding-right: 0;
-        margin-right: 15px;
         font-weight: 500;
         font-size: 1.5rem;
       }

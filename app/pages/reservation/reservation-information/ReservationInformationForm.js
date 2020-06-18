@@ -32,6 +32,15 @@ const validators = {
     }
     return null;
   },
+  numberOfParticipants: (t, { numberOfParticipants }) => {
+    const isNumber = !isNaN(numberOfParticipants);
+
+    if (numberOfParticipants && !isNumber) {
+      return t('ReservationForm.numberOfParticipantsError');
+    }
+
+    return null;
+  },
 };
 
 const maxLengths = {
@@ -55,14 +64,24 @@ const maxLengths = {
 };
 
 function isTermsAndConditionsField(field) {
-  return field === 'termsAndConditions'
-    || field === 'paymentTermsAndConditions';
+  const termsAndConditionsFields = ['termsAndConditions', 'paymentTermsAndConditions', 'specificTerms'];
+
+  return termsAndConditionsFields.includes(field);
 }
 
 function getTermsAndConditionsError(field) {
-  return field === 'paymentTermsAndConditions'
-    ? 'ReservationForm.paymentTermsAndConditionsError'
-    : 'ReservationForm.termsAndConditionsError';
+  const errorLabels = {
+    paymentTermsAndConditions: 'ReservationForm.paymentTermsAndConditionsError',
+    termsAndConditions: 'ReservationForm.termsAndConditionsError',
+    specificTerms: 'ReservationForm.specificTermsError',
+  };
+  const errorLabel = errorLabels[field];
+
+  if (!errorLabel) {
+    return errorLabels.termsAndConditions;
+  }
+
+  return errorLabel;
 }
 
 export function validate(values, { fields, requiredFields, t }) {
@@ -137,8 +156,13 @@ class UnconnectedReservationInformationForm extends Component {
 
   renderTermsField(name) {
     const { t, isStaff } = this.props;
-    // eslint-disable-next-line max-len
-    const label = `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}${isStaff ? '' : '*'}`;
+    const labels = {
+      termsAndConditions:
+        // eslint-disable-next-line max-len
+        `${t('ReservationInformationForm.termsAndConditionsLabel')} ${t('ReservationInformationForm.termsAndConditionsLink')}`,
+      specificTerms: t('ReservationInformationForm.specificTermsLabel'),
+    };
+    const label = `${labels[name]}${isStaff ? '' : '*'}`;
     return (
       <Field
         component={TermsField}
@@ -429,10 +453,11 @@ class UnconnectedReservationInformationForm extends Component {
             </React.Fragment>
             )
           }
-          {resource.specificTerms && (
+          {includes(fields, 'specificTerms') && (
             <div>
               <h2 className="app-ReservationPage__title">{t('ReservationForm.specificTermsTitle')}</h2>
               <WrappedText className="specificTermsContent" text={resource.specificTerms} />
+              {this.renderTermsField('specificTerms')}
             </div>
           )}
           <div>

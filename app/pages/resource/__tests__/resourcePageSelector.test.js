@@ -26,6 +26,9 @@ function getState(resources = [], units = [], user = defaultUser) {
       resourceMap: Immutable({
         showMap: true,
       }),
+      accessibility: Immutable({
+        fontSize: 'fontSizeSmall',
+      }),
     }),
   };
 }

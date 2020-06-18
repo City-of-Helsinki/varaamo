@@ -276,7 +276,6 @@ class SearchPage extends React.Component {
               render={(props) => {
                 return (
                   <PageWrapper
-                    fluid
                     title={pageTitle}
                     transparent
                   >

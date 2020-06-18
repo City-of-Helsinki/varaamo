@@ -1,0 +1,39 @@
+/* Varaamo uses a root font size of 10px whereas HDS assumes 16px. */
+/* Because of this HDS components don\'t render as intended and text */
+/* sizes may not be legible. */
+
+/* Here we override the default variables with an implementation that */
+/* yields expected sizes, at least during the time this file was added. */
+/* Base root font size is 10px and HDS assumes 16px */
+$hds-root-font-size: 1.6rem;
+
+$spacing-layout-2-xs: 1 * $hds-root-font-size; /* 16px */
+$spacing-layout-xs: 1.5 * $hds-root-font-size; /* 24px */
+$spacing-layout-s: 2 * $hds-root-font-size; /* 32px */
+$spacing-layout-m: 3 * $hds-root-font-size; /* 48px */
+$spacing-layout-l: 4 * $hds-root-font-size; /* 64px */
+$spacing-layout-xl: 6 * $hds-root-font-size; /* 96px */
+$spacing-layout-2-xl: 8 * $hds-root-font-size; /* 128px */
+$spacing-4-xs: 0.125 * $hds-root-font-size; /* 2px */
+$spacing-3-xs: 0.25 * $hds-root-font-size; /* 4px */
+$spacing-2-xs: 0.5 * $hds-root-font-size; /* 8px */
+$spacing-xs: 0.75 * $hds-root-font-size; /* 12px */
+$spacing-s: 1 * $hds-root-font-size; /* 16px */
+$spacing-m: 1.5 * $hds-root-font-size; /* 24px */
+$spacing-l: 2 * $hds-root-font-size; /* 32px */
+$spacing-xl: 2.5 * $hds-root-font-size; /* 40px */
+$spacing-2-xl: 3.0 * $hds-root-font-size; /* 48px */
+$spacing-3-xl: 3.5 * $hds-root-font-size; /* 56px */
+$spacing-4-xl: 4 * $hds-root-font-size; /* 64px */
+$spacing-5-xl: 4.5 * $hds-root-font-size; /* 72px */
+
+$fontsize-h-1: 3.25 * $hds-root-font-size; /* 52px */
+$fontsize-h-2: 2.25 * $hds-root-font-size; /* 36px */
+$fontsize-h-3: 1.5 * $hds-root-font-size; /* 24px */
+$fontsize-h-4: 1.25 * $hds-root-font-size; /* 20px */
+$fontsize-h-5: 1.125 * $hds-root-font-size; /* 18px */
+$fontsize-subtitle: 1 * $hds-root-font-size; /* 16px */
+$fontsize-body-default: 1 * $hds-root-font-size; /* 16px */
+$fontsize-body-small: 0.875 * $hds-root-font-size; /* 14px */
+$fontsize-body-medium: 1.125 * $hds-root-font-size; /* 18px */
+$fontsize-body-large: 1.25 * $hds-root-font-size; /* 20px */

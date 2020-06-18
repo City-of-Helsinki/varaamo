@@ -226,7 +226,8 @@ describe('pages/reservation/reservation-information/ReservationInformationForm',
         });
 
         test('renders specific terms content correctly', () => {
-          const wrapper = getWrapper().find('.specificTermsContent');
+          const fields = ['specificTerms'];
+          const wrapper = getWrapper({ fields }).find('.specificTermsContent');
           expect(wrapper.html()).toContain(defaultProps.resource.specificTerms);
         });
       });

@@ -43,6 +43,7 @@ class UnconnectedResourcePage extends Component {
     id: PropTypes.string.isRequired,
     isFetchingResource: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    isLargeFontSize: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
@@ -195,6 +196,7 @@ class UnconnectedResourcePage extends Component {
       date,
       isFetchingResource,
       isLoggedIn,
+      isLargeFontSize,
       isStaff,
       location,
       resource,
@@ -240,7 +242,10 @@ class UnconnectedResourcePage extends Component {
           {showMap && (<ResourceMap resource={resource} unit={unit} />)}
           {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
-              <Row>
+              <Row className={classNames('app-ResourcePage__columns', {
+                'app-ResourcePage__columns--is-large-font-size': isLargeFontSize,
+              })}
+              >
                 <Col lg={8} md={8} xs={12}>
                   <div className="app-ResourcePage__content">
                     {mainImage

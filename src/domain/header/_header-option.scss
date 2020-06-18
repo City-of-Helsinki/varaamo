@@ -1,0 +1,15 @@
+.app-HeaderOption {
+  display: flex;
+  align-items: center;
+  height: 60px;
+
+  &__label {
+    margin-right: $spacing-xs;
+
+    & label {
+      margin: 0;
+
+      font-weight: normal;
+    }
+  }
+}

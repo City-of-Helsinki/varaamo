@@ -54,7 +54,7 @@ class ReservationInformation extends Component {
     onConfirm(values);
   }
 
-  getFormFields = (termsAndConditions) => {
+  getFormFields = (termsAndConditions, specificTerms) => {
     const {
       isAdmin,
       isStaff,
@@ -79,6 +79,10 @@ class ReservationInformation extends Component {
       formFields.push('termsAndConditions');
     }
 
+    if (specificTerms) {
+      formFields.push('specificTerms');
+    }
+
     if (hasProducts(resource)) {
       formFields.push('paymentTermsAndConditions');
       formFields.push('billingFirstName');
@@ -86,7 +90,6 @@ class ReservationInformation extends Component {
       formFields.push('billingPhoneNumber');
       formFields.push('billingEmailAddress');
     }
-
 
     return uniq(formFields);
   }
@@ -104,7 +107,7 @@ class ReservationInformation extends Component {
     return rv;
   }
 
-  getRequiredFormFields(resource, termsAndConditions) {
+  getRequiredFormFields(resource, termsAndConditions, specificTerms) {
     const requiredFormFields = [...resource.requiredReservationExtraFields.map(
       field => camelCase(field),
     )];
@@ -113,6 +116,10 @@ class ReservationInformation extends Component {
 
     if (termsAndConditions) {
       if (!isAdmin) requiredFormFields.push('termsAndConditions');
+    }
+
+    if (specificTerms && !isAdmin) {
+      requiredFormFields.push('specificTerms');
     }
 
     if (hasProducts(resource)) {
@@ -146,6 +153,7 @@ class ReservationInformation extends Component {
     const taxPercentage = get(resource, 'products[0].price.taxPercentage');
 
     const termsAndConditions = getTermsAndConditions(resource);
+    const specificTerms = resource.specificTerms;
     const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
     const endText = moment(selectedTime.end).format('HH:mm');
     const hours = moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
@@ -154,7 +162,7 @@ class ReservationInformation extends Component {
       <div className="app-ReservationInformation">
         <Col md={7} sm={12}>
           <ReservationInformationForm
-            fields={this.getFormFields(termsAndConditions)}
+            fields={this.getFormFields(termsAndConditions, specificTerms)}
             initialValues={this.getFormInitialValues()}
             isEditing={isEditing}
             isMakingReservations={isMakingReservations}
@@ -162,7 +170,7 @@ class ReservationInformation extends Component {
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions)}
+            requiredFields={this.getRequiredFormFields(resource, termsAndConditions, specificTerms)}
             resource={resource}
             termsAndConditions={termsAndConditions}
           />

@@ -1,5 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
+import FontSizes from '../../constants/FontSizes';
 import ActionTypes from '../../constants/ActionTypes';
 import { createIsStaffSelector, isAdminSelector, isLoggedInSelector } from '../../state/selectors/authSelectors';
 import { createResourceSelector, unitsSelector } from '../../state/selectors/dataSelectors';
@@ -14,6 +15,7 @@ const unitSelector = createSelector(
   unitsSelector,
   (resource, units) => units[resource.unit] || {},
 );
+const isLargeFontSizeSelector = state => state.ui.accessibility.fontSize === FontSizes.LARGE;
 
 const resourcePageSelector = createStructuredSelector({
   date: dateSelector,
@@ -21,6 +23,7 @@ const resourcePageSelector = createStructuredSelector({
   isAdmin: isAdminSelector,
   isFetchingResource: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCE_GET_REQUEST),
   isLoggedIn: isLoggedInSelector,
+  isLargeFontSize: isLargeFontSizeSelector,
   isStaff: createIsStaffSelector(resourceSelector),
   resource: resourceSelector,
   showMap: showMapSelector,
