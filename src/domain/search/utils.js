@@ -21,10 +21,13 @@ export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORT
     // Otherwise, reservations property under resource data will be
     // empty.
     date: defaultDate,
+  };
+
+  if (defaultMunicipality) {
     // Determine current version of Varaamo (Helsinki, Espoo, Vantaa)
     // and filter results to target that municipality by default.
-    municipality: defaultMunicipality,
-  };
+    filters.municipality = defaultMunicipality;
+  }
 
   query.forEach((value, key) => {
     if (!supportedFilters || supportedFilters[key] !== undefined) {
