@@ -1,0 +1,42 @@
+.app-DateRangeLegend {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-items: stretch;
+  margin: 2rem 0;
+
+  &__legend-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__color-box {
+    width: 30px;
+    height: 30px;
+    margin-right: 1rem;
+
+    &--unavailable {
+      color: $gray-light;
+      text-decoration: line-through;
+    }
+
+    &--selection {
+      background-color: $app-DateRangePicker-color-selected;
+    }
+
+    &--reserved {
+      color: $app-DateRangePicker-color-reserved-text;
+      background-color: $app-DateRangePicker-color-reserved;
+      text-decoration: line-through;
+      text-decoration-color: black;
+    }
+
+    &--available {
+      background-color: $app-DateRangePicker-color-available;
+    }
+
+    &--start {
+      border: 2px solid #007a64;
+      background-color: $app-DateRangePicker-color-available;
+    }
+  }
+}

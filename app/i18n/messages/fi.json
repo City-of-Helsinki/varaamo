@@ -443,6 +443,22 @@
   "TimePickerCalendar.info.today": "Tänään",
   "TimePickerCalendar.info.displayedMessage": "Kohde ei ole varattavissa",
 
+  "DateRangePicker.makeReservation": "Varaa",
+  "DateRangePicker.info.minPeriodText": "Varauksen on kestettävä vähintään {duration} päivää.",
+  "DateRangePicker.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} päivää.",
+  "DateRangePicker.info.overlappingReservation": "Kohde ei ole varattavissa valitsemallasi ajalla.",
+  "DateRangePicker.info.invalidStartingDay": "Varaukselle valittu aloituspäivä ei ole sallittu.",
+  "DateRangePicker.info.outsideOpeningPeriods": "Valitulla aikavälillä kohde on jo varattu.",
+
+  "DateRangeSummary.title": "Varauksesi",
+  "DateRangeSummary.days": "{days} pv",
+
+  "DateRangeLegend.available": "Vapaa, ei aloituspäivä",
+  "DateRangeLegend.availableStartingDay": "Aloituspäivä",
+  "DateRangeLegend.reserved": "Varattu",
+  "DateRangeLegend.selection": "Valinta",
+  "DateRangeLegend.unavailable": "Ei valittavana",
+
   "CalendarLegend.closed": "Ei varattavissa",
   "CalendarLegend.selection": "Varauksesi",
   "CalendarLegend.taken": "Varattu",

@@ -1,0 +1,22 @@
+.app-DateRangeSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__icon {
+    margin-right: 0.5em;
+    width: 20px;
+  }
+
+  &__summaryDetails {
+    display: flex;
+
+    div {
+      margin-right: 2rem;
+    }
+
+    div:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
