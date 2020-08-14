@@ -83,6 +83,19 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
           }
         />
       </div>
+      <InjectT(SelectField)
+        id="cancelReasonCategory"
+        label="Cancellation reason:"
+        onChange={[Function]}
+        options={Array []}
+      />
+      <TextAreaField
+        id="cancelReasonExplanation"
+        label="Explanation (optional):"
+        onChange={[Function]}
+        rows={5}
+        value=""
+      />
     </ModalBody>
     <ModalFooter
       bsClass="modal-footer"
