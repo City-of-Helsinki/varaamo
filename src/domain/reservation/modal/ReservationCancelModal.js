@@ -129,14 +129,14 @@ const UnconnectedReservationCancelModal = ({
         </div>
         <SelectField
           id="cancelReasonCategory"
-          label="Cancellation reason:"
+          label={t('ReservationInformationForm.cancellationReason')}
           onChange={option => setCancelCategoryId(option.value)}
           options={cancelCategories}
           value={cancelCategoryId}
         />
         <TextAreaField
           id="cancelReasonExplanation"
-          label="Explanation (optional):"
+          label={t('ReservationInformationForm.explanation')}
           onChange={e => setCancelDescription(e.target.value)}
           rows={5}
           value={cancelDescription}
@@ -152,7 +152,7 @@ const UnconnectedReservationCancelModal = ({
         </Button>
         <Button
           bsStyle="danger"
-          disabled={checkboxDisabled}
+          disabled={checkboxDisabled || !cancelCategoryId}
           onClick={handleCancel}
         >
           {t('ReservationCancelModal.cancelAllowedConfirm')}

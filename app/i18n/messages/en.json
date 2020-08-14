@@ -274,6 +274,8 @@
   "ReservationInformationForm.refundPolicyText.2": "talpa@hel.fi",
   "ReservationInformationForm.refundPolicyText.3": " and include customer name, email, resource name, date and time. You can cancel customer reservation after getting confirmation email from TALPA. Internal reservations by staff are free.",
   "ReservationInformationForm.refundCheckBox": " I have read refund instructions.",
+  "ReservationInformationForm.cancellationReason": "Cancellation reason:",
+  "ReservationInformationForm.explanation": "Explanation (optional):",
   "ReservationListContainer.emptyMessage": "You do not have any reservations yet.",
   "ReservationListContainer.comingReservations": "Coming",
   "ReservationListContainer.pastReservations": "Past",
