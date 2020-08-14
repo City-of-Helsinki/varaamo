@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 import Button from 'react-bootstrap/lib/Button';
 
+import SelectField from '../../../common/form/fields/SelectField';
 import injectT from '../../../../app/i18n/injectT';
 import CompactReservationList from '../../../../app/shared/compact-reservation-list/CompactReservationList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
+import TextAreaField from '../../../common/form/fields/TextAreaField';
 
 const mapStateToProps = (state) => {
   return {
@@ -19,9 +21,11 @@ const mapStateToProps = (state) => {
 const UnconnectedReservationCancelModal = ({
   // Remove eslint-disable later!
   // eslint-disable-next-line no-unused-vars
-  onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
+  cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
 }) => {
   const [show, setShow] = useState(toggleShow);
+  const [cancelCategoryId, setCancelCategoryId] = useState();
+  const [cancelDescription, setCancelDescription] = useState('');
   /**
    * Until we have billable information in resource data the checkbox disabled is false. See below...
    */
@@ -84,7 +88,10 @@ const UnconnectedReservationCancelModal = ({
   };
 
   const handleCancel = () => {
-    onEditReservation(reservation, RESERVATION_STATE.CANCELLED);
+    onEditReservation(reservation, RESERVATION_STATE.CANCELLED, false, {
+      category_id: cancelCategoryId,
+      description: cancelDescription || null,
+    });
   };
 
   return (
@@ -120,6 +127,20 @@ const UnconnectedReservationCancelModal = ({
             )
           }
         </div>
+        <SelectField
+          id="cancelReasonCategory"
+          label="Cancellation reason:"
+          onChange={option => setCancelCategoryId(option.value)}
+          options={cancelCategories}
+          value={cancelCategoryId}
+        />
+        <TextAreaField
+          id="cancelReasonExplanation"
+          label="Explanation (optional):"
+          onChange={e => setCancelDescription(e.target.value)}
+          rows={5}
+          value={cancelDescription}
+        />
       </Modal.Body>
 
       <Modal.Footer>
@@ -142,6 +163,7 @@ const UnconnectedReservationCancelModal = ({
 };
 
 UnconnectedReservationCancelModal.propTypes = {
+  cancelCategories: PropTypes.array.isRequired,
   onEditReservation: PropTypes.func.isRequired,
   parentToggle: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
