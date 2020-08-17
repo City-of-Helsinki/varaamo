@@ -20,6 +20,7 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
       parentToggle: jest.fn(),
       reservation: mockReservation,
       toggleShow: mockBoolean,
+      cancelCategories: [],
     };
     const wrapper = shallowWithIntl(
       <UnconnectedReservationCancelModal {...props} {...extraProps} />,

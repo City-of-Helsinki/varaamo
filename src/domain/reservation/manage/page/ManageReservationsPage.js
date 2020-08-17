@@ -42,6 +42,7 @@ class ManageReservationsPage extends React.Component {
     location: PropTypes.object,
     actions: PropTypes.object,
     userFavoriteResources: PropTypes.array,
+    locale: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -62,12 +63,14 @@ class ManageReservationsPage extends React.Component {
       selectedReservationResource: INITIAL_SELECTED_RESERVATION_RESOURCE,
       showOnlyFilters: [RESERVATION_SHOWONLY_FILTERS.CAN_MODIFY],
       isReservationCancelModalOpen: false,
+      cancelCategories: [],
     };
   }
 
   componentDidMount() {
     this.loadUnits();
     this.loadReservations();
+    this.loadCancelReasonCategories();
   }
 
   componentDidUpdate(prevProps) {
@@ -162,6 +165,17 @@ class ManageReservationsPage extends React.Component {
       });
   }
 
+  loadCancelReasonCategories = () => {
+    client.get('cancel_reason_category').then((res) => {
+      this.setState({
+        cancelCategories: res.data && res.data.map(category => ({
+          value: category.id,
+          label: category.name[this.props.locale || 'fi'],
+        })),
+      });
+    });
+  }
+
   resetSelectedReservationResource = () => {
     this.setSelectedReservationResource(INITIAL_SELECTED_RESERVATION_RESOURCE);
   }
@@ -209,7 +223,7 @@ class ManageReservationsPage extends React.Component {
   }
 
   // The same function is passed to ManageReservationsList, ReservationInformationModal AND ReservationCancelModal!!!
-  onEditReservation = async (reservation, status, openReservationCancelModal = false) => {
+  onEditReservation = async (reservation, status, openReservationCancelModal = false, cancelReason) => {
     try {
       if (status === RESERVATION_STATE.CANCELLED) {
         if (openReservationCancelModal) {
@@ -222,7 +236,7 @@ class ManageReservationsPage extends React.Component {
           });
         } else {
           // We are calling ReservationCancelModal via ReservationInformationModal.
-          await reservationUtils.cancelReservation(reservation);
+          await reservationUtils.cancelReservation(reservation.id, cancelReason);
           // We need to close the ReservationCancelModal.
           this.parentToggle(false);
         }
@@ -379,6 +393,7 @@ class ManageReservationsPage extends React.Component {
         )}
         {isReservationCancelModalOpen && (
           <ConnectedReservationCancelModal
+            cancelCategories={this.state.cancelCategories}
             onEditReservation={this.onEditReservation}
             parentToggle={this.parentToggle}
             reservation={selectedReservation}

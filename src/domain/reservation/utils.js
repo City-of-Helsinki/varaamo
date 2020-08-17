@@ -62,11 +62,15 @@ export const putReservation = (reservation, fields) => {
 /**
  * Delete/Cancel reservation
  *
- * @param {Object} reservation
+ * @param {string} reservationID
+ * @param {string} cancelReasonCategoryID
  * @returns {Promise}
  */
-export const cancelReservation = (reservation) => {
-  return client.delete(`reservation/${reservation.id}`);
+export const cancelReservation = (reservationID, cancelReason) => {
+  return client.patch(`reservation/${reservationID}`, {
+    state: RESERVATION_STATE.CANCELLED,
+    cancel_reason: cancelReason,
+  });
 };
 
 /**
