@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeLegend renders normally 1`] = `
+<div
+  className="app-DateRangeLegend"
+>
+  <div
+    className="app-DateRangeLegend__legend-item"
+  >
+    <div
+      className="app-DateRangeLegend__color-box app-DateRangeLegend__color-box--available"
+    >
+      01
+    </div>
+    <p>
+      DateRangeLegend.available
+    </p>
+  </div>
+  <div
+    className="app-DateRangeLegend__legend-item"
+  >
+    <div
+      className="app-DateRangeLegend__color-box app-DateRangeLegend__color-box--start"
+    >
+      01
+    </div>
+    <p>
+      DateRangeLegend.availableStartingDay
+    </p>
+  </div>
+  <div
+    className="app-DateRangeLegend__legend-item"
+  >
+    <div
+      className="app-DateRangeLegend__color-box app-DateRangeLegend__color-box--reserved"
+    >
+      01
+    </div>
+    <p>
+      DateRangeLegend.reserved
+    </p>
+  </div>
+  <div
+    className="app-DateRangeLegend__legend-item"
+  >
+    <div
+      className="app-DateRangeLegend__color-box app-DateRangeLegend__color-box--selection"
+    >
+      01
+    </div>
+    <p>
+      DateRangeLegend.selection
+    </p>
+  </div>
+  <div
+    className="app-DateRangeLegend__legend-item"
+  >
+    <div
+      className="app-DateRangeLegend__color-box app-DateRangeLegend__color-box--unavailable"
+    >
+      01
+    </div>
+    <p>
+      DateRangeLegend.unavailable
+    </p>
+  </div>
+</div>
+`;
