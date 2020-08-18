@@ -1,4 +1,8 @@
-import { validateRange, DatePickerValidationError } from '../utils';
+import {
+  validateRange,
+  DatePickerValidationError,
+  getDateRangeDuration,
+} from '../utils';
 
 describe('DateRangePicker utils', () => {
   describe('validateRange', () => {
@@ -54,6 +58,17 @@ describe('DateRangePicker utils', () => {
       );
     });
 
+    it('overlapping reservations check is inclusive', () => {
+      const overlappingRange = {
+        from: new Date(2020, 8, 9),
+        to: new Date(2020, 8, 10),
+      };
+      const validationStatus = validateRange(overlappingRange, constraints);
+      expect(validationStatus).toContain(
+        DatePickerValidationError.OVERLAPPING_RESERVATION,
+      );
+    });
+
     it('returns OUTSIDE_OPENING_PERIODS for a range that has dates outside specified opening periods', () => {
       const outsideOpeningPeriodsRange = {
         from: new Date(1999, 0),
@@ -80,6 +95,17 @@ describe('DateRangePicker utils', () => {
       expect(validationStatus).toContain(
         DatePickerValidationError.INVALID_STARTING_DAY,
       );
+    });
+  });
+
+  describe('getDateRangeDuration', () => {
+    it('returns correct number of days between dates', () => {
+      expect(
+        getDateRangeDuration(
+          new Date(2020, 10, 1),
+          new Date(2020, 10, 3),
+        ),
+      ).toEqual(3);
     });
   });
 });

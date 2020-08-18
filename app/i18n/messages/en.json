@@ -439,9 +439,9 @@
   "DateRangePicker.makeReservation": "Reserve",
   "DateRangePicker.info.minPeriodText": "Reservation must be at least {duration} days long.",
   "DateRangePicker.info.maxPeriodText": "Reservation cannot exceed {duration} days.",
-  "DateRangePicker.info.overlappingReservation": "The resource cannot be booked for the selected period.",
+  "DateRangePicker.info.overlappingReservation": "Reservation cannot overlap with other reservations.",
   "DateRangePicker.info.invalidStartingDay": "Reservation must begin on a valid starting day.",
-  "DateRangePicker.info.outsideOpeningPeriods": "Reservation cannot overlap with other reservations.",
+  "DateRangePicker.info.outsideOpeningPeriods": "The resource cannot be booked for the selected period.",
 
   "DateRangeSummary.title": "Reservations",
   "DateRangeSummary.days": "{days} days",
