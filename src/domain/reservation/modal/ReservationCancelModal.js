@@ -29,14 +29,14 @@ const UnconnectedReservationCancelModal = ({
   /**
    * Until we have billable information in resource data the checkbox disabled is false. See below...
    */
-  const [checkboxDisabled, disableCheckbox] = useState(false);
+  const [acceptedRefundInstr, setAcceptedRefundInstr] = useState();
   /**
    * We need a way to distinguish between billable and free resources.
    * Until that it implemented in respa we ENABLE checkbox (see above...) and set billable to false.
    * Remove eslint-disable later!
    */
   // eslint-disable-next-line no-unused-vars
-  const [billable, setBillable] = useState(false);
+  const [billable, setBillable] = useState(true);
   const handleClose = () => {
     setShow(() => false);
     parentToggle(false);
@@ -90,7 +90,7 @@ const UnconnectedReservationCancelModal = ({
   const handleCancel = () => {
     onEditReservation(reservation, RESERVATION_STATE.CANCELLED, false, {
       category_id: cancelCategoryId,
-      description: cancelDescription || null,
+      description: cancelDescription || undefined,
     });
   };
 
@@ -121,9 +121,7 @@ const UnconnectedReservationCancelModal = ({
             && billable
             && renderCheckBox(
               t('ReservationInformationForm.refundCheckBox'),
-              () => {
-                disableCheckbox(!checkboxDisabled);
-              },
+              setAcceptedRefundInstr,
             )
           }
         </div>
@@ -152,7 +150,7 @@ const UnconnectedReservationCancelModal = ({
         </Button>
         <Button
           bsStyle="danger"
-          disabled={checkboxDisabled || !cancelCategoryId}
+          disabled={(billable && !acceptedRefundInstr) || !cancelCategoryId}
           onClick={handleCancel}
         >
           {t('ReservationCancelModal.cancelAllowedConfirm')}
