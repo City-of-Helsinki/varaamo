@@ -29,7 +29,7 @@ function confirmPreliminaryReservation(reservation) {
   return putReservation(Object.assign({}, reservation, { state: 'confirmed' }));
 }
 
-function deleteReservation(reservation) {
+function deleteReservation(reservation, cancelReason) {
   return {
     [RSAA]: {
       types: [
@@ -53,8 +53,12 @@ function deleteReservation(reservation) {
         ),
       ],
       endpoint: reservation.url,
-      method: 'DELETE',
+      method: 'PATCH',
       headers: getHeadersCreator(),
+      body: parseReservationData({
+        state: 'cancelled',
+        cancelReason,
+      }),
     },
   };
 }
