@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 const UnconnectedReservationCancelModal = ({
   // Remove eslint-disable later!
   // eslint-disable-next-line no-unused-vars
-  cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
+  billable, cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
 }) => {
   const [show, setShow] = useState(toggleShow);
   const [cancelCategoryId, setCancelCategoryId] = useState();
@@ -36,7 +36,7 @@ const UnconnectedReservationCancelModal = ({
    * Remove eslint-disable later!
    */
   // eslint-disable-next-line no-unused-vars
-  const [billable, setBillable] = useState(true);
+  // const [billable, setBillable] = useState(true);
   const handleClose = () => {
     setShow(() => false);
     parentToggle(false);
@@ -161,6 +161,7 @@ const UnconnectedReservationCancelModal = ({
 };
 
 UnconnectedReservationCancelModal.propTypes = {
+  billable: PropTypes.bool.isRequired,
   cancelCategories: PropTypes.array.isRequired,
   onEditReservation: PropTypes.func.isRequired,
   parentToggle: PropTypes.func.isRequired,

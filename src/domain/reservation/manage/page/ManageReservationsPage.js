@@ -319,6 +319,7 @@ class ManageReservationsPage extends React.Component {
       selectedReservation,
       showOnlyFilters,
       isReservationCancelModalOpen,
+      cancelCategories,
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -393,7 +394,7 @@ class ManageReservationsPage extends React.Component {
         )}
         {isReservationCancelModalOpen && (
           <ConnectedReservationCancelModal
-            cancelCategories={this.state.cancelCategories}
+            cancelCategories={cancelCategories}
             onEditReservation={this.onEditReservation}
             parentToggle={this.parentToggle}
             reservation={selectedReservation}
