@@ -25,7 +25,7 @@ import ReservationInformationModal from '../../modal/ReservationInformationModal
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
 import { isAdminSelector } from '../../../../../app/state/selectors/authSelectors';
-import ConnectedReservationCancelModal from '../../modal/ReservationCancelModal';
+import ReservationCancelModal from '../../modal/ReservationCancelModal';
 
 export const PAGE_SIZE = 50;
 const INITIAL_SELECTED_RESERVATION_RESOURCE = {
@@ -393,7 +393,7 @@ class ManageReservationsPage extends React.Component {
           </div>
         )}
         {isReservationCancelModalOpen && (
-          <ConnectedReservationCancelModal
+          <ReservationCancelModal
             cancelCategories={cancelCategories}
             onEditReservation={this.onEditReservation}
             parentToggle={this.parentToggle}

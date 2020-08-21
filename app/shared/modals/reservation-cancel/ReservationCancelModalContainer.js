@@ -9,7 +9,7 @@ import { deleteReservation } from '../../../actions/reservationActions';
 import { closeReservationCancelModal } from '../../../actions/uiActions';
 import injectT from '../../../i18n/injectT';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
-import ConnectedReservationCancelModal from '../../../../src/domain/reservation/modal/ReservationCancelModal';
+import ReservationCancelModal from '../../../../src/domain/reservation/modal/ReservationCancelModal';
 import client from '../../../../src/common/api/client';
 
 class UnconnectedReservationCancelModalContainer extends Component {
@@ -78,7 +78,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
     if (!show) return null;
 
     return (
-      <ConnectedReservationCancelModal
+      <ReservationCancelModal
         billable={getHasOnlinePaymentSupport(resource)}
         cancelCategories={cancelCategories}
         onEditReservation={this.handleCancel}

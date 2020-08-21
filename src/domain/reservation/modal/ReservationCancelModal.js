@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/lib/Modal';
-import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 import Button from 'react-bootstrap/lib/Button';
 
@@ -11,17 +10,8 @@ import CompactReservationList from '../../../../app/shared/compact-reservation-l
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import TextAreaField from '../../../common/form/fields/TextAreaField';
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.auth.userId,
-    users: state.data.users,
-  };
-};
-
-const UnconnectedReservationCancelModal = ({
-  // Remove eslint-disable later!
-  // eslint-disable-next-line no-unused-vars
-  billable, cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t, userId, users,
+const ReservationCancelModal = ({
+  billable, cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t,
 }) => {
   const [show, setShow] = useState(toggleShow);
   const [cancelCategoryId, setCancelCategoryId] = useState();
@@ -160,7 +150,7 @@ const UnconnectedReservationCancelModal = ({
   );
 };
 
-UnconnectedReservationCancelModal.propTypes = {
+ReservationCancelModal.propTypes = {
   billable: PropTypes.bool.isRequired,
   cancelCategories: PropTypes.array.isRequired,
   onEditReservation: PropTypes.func.isRequired,
@@ -168,12 +158,6 @@ UnconnectedReservationCancelModal.propTypes = {
   reservation: PropTypes.object.isRequired,
   toggleShow: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
-  users: PropTypes.object.isRequired,
 };
 
-export { UnconnectedReservationCancelModal };
-
-const ConnectedReservationCancelModal = injectT(UnconnectedReservationCancelModal);
-
-export default connect(mapStateToProps)(ConnectedReservationCancelModal);
+export default injectT(ReservationCancelModal);
