@@ -448,9 +448,9 @@
   "DateRangePicker.makeReservation": "Varaa",
   "DateRangePicker.info.minPeriodText": "Varauksen on kestettävä vähintään {duration} päivää.",
   "DateRangePicker.info.maxPeriodText": "Varaus saa kestää enimmillään {duration} päivää.",
-  "DateRangePicker.info.overlappingReservation": "Kohde ei ole varattavissa valitsemallasi ajalla.",
+  "DateRangePicker.info.overlappingReservation": "Valitulla aikavälillä kohde on jo varattu.",
   "DateRangePicker.info.invalidStartingDay": "Varaukselle valittu aloituspäivä ei ole sallittu.",
-  "DateRangePicker.info.outsideOpeningPeriods": "Valitulla aikavälillä kohde on jo varattu.",
+  "DateRangePicker.info.outsideOpeningPeriods": "Kohde ei ole varattavissa valitsemallasi ajalla.",
 
   "DateRangeSummary.title": "Varauksesi",
   "DateRangeSummary.days": "{days} pv",
