@@ -44,6 +44,7 @@ function getSettings() {
     PIWIK_SITE_ID: process.env.PIWIK_SITE_ID,
     API_URL: process.env.API_URL || DEFAULT_API_URL,
     ACCESSIBILITY_API_URL: process.env.ACCESSIBILITY_API_URL,
+    ACCESSIBILITY_API_SYSTEM_ID: process.env.ACCESSIBILITY_API_SYSTEM_ID,
     SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
     TRACKING: Boolean(process.env.PIWIK_SITE_ID),
     // The state does not accept array values, so arrays should get casted into

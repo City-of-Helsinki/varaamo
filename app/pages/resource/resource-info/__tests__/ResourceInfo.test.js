@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import toJson from 'enzyme-to-json';
 
 import WrappedText from '../../../../shared/wrapped-text/WrappedText';
 import Resource from '../../../../utils/fixtures/Resource';
@@ -7,6 +8,7 @@ import Unit from '../../../../utils/fixtures/Unit';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import ResourceInfo from '../ResourceInfo';
 import ReservationInfo from '../../reservation-info/ReservationInfo';
+import AccessibilityInformation from '../../../../utils/fixtures/AccessibilityInformation';
 
 describe('pages/resource/resource-info/ResourceInfo', () => {
   const defaultProps = {
@@ -34,11 +36,25 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
         },
       },
     ],
+    accessibilityInformation: Immutable(
+      AccessibilityInformation.build(
+        {},
+        {
+          nShortcomings: 2,
+          nDetails: 3,
+        },
+      ),
+    ),
   };
 
   function getWrapper(extraProps) {
     return shallowWithIntl(<ResourceInfo {...defaultProps} {...extraProps} />);
   }
+
+  test('renders correctly', () => {
+    const wrapper = getWrapper();
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
 
   test('renders resource description as WrappedText', () => {
     const wrappedText = getWrapper()
@@ -84,9 +100,7 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
       streetAddress: 'Test street 12',
       wwwUrl: 'some-url',
     });
-    const link = getWrapper({ unit })
-      .find('.app-ResourceInfo__www')
-      .find('a');
+    const link = getWrapper({ unit }).find('.app-ResourceInfo__www').find('a');
 
     expect(link).toHaveLength(1);
     expect(link.prop('href')).toBe(unit.wwwUrl);
@@ -136,5 +150,20 @@ describe('pages/resource/resource-info/ResourceInfo', () => {
     const wrapper = getWrapper({ resource });
 
     expect(wrapper.find({ header: 'paymentTerms.title' }).length).toEqual(1);
+  });
+
+  test('renders accessibility details panel when accessibilityInformation is given', () => {
+    const wrapper = getWrapper();
+    expect(
+      wrapper.find({ className: 'app-ResourceInfo__accessibility' }),
+    ).toHaveLength(1);
+  });
+
+  test('does not render accessibility details when accessibilityInformation is not given', () => {
+    const { accessibilityInformation, ...props } = defaultProps;
+    const wrapper = shallowWithIntl(<ResourceInfo {...props} />);
+    expect(
+      wrapper.find({ className: 'app-ResourceInfo__accessibility' }),
+    ).toHaveLength(0);
   });
 });

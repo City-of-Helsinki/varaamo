@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path d="M12,-3.55271368e-15 L24,21.4879231 L7.63833441e-13,21.4879231 L12,-3.55271368e-15 Z M13,17 L11,17 L11,19 L13,19 L13,17 Z M13,7 L11,7 L11,15 L13,15 L13,7 Z" id="path-1"></path>
+  </defs>
+  <g id="icons/warning-filled/24" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Rectangle" transform="translate(0.000000, 1.000000)">
+      <mask id="mask-2" fill="white">
+        <use xlink:href="#path-1"></use>
+      </mask>
+      <use id="Mask" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+      <rect fill="#C4123E" mask="url(#mask-2)" x="0" y="-1" width="24" height="24"></rect>
+    </g>
+  </g>
+</svg>

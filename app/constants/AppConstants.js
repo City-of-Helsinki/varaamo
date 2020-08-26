@@ -2,6 +2,8 @@ import settings from '../../config/settings';
 
 export default {
   API_URL: settings.API_URL,
+  ACCESSIBILITY_API_URL: settings.ACCESSIBILITY_API_URL,
+  ACCESSIBILITY_API_SYSTEM_ID: settings.ACCESSIBILITY_API_SYSTEM_ID,
   CUSTOMIZATIONS: {
     'varaamo.espoo.fi': 'ESPOO',
     'varaamotest-espoo.hel.ninja': 'ESPOO',

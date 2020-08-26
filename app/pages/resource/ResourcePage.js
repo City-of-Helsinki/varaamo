@@ -16,7 +16,11 @@ import 'lightbox-react/style.css';
 import { addNotification } from '../../actions/notificationsActions';
 import constants from '../../constants/AppConstants';
 import { fetchResource } from '../../actions/resourceActions';
-import { clearReservations, toggleResourceMap, setSelectedTimeSlots } from '../../actions/uiActions';
+import {
+  clearReservations,
+  toggleResourceMap,
+  setSelectedTimeSlots,
+} from '../../actions/uiActions';
 import recurringReservations from '../../state/recurringReservations';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
@@ -35,6 +39,7 @@ import ResourceKeyboardReservation from '../../../src/domain/resource/resourceKe
 // eslint-disable-next-line max-len
 import ResourceReservationButton from '../../../src/domain/resource/resourceReservationButton/ResourceReservationButton';
 import ResourcePanel from './resource-info/ResourcePanel';
+import accessibilityClient from '../../../src/common/api/accessibilityClient';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -55,6 +60,7 @@ class UnconnectedResourcePage extends Component {
 
   state = {
     photoIndex: 0,
+    accessibilityInformation: undefined,
     isOpen: false,
     selected: {
       start: null,
@@ -73,7 +79,10 @@ class UnconnectedResourcePage extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (nextProps.date !== this.props.date || nextProps.isLoggedIn !== this.props.isLoggedIn) {
+    if (
+      nextProps.date !== this.props.date
+      || nextProps.isLoggedIn !== this.props.isLoggedIn
+    ) {
       this.fetchResource(nextProps.date);
     }
   }
@@ -86,9 +95,13 @@ class UnconnectedResourcePage extends Component {
   };
 
   isDayReservable = (day) => {
-    const { resource: { reservableAfter, reservableBefore } } = this.props;
+    const {
+      resource: { reservableAfter, reservableBefore },
+    } = this.props;
     const beforeDate = reservableAfter || moment().subtract(0, 'day');
-    const lastDate = reservableBefore ? moment(reservableBefore).add(1, 'day') : null;
+    const lastDate = reservableBefore
+      ? moment(reservableBefore).add(1, 'day')
+      : null;
     if (lastDate) return !moment(day).isBetween(beforeDate, lastDate, 'day');
     return moment(day).isBefore(beforeDate, 'day');
   };
@@ -141,20 +154,20 @@ class UnconnectedResourcePage extends Component {
 
   fetchResource = (date = this.props.date) => {
     const { actions, id } = this.props;
-    let start = moment(date)
-      .subtract(1, 'M')
-      .startOf('month')
-      .toISOString();
-    const end = moment(date)
-      .add(3, 'M')
-      .endOf('month')
-      .toISOString();
+    let start = moment(date).subtract(1, 'M').startOf('month').toISOString();
+    const end = moment(date).add(3, 'M').endOf('month').toISOString();
 
     if (moment(date).isAfter(moment().add(30, 'days'))) {
       start = moment().subtract(1, 'day').toISOString();
     }
 
     actions.fetchResource(id, { start, end });
+
+    if (id) {
+      accessibilityClient.getAccessibilityInformation(id).then((accessibilityInformation) => {
+        this.setState({ accessibilityInformation });
+      });
+    }
   };
 
   onReserve = (selected) => {
@@ -174,11 +187,13 @@ class UnconnectedResourcePage extends Component {
       resource: resource.id,
     });
 
-    history.push(getEditReservationUrl({
-      begin: startMoment.toISOString(),
-      end: endMoment.toISOString(),
-      resource: resource.id,
-    }));
+    history.push(
+      getEditReservationUrl({
+        begin: startMoment.toISOString(),
+        end: endMoment.toISOString(),
+        resource: resource.id,
+      }),
+    );
   };
 
   handleTimeChange = (selected) => {
@@ -188,7 +203,7 @@ class UnconnectedResourcePage extends Component {
         end: selected.end,
       },
     });
-  }
+  };
 
   render() {
     const {
@@ -205,7 +220,12 @@ class UnconnectedResourcePage extends Component {
       unit,
     } = this.props;
 
-    const { isOpen, photoIndex, selected } = this.state;
+    const {
+      isOpen,
+      photoIndex,
+      selected,
+      accessibilityInformation,
+    } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
@@ -239,20 +259,22 @@ class UnconnectedResourcePage extends Component {
             unit={unit}
           />
           {showMap && unit && <ResourceMapInfo unit={unit} />}
-          {showMap && (<ResourceMap resource={resource} unit={unit} />)}
+          {showMap && <ResourceMap resource={resource} unit={unit} />}
           {!showMap && (
             <PageWrapper title={resource.name || ''} transparent>
-              <Row className={classNames('app-ResourcePage__columns', {
-                'app-ResourcePage__columns--is-large-font-size': isLargeFontSize,
-              })}
+              <Row
+                className={classNames('app-ResourcePage__columns', {
+                  'app-ResourcePage__columns--is-large-font-size': isLargeFontSize,
+                })}
               >
                 <Col lg={8} md={8} xs={12}>
                   <div className="app-ResourcePage__content">
                     {mainImage
-                    && this.renderImage(mainImage, mainImageIndex, {
-                      mainImageMobileVisibility: true,
-                    })}
+                      && this.renderImage(mainImage, mainImageIndex, {
+                        mainImageMobileVisibility: true,
+                      })}
                     <ResourceInfo
+                      accessibilityInformation={accessibilityInformation}
                       isLoggedIn={isLoggedIn}
                       resource={resource}
                       unit={unit}
@@ -261,53 +283,55 @@ class UnconnectedResourcePage extends Component {
                     <ResourcePanel header={t('ResourceInfo.reserveTitle')}>
                       <>
                         {resource.externalReservationUrl && (
-                        <form action={resource.externalReservationUrl}>
-                          <input
-                            className="btn btn-primary"
-                            type="submit"
-                            value="Siirry ulkoiseen ajanvarauskalenteriin"
-                          />
-                        </form>
+                          <form action={resource.externalReservationUrl}>
+                            <input
+                              className="btn btn-primary"
+                              type="submit"
+                              value="Siirry ulkoiseen ajanvarauskalenteriin"
+                            />
+                          </form>
                         )}
                         {!resource.externalReservationUrl && (
-                        <div>
-                          {window.innerWidth < 768 && (
-                            <React.Fragment>
-                              <div className="app-ResourcePage__content-selection-directions">
-                                {t('ReservationInfo.selectionStartDirections')}
-                              </div>
-                              <div className="app-ResourcePage__content-selection-directions">
-                                {t('ReservationInfo.selectionEditDirections')}
-                              </div>
-                            </React.Fragment>
-                          )
-                          }
+                          <div>
+                            {window.innerWidth < 768 && (
+                              <React.Fragment>
+                                <div className="app-ResourcePage__content-selection-directions">
+                                  {t(
+                                    'ReservationInfo.selectionStartDirections',
+                                  )}
+                                </div>
+                                <div className="app-ResourcePage__content-selection-directions">
+                                  {t('ReservationInfo.selectionEditDirections')}
+                                </div>
+                              </React.Fragment>
+                            )}
 
-                          <ResourceCalendar
-                            isDayReservable={this.isDayReservable}
-                            onDateChange={this.handleDateChange}
-                            resourceId={resource.id}
-                            selectedDate={date}
-                          />
-                          <div className="app-ResourcePage__keyboard-reservation">
-                            <ResourceKeyboardReservation
+                            <ResourceCalendar
+                              isDayReservable={this.isDayReservable}
                               onDateChange={this.handleDateChange}
-                              onTimeChange={this.handleTimeChange}
-                              resource={resource}
+                              resourceId={resource.id}
                               selectedDate={date}
-                              selectedTime={selected}
+                            />
+                            <div className="app-ResourcePage__keyboard-reservation">
+                              <ResourceKeyboardReservation
+                                onDateChange={this.handleDateChange}
+                                onTimeChange={this.handleTimeChange}
+                                resource={resource}
+                                selectedDate={date}
+                                selectedTime={selected}
+                              />
+                              {resourceReservationButton}
+                            </div>
+                            <ResourceReservationCalendar
+                              date={date}
+                              isStaff={isStaff}
+                              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())
+                              }
+                              onTimeChange={this.handleTimeChange}
+                              resource={decamelizeKeys(resource)}
                             />
                             {resourceReservationButton}
                           </div>
-                          <ResourceReservationCalendar
-                            date={date}
-                            isStaff={isStaff}
-                            onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-                            onTimeChange={this.handleTimeChange}
-                            resource={decamelizeKeys(resource)}
-                          />
-                          {resourceReservationButton}
-                        </div>
                         )}
                       </>
                     </ResourcePanel>
@@ -319,7 +343,6 @@ class UnconnectedResourcePage extends Component {
                   </div>
                 </Col>
               </Row>
-
             </PageWrapper>
           )}
         </Loader>
@@ -336,10 +359,13 @@ class UnconnectedResourcePage extends Component {
               }))
               }
               onMovePrevRequest={() => this.setState(state => ({
-                photoIndex: (state.photoIndex + (images.length - 1)) % images.length,
+                photoIndex:
+                    (state.photoIndex + (images.length - 1)) % images.length,
               }))
               }
-              prevSrc={images[(photoIndex + (images.length - 1)) % images.length].url}
+              prevSrc={
+                images[(photoIndex + (images.length - 1)) % images.length].url
+              }
               reactModalStyle={{ overlay: { zIndex: 2000 } }}
             />
           )}

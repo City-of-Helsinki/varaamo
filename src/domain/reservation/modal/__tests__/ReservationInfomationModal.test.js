@@ -53,6 +53,7 @@ describe('ReservationInformationModal', () => {
   });
 
   describe('refund policy', () => {
+    // eslint-disable-next-line
     test('rendered when resource is not null, when user is admin, when reservation is not a staff event and when the reservation has a price', () => {
       const getRefundPolicy = (wrapper) => {
         return wrapper.find({ id: 'refund-policy' });

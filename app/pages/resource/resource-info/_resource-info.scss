@@ -104,4 +104,39 @@ $horizontal-margin: 20px;
       margin-right: 10px;
     }
   }
+
+  &__accessibility {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5rem;
+
+    &__icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 1rem;
+    }
+
+    &__shortcoming-sentence-group {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__accessibility-resource-panel {
+    a {
+      display: block;
+    }
+
+    &__title-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &__shortcomings {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  }
 }
