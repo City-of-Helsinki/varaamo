@@ -10,9 +10,9 @@ import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import FAIcon from '../../../app/shared/fontawesome-icon/FontAwesomeIcon';
 import injectT from '../../../app/i18n/injectT';
 import { getSearchPageUrl } from '../../../app/utils/searchUtils';
-import { getFromLocalStorage } from '../../../app/utils/localStorageUtils';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
-import AccessibilityMenu, { ACCESSIBILITY_LOCAL_STORAGE_KEY } from './AccessibilityMenu';
+import AccessibilityMenu from './AccessibilityMenu';
+import { getSelA11yPref } from './utils';
 
 class MainNavbar extends React.Component {
   constructor(props) {
@@ -110,7 +110,7 @@ class MainNavbar extends React.Component {
                   <a {...props} className="app-MainNavbar__selection" href="#" type="button">
                     {t('Accessibility settings')}
                     <span className="app-MainNavbar__selection-overview">
-                      {`${(getFromLocalStorage(ACCESSIBILITY_LOCAL_STORAGE_KEY) || []).length} ${t('Selections')}`}
+                      {`${getSelA11yPref().length} ${t('Selections')}`}
                     </span>
                   </a>
                 );

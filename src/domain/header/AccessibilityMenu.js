@@ -5,9 +5,7 @@ import without from 'lodash/without';
 import findIndex from 'lodash/findIndex';
 
 import injectT from '../../../app/i18n/injectT';
-import { getFromLocalStorage, storeInLocalStorage } from '../../../app/utils/localStorageUtils';
-
-export const ACCESSIBILITY_LOCAL_STORAGE_KEY = 'varaamo_selectedViewpoints';
+import { getSelA11yPref, setSelA11yPref } from './utils';
 
 const AccessibilityMenu = ({
   handleClose,
@@ -15,9 +13,7 @@ const AccessibilityMenu = ({
   t,
   viewpoints,
 }) => {
-  const [selectedViewpoints, setSelectedViewpoints] = useState(
-    getFromLocalStorage(ACCESSIBILITY_LOCAL_STORAGE_KEY) || [],
-  );
+  const [selectedViewpoints, setSelectedViewpoints] = useState(getSelA11yPref());
 
   const handleCheck = viewpoint => (e) => {
     if (e.target.checked && !selectedViewpoints.includes(viewpoint.viewpointId)) {
@@ -30,7 +26,7 @@ const AccessibilityMenu = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    storeInLocalStorage(ACCESSIBILITY_LOCAL_STORAGE_KEY, selectedViewpoints);
+    setSelA11yPref(selectedViewpoints);
     handleClose();
   };
 
