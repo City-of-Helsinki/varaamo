@@ -10,6 +10,7 @@ import settings, { ENV_NAMESPACE } from '../config/settings';
 
 const CLIENT_ENV = [
   'API_URL',
+  'ACCESSIBILITY_API_URL',
   'SHOW_TEST_SITE_MESSAGE',
   'TRACKING',
   'CUSTOM_MUNICIPALITY_OPTIONS',
