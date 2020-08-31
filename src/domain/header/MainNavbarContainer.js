@@ -18,7 +18,9 @@ const MainNavbarContainer = (props) => {
     apiClient.get('viewpoints').then(
       ({ error, data }) => {
         if (error || viewpoints.length) return;
-        if (Array.isArray(data)) setViewpoints(data);
+
+        // Blacklist the first (id 0) viewpoint, which is "Choose accessibility perspective"
+        if (Array.isArray(data)) setViewpoints(data.slice(1));
       },
     );
   });
