@@ -1,0 +1,27 @@
+.app-AccessibilityMenu {
+    padding: 15px 30px;
+    overflow: scroll;
+    width: 420px;
+    
+    &__btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    &__btn {
+        margin-left: 8px;
+    }
+
+    &__checkbox {
+        margin-bottom: 20px;
+
+        input {
+            margin-top: 0;
+        }
+        
+        label {
+            font-weight: normal;
+            padding-left: 40px !important;
+        }
+    }
+}
