@@ -1,7 +1,7 @@
 .app-AccessibilityMenu {
     padding: 15px 30px;
     width: 420px;
-    overflow: scroll;
+    overflow: hidden;
     max-height: 70vh;
     
     &__btn-wrapper {
