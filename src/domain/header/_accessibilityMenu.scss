@@ -9,6 +9,11 @@
         justify-content: flex-end;
     }
     
+    &__options-wrapper {
+        overflow: scroll;
+        max-height: 70vh;
+    }
+    
     &__btn {
         margin-left: 8px;
     }

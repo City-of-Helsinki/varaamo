@@ -43,7 +43,7 @@ const AccessibilityMenu = ({
         </Button>
       </div>
       <hr />
-      <div>
+      <div className="app-AccessibilityMenu__options-wrapper">
         {viewpoints.map((viewpoint) => {
           const langIndex = findIndex(viewpoint.names, name => (name.language === locale)) || 0;
           const label = viewpoint.names[langIndex] ? viewpoint.names[langIndex].value : '';
@@ -59,24 +59,6 @@ const AccessibilityMenu = ({
             />
           );
         })}
-        <hr />
-      </div>
-      <div className="app-AccessibilityMenu__btn-wrapper">
-        <Button
-          className="app-AccessibilityMenu__btn"
-          theme="black"
-          type="submit"
-        >
-          {t('Save settings')}
-        </Button>
-        <Button
-          className="app-AccessibilityMenu__btn"
-          onClick={handleClose}
-          theme="black"
-          variant="secondary"
-        >
-          {t('Close')}
-        </Button>
       </div>
     </form>
   );
