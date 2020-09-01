@@ -3,6 +3,7 @@ import 'moment-timezone';
 import moment from 'moment';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import 'jest-localstorage-mock';
 
 // fetch() polyfill for making API calls.
 require('isomorphic-fetch');

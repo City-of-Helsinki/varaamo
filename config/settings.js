@@ -37,13 +37,13 @@ function getSettings() {
   // This enables reading the environment variables from a .env file,
   // useful in a local development context.
   dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-  // process.env is eeded in server run context and with jest tests
+  // process.env is needed in server run context and with jest tests
   return {
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,
     PIWIK_SITE_ID: process.env.PIWIK_SITE_ID,
     API_URL: process.env.API_URL || DEFAULT_API_URL,
+    ACCESSIBILITY_API_URL: process.env.ACCESSIBILITY_API_URL,
     SHOW_TEST_SITE_MESSAGE: Boolean(process.env.SHOW_TEST_SITE_MESSAGE),
     TRACKING: Boolean(process.env.PIWIK_SITE_ID),
     // The state does not accept array values, so arrays should get casted into

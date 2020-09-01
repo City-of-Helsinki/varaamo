@@ -27,7 +27,7 @@ describe('shared/main-navbar/MainNavbar', () => {
 
   test('renders nav with correct activeKey', () => {
     const nav = getWrapper().find(Nav);
-    expect(nav).toHaveLength(1);
+    expect(nav).toHaveLength(2);
     expect(nav.at(0).prop('activeKey')).toBe(pathname);
   });
 

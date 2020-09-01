@@ -30,6 +30,16 @@ $externalIconMarginLeft: 5px;
         display: flex;
         align-items: center;
       }
+
+      .app-MainNavbar__selection {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .app-MainNavbar__selection-overview {
+        font-weight: normal;
+      }
     }
   }
 

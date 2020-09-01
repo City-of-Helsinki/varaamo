@@ -94,6 +94,7 @@
   "common.save": "Save",
   "common.saving": "Saving...",
   "common.select": "Select",
+  "common.selection": "Selected",
   "common.pay": "Pay",
   "common.userNameLabel": "Account name",
   "common.userEmailLabel": "Account email",
@@ -215,7 +216,6 @@
   "ReservationConfirmation.ownReservationButton": "Back to your reservations",
   "ReservationConfirmation.confirmationText": "You will receive email (<a href='mailto:{email}'>{email}</a>) notification for your reservation.",
   "ReservationConfirmation.reservationDetailsTitle": "Reservation details",
-  "ReservationControls.cancel": "Cancel",
   "ReservationControls.confirm": "Approve",
   "ReservationControls.deny": "Deny",
   "ReservationControls.edit": "Edit",
@@ -453,7 +453,6 @@
   "DateRangeLegend.unavailable": "Not available for reservation",
 
   "CalendarLegend.closed": "Unavailable",
-  "CalendarLegend.selection": "Selected",
   "CalendarLegend.taken": "Taken",
   "CalendarLegend.available": "Available"
 }
