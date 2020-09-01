@@ -94,6 +94,7 @@
   "common.save": "Tallenna",
   "common.saving": "Tallennetaan...",
   "common.select": "Valitse",
+  "common.selection": "Varauksesi",
   "common.pay": "Maksa",
   "common.userNameLabel": "Tilin nimi",
   "common.userEmailLabel": "Tilin sähköposti",
@@ -158,7 +159,7 @@
   "Navbar.manageReservations": " Varausten hallinta",
   "Navbar.search": "Haku",
   "Navbar.userResources": "Omat varaukset",
-  "Navbar.accessibilityMenuToggle.label": "Saavutettavuusasetukset",
+  "Navbar.accessibilityMenuToggle.label": "Esteettömyysasetukset",
   "NotFoundPage.checkAddress": "Jos syötit sivun osoitteen käsin, tarkista että se on oikein.",
   "NotFoundPage.contactUs": "Jos tulit tälle sivulle jostain toisesta sivustomme osasta, ota meihin yhteyttä, jotta voimme korjata virheen.",
   "NotFoundPage.helpHeader": "Voit yrittää seuraavaa:",
@@ -215,7 +216,6 @@
   "ReservationConfirmation.ownReservationButton": "Palaa omiin varauksiin",
   "ReservationConfirmation.confirmationText": "Saat sähköpostiisi (<a href='mailto:{email}'>{email}</a>) muistutuksen varauksesta.",
   "ReservationConfirmation.reservationDetailsTitle": "Varauksen lisätiedot",
-  "ReservationControls.cancel": "Peru",
   "ReservationControls.confirm": "Hyväksy",
   "ReservationControls.deny": "Hylkää",
   "ReservationControls.edit": "Muokkaa",
@@ -462,7 +462,6 @@
   "DateRangeLegend.unavailable": "Ei valittavana",
 
   "CalendarLegend.closed": "Ei varattavissa",
-  "CalendarLegend.selection": "Varauksesi",
   "CalendarLegend.taken": "Varattu",
   "CalendarLegend.available": "Varattavissa"
 }

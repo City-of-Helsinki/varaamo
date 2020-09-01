@@ -94,6 +94,7 @@
   "common.save": "Spara",
   "common.saving": "Sparas...",
   "common.select": "Välj",
+  "common.selection": "Vald",
   "common.pay": "Betala",
   "common.userNameLabel": "Konto namn",
   "common.userEmailLabel": "Konto e-post",
@@ -160,7 +161,7 @@
   "Navbar.manageReservations": "Administrera Bokningar",
   "Navbar.search": "Sök",
   "Navbar.userResources": "Mina bokningar",
-  "Navbar.accessibilityMenuToggle.label": "Inställningar för tillgänglighet",
+  "Navbar.accessibilityMenuToggle.label": "Tillgänglighetsinställningar",
   "NotFoundPage.checkAddress": "Om du matade in webbadressen manuellt, kontrollera att den är korrekt.",
   "NotFoundPage.contactUs": "Om du kom hit från någon annan del av vår webbplats, ta kontakt med oss så att vi kan åtgärda problemet.",
   "NotFoundPage.helpHeader": "Du kan försöka göra följande:",
@@ -217,7 +218,6 @@
   "ReservationConfirmation.ownReservationButton": "Visa mina bokningar",
   "ReservationConfirmation.confirmationText": "Du får en påminnelse till din (<a href='mailto:{email}'>{email}</a>) epostadress.",
   "ReservationConfirmation.reservationDetailsTitle": "Bokningens detaljer",
-  "ReservationControls.cancel": "Avbryt",
   "ReservationControls.confirm": "Godkänn",
   "ReservationControls.deny": "Avvisa",
   "ReservationControls.edit": "Redigera",
@@ -455,7 +455,6 @@
   "DateRangeLegend.unavailable": "Ei valittavana",
 
   "CalendarLegend.closed": "Inte tillgänglig",
-  "CalendarLegend.selection": "Vald",
   "CalendarLegend.taken": "Tagen",
   "CalendarLegend.available": "Tillgängligt"
 }

@@ -33,9 +33,9 @@ const AccessibilityMenu = ({
   return (
     <form className="app-AccessibilityMenu" onSubmit={handleSubmit}>
       <div className="app-AccessibilityMenu__btn-wrapper">
-        <Button className="app-AccessibilityMenu__btn" theme="black" type="submit">{t('Save')}</Button>
+        <Button className="app-AccessibilityMenu__btn" theme="black" type="submit">{t('common.save')}</Button>
         <Button className="app-AccessibilityMenu__btn" onClick={handleClose} theme="black" variant="secondary">
-          {t('Close')}
+          {t('common.cancel')}
         </Button>
       </div>
       <hr />

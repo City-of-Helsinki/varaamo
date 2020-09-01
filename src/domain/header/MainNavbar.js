@@ -108,9 +108,9 @@ class MainNavbar extends React.Component {
               renderToggle={(props) => {
                 return (
                   <a {...props} className="app-MainNavbar__selection" href="#" type="button">
-                    {t('Accessibility settings')}
+                    {t('Navbar.accessibilityMenuToggle.label')}
                     <span className="app-MainNavbar__selection-overview">
-                      {`${getSelA11yPref().length} ${t('Selections')}`}
+                      {`${getSelA11yPref().length} ${t('common.selection')}`}
                     </span>
                   </a>
                 );
