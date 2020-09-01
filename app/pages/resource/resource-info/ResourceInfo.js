@@ -112,7 +112,11 @@ function ResourceInfo({
               <h3>{t('ResourceInfo.accessibilityTitle')}</h3>
               <div className="app-ResourceInfo__accessibility-resource-panel__title-container__shortcomings">
                 <img
-                  alt=""
+                  alt={
+                    nAccessibilityShortcomings === 0
+                      ? t('ResourceInfo.accessibilityIcon')
+                      : t('ResourceInfo.accessibilityShortcomingIcon')
+                  }
                   className="app-ResourceInfo__accessibility__icon"
                   src={
                     nAccessibilityShortcomings === 0
@@ -123,8 +127,7 @@ function ResourceInfo({
                 {nAccessibilityShortcomings === 0
                   ? t('ResourceInfo.noAccessibilityShortcomings')
                   : t('ResourceInfo.foundAccessibilityShortcomings', {
-                    nShortcomings:
-                    nAccessibilityShortcomings,
+                    nShortcomings: nAccessibilityShortcomings,
                   })}
               </div>
             </div>
@@ -139,7 +142,7 @@ function ResourceInfo({
                     <React.Fragment
                       key={`accessibility-sentence-group-${sentenceGroupId}`}
                     >
-                      <b>{sentenceGroup.sentenceGroup}</b>
+                      <strong>{sentenceGroup.sentenceGroup}</strong>
                       <ul>
                         {sentenceGroup.sentences.map((sentence, sentenceId) => (
                           <li key={`sentence-${sentenceId}`}>{sentence}</li>
@@ -161,11 +164,11 @@ function ResourceInfo({
                     >
                       <div className="app-ResourceInfo__accessibility__shortcoming-sentence-group">
                         <img
-                          alt="accessibility-shortcoming"
+                          alt={t('ResourceInfo.accessibilityShortcomingIcon')}
                           className="app-ResourceInfo__accessibility__icon"
                           src={iconAccessibilityError}
                         />
-                        <b>{sentenceGroup.sentenceGroup}</b>
+                        <strong>{sentenceGroup.sentenceGroup}</strong>
                       </div>
                       <ul
                         key={`accessibility-sentence-group-${sentenceGroupId}`}

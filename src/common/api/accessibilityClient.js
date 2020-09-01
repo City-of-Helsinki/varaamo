@@ -11,12 +11,14 @@ export class AccessibilityApiClient {
     this.systemId = systemId;
   }
 
-  getAccessibilityInformation(resourceId, locale = 'fi') {
+  getAccessibilityInformation(resourceId, viewPoints = [], locale = 'fi') {
     return Promise.all([
       this.getSentences(resourceId, locale),
-      this.getShortcomings(resourceId, locale),
-    // eslint-disable-next-line
-    ]).then(([details, shortcomings]) => (details.length > 0 || shortcomings.length > 0 ? { details, shortcomings } : undefined));
+      this.getShortcomings(resourceId, viewPoints, locale),
+      // eslint-disable-next-line
+    ]).then(([details, shortcomings]) => details.length > 0 || shortcomings.length > 0
+      ? { details, shortcomings }
+      : undefined);
   }
 
   getSentences(resourceId, locale = 'fi') {
@@ -55,20 +57,28 @@ export class AccessibilityApiClient {
       });
   }
 
-  getShortcomings(resourceId, locale = 'fi') {
+  getShortcomings(resourceId, viewPoints = [], locale = 'fi') {
     // eslint-disable-next-line
-    return Promise.all([this.apiClient.get(`targets/${this.systemId}/${resourceId}/shortages`), this.apiClient.get('viewpoints')])
-      .then(([shortagesRes, viewpointsRes]) => {
-        const idToNameMap = {};
+    return Promise.all([
+      this.apiClient.get(`targets/${this.systemId}/${resourceId}/shortages`),
+      this.apiClient.get('viewpoints'),
+    ]).then(([shortagesRes, viewpointsRes]) => {
+      const idToNameMap = {};
 
-        viewpointsRes.data.forEach((viewpoint) => {
-          idToNameMap[viewpoint.viewpointId] = viewpoint.names.find(name => name.language === locale).value;
-        });
+      viewpointsRes.data.forEach((viewpoint) => {
+        idToNameMap[viewpoint.viewpointId] = viewpoint.names.find(
+          name => name.language === locale,
+        ).value;
+      });
 
-        return shortagesRes.data.map(shortage => ({
+      return shortagesRes.data
+        .map(shortage => ({
           id: shortage.viewpointId,
-          sentence: shortage.shortages.find(shortageSentence => shortageSentence.language === locale).value,
-        })).reduce((acc, shortage) => {
+          sentence: shortage.shortages.find(
+            shortageSentence => shortageSentence.language === locale,
+          ).value,
+        }))
+        .reduce((acc, shortage) => {
           const index = acc.findIndex(accItem => accItem.id === shortage.id);
 
           if (index >= 0) {
@@ -80,8 +90,13 @@ export class AccessibilityApiClient {
           }
 
           return [...acc, { id: shortage.id, sentences: [shortage.sentence] }];
-        }, []).map(shortage => ({ sentenceGroup: idToNameMap[shortage.id], sentences: shortage.sentences }));
-      });
+        }, [])
+        .filter(shortage => viewPoints.includes(shortage.id))
+        .map(shortage => ({
+          sentenceGroup: idToNameMap[shortage.id],
+          sentences: shortage.sentences,
+        }));
+    });
   }
 }
 

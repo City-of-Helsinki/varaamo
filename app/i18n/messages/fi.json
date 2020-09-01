@@ -340,6 +340,8 @@
   "ResourceInfo.accessibilityShortcomingsTitle": "Resurssin esteettömyyspuutteet",
   "ResourceInfo.noAccessibilityShortcomings": "Ei tunnettuja esteettömyyspuutteita",
   "ResourceInfo.foundAccessibilityShortcomings": "{nShortcomings} esteettömyyspuutetta profiilillesi",
+  "ResourceInfo.accessibilityIcon": "esteettömyysikoni",
+  "ResourceInfo.accessibilityShortcomingIcon": "esteettömyyspuuteikoni",
   "ResourceInfoContainer.unpublishedLabel": "ei julkaistu",
   "ResourceKeyboardReservation.dateLabel": "Päivämäärä",
   "ResourceKeyboardSlotPicker.startTimeLabel": "Varauksen aloitusaika",

@@ -166,6 +166,7 @@ class SearchPage extends React.Component {
       page_size: constants.SEARCH_PAGE_SIZE,
       start,
       end,
+      include: 'accessibility_summaries',
     };
 
     // Only include positional params if user has toggled the position filter on.

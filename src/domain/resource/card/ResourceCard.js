@@ -16,6 +16,8 @@ import FontSizes from '../../../../app/constants/FontSizes';
 import injectT from '../../../../app/i18n/injectT';
 import iconMap from '../../../../app/assets/icons/map.svg';
 import iconHeartFilled from '../../../../app/assets/icons/heart-filled.svg';
+import iconAccessible from '../../../../app/assets/icons/accessibility-ok.svg';
+import iconNotAccessible from '../../../../app/assets/icons/accessibility-error.svg';
 import * as dataUtils from '../../../common/data/utils';
 import * as urlUtils from '../../../common/url/utils';
 import * as searchUtils from '../../search/utils';
@@ -26,6 +28,7 @@ import ResourceAvailability from '../availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
+import { getSelA11yPref } from '../../header/utils';
 
 class ResourceCard extends React.Component {
   static propTypes = {
@@ -74,6 +77,10 @@ class ResourceCard extends React.Component {
     const typeName = resource.type
       ? dataUtils.getLocalizedFieldValue(resource.type.name, locale)
       : '';
+    const accessibilityShortcomingsCount = searchUtils.getAccessibilityShortcomingsCount(
+      resource,
+      getSelA11yPref(),
+    );
 
     return (
       <div
@@ -97,7 +104,9 @@ class ResourceCard extends React.Component {
         </Link>
         <div className="app-resourceCard2__content">
           <Link onClick={this.handleLinkClick} to={this.getResourcePageLink()}>
-            <h3>{dataUtils.getLocalizedFieldValue(resource.name, locale, true)}</h3>
+            <h3>
+              {dataUtils.getLocalizedFieldValue(resource.name, locale, true)}
+            </h3>
             <div className="app-resourceCard2__unit-name">
               <span>{dataUtils.getLocalizedFieldValue(unit.name, locale)}</span>
               <div className="app-resourceCard2__unit-name-labels">
@@ -169,6 +178,21 @@ class ResourceCard extends React.Component {
               onClick={() => onFavoriteClick(resource)}
             />
           )}
+          <ResourceCardInfoCell
+            alt="accessibilityShortcomings"
+            icon={
+              accessibilityShortcomingsCount
+                ? iconNotAccessible
+                : iconAccessible
+            }
+            text={
+              accessibilityShortcomingsCount
+                ? t('ResourceInfo.foundAccessibilityShortcomings', {
+                  nShortcomings: accessibilityShortcomingsCount,
+                })
+                : t('ResourceInfo.noAccessibilityShortcomings')
+            }
+          />
         </div>
       </div>
     );

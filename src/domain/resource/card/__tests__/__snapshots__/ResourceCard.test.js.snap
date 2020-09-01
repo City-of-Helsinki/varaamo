@@ -104,6 +104,11 @@ exports[`ResourceCard renders correctly 1`] = `
       icon="test-file-stub"
       text="null"
     />
+    <ResourceCardInfoCell
+      alt="accessibilityShortcomings"
+      icon="test-file-stub"
+      text="ResourceInfo.noAccessibilityShortcomings"
+    />
   </div>
 </div>
 `;

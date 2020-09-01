@@ -125,7 +125,7 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
           className="app-ResourceInfo__accessibility-resource-panel__title-container__shortcomings"
         >
           <img
-            alt=""
+            alt="ResourceInfo.accessibilityShortcomingIcon"
             className="app-ResourceInfo__accessibility__icon"
             src="test-file-stub"
           />
@@ -141,9 +141,9 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
         <h4>
           ResourceInfo.accessibilityDetailsTitle
         </h4>
-        <b>
+        <strong>
           sentenceGroup-3
-        </b>
+        </strong>
         <ul>
           <li
             key="sentence-0"
@@ -161,9 +161,9 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
             sentence-2
           </li>
         </ul>
-        <b>
+        <strong>
           sentenceGroup-4
-        </b>
+        </strong>
         <ul>
           <li
             key="sentence-0"
@@ -186,9 +186,9 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
             sentence-3
           </li>
         </ul>
-        <b>
+        <strong>
           sentenceGroup-5
-        </b>
+        </strong>
         <ul>
           <li
             key="sentence-0"
@@ -225,13 +225,13 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
           className="app-ResourceInfo__accessibility__shortcoming-sentence-group"
         >
           <img
-            alt="accessibility-shortcoming"
+            alt="ResourceInfo.accessibilityShortcomingIcon"
             className="app-ResourceInfo__accessibility__icon"
             src="test-file-stub"
           />
-          <b>
+          <strong>
             sentenceGroup-1
-          </b>
+          </strong>
         </div>
         <ul
           key="accessibility-sentence-group-0"
@@ -246,13 +246,13 @@ exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
           className="app-ResourceInfo__accessibility__shortcoming-sentence-group"
         >
           <img
-            alt="accessibility-shortcoming"
+            alt="ResourceInfo.accessibilityShortcomingIcon"
             className="app-ResourceInfo__accessibility__icon"
             src="test-file-stub"
           />
-          <b>
+          <strong>
             sentenceGroup-2
-          </b>
+          </strong>
         </div>
         <ul
           key="accessibility-sentence-group-1"

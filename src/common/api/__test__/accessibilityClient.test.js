@@ -36,6 +36,7 @@ describe('domain/common/api/accessibilityClient.js', () => {
   });
 
   describe('getShortcomings', () => {
+    const viewpoints = [11, 31, 61];
     beforeEach(() => {
       axios.request
         .mockResolvedValueOnce({
@@ -45,11 +46,11 @@ describe('domain/common/api/accessibilityClient.js', () => {
     });
 
     it('returns results in correct format', () => {
-      expect(client.getShortcomings(resourceId)).resolves.toMatchSnapshot();
+      expect(client.getShortcomings(resourceId, viewpoints)).resolves.toMatchSnapshot();
     });
 
     it('makes requests to correct endpoints', () => {
-      client.getShortcomings(resourceId);
+      client.getShortcomings(resourceId, viewpoints);
       expect(axios.request.mock.calls[0][0].method).toBe('GET');
       expect(axios.request.mock.calls[0][0].url).toBe(
         `${apiUrl}/targets/${systemId}/${resourceId}/shortages/`,
