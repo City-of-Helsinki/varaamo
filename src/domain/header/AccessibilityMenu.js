@@ -5,7 +5,7 @@ import without from 'lodash/without';
 import findIndex from 'lodash/findIndex';
 
 import injectT from '../../../app/i18n/injectT';
-import { getSelA11yPref, setSelA11yPref } from './utils';
+import { getSelA11yPref, setSelA11yPref } from '../../../app/utils/accessibilityUtils';
 
 const AccessibilityMenu = ({
   handleClose,

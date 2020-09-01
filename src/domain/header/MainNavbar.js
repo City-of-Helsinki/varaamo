@@ -12,7 +12,7 @@ import injectT from '../../../app/i18n/injectT';
 import { getSearchPageUrl } from '../../../app/utils/searchUtils';
 import TabbableNavDropdown from '../../../app/shared/tabbable-nav-dropdown/TabbableNavDropdown';
 import AccessibilityMenu from './AccessibilityMenu';
-import { getSelA11yPref } from './utils';
+import { getSelA11yPref } from '../../../app/utils/accessibilityUtils';
 
 class MainNavbar extends React.Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-import { getFromLocalStorage, storeInLocalStorage } from '../../../app/utils/localStorageUtils';
+import { getFromLocalStorage, storeInLocalStorage } from './localStorageUtils';
 
 const A11Y_LOCAL_STORAGE_KEY = 'varaamo_selectedViewpoints';
 
