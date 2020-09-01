@@ -28,7 +28,7 @@ import ResourceAvailability from '../availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
-import { getSelA11yPref } from '../../header/utils';
+import { getSelA11yPref } from '../../../../app/utils/accessibilityUtils';
 
 class ResourceCard extends React.Component {
   static propTypes = {

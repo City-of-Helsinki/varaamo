@@ -1,6 +1,11 @@
 import { ApiClient } from './client';
 import constants from '../../../app/constants/AppConstants';
 
+const findValueWithMatchingLocaleOrFallback = (items, locale, fallback = 'fi') => {
+  const maybeFound = items.find(item => item.language === locale);
+  return maybeFound ? maybeFound.value : findValueWithMatchingLocaleOrFallback(items, fallback);
+};
+
 export class AccessibilityApiClient {
   apiClient;
 
@@ -28,9 +33,7 @@ export class AccessibilityApiClient {
         return res.data
           .map((sentenceObject) => {
             return {
-              sentenceGroup: sentenceObject.sentenceGroups.find(
-                sentenceGroup => sentenceGroup.language === locale,
-              ).value,
+              sentenceGroup: findValueWithMatchingLocaleOrFallback(sentenceObject.sentenceGroups, locale),
               sentences: sentenceObject.sentences
                 .filter(sentence => sentence.language === locale)
                 .map(sentence => sentence.value),
@@ -66,17 +69,13 @@ export class AccessibilityApiClient {
       const idToNameMap = {};
 
       viewpointsRes.data.forEach((viewpoint) => {
-        idToNameMap[viewpoint.viewpointId] = viewpoint.names.find(
-          name => name.language === locale,
-        ).value;
+        idToNameMap[viewpoint.viewpointId] = findValueWithMatchingLocaleOrFallback(viewpoint.names, locale);
       });
 
       return shortagesRes.data
         .map(shortage => ({
           id: shortage.viewpointId,
-          sentence: shortage.shortages.find(
-            shortageSentence => shortageSentence.language === locale,
-          ).value,
+          sentence: findValueWithMatchingLocaleOrFallback(shortage.shortages, locale),
         }))
         .reduce((acc, shortage) => {
           const index = acc.findIndex(accItem => accItem.id === shortage.id);

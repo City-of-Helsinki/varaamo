@@ -40,7 +40,7 @@ import ResourceKeyboardReservation from '../../../src/domain/resource/resourceKe
 import ResourceReservationButton from '../../../src/domain/resource/resourceReservationButton/ResourceReservationButton';
 import ResourcePanel from './resource-info/ResourcePanel';
 import accessibilityClient from '../../../src/common/api/accessibilityClient';
-import { getSelA11yPref } from '../../../src/domain/header/utils';
+import { getSelA11yPref } from '../../utils/accessibilityUtils';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ class UnconnectedResourcePage extends Component {
     resource: PropTypes.object.isRequired,
     showMap: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    locale: PropTypes.func.isRequired,
+    locale: PropTypes.string.isRequired,
     unit: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   };
