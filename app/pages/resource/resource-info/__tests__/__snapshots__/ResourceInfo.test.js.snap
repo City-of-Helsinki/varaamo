@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pages/resource/resource-info/ResourceInfo renders correctly 1`] = `
+<section
+  className="app-ResourceInfo"
+>
+  <ResourcePanel
+    header="ResourceInfo.descriptionTitle"
+  >
+    <div
+      className="app-ResourceInfo__description"
+    >
+      <WrappedText
+        openLinksInNewTab={true}
+        text="Some description"
+      />
+    </div>
+  </ResourcePanel>
+  <ResourcePanel
+    header="ResourcePage.specificTerms"
+  >
+    <WrappedText
+      text="some specific terms"
+    />
+  </ResourcePanel>
+  <ResourcePanel
+    defaultExpanded={false}
+    header="ResourcePage.genericTermsHeader"
+  >
+    <WrappedText
+      text="some generic terms"
+    />
+  </ResourcePanel>
+  <ResourcePanel
+    header="ResourceInfo.additionalInfoTitle"
+  >
+    <Row
+      bsClass="row"
+      componentClass="div"
+    >
+      <Col
+        bsClass="col"
+        className="app-ResourceInfo__address"
+        componentClass="div"
+        xs={6}
+      >
+        <span>
+          Unit-1
+        </span>
+        <span>
+          undefined
+        </span>
+      </Col>
+      <Col
+        bsClass="col"
+        className="app-ResourceInfo__web"
+        componentClass="div"
+        xs={6}
+      >
+        <span
+          className="app-ResourceInfo__servicemap"
+        >
+          <a
+            href="https://palvelukartta.hel.fi/unit/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            ResourceInfo.serviceMapLink
+          </a>
+        </span>
+      </Col>
+    </Row>
+  </ResourcePanel>
+  <ResourcePanel
+    header="ResourceInfo.reservationTitle"
+  >
+    <InjectT(ReservationInfo)
+      isLoggedIn={false}
+      resource={
+        Object {
+          "availableHours": Array [],
+          "description": "Some description",
+          "equipment": Array [],
+          "genericTerms": "some generic terms",
+          "id": "r-1",
+          "isFavorite": false,
+          "maxPricePerHour": "30",
+          "name": "Resource-1",
+          "needManualConfirmation": false,
+          "openingHours": Array [],
+          "paymentTerms": "some payment terms",
+          "peopleCapacity": "16",
+          "products": Array [],
+          "public": true,
+          "requiredReservationExtraFields": Array [],
+          "reservable": true,
+          "reservableAfter": null,
+          "slotSize": "00:30:00",
+          "specificTerms": "some specific terms",
+          "supportedReservationExtraFields": Array [],
+          "type": Object {
+            "name": "workplace",
+          },
+          "unit": "u-1",
+          "userPermissions": Object {
+            "canMakeReservations": true,
+            "isAdmin": false,
+          },
+        }
+      }
+    />
+  </ResourcePanel>
+  <ResourcePanel
+    className="app-ResourceInfo__accessibility-resource-panel"
+    componentClass="div"
+    defaultExpanded={false}
+    header={
+      <div
+        className="app-ResourceInfo__accessibility-resource-panel__title-container"
+      >
+        <h3>
+          ResourceInfo.accessibilityTitle
+        </h3>
+        <div
+          className="app-ResourceInfo__accessibility-resource-panel__title-container__shortcomings"
+        >
+          <img
+            alt="ResourceInfo.accessibilityShortcomingIcon"
+            className="app-ResourceInfo__accessibility__icon"
+            src="test-file-stub"
+          />
+          ResourceInfo.foundAccessibilityShortcomings
+        </div>
+      </div>
+    }
+  >
+    <div
+      className="app-ResourceInfo__accessibility"
+    >
+      <div>
+        <h4>
+          ResourceInfo.accessibilityDetailsTitle
+        </h4>
+        <strong>
+          sentenceGroup-3
+        </strong>
+        <ul>
+          <li
+            key="sentence-0"
+          >
+            sentence-0
+          </li>
+          <li
+            key="sentence-1"
+          >
+            sentence-1
+          </li>
+          <li
+            key="sentence-2"
+          >
+            sentence-2
+          </li>
+        </ul>
+        <strong>
+          sentenceGroup-4
+        </strong>
+        <ul>
+          <li
+            key="sentence-0"
+          >
+            sentence-0
+          </li>
+          <li
+            key="sentence-1"
+          >
+            sentence-1
+          </li>
+          <li
+            key="sentence-2"
+          >
+            sentence-2
+          </li>
+          <li
+            key="sentence-3"
+          >
+            sentence-3
+          </li>
+        </ul>
+        <strong>
+          sentenceGroup-5
+        </strong>
+        <ul>
+          <li
+            key="sentence-0"
+          >
+            sentence-0
+          </li>
+          <li
+            key="sentence-1"
+          >
+            sentence-1
+          </li>
+          <li
+            key="sentence-2"
+          >
+            sentence-2
+          </li>
+          <li
+            key="sentence-3"
+          >
+            sentence-3
+          </li>
+          <li
+            key="sentence-4"
+          >
+            sentence-4
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4>
+          ResourceInfo.accessibilityShortcomingsTitle
+        </h4>
+        <div
+          className="app-ResourceInfo__accessibility__shortcoming-sentence-group"
+        >
+          <img
+            alt="ResourceInfo.accessibilityShortcomingIcon"
+            className="app-ResourceInfo__accessibility__icon"
+            src="test-file-stub"
+          />
+          <strong>
+            sentenceGroup-1
+          </strong>
+        </div>
+        <ul
+          key="accessibility-sentence-group-0"
+        >
+          <li
+            key="sentence-0"
+          >
+            sentence-0
+          </li>
+        </ul>
+        <div
+          className="app-ResourceInfo__accessibility__shortcoming-sentence-group"
+        >
+          <img
+            alt="ResourceInfo.accessibilityShortcomingIcon"
+            className="app-ResourceInfo__accessibility__icon"
+            src="test-file-stub"
+          />
+          <strong>
+            sentenceGroup-2
+          </strong>
+        </div>
+        <ul
+          key="accessibility-sentence-group-1"
+        >
+          <li
+            key="sentence-0"
+          >
+            sentence-0
+          </li>
+          <li
+            key="sentence-1"
+          >
+            sentence-1
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ResourcePanel>
+</section>
+`;

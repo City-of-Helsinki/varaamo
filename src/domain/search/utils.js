@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import has from 'lodash/has';
 import range from 'lodash/range';
 import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
@@ -11,7 +12,10 @@ import constants from '../../../app/constants/AppConstants';
 import * as urlUtils from '../../common/url/utils';
 import settings from '../../../config/settings';
 
-export const getFiltersFromUrl = (location, supportedFilters = constants.SUPPORTED_SEARCH_FILTERS) => {
+export const getFiltersFromUrl = (
+  location,
+  supportedFilters = constants.SUPPORTED_SEARCH_FILTERS,
+) => {
   const query = new URLSearchParams(location.search);
   const defaultDate = moment().format(constants.DATE_FORMAT);
   const defaultMunicipality = getDefaultMunicipality();
@@ -55,11 +59,11 @@ export const getUnitOptions = (units, locale) => {
   const options = units.map((unit) => {
     const finnishName = get(unit, 'name.fi');
 
-    return ({
+    return {
       value: unit.id,
       // Use name in Finnish in case it doesn't exist for current locale
       label: get(unit, `name[${locale}]`, finnishName),
-    });
+    };
   });
 
   return sortBy(options, 'label');
@@ -92,7 +96,10 @@ export const getClosestPeopleCapacityValue = (value) => {
   return getPeopleCapacityOptions()
     .map(option => option.value)
     .reduce((previous, current) => {
-      if (Math.abs(current - value) < Math.abs(previous - value) && current - value < 1) {
+      if (
+        Math.abs(current - value) < Math.abs(previous - value)
+        && current - value < 1
+      ) {
         return current;
       }
 
@@ -132,4 +139,42 @@ export const getMunicipalityOptions = () => {
  */
 export const getSearchPageLink = (filters) => {
   return urlUtils.getLinkString('/search', getSearchFromFilters(filters));
+};
+
+/**
+ * Returns whether the given resource or unit has accessibility summary information.
+ *
+ * @param resourceOrUnit
+ * @returns {boolean}
+ */
+export const hasAccessibilitySummaries = (resourceOrUnit) => {
+  return (
+    has(resourceOrUnit, 'accessibility_summaries')
+    && Array.isArray(resourceOrUnit.accessibility_summaries)
+    && resourceOrUnit.accessibility_summaries.length >= 1
+  );
+};
+
+/**
+ * Returns the count of known accessibility shortcomings for the given
+ * resource or unit for the given accessibility viewpoints.
+ *
+ * @param resourceOrUnit {object}
+ * @param viewpoints {string[]}
+ * @returns {number}
+ */
+export const getAccessibilityShortcomingsCount = (
+  resourceOrUnit,
+  viewpoints = [],
+) => {
+  if (!hasAccessibilitySummaries(resourceOrUnit)) {
+    return 0;
+  }
+
+  return resourceOrUnit.accessibility_summaries.reduce(
+    (acc, summary) => (summary.value === 'red' && viewpoints.includes(parseInt(summary.viewpoint_id, 10))
+      ? acc + 1
+      : acc),
+    0,
+  );
 };
