@@ -2,7 +2,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 
 import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
-import { UnconnectedReservationCancelModal } from '../ReservationCancelModal';
+import ReservationCancelModal from '../ReservationCancelModal';
 import reservation from '../../../../common/data/fixtures/reservation';
 
 describe('domain/reservation/modal/ReservationCancelModal', () => {
@@ -23,7 +23,7 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
       cancelCategories: [],
     };
     const wrapper = shallowWithIntl(
-      <UnconnectedReservationCancelModal {...props} {...extraProps} />,
+      <ReservationCancelModal {...props} {...extraProps} />,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
