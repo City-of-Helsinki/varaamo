@@ -59,7 +59,7 @@ class UnconnectedReservationCancelModalContainer extends Component {
 
     if (!show) return null;
 
-    if (cancelAllowed) {
+    if (!cancelAllowed) {
       return (
         <ReservationCancelNotAllowed
           billable={getHasOnlinePaymentSupport(resource)}

@@ -1,10 +1,8 @@
 import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
 import simple from 'simple-mock';
-import toJSON from 'enzyme-to-json';
 
 import ReservationCancelModal from '../../../../../src/domain/reservation/modal/ReservationCancelModal';
-import CompactReservationList from '../../../compact-reservation-list/CompactReservationList';
+import ReservationCancelNotAllowed from '../../../../../src/domain/reservation/modal/ReservationCancelNotAllowed';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import { shallowWithIntl } from '../../../../utils/testUtils';
@@ -20,7 +18,7 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
       closeReservationCancelModal: () => null,
       deleteReservation: () => null,
     },
-    cancelAllowed: false,
+    cancelAllowed: true,
     isCancellingReservations: false,
     reservation,
     resource,
@@ -34,6 +32,11 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
   describe('render', () => {
     test('renders a ReservationCancelModal component', () => {
       const modalComponent = getWrapper().find(ReservationCancelModal);
+      expect(modalComponent.length).toBe(1);
+    });
+
+    test('renders a ReservationCancelNotAllowed if the provided prop cancelAllowed is false', () => {
+      const modalComponent = getWrapper({ cancelAllowed: false }).find(ReservationCancelNotAllowed);
       expect(modalComponent.length).toBe(1);
     });
   });
