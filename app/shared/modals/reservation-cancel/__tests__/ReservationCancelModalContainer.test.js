@@ -32,7 +32,7 @@ describe('shared/modals/reservation-cancel/ReservationCancelModalContainer', () 
   }
 
   describe('render', () => {
-    test('renders a Modal component', () => {
+    test('renders a ReservationCancelModal component', () => {
       const modalComponent = getWrapper().find(ReservationCancelModal);
       expect(modalComponent.length).toBe(1);
     });

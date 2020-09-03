@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Toggle from 'react-toggle';
 
 import { getHasOnlinePaymentSupport } from '../../../../src/domain/resource/utils';
 import { deleteReservation } from '../../../actions/reservationActions';
@@ -10,16 +9,15 @@ import { closeReservationCancelModal } from '../../../actions/uiActions';
 import injectT from '../../../i18n/injectT';
 import reservationCancelModalSelector from './reservationCancelModalSelector';
 import ReservationCancelModal from '../../../../src/domain/reservation/modal/ReservationCancelModal';
+import ReservationCancelNotAllowed from '../../../../src/domain/reservation/modal/ReservationCancelNotAllowed';
 import client from '../../../../src/common/api/client';
 
 class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCancel = this.handleCancel.bind(this);
-    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.state = {
       cancelCategories: [],
-      checkboxDisabled: null,
     };
   }
 
@@ -46,26 +44,10 @@ class UnconnectedReservationCancelModalContainer extends Component {
     actions.closeReservationCancelModal();
   }
 
-  handleCheckbox() {
-    this.setState(prevState => ({ checkboxDisabled: !prevState.checkboxDisabled }));
-  }
-
-  renderCheckBox(notice, onConfirm) {
-    return (
-      <div>
-        <p><strong>{notice}</strong></p>
-        <Toggle
-          defaultChecked={false}
-          id="checkbox"
-          onChange={e => onConfirm(e.target.checked)}
-        />
-      </div>
-    );
-  }
-
   render() {
     const {
       actions,
+      cancelAllowed,
       reservation,
       resource,
       show,
@@ -76,6 +58,17 @@ class UnconnectedReservationCancelModalContainer extends Component {
     } = this.state;
 
     if (!show) return null;
+
+    if (cancelAllowed) {
+      return (
+        <ReservationCancelNotAllowed
+          billable={getHasOnlinePaymentSupport(resource)}
+          parentToggle={actions.closeReservationCancelModal}
+          resource={resource}
+          toggleShow={show}
+        />
+      );
+    }
 
     return (
       <ReservationCancelModal
@@ -93,7 +86,6 @@ class UnconnectedReservationCancelModalContainer extends Component {
 UnconnectedReservationCancelModalContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   cancelAllowed: PropTypes.bool.isRequired,
-  isCancellingReservations: PropTypes.bool.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,

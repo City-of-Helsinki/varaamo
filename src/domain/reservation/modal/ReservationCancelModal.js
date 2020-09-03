@@ -11,7 +11,13 @@ import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import TextAreaField from '../../../common/form/fields/TextAreaField';
 
 const ReservationCancelModal = ({
-  billable, cancelCategories, onEditReservation, parentToggle, reservation, toggleShow, t,
+  billable,
+  cancelCategories,
+  onEditReservation,
+  parentToggle,
+  reservation,
+  toggleShow,
+  t,
 }) => {
   const [show, setShow] = useState(toggleShow);
   const [cancelCategoryId, setCancelCategoryId] = useState();
