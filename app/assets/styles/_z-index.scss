@@ -1,0 +1,22 @@
+$z-index: ();
+
+/*
+===================================
+    Usage
+===================================
+.element {
+  z-index: z-index(menu);
+}
+*/
+
+@function z-index($key) {
+  $converted: if(type-of($key) == 'string', $key, inspect($key));
+
+  @if not map-has-key($z-index, $converted) {
+      @error '`#{$key}` is not a valid z-index token. '
+          + 'Valid z-index tokens: '
+          + '#{map-keys($z-index)}';
+  }
+  
+  @return map-get($z-index, $key);
+}
