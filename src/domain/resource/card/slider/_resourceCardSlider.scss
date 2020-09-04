@@ -15,7 +15,7 @@
     width: $button-size;
     height: $button-size;
     border: none;
-    z-index: 1;
+    z-index: z-index(resource-card-slider);
 
     img {
       color: $white;

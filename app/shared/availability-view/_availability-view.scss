@@ -96,10 +96,10 @@
       width: 110px;
       height: $av-header-height;
       box-sizing: content-box;
-      z-index: 3;
+      z-index: z-index(availability-view-input);
     }
     .react-date-field__calendar-icon {
-      z-index: 10;
+      z-index: z-index(availability-view-icon);
       border: none;
       &:hover {
         background-color: transparent;
@@ -123,7 +123,7 @@
         text-align: right;
         cursor: pointer;
         margin-left: -120px;
-        z-index: 10;
+        z-index: z-index(availability-view-icon);
         margin-left: -140px;
         position: static;
         background-color: transparent;
@@ -222,11 +222,11 @@
       width: 2px;
       background-color: $black;
       opacity: 0.25;
-      z-index: 30;
+      z-index: z-index(availability-view-timeline);
     }
     .sticky {
       overflow: hidden;
-      z-index: 10;
+      z-index: z-index(availability-view-sticky);
     }
     .hours {
       display: flex;
@@ -289,7 +289,7 @@
     border: $slot-border;
     border-width: $slot-border-size * 2;
     border-radius: 50%;
-    z-index: 1;
+    z-index: z-index(availability-view-link);
     box-sizing: content-box;
   }
   .reservation,
@@ -369,7 +369,7 @@
 }
 
 .reservation-info-popover {
-  z-index: 1000;
+  z-index: z-index(availability-view-popover);
 
   hr {
     margin-top: 5px;

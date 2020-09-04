@@ -41,7 +41,7 @@
     position: absolute;
     right: 0.25em;
     bottom: 0;
-    z-index: 2;
+    z-index: z-index(time-picker-calendar-cancel);
 
     &::after {
       display: inline;
@@ -58,7 +58,7 @@
 
   &__blocker {
     position: absolute;
-    z-index: 1;
+    z-index: z-index(time-picker-calendar-blocker);
     top: 60px;
     right: 0;
     bottom: 0;
@@ -112,7 +112,7 @@
       height: 12px;
       bottom: -7px;
       left: 49%;
-      z-index: 50 !important;
+      z-index: z-index(time-picker-calendar-resizer) !important;
       border-radius: 50%;
 
       &::before {

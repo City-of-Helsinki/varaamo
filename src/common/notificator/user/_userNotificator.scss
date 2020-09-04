@@ -15,7 +15,7 @@
     right: 20px;
     top: 5px;
     color: $gray;
-    z-index: 1;
+    z-index: z-index(user-notificator-close);
   }
 
   .close-notificator:hover {

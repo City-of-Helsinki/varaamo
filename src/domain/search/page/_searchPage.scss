@@ -2,7 +2,7 @@
   background-color: $silver;
 
   &__overlay {
-    z-index: 5;
+    z-index: z-index(search-page-overlay);
   }
 
   &__results {

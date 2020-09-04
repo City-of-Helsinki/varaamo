@@ -1,11 +1,11 @@
 .tooltip_class {
-  z-index: 9999999;
+  z-index: z-index(tooltip_class);
 }
 
 .app-SearchControlsContainer {
   background-color: $copper;
   position: relative;
-  z-index: 3;
+  z-index: z-index(search-controls);
 
   &__content {
     padding: 30px 0;
@@ -145,7 +145,7 @@
   &__distance_slider {
     margin-top: 15px;
     &_tooltip {
-      z-index: 40000;
+      z-index: z-index(distance-slider-tooltip);
     }
     .rc-slider-track {
       background-color: $black;
@@ -354,7 +354,7 @@
 .app-SearchControlOverlay {
   position: absolute;
   width: 100%;
-  z-index: 2;
+  z-index: z-index(search-controls-overlay);
 
   &__overlay {
     border: 2px solid $black;
