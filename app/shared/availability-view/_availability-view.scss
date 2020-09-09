@@ -6,7 +6,7 @@
   $av-header-height: $input-height-base;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: units(1.5);
   width: 100%;
 
   &-single {
@@ -22,10 +22,10 @@
   .right {
     width: 80%;
   }
-  // max-width calculated based on width: 19% and width: 120px
+  // max-width calculated based on width: 19% and width: 1units(1.5)
   @media (max-width: 630px) {
     .left {
-      width: 120px;
+      width: 1units(1.5);
     }
     .right {
       width: calc(100% - 122px);
@@ -67,11 +67,11 @@
     }
     .previous::before {
       content: '\e079';
-      padding-right: 5px;
+      padding-right: units(0.25);
     }
     .next::after {
       content: '\e080';
-      padding-left: 5px;
+      padding-left: units(0.25);
     }
 
   }
@@ -122,7 +122,7 @@
         width: 150px;
         text-align: right;
         cursor: pointer;
-        margin-left: -120px;
+        margin-left: calc(#{units(1.5)} * -1);
         z-index: 10;
         margin-left: -140px;
         position: static;
@@ -135,7 +135,7 @@
           color: white;
           font-size: 1.8rem;
           position: absolute;
-          right: 20px;
+          right: units(1.5);
         }
       }
     }
@@ -177,14 +177,14 @@
     align-items: flex-end;
     font-size: $font-size-small;
     padding: $padding-xs-vertical $padding-base-horizontal;
-    line-height: 16px;
+    line-height: units(1);
 
     &-selected {
       background-color: $gray-light;
     }
     .favorite-icon {
       color: $favorite-color;
-      padding: 3px;
+      margin: units(0.25);
       font-size: 1.2rem;
     }
     .name {
@@ -202,10 +202,10 @@
     .details {
       color: $gray;
       .unpublished-label {
-        margin-left: 10px;
+        margin-left: units(0.75);
       }
       .unit-name {
-        margin-right: 10px;
+        margin-right: units(0.75);
         color: $blue;
       }
     }
@@ -219,7 +219,7 @@
     &-current-time {
       position: absolute;
       height: 100%;
-      width: 2px;
+      width: units(0.125);
       background-color: $black;
       opacity: 0.25;
       z-index: 30;
@@ -354,7 +354,7 @@
   }
 
   .event-subject {
-    margin-right: 5px;
+    margin-right: units(0.25);
   }
 
   .price-tag {
@@ -363,7 +363,7 @@
     background-color: $black;
     color: $white;
     width: 43px;
-    padding: 0 3px;
+    padding: 0 units(0.25);
     font-size: 1.25rem;
   }
 }
@@ -372,7 +372,7 @@
   z-index: 1000;
 
   hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: units(0.25);
+    margin-bottom: units(0.25);
   }
 }

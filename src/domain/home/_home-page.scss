@@ -17,17 +17,17 @@ $purposeCellHeight: 350px;
     padding-bottom: 30px;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
     h1 {
-      margin: 2px 0;
+      margin: units(0.125) 0;
     }
   }
 
   .app-HomeSearchBox {
-    margin: 60px 0;
+    margin: units(4) 0;
     &__textfield {
       background-color: $white;
       border-width: 2px;
       display: inline-block;
-      padding: 6px;
+      padding: units(0.5);
       max-width: 500px;
 
       @media (max-width: $screen-md-min) {
@@ -36,7 +36,7 @@ $purposeCellHeight: 350px;
     }
     button {
       display: inline-block;
-      margin-left: 12px;
+      margin-left: units(0.75);
       text-transform: uppercase;
     }
   }
@@ -56,8 +56,8 @@ $purposeCellHeight: 350px;
     }
 
     &__banner {
-      padding-top: 15px;
-      padding-bottom: 15px;
+      padding-top: units(1);
+      padding-bottom: units(1);
       display: flex;
       height: $purposeCellHeight;
 

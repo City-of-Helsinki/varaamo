@@ -1,11 +1,11 @@
 .reservation-filters {
   @include clearfix();
-  padding-bottom: 20px;
+  padding-bottom: units(1.5);
 
   @media (min-width: $screen-sm-min) {
     h4 {
       float: left;
-      margin-right: 20px;
+      margin-right: units(1.5);
     }
 
     .reservation-state-select {

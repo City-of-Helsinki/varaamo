@@ -16,8 +16,8 @@
 @mixin search-control-button($background: $medium-gray) {
   @include varaamo-button($white, $background);
   font-size: 1.4rem;
-  height: 50px;
-  line-height: 20px;
+  height: units(3);
+  line-height: units(1.5);
 }
 
 @mixin search-control-modal($background: $medium-gray) {
@@ -29,24 +29,24 @@
   }
 
   @media (min-width: $screen-xs-min) {
-    margin: 30px auto;
+    margin: units(2) auto;
   }
 
   &-header {
     background-color: $background;
     color: $white;
     text-align: center;
-    height: 50px;
+    height: units(3);
     h2 {
       margin: 0;
-      line-height: 50px;
+      line-height: units(3);
       font-size: 1.8rem;
       font-weight: $font-weight-light;
     }
   }
 
   &-content {
-    padding: 20px;
+    padding: units(1.5);
   }
 }
 

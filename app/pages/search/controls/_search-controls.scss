@@ -8,16 +8,16 @@
   z-index: 3;
 
   &__content {
-    padding: 30px 0;
+    padding: units(2) 0;
   }
   &__control {
-    padding-top: 15px;
+    padding-top: units(1);
   }
   &__buttons {
-    padding-top: 15px;
+    padding-top: units(1);
   }
   &__submit-button {
-    min-width: 120px;
+    min-width: 1units(1.5);
   }
   &__reset-button {
     img {
@@ -30,7 +30,7 @@
   .panel {
     background-color: transparent;
     box-shadow: none;
-    margin: 15px 0;
+    margin: units(1) 0;
     .panel-heading {
       background-color: transparent;
       padding-left: 0;
@@ -38,7 +38,7 @@
       .panel-title {
         font-size: 1.6rem;
         a {
-          padding-left: 24px;
+          padding-left: units(1.5);
           cursor: pointer;
           position: relative;
           text-decoration: underline;
@@ -107,7 +107,7 @@
       overflow-y: scroll;
       .list-group-item {
         color: $black;
-        padding: 8px 10px;
+        padding: units(0.5) units(0.75);
       }
     }
   }
@@ -143,7 +143,7 @@
   }
 
   &__distance_slider {
-    margin-top: 15px;
+    margin-top: units(1);
     &_tooltip {
       z-index: 40000;
     }
@@ -183,7 +183,7 @@
     vertical-align: middle;
 
     img {
-      margin-right: 6px;
+      margin-right: units(0.5);
     }
     img,
     span {
@@ -255,7 +255,7 @@
 
   .DayPicker-Day {
     border: 2px solid $white;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $black;
     background-color: $light-gray;
@@ -330,21 +330,21 @@
 
     &-separator {
       padding: 0;
-      margin: 0 6px;
+      margin: 0 units(0.5);
     }
 
     .app-SelectControl {
       flex: 1 2 25%;
 
       &:last-child {
-        margin-left: 15px;
+        margin-left: units(1);
       }
     }
   }
 }
 
 .app-CheckboxControl {
-  padding-top: 15px;
+  padding-top: units(1);
 
   &__label {
     font-weight: normal;
@@ -364,7 +364,7 @@
     color: $white;
     right: 0;
     position: absolute;
-    top: 5px;
+    top: units(0.25);
   }
 
   &__hide:active,
@@ -376,10 +376,10 @@
 
   &__header {
     color: $white;
-    height: 40px;
+    height: units(2.5);
     h2 {
-      margin: 0 40px 0 15px;
-      line-height: 40px;
+      margin: 0 units(2.5) 0 units(1);
+      line-height: units(2.5);
       font-size: 1.6rem;
       font-weight: $font-weight-light;
     }
@@ -387,7 +387,7 @@
 
   &__content {
     background-color: $white;
-    padding: 20px;
+    padding: units(1.5);
   }
 }
 
@@ -399,7 +399,7 @@
 
     &__label {
       display: block;
-      padding-left: 60px;
+      padding-left: units(4);
     }
   }
 }

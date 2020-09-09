@@ -8,7 +8,7 @@
     content: '';
     position: absolute;
     top: calc(50% - #{$arrow-size / 2});
-    right: 5px;
+    right: units(0.25);
     border-left: $arrow-size solid transparent;
     border-right: $arrow-size solid transparent;
     border-top: $arrow-size solid $white;
@@ -24,7 +24,7 @@
     position: absolute;
     z-index: 100;
     border: solid 2px $brand-primary;;
-    padding: 10px;
+    padding: units(0.75);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,7 +77,7 @@
 
   .DayPicker-Day {
     border: 2px solid $white;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $black;
     background-color: $light-gray;

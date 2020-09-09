@@ -14,7 +14,7 @@
     vertical-align: middle;
 
     img {
-      margin-right: 6px;
+      margin-right: units(0.5);
     }
 
     img,
@@ -48,7 +48,7 @@
     top: 100% !important;
     z-index: 99; // above bootstrap button
     margin-top: -2px;
-    padding: 20px;
+    padding: units(1.5);
     min-width: 100%;
 
     .DayPicker {
@@ -99,7 +99,7 @@
 
   .DayPicker-Day {
     border: 2px solid $white;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $black;
     background-color: $light-gray;

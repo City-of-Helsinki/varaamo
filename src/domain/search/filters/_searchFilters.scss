@@ -14,15 +14,15 @@
   z-index: 3;
 
   &__content {
-    padding: 30px 0;
+    padding: units(2) 0;
   }
 
   &__control {
-    padding-top: 15px;
+    padding-top: units(1);
   }
 
   &__buttons {
-    padding-top: 15px;
+    padding-top: units(1);
   }
 
   &__today-button {
@@ -60,7 +60,7 @@
   .panel {
     background-color: transparent;
     box-shadow: none;
-    margin: 15px 0;
+    margin: units(1) 0;
 
     .panel-heading {
       background-color: transparent;
@@ -71,7 +71,7 @@
         font-size: 1.6rem;
 
         a {
-          padding-left: 24px;
+          padding-left: units(1.5);
           cursor: pointer;
           position: relative;
           text-decoration: underline;
@@ -83,7 +83,7 @@
             content: ' ';
             display: inline-block;
             left: 0;
-            top: -2px;
+            top: calc(#{units(0.125)} * -1);
             position: absolute;
             height: $line-height-computed;
             width: $line-height-computed;
