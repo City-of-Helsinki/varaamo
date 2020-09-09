@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
@@ -6,25 +6,24 @@ import 'react-day-picker/lib/style.css';
 
 import injectT from '../../../app/i18n/injectT';
 import {
+  findMatchingPeriod,
   validateRange,
   DatePickerValidationError,
   isRange,
+  trimAvailabilityPeriods,
 } from './utils';
 import { createNotification } from '../notification/utils';
 import { NOTIFICATION_TYPE } from '../notification/constants';
 
 const DateRangePicker = ({
   fullDay,
-  minDays,
-  maxDays,
-  startingTime,
-  endingTime,
   startingDays,
   openingPeriods,
   reservations,
   onRangeSelect,
   renderChildComponent,
-  initialMonth,
+  initialMonth = new Date(),
+  onMonthChange,
   t,
   locale,
 }) => {
@@ -32,6 +31,13 @@ const DateRangePicker = ({
     from: undefined,
     to: undefined,
   });
+
+  useEffect(() => {
+    setSelectedDateRange({
+      from: undefined,
+      to: undefined,
+    });
+  }, [fullDay]);
 
   const handleDayClick = (day, modifiers = {}) => {
     // Day not available: don't permit selection.
@@ -60,17 +66,25 @@ const DateRangePicker = ({
     }
 
     const range = DateUtils.addDayToRange(day, selectedDateRange);
-    range.from && range.from.setHours(startingTime.hours, startingTime.min);
-    range.to && range.to.setHours(endingTime.hours, endingTime.min);
+
+    const period = findMatchingPeriod(range, openingPeriods);
+    period
+      && range.from
+      && range.from.setHours(period.startingTime.hours, period.startingTime.min);
+    period
+      && range.to
+      && range.to.setHours(period.endingTime.hours, period.endingTime.min);
+    const minDuration = period ? period.minDuration : undefined;
+    const maxDuration = period ? period.maxDuration : undefined;
+
     setSelectedDateRange(range);
 
     if (isRange(range)) {
       const validationErrors = validateRange(range, {
-        minDays,
-        maxDays,
         startingDays,
         openingPeriods,
         reservations,
+        fullDay,
       });
 
       if (validationErrors.length === 0) {
@@ -83,13 +97,23 @@ const DateRangePicker = ({
           case DatePickerValidationError.RANGE_TOO_LONG:
             createNotification(
               NOTIFICATION_TYPE.WARNING,
-              t('DateRangePicker.info.maxPeriodText', { duration: maxDays }),
+              t('DateRangePicker.info.maxPeriodText', {
+                duration: maxDuration,
+                durationUnit: t(
+                  `common.unit.time.${period.durationUnit}.plural`,
+                ),
+              }),
             );
             break;
           case DatePickerValidationError.RANGE_TOO_SHORT:
             createNotification(
               NOTIFICATION_TYPE.WARNING,
-              t('DateRangePicker.info.minPeriodText', { duration: minDays }),
+              t('DateRangePicker.info.minPeriodText', {
+                duration: minDuration,
+                durationUnit: t(
+                  `common.unit.time.${period.durationUnit}.plural`,
+                ),
+              }),
             );
             break;
           case DatePickerValidationError.OVERLAPPING_RESERVATION:
@@ -118,7 +142,7 @@ const DateRangePicker = ({
   };
 
   const modifiers = {
-    available: openingPeriods,
+    available: trimAvailabilityPeriods(openingPeriods),
     reserved: reservations,
     startingDay: startingDays,
     reservationStart: !fullDay
@@ -140,6 +164,7 @@ const DateRangePicker = ({
         modifiers={modifiers}
         numberOfMonths={2}
         onDayClick={handleDayClick}
+        onMonthChange={date => onMonthChange && onMonthChange(date)}
         selectedDays={selectedDateRange}
         showWeekNumbers
       />
@@ -150,21 +175,22 @@ const DateRangePicker = ({
 
 DateRangePicker.propTypes = {
   fullDay: PropTypes.bool,
-  minDays: PropTypes.number.isRequired,
-  maxDays: PropTypes.number.isRequired,
-  startingTime: PropTypes.shape({
-    hours: PropTypes.number,
-    min: PropTypes.number,
-  }).isRequired,
-  endingTime: PropTypes.shape({
-    hours: PropTypes.number,
-    min: PropTypes.number,
-  }).isRequired,
   startingDays: PropTypes.arrayOf(PropTypes.instanceOf(Date)).isRequired,
   openingPeriods: PropTypes.arrayOf(
     PropTypes.shape({
       from: PropTypes.instanceOf(Date),
       to: PropTypes.instanceOf(Date),
+      durationUnit: PropTypes.string.isRequired,
+      minDuration: PropTypes.number.isRequired,
+      maxDuration: PropTypes.number.isRequired,
+      startingTime: PropTypes.shape({
+        hours: PropTypes.number,
+        min: PropTypes.number,
+      }).isRequired,
+      endingTime: PropTypes.shape({
+        hours: PropTypes.number,
+        min: PropTypes.number,
+      }).isRequired,
     }),
   ).isRequired,
   reservations: PropTypes.arrayOf(
@@ -176,6 +202,7 @@ DateRangePicker.propTypes = {
   onRangeSelect: PropTypes.func,
   renderChildComponent: PropTypes.func,
   initialMonth: PropTypes.instanceOf(Date),
+  onMonthChange: PropTypes.func,
   t: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
 };

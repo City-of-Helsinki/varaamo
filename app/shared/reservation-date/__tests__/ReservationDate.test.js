@@ -51,4 +51,13 @@ describe('shared/reservation-date/ReservationDate', () => {
     const emptyWrapper = getWrapper({});
     expect(emptyWrapper.equals(<span />)).toBe(true);
   });
+
+  test('renders multiday container when begin and end days differ', () => {
+    const multidayWrapper = getWrapper({
+      beginDate: '2018-01-31T13:00:00+02:00',
+      endDate: '2018-02-31T13:30:00+02:00',
+    });
+    const container = multidayWrapper.find('div.reservation-date-multiday');
+    expect(container.length).toBe(1);
+  });
 });

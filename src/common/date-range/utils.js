@@ -10,26 +10,48 @@ export const DatePickerValidationError = Object.freeze({
   OUTSIDE_OPENING_PERIODS: 'outside_opening_periods',
 });
 
-const diffDays = (date, other) => {
-  return (
-    moment(date).startOf('day').diff(moment(other).startOf('day'), 'days') + 1
-  );
-};
-
-const isRangeTooLong = (range, maxDays) => {
-  return diffDays(range.to, range.from) > maxDays;
-};
-
-const isRangeTooShort = (range, minDays) => {
-  return diffDays(range.to, range.from) < minDays;
-};
-
-const isValidStartingDay = (range, startingDays) => {
-  return startingDays.some(startingDay => moment(startingDay).isSame(range.from, 'day'));
+export const getDuration = (endDate, startDate, durationUnit, fullDay) => {
+  const momentStartDate = moment(startDate).startOf('day');
+  const momentEndDate = fullDay ? moment(endDate).startOf('day').add(1, 'days') : moment(endDate).startOf('day');
+  return momentEndDate.diff(momentStartDate, durationUnit);
 };
 
 const isDayInRange = (day, range) => {
   return moment(day).isBetween(range.from, range.to, undefined, '[]');
+};
+
+export const findMatchingPeriod = (range, periods) => {
+  return range.from && periods.length > 0
+    ? periods.find(period => isDayInRange(range.from, period))
+    : undefined;
+};
+
+const isRangeTooLong = (range, openingPeriods, fullDay) => {
+  const matchingPeriod = findMatchingPeriod(range, openingPeriods);
+  if (!matchingPeriod) {
+    // No matching period: range cannot be too long.
+    return false;
+  }
+  return (
+    getDuration(range.to, range.from, matchingPeriod.durationUnit, fullDay)
+    > matchingPeriod.maxDuration
+  );
+};
+
+const isRangeTooShort = (range, openingPeriods, fullDay) => {
+  const matchingPeriod = findMatchingPeriod(range, openingPeriods);
+  if (!matchingPeriod) {
+    // No matching period: range cannot be too short.
+    return false;
+  }
+  return (
+    getDuration(range.to, range.from, matchingPeriod.durationUnit, fullDay)
+    < matchingPeriod.minDuration
+  );
+};
+
+const isValidStartingDay = (range, startingDays) => {
+  return startingDays.some(startingDay => moment(startingDay).isSame(range.from, 'day'));
 };
 
 const isOverlappingReservation = (range, reservations) => {
@@ -57,14 +79,14 @@ export const validateRange = (range, constraints) => {
   if (!isValidStartingDay(range, constraints.startingDays)) {
     validationErrors.push(DatePickerValidationError.INVALID_STARTING_DAY);
   }
-  if (isRangeTooLong(range, constraints.maxDays)) {
-    validationErrors.push(DatePickerValidationError.RANGE_TOO_LONG);
-  }
-  if (isRangeTooShort(range, constraints.minDays)) {
-    validationErrors.push(DatePickerValidationError.RANGE_TOO_SHORT);
-  }
   if (!isWithinOpeningPeriods(range, constraints.openingPeriods)) {
     validationErrors.push(DatePickerValidationError.OUTSIDE_OPENING_PERIODS);
+  }
+  if (isRangeTooLong(range, constraints.openingPeriods, constraints.fullDay)) {
+    validationErrors.push(DatePickerValidationError.RANGE_TOO_LONG);
+  }
+  if (isRangeTooShort(range, constraints.openingPeriods, constraints.fullDay)) {
+    validationErrors.push(DatePickerValidationError.RANGE_TOO_SHORT);
   }
   return validationErrors;
 };
@@ -89,6 +111,24 @@ export const formatTimeRange = (startDate, endDate) => {
   )}`;
 };
 
-export const getDateRangeDuration = (startDate, endDate) => {
-  return diffDays(endDate, startDate);
+export const getDateRangeDuration = (startDate, endDate, fullDay) => {
+  return getDuration(endDate, startDate, 'day', fullDay);
+};
+
+export const trimAvailabilityPeriods = (periods) => {
+  return (
+    periods
+      // Remove periods that end before current date
+      .filter(period => !moment(period.to).isBefore(moment()))
+      // Move starting day of periods that are before current date to now
+      .map((period) => {
+        if (moment(period.from).isBefore(moment())) {
+          return {
+            ...period,
+            from: new Date(),
+          };
+        }
+        return period;
+      })
+  );
 };

@@ -2,6 +2,7 @@
   .DayPicker {
     padding: 0;
     margin: 0 auto;
+    width: 100%;
 
     &:focus {
       outline: none;
@@ -51,8 +52,6 @@
     border-radius: 0;
     margin: 1px;
     line-height: 1rem;
-    color: $gray-light;
-    text-decoration: line-through;
     font-size: 1.6rem;
 
     &:focus {
@@ -164,8 +163,16 @@
     ) !important;
   }
 
+  .DayPicker-Day:not(.DayPicker-Day--available) {
+    color: $gray-light;
+    text-decoration: line-through;
+    background: none;
+    box-shadow: none;
+  }
+
   .DayPicker-Day--outside {
     background: transparent !important;
+    box-shadow: none;
   }
 
   .DayPicker-WeekdaysRow {
