@@ -1,7 +1,10 @@
+import moment from 'moment';
+
 import {
   validateRange,
   DatePickerValidationError,
   getDateRangeDuration,
+  trimAvailabilityPeriods, getDuration,
 } from '../utils';
 
 describe('DateRangePicker utils', () => {
@@ -11,7 +14,8 @@ describe('DateRangePicker utils', () => {
       reservations: [
         { from: new Date(2020, 8, 10), to: new Date(2020, 8, 11) },
       ],
-      openingPeriods: [{ from: new Date(2000, 0), to: new Date(2100, 0, 20) }],
+      openingPeriods: [{ from: new Date(2000, 0), to: new Date(2100, 0, 20), durationUnit: 'day' }],
+      fullDay: true,
       minDays: 5,
       maxDays: 50,
     };
@@ -101,11 +105,59 @@ describe('DateRangePicker utils', () => {
   describe('getDateRangeDuration', () => {
     it('returns correct number of days between dates', () => {
       expect(
-        getDateRangeDuration(
-          new Date(2020, 10, 1),
-          new Date(2020, 10, 3),
-        ),
+        getDateRangeDuration(new Date(2020, 10, 1), new Date(2020, 10, 3), true),
       ).toEqual(3);
+      expect(
+        getDateRangeDuration(new Date(2020, 10, 1), new Date(2020, 10, 3), false),
+      ).toEqual(2);
+    });
+  });
+
+  describe('getDuration', () => {
+    const startOfWeek = moment().startOf('week');
+    const endOfWeek = moment().endOf('week');
+    const nextMonday = moment().endOf('week').add(1, 'days');
+
+    const startOfMonth = moment().startOf('month');
+    const endOfMonth = moment().endOf('month');
+    const firstOfNextMonth = moment().endOf('month').add(1, 'days');
+
+    it('returns correct number of months for durationUnit === day', () => {
+      expect(getDuration(endOfWeek, startOfWeek, 'day', true)).toEqual(7);
+      expect(getDuration(endOfWeek, startOfWeek, 'day', false)).toEqual(6);
+      expect(getDuration(nextMonday, startOfWeek, 'day', false)).toEqual(7);
+    });
+
+    it('returns correct number of months for durationUnit === week', () => {
+      expect(getDuration(endOfWeek, startOfWeek, 'week', true)).toEqual(1);
+      expect(getDuration(endOfWeek, startOfWeek, 'week', false)).toEqual(0);
+      expect(getDuration(nextMonday, startOfWeek, 'week', false)).toEqual(1);
+    });
+
+    it('returns correct number of months for durationUnit === month', () => {
+      expect(getDuration(endOfMonth, startOfMonth, 'month', true)).toEqual(1);
+      expect(getDuration(endOfMonth, startOfMonth, 'month', false)).toEqual(0);
+      expect(getDuration(firstOfNextMonth, startOfMonth, 'month', false)).toEqual(1);
+    });
+  });
+
+  describe('trimAvailabilityPeriods', () => {
+    it('removes periods for which the end date is before current date', () => {
+      const periods = [
+        { from: moment().add(-10, 'days'), to: moment().add(-5, 'days') },
+      ];
+      const res = trimAvailabilityPeriods(periods);
+      expect(res).toHaveLength(0);
+    });
+
+    it('moves the starting date for periods with starting date before current date to current date', () => {
+      const periods = [
+        { from: moment().add(-1, 'days'), to: moment().add(1, 'days') },
+      ];
+      const res = trimAvailabilityPeriods(periods);
+      expect(
+        moment(res[0].from).startOf('day').diff(moment().startOf('day'), 'day'),
+      ).toEqual(0);
     });
   });
 });

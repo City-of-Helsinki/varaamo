@@ -11,9 +11,19 @@ import DateRangeLegend from '../legend/DateRangeLegend';
 
 const mockProps = {
   fullDay: false,
-  maxDays: 7,
-  minDays: 2,
-  openingPeriods: [{ from: new Date(2017, 11, 5), to: new Date(2100, 1) }],
+  maxDuration: 7,
+  minDuration: 2,
+  openingPeriods: [
+    {
+      from: new Date(2017, 11, 5),
+      to: new Date(2100, 1),
+      maxDuration: 7,
+      minDuration: 2,
+      startingTime: { hours: 15, min: 0 },
+      endingTime: { hours: 11, min: 0 },
+      durationUnit: 'hour',
+    },
+  ],
   reservations: [
     {
       from: new Date(2017, 11, 26),
@@ -25,8 +35,6 @@ const mockProps = {
     new Date(2017, 11, 15),
     new Date(2017, 11, 20),
   ],
-  startingTime: { hours: 15, min: 0 },
-  endingTime: { hours: 11, min: 0 },
   initialMonth: new Date(2017, 11, 10),
 };
 

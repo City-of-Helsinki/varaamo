@@ -13,6 +13,8 @@ import filter from 'lodash/filter';
 import injectT from '../../../i18n/injectT';
 import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
 import TimePickerCalendar from '../../../../src/common/calendar/TimePickerCalendar';
+import { reservationLengthType } from '../../../../src/domain/resource/constants';
+import ResourceMultidayReservationCalendar from '../../../../src/domain/resource/resourceMultidayReservationCalendar/ResourceMultidayReservationCalendar';
 
 class ReservationTime extends Component {
   static propTypes = {
@@ -55,28 +57,59 @@ class ReservationTime extends Component {
     const decamelizedResource = decamelizeKeys(resource);
     const reservations = get(decamelizedResource, 'reservations', []);
     const filteredReservations = filter(
-      reservations, res => (selectedReservation && res.id !== selectedReservation.id),
+      reservations,
+      res => selectedReservation && res.id !== selectedReservation.id,
     );
-    const resourceToEdit = { ...decamelizedResource, reservations: filteredReservations };
+    const resourceToEdit = {
+      ...decamelizedResource,
+      reservations: filteredReservations,
+    };
 
     return (
       <div className="app-ReservationTime">
         <Row>
           <Col md={7} sm={12}>
-            <ResourceCalendar
-              onDateChange={this.handleDateChange}
-              resourceId={resource.id}
-              selectedDate={shownDate}
-            />
-            <TimePickerCalendar
-              addNotification={addNotification}
-              date={shownDate}
-              edittingReservation={selectedReservation}
-              isStaff={isStaff}
-              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())}
-              onTimeChange={selected => handleSelectReservation({ selected, resource: resourceToEdit })}
-              resource={resourceToEdit}
-            />
+            {selectedReservation.lengthType
+            === reservationLengthType.WITHIN_DAY ? (
+              <>
+                <ResourceCalendar
+                  onDateChange={this.handleDateChange}
+                  resourceId={resource.id}
+                  selectedDate={shownDate}
+                />
+                <TimePickerCalendar
+                  addNotification={addNotification}
+                  date={shownDate}
+                  edittingReservation={selectedReservation}
+                  isStaff={isStaff}
+                  onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())
+                  }
+                  onTimeChange={selected => handleSelectReservation({
+                    selected,
+                    resource: resourceToEdit,
+                  })
+                  }
+                  resource={resourceToEdit}
+                />
+              </>
+              ) : (
+                <ResourceMultidayReservationCalendar
+                  date={shownDate}
+                  initialSelection={{
+                    from: new Date(selectedReservation.begin),
+                    to: new Date(selectedReservation.end),
+                  }}
+                  lengthType={reservationLengthType.OVERNIGHT}
+                  onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())
+                }
+                  onSelectedRangeChange={range => handleSelectReservation({
+                    selected: { start: moment(range.from), end: moment(range.to) },
+                    resource: resourceToEdit,
+                  })
+                }
+                  resource={{ ...resource, reservations: filteredReservations }}
+                />
+              )}
           </Col>
           <Col md={5} sm={12}>
             <Well className="app-ReservationDetails">
@@ -98,7 +131,11 @@ class ReservationTime extends Component {
           <Button bsStyle="warning" onClick={onCancel}>
             {t('ReservationInformationForm.cancelEdit')}
           </Button>
-          <Button bsStyle="primary" disabled={isEmpty(selectedReservation)} onClick={onConfirm}>
+          <Button
+            bsStyle="primary"
+            disabled={isEmpty(selectedReservation)}
+            onClick={onConfirm}
+          >
             {t('common.continue')}
           </Button>
         </div>

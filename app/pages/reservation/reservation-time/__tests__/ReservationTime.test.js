@@ -2,13 +2,12 @@ import React from 'react';
 import simple from 'simple-mock';
 import moment from 'moment';
 
-import TimePickerCalendar from '../../../../../src/common/calendar/TimePickerCalendar';
-import ResourceCalendar from '../../../../shared/resource-calendar/ResourceCalendar';
 import { shallowWithIntl } from '../../../../utils/testUtils';
 import Reservation from '../../../../utils/fixtures/Reservation';
 import Resource from '../../../../utils/fixtures/Resource';
 import Unit from '../../../../utils/fixtures/Unit';
 import ReservationTime from '../ReservationTime';
+import ResourceReservation from '../../../resource/resource-reservation/ResourceReservation';
 
 describe('pages/reservation/reservation-time/ReservationTime', () => {
   const history = {
@@ -33,23 +32,17 @@ describe('pages/reservation/reservation-time/ReservationTime', () => {
     return shallowWithIntl(<ReservationTime {...defaultProps} {...extraProps} />);
   }
 
-  test('renders ResourceCalendar', () => {
+  test('renders ResourceReservation', () => {
     const wrapper = getWrapper();
     const instance = wrapper.instance();
-    const resourceCalendar = wrapper.find(ResourceCalendar);
+    const resourceReservation = wrapper.find(ResourceReservation);
     const date = moment(defaultProps.selectedReservation.begin).isSame(defaultProps.date, 'day')
       ? moment(defaultProps.selectedReservation.begin).format('YYYY-MM-DD')
       : moment(defaultProps.date).format('YYYY-MM-DD');
 
-    expect(resourceCalendar).toHaveLength(1);
-    expect(resourceCalendar.prop('onDateChange')).toBe(instance.handleDateChange);
-    expect(resourceCalendar.prop('selectedDate')).toBe(date);
-  });
-
-  test('renders TimePickerCalendar', () => {
-    const timePickerCalendar = getWrapper({ location }).find(TimePickerCalendar);
-
-    expect(timePickerCalendar).toHaveLength(1);
+    expect(resourceReservation).toHaveLength(1);
+    expect(resourceReservation.prop('handleDateChange')).toBe(instance.handleDateChange);
+    expect(resourceReservation.prop('date')).toBe(date);
   });
 
   test('renders resource and unit names', () => {

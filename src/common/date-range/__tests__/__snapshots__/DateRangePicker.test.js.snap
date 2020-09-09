@@ -100,7 +100,18 @@ exports[`DateRangePicker renders child component 1`] = `
       Object {
         "available": Array [
           Object {
-            "from": 2017-12-04T22:00:00.000Z,
+            "durationUnit": "hour",
+            "endingTime": Object {
+              "hours": 11,
+              "min": 0,
+            },
+            "from": 2020-09-18T18:20:36.865Z,
+            "maxDuration": 7,
+            "minDuration": 2,
+            "startingTime": Object {
+              "hours": 15,
+              "min": 0,
+            },
             "to": 2100-01-31T22:00:00.000Z,
           },
         ],
@@ -167,6 +178,7 @@ exports[`DateRangePicker renders child component 1`] = `
     }
     numberOfMonths={2}
     onDayClick={[Function]}
+    onMonthChange={[Function]}
     pagedNavigation={false}
     renderDay={[Function]}
     renderWeek={[Function]}
@@ -288,7 +300,18 @@ exports[`DateRangePicker renders normally 1`] = `
       Object {
         "available": Array [
           Object {
-            "from": 2017-12-04T22:00:00.000Z,
+            "durationUnit": "hour",
+            "endingTime": Object {
+              "hours": 11,
+              "min": 0,
+            },
+            "from": 2020-09-18T18:20:36.851Z,
+            "maxDuration": 7,
+            "minDuration": 2,
+            "startingTime": Object {
+              "hours": 15,
+              "min": 0,
+            },
             "to": 2100-01-31T22:00:00.000Z,
           },
         ],
@@ -355,6 +378,7 @@ exports[`DateRangePicker renders normally 1`] = `
     }
     numberOfMonths={2}
     onDayClick={[Function]}
+    onMonthChange={[Function]}
     pagedNavigation={false}
     renderDay={[Function]}
     renderWeek={[Function]}

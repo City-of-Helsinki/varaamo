@@ -9,8 +9,15 @@ import Row from 'react-bootstrap/lib/Row';
 import moment from 'moment';
 
 import injectT from '../../../i18n/injectT';
-import { isStaffEvent, getReservationPrice, getReservationPricePerPeriod } from '../../../utils/reservationUtils';
-import { getTermsAndConditions, hasProducts } from '../../../utils/resourceUtils';
+import {
+  isStaffEvent,
+  getReservationPrice,
+  getReservationPricePerPeriod,
+} from '../../../utils/reservationUtils';
+import {
+  getTermsAndConditions,
+  hasProducts,
+} from '../../../utils/resourceUtils';
 import ReservationInformationForm from './ReservationInformationForm';
 import apiClient from '../../../../src/common/api/client';
 
@@ -32,17 +39,14 @@ class ReservationInformation extends Component {
 
   state = {
     reservationPrice: null,
-  }
+  };
 
   componentDidMount() {
     if (!hasProducts(this.props.resource)) {
       return;
     }
     const products = get(this.props.resource, 'products');
-    const {
-      begin,
-      end,
-    } = this.props.selectedTime;
+    const { begin, end } = this.props.selectedTime;
 
     getReservationPrice(apiClient, begin, end, products)
       .then(price => this.setState({ reservationPrice: price }))
@@ -52,15 +56,13 @@ class ReservationInformation extends Component {
   onConfirm = (values) => {
     const { onConfirm } = this.props;
     onConfirm(values);
-  }
+  };
 
   getFormFields = (termsAndConditions, specificTerms) => {
-    const {
-      isAdmin,
-      isStaff,
-      resource,
-    } = this.props;
-    const formFields = [...resource.supportedReservationExtraFields].map(value => camelCase(value));
+    const { isAdmin, isStaff, resource } = this.props;
+    const formFields = [
+      ...resource.supportedReservationExtraFields,
+    ].map(value => camelCase(value));
 
     if (isAdmin) {
       formFields.push('comments');
@@ -92,25 +94,21 @@ class ReservationInformation extends Component {
     }
 
     return uniq(formFields);
-  }
+  };
 
   getFormInitialValues = () => {
-    const {
-      isEditing,
-      reservation,
-      resource,
-    } = this.props;
+    const { isEditing, reservation, resource } = this.props;
     let rv = reservation ? pick(reservation, this.getFormFields()) : {};
     if (isEditing) {
       rv = { ...rv, staffEvent: isStaffEvent(reservation, resource) };
     }
     return rv;
-  }
+  };
 
   getRequiredFormFields(resource, termsAndConditions, specificTerms) {
-    const requiredFormFields = [...resource.requiredReservationExtraFields.map(
-      field => camelCase(field),
-    )];
+    const requiredFormFields = [
+      ...resource.requiredReservationExtraFields.map(field => camelCase(field)),
+    ];
 
     const { isAdmin } = this.props;
 
@@ -134,6 +132,25 @@ class ReservationInformation extends Component {
     return requiredFormFields;
   }
 
+  getFormattedDuration(selectedTime, t) {
+    if (
+      moment(selectedTime.end)
+        .startOf('day')
+        .diff(moment(selectedTime.begin).startOf('day'), 'day') >= 1
+    ) {
+      const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
+      const endText = moment(selectedTime.end).format('D.M.YYYY HH:mm');
+
+      return `${beginText} – ${endText}`;
+    }
+
+    const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
+    const endText = moment(selectedTime.end).format('HH:mm');
+    const hours = moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
+
+    return `${beginText}–${endText} (${hours} h)`;
+  }
+
   render() {
     const {
       isEditing,
@@ -146,17 +163,12 @@ class ReservationInformation extends Component {
       unit,
       isStaff,
     } = this.props;
-    const {
-      reservationPrice,
-    } = this.state;
+    const { reservationPrice } = this.state;
 
     const taxPercentage = get(resource, 'products[0].price.taxPercentage');
 
     const termsAndConditions = getTermsAndConditions(resource);
     const specificTerms = resource.specificTerms;
-    const beginText = moment(selectedTime.begin).format('D.M.YYYY HH:mm');
-    const endText = moment(selectedTime.end).format('HH:mm');
-    const hours = moment(selectedTime.end).diff(selectedTime.begin, 'minutes') / 60;
 
     return (
       <div className="app-ReservationInformation">
@@ -170,14 +182,20 @@ class ReservationInformation extends Component {
             onBack={onBack}
             onCancel={onCancel}
             onConfirm={this.onConfirm}
-            requiredFields={this.getRequiredFormFields(resource, termsAndConditions, specificTerms)}
+            requiredFields={this.getRequiredFormFields(
+              resource,
+              termsAndConditions,
+              specificTerms,
+            )}
             resource={resource}
             termsAndConditions={termsAndConditions}
           />
         </Col>
         <Col md={5} sm={12}>
           <div className="app-ReservationDetails">
-            <h2 className="app-ReservationPage__title">{t('ReservationPage.detailsTitle')}</h2>
+            <h2 className="app-ReservationPage__title">
+              {t('ReservationPage.detailsTitle')}
+            </h2>
             <Row>
               <Col md={4}>
                 <span className="app-ReservationDetails__name">
@@ -214,7 +232,10 @@ class ReservationInformation extends Component {
                   </Col>
                   <Col md={8}>
                     <span className="app-ReservationDetails__value">
-                      {t('common.priceWithVAT', { price: reservationPrice, vat: taxPercentage })}
+                      {t('common.priceWithVAT', {
+                        price: reservationPrice,
+                        vat: taxPercentage,
+                      })}
                     </span>
                   </Col>
                 </Row>
@@ -228,7 +249,7 @@ class ReservationInformation extends Component {
               </Col>
               <Col md={8}>
                 <span className="app-ReservationDetails__value">
-                  {`${beginText}–${endText} (${hours} h)`}
+                  {this.getFormattedDuration(selectedTime, t)}
                 </span>
               </Col>
             </Row>

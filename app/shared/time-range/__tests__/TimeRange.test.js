@@ -34,16 +34,38 @@ describe('shared/time-range/TimeRange', () => {
   });
 
   describe('the datetime range string', () => {
-    const rangeString = getWrapper().find('time').props().children;
-
     test('displays the begin in given beginFormat', () => {
       const expected = moment(defaultProps.begin).format(defaultProps.beginFormat);
+      const rangeString = getWrapper().find('time').props().children;
       expect(rangeString.toLowerCase()).toContain(expected.toLowerCase());
     });
 
     test('displays the end time in given endFormat', () => {
       const expected = moment(defaultProps.end).format(defaultProps.endFormat);
+      const rangeString = getWrapper().find('time').props().children;
       expect(rangeString).toContain(expected);
+    });
+
+    test('default single day format', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'hours');
+
+      const wrapper = shallow(<TimeRange begin={begin.toISOString()} end={end.toISOString()} />);
+      const rangeString = wrapper.find('time').props().children;
+
+      expect(rangeString.toLowerCase()).toContain(begin.format('dddd, LLL').toLowerCase());
+      expect(rangeString.toLowerCase()).toContain(end.format('LT').toLowerCase());
+    });
+
+    test('default multiday format', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'days');
+
+      const wrapper = shallow(<TimeRange begin={begin.toISOString()} end={end.toISOString()} />);
+      const rangeString = wrapper.find('time').props().children;
+
+      expect(rangeString.toLowerCase()).toContain(begin.format('dddd, LLL').toLowerCase());
+      expect(rangeString.toLowerCase()).toContain(end.format('dddd, LLL').toLowerCase());
     });
   });
 });

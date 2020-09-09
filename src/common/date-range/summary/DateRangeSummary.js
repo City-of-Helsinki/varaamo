@@ -10,7 +10,9 @@ import {
 } from '../utils';
 import injectT from '../../../../app/i18n/injectT';
 
-const DateRangeSummary = ({ startDate, endDate, t }) => {
+const DateRangeSummary = ({
+  startDate, endDate, fullDay, t,
+}) => {
   return (
     <div className="app-DateRangeSummary">
       <b>{t('DateRangeSummary.title')}</b>
@@ -41,7 +43,7 @@ const DateRangeSummary = ({ startDate, endDate, t }) => {
           <span>
             {startDate && endDate
               ? t('DateRangeSummary.days', {
-                days: getDateRangeDuration(startDate, endDate),
+                days: getDateRangeDuration(startDate, endDate, fullDay),
               })
               : '-'}
           </span>
@@ -54,6 +56,7 @@ const DateRangeSummary = ({ startDate, endDate, t }) => {
 DateRangeSummary.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
+  fullDay: PropTypes.bool,
   t: PropTypes.func.isRequired,
 };
 

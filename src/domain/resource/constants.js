@@ -14,3 +14,9 @@ export const productPriceType = Object.freeze({
   PER_PERIOD: 'per_period',
   FIXED: 'fixed',
 });
+
+export const reservationLengthType = Object.freeze({
+  WITHIN_DAY: 'within_day',
+  WHOLE_DAY: 'whole_day',
+  OVERNIGHT: 'over_night',
+});

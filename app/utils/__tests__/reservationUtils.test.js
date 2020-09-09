@@ -13,7 +13,7 @@ import {
   getNextAvailableTime,
   getNextReservation,
   getReservationResourceId,
-  getReservationPrice,
+  getReservationPrice, isMultiday,
 } from '../reservationUtils';
 
 jest.mock('axios');
@@ -363,6 +363,32 @@ describe('Utils: reservationUtils', () => {
       expect.assertions(1);
       const result = getReservationPrice(apiClient, begin, end);
       return expect(result).resolves.toEqual(null);
+    });
+  });
+
+  describe('isMultiday', () => {
+    it('returns true if day differs', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'days');
+      expect(isMultiday(begin, end)).toBe(true);
+    });
+
+    it('returns true if month differs', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'months');
+      expect(isMultiday(begin, end)).toBe(true);
+    });
+
+    it('returns true if year differs', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'years');
+      expect(isMultiday(begin, end)).toBe(true);
+    });
+
+    it('returns false if within same day', () => {
+      const begin = moment().startOf('day');
+      const end = moment().startOf('day').add(1, 'hours');
+      expect(isMultiday(begin, end)).toBe(false);
     });
   });
 });

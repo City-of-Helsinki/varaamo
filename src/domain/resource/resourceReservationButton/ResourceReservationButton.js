@@ -68,6 +68,7 @@ const ResourceReservationCalendar = ({
   t,
   selected,
   onReserve,
+  hideInfo,
 }) => {
   const handleReserveButtonClick = () => {
     onReserve(selected, resource);
@@ -99,17 +100,9 @@ const ResourceReservationCalendar = ({
       </Button>
     </div>
   ) : (
-    selected.start !== null && selected.end !== null && (
-      <div className="app-ResourceReservationButton__selectedInfo">
-        <div className="app-ResourceReservationButton__selectedDate">
-          <strong className="app-ResourceReservationButton__selectedDateLabel">
-            {t('ResourceReservationCalendar.selectedDateLabel')}
-          </strong>
-          {' '}
-          <span className="app-ResourceReservationButton__selectedDateValue">
-            {selectedDateText}
-          </span>
-        </div>
+    selected.start !== null
+      && selected.end !== null
+      && (hideInfo ? (
         <Button
           bsStyle="primary"
           className="app-ResourceReservationButton__reserveButton"
@@ -118,8 +111,27 @@ const ResourceReservationCalendar = ({
         >
           {t('ResourceReservationCalendar.reserveButton')}
         </Button>
-      </div>
-    )
+      ) : (
+        <div className="app-ResourceReservationButton__selectedInfo">
+          <div className="app-ResourceReservationButton__selectedDate">
+            <strong className="app-ResourceReservationButton__selectedDateLabel">
+              {t('ResourceReservationCalendar.selectedDateLabel')}
+            </strong>
+            {' '}
+            <span className="app-ResourceReservationButton__selectedDateValue">
+              {selectedDateText}
+            </span>
+          </div>
+          <Button
+            bsStyle="primary"
+            className="app-ResourceReservationButton__reserveButton"
+            disabled={!canMakeReservations}
+            onClick={handleReserveButtonClick}
+          >
+            {t('ResourceReservationCalendar.reserveButton')}
+          </Button>
+        </div>
+      ))
   );
 };
 
@@ -129,6 +141,7 @@ ResourceReservationCalendar.propTypes = {
   resource: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   selected: PropTypes.object,
+  hideInfo: PropTypes.bool,
 };
 
 export default injectT(ResourceReservationCalendar);

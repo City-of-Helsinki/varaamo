@@ -10,7 +10,6 @@ import { bindActionCreators } from 'redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Lightbox from 'lightbox-react';
-import { decamelizeKeys } from 'humps';
 import 'lightbox-react/style.css';
 
 import { addNotification } from '../../actions/notificationsActions';
@@ -24,7 +23,6 @@ import {
 import recurringReservations from '../../state/recurringReservations';
 import PageWrapper from '../PageWrapper';
 import NotFoundPage from '../not-found/NotFoundPage';
-import ResourceCalendar from '../../shared/resource-calendar/ResourceCalendar';
 import injectT from '../../i18n/injectT';
 import { getResourcePageUrl } from '../../utils/resourceUtils';
 import { getEditReservationUrl } from '../../utils/reservationUtils';
@@ -33,14 +31,10 @@ import ResourceInfo from './resource-info/ResourceInfo';
 import ResourceMapInfo from './resource-map-info/ResourceMapInfo';
 import resourcePageSelector from './resourcePageSelector';
 import ResourceMap from '../../../src/domain/resource/map/ResourceMap';
-import ResourceReservationCalendar from '../../../src/domain/resource/reservationCalendar/ResourceReservationCalendar';
-// eslint-disable-next-line max-len
-import ResourceKeyboardReservation from '../../../src/domain/resource/resourceKeyboardReservation/ResourceKeyboardReservation';
-// eslint-disable-next-line max-len
-import ResourceReservationButton from '../../../src/domain/resource/resourceReservationButton/ResourceReservationButton';
 import ResourcePanel from './resource-info/ResourcePanel';
 import accessibilityClient from '../../../src/common/api/accessibilityClient';
 import { getSelA11yPref } from '../../utils/accessibilityUtils';
+import ResourceReservation from './resource-reservation/ResourceReservation';
 
 class UnconnectedResourcePage extends Component {
   static propTypes = {
@@ -64,10 +58,6 @@ class UnconnectedResourcePage extends Component {
     photoIndex: 0,
     accessibilityInformation: undefined,
     isOpen: false,
-    selected: {
-      start: null,
-      end: null,
-    },
   };
 
   componentDidMount() {
@@ -197,15 +187,6 @@ class UnconnectedResourcePage extends Component {
     );
   };
 
-  handleTimeChange = (selected) => {
-    this.setState({
-      selected: {
-        start: selected.start,
-        end: selected.end,
-      },
-    });
-  };
-
   render() {
     const {
       actions,
@@ -221,12 +202,7 @@ class UnconnectedResourcePage extends Component {
       unit,
     } = this.props;
 
-    const {
-      isOpen,
-      photoIndex,
-      selected,
-      accessibilityInformation,
-    } = this.state;
+    const { isOpen, photoIndex, accessibilityInformation } = this.state;
 
     if (isEmpty(resource) && !isFetchingResource) {
       return <NotFoundPage />;
@@ -236,15 +212,6 @@ class UnconnectedResourcePage extends Component {
     const mainImageIndex = findIndex(images, image => image.type === 'main');
     const mainImage = mainImageIndex != null ? images[mainImageIndex] : null;
     const showBackButton = !!location.state && !!location.state.fromSearchResults;
-    const resourceReservationButton = (
-      <ResourceReservationButton
-        isLoggedIn={isLoggedIn}
-        onReserve={this.onReserve}
-        resource={resource}
-        selected={selected}
-        t={t}
-      />
-    );
 
     return (
       <div className="app-ResourcePage">
@@ -293,46 +260,15 @@ class UnconnectedResourcePage extends Component {
                           </form>
                         )}
                         {!resource.externalReservationUrl && (
-                          <div>
-                            {window.innerWidth < 768 && (
-                              <React.Fragment>
-                                <div className="app-ResourcePage__content-selection-directions">
-                                  {t(
-                                    'ReservationInfo.selectionStartDirections',
-                                  )}
-                                </div>
-                                <div className="app-ResourcePage__content-selection-directions">
-                                  {t('ReservationInfo.selectionEditDirections')}
-                                </div>
-                              </React.Fragment>
-                            )}
-
-                            <ResourceCalendar
-                              isDayReservable={this.isDayReservable}
-                              onDateChange={this.handleDateChange}
-                              resourceId={resource.id}
-                              selectedDate={date}
-                            />
-                            <div className="app-ResourcePage__keyboard-reservation">
-                              <ResourceKeyboardReservation
-                                onDateChange={this.handleDateChange}
-                                onTimeChange={this.handleTimeChange}
-                                resource={resource}
-                                selectedDate={date}
-                                selectedTime={selected}
-                              />
-                              {resourceReservationButton}
-                            </div>
-                            <ResourceReservationCalendar
-                              date={date}
-                              isStaff={isStaff}
-                              onDateChange={newDate => this.handleDateChange(moment(newDate).toDate())
-                              }
-                              onTimeChange={this.handleTimeChange}
-                              resource={decamelizeKeys(resource)}
-                            />
-                            {resourceReservationButton}
-                          </div>
+                          <ResourceReservation
+                            date={date}
+                            handleDateChange={this.handleDateChange}
+                            isDayReservable={this.isDayReservable}
+                            isLoggedIn={isLoggedIn}
+                            isStaff={isStaff}
+                            onReserve={this.onReserve}
+                            resource={resource}
+                          />
                         )}
                       </>
                     </ResourcePanel>

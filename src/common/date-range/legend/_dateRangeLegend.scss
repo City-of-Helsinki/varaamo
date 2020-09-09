@@ -1,6 +1,7 @@
 .app-DateRangeLegend {
   display: grid;
   grid-template-columns: auto auto auto;
+  grid-column-gap: 2rem;
   justify-items: stretch;
   margin: 2rem 0;
 
@@ -13,6 +14,7 @@
     width: 30px;
     height: 30px;
     margin-right: 1rem;
+    text-align: center;
 
     &--unavailable {
       color: $gray-light;
