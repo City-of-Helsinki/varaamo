@@ -93,6 +93,7 @@ function ResourceHeader({
                 {unit.name}
               </span>
             </div>
+            <br />
             <div className="app-ResourceHeader__buttons">
               {!showMap && (
                 <Button className="app-ResourceHeader__map-button" onClick={onMapClick}>
