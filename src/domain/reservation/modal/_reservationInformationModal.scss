@@ -1,12 +1,12 @@
 .app-ReservationInformationModal {
   .app-ManageReservationsStatus {
-    margin: 1em 0;
+    margin: units(1) 0;
     text-align: right;
   }
   &__information {
     &__account {
       background: $medium-gray;
-      padding: 0.5em 0;
+      padding: units(0.5) 0;
     }
   }
 
@@ -15,7 +15,7 @@
   }
   
   &__field {
-    margin: 1em 0;
+    margin: units(1) 0;
 
     &__label {
       font-weight: $font-weight-bold;
@@ -27,9 +27,9 @@
   }
 
   &__comments-section {
-    margin-top: 1.5em;
+    margin-top: units(1.5);
     border-top: 1px solid #e5e5e5;
-    padding-top: 1em;
+    padding-top: units(1);
   }
 
   &__comments-field {
@@ -37,7 +37,7 @@
   }
 
   &__save-comment {
-    margin-top: 1em;
+    margin-top: units(1);
     text-align: right;
   }
 }

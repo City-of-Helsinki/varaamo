@@ -5,13 +5,13 @@
   $row-height: 64px;
 
   &__table {
-    margin-bottom: 10px;
+    margin-bottom: units(0.75);
 
     > thead {
       background: $header-background;
 
       > tr > th {
-        padding: 8px 16px;
+        padding: units(0.5) units(1);
         height: $row-height;
         font-size: 1.4rem;
         color: $color;
@@ -22,12 +22,12 @@
 
     > tbody {
       > tr > td {
-        padding: 22px 16px;
+        padding: units(1.5) units(1);
         border-top: none;
         height: $row-height;
         border-bottom: $border;
         font-size: 1.4rem;
-        line-height: 18px;
+        line-height: units(1);
         color: $color;
         vertical-align: top;
       }

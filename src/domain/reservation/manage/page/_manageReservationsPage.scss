@@ -1,14 +1,14 @@
 .app-ManageReservationsPage {
   h1 {
-    margin: 33px 0 15px;
+    margin: units(2) 0 units(1);
   }
 
   &__filters {
     background-color: #dedfe1;
-    padding: 0 0 43px;
+    padding: 0 0 units(2.5);
   }
 
   &__list {
-    margin-top: 40px;
+    margin-top: units(2.5);
   }
 }

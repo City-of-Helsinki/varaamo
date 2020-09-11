@@ -1,6 +1,6 @@
 .app-CreateNotificationModal,
 .app-CreateNotifications {
-  margin-top: 30px;
+  margin-top: units(2);
 
   .login {
     width: 100%;
@@ -15,11 +15,11 @@
   }
 
   .action-row {
-    margin-top: 20px;
-    margin-bottom: 7px;
+    margin-top: units(1.5);
+    margin-bottom: units(0.5);
 
     button {
-      margin-right: 10px;
+      margin-right: units(0.75);
     }
   }
 
@@ -48,12 +48,12 @@
     justify-content: flex-end;
 
     button {
-      margin-left: 10px;
+      margin-left: units(0.75);
     }
   }
 
   .notification-list {
-    margin-top: 50px;
+    margin-top: units(3);
     width: 100%;
 
     th {
@@ -83,16 +83,16 @@
 
   .modal-footer {
     button {
-      margin-right: 20px;
+      margin-right: units(1.5);
     }
   }
 
   input {
-    margin-bottom: 10px;
+    margin-bottom: units(0.75);
     width: 100%;
     border: 2px solid $black;
     height: 52px;
-    padding-left: 5px;
+    padding-left: units(0.25);
   }
 
   .app-Select {
@@ -102,7 +102,7 @@
   }
 
   textarea {
-    padding: 10px;
+    padding: units(0.75);
     width: 100%;
     border: 2px solid $black;
     resize: none;

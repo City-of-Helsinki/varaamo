@@ -1,21 +1,21 @@
 .app-ReservationInformation {
   form {
-    padding: 15px 0;
+    padding: units(1) 0;
   }
   .btn {
     min-width: 150px;
-    margin-right: 15px;
+    margin-right: units(1);
   }
 }
 
 .app-ReservationDetails {
   background: $light-gray;
-  padding: 20px 40px 40px;
-  margin-bottom: 40px;
+  padding: units(1.5) units(2.5) units(2.5);
+  margin-bottom: units(2.5);
   &__name,
   &__value {
     display: inline-block;
-    margin-bottom: 10px;
+    margin-bottom: units(0.75);
   }
 }
 
@@ -26,8 +26,8 @@
     border: 1px solid #abb2bd;
     width: 100%;
     height: 300px;
-    padding: 10px 20px;
+    padding: units(0.75) units(1.5);
     overflow: auto;
-    margin-bottom: 5px;
+    margin-bottom: units(0.25);
   }
 }

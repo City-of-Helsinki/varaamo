@@ -1,12 +1,12 @@
 @import './resourceCardInfoCell';
 
 $card-border-color: #d6d6d6;
-$image-items-margin: 5px;
-$resourceCardPadding: 15px;
-$resourceCardTitleBottomMargin: 6px;
+$image-items-margin: units(0.25);
+$resourceCardmargin: units(1);
+$resourceCardTitleBottomMargin: units(0.5);
 
 .app-resourceCard2 {
-  margin: 20px 0;
+  margin: units(1.5) 0;
   background-color: white;
   display: flow-root;
 
@@ -78,11 +78,11 @@ $resourceCardTitleBottomMargin: 6px;
   &__unit-name {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: units(0.25);
     text-decoration: none;
 
     span:first-child {
-      margin-right: 10px;
+      margin-right: units(0.75);
     }
 
     display: inline-flex;
@@ -105,7 +105,7 @@ $resourceCardTitleBottomMargin: 6px;
     font-size: 1.4rem;
     line-height: 2rem;
     max-height: 2*3rem;
-    margin-top: 15px;
+    margin-top: units(1);
     overflow: hidden;
   }
 

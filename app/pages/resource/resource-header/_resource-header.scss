@@ -2,7 +2,7 @@
   background-color: $copper;
 
   &__content {
-    padding: 15px 0;
+    padding: units(1) 0;
   }
   &__back-button.btn-link {
     color: $black;
@@ -23,7 +23,7 @@
   }
   &__info {
     display: inline-block;
-    padding: 0 20px 0 0;
+    padding: 0 units(1.5) 0 0;
     &-icon {
       height: $line-height-computed;
       width: $line-height-computed;
@@ -33,14 +33,14 @@
   }
   &__buttons {
     display: inline-block;
-    padding-top: 15px;
+    padding-top: units(1);
     button:not(:first-child) {
-      margin-left: 15px;
+      margin-left: units(1);
     }
     @media (max-width: $screen-xs-max) {
       button:not(:first-child) {
         margin-left: 0;
-        margin-top: 15px;
+        margin-top: units(1);
       }
 
       .btn {

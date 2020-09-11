@@ -2,7 +2,7 @@
 
 .checkbox-field {
   .help-block {
-    margin-left: 20px;
+    margin-left: units(1.5);
   }
 }
 
@@ -15,7 +15,6 @@
     color: $blue;
     display: inline;
     min-height: 22px;
-    margin-bottom: 0;
     text-decoration: underline;
     font-size: 1.6rem;
   }

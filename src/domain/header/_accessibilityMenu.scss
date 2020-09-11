@@ -1,5 +1,5 @@
 .app-AccessibilityMenu {
-    padding: 15px 30px;
+    padding: units(1) units(2);
     width: 420px;
     overflow: hidden;
     max-height: 70vh;
@@ -19,7 +19,7 @@
     }
 
     &__checkbox {
-        margin-bottom: 20px;
+        margin-bottom: units(1.5);
 
         input {
             margin-top: 0;
@@ -27,7 +27,7 @@
         
         label {
             font-weight: normal;
-            padding-left: 40px !important;
+            padding-left: units(2.5) !important;
         }
     }
 }

@@ -8,7 +8,7 @@
  * 3. Use `%` instead of `vh` since `vh` is buggy in older mobile Safari.
  */
 
-$layout-padding: 30px;
+$layout-padding: units(2);
 
 :root {
   --root-font-size: 10px;
@@ -52,7 +52,7 @@ footer {
 .app-content {
   flex: 1 0 auto; /* 2 */
   width: 100%;
-  margin-bottom: -41px;
+  margin-bottom: calc(#{units(2.5)} * -1);
   min-height: 550px;
   overflow-y: hidden;
 }

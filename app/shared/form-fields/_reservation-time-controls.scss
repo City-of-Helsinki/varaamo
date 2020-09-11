@@ -3,7 +3,7 @@
 
   .reservation-time-controls-date-control {
     flex: 2 1;
-    margin-right: 40px;
+    margin-right: units(2.5);
     .date-picker {
       border: 2px solid $input-border;
       border-radius: 2px;
@@ -11,10 +11,10 @@
       width: 100%;
       input {
         height: 39px;
-        padding-left: 15px;
+        padding-left: units(1);
       }
       .react-date-field__calendar-icon {
-        margin-right: 15px;
+        margin-right: units(1);
       }
     }
   }
