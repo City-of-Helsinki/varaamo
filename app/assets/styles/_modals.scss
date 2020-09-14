@@ -22,9 +22,9 @@
         left: 0;
         right: 0;
         margin: 0 auto;
-        height: 50px;
-        width: 108px;
-        margin-top: 20px;
+        height: units(3);
+        width: units(6);
+        margin-top: units(1.5);
       }
       .modal-title {
         margin-top: 80px;
@@ -42,7 +42,7 @@
   }
   .btn {
     &+.btn {
-      margin-left: 5px;
+      margin-left: units(0.5);
     }
   }
   .well {

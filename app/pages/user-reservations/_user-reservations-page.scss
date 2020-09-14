@@ -16,7 +16,7 @@
   }
 
   &__tabs {
-    margin-bottom: 18px;
+    margin-bottom: units(1);
   }
 
   &__tab {
@@ -30,7 +30,7 @@
     background: none;
 
     &:not(:last-child) {
-      margin-right: 30px;
+      margin-right: units(2);
     }
 
     &--active {

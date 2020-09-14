@@ -1,0 +1,62 @@
+/* Base unit is 1rem, which is 16px */
+
+$spacing-tokens: (
+  '0.125': var(--spacing-4-xs),
+  '0.25': var(--spacing-3-xs),
+  '0.5': var(--spacing-2-xs),
+  '0.75': var(--spacing-xs),
+  '1': var(--spacing-s),
+  '1.5': var(--spacing-m),
+  '2': var(--spacing-l),
+  '2.5': var(--spacing-xl),
+  '3': var(--spacing-2-xl),
+  '3.5': var(--spacing-3-xl),
+  '4': var(--spacing-4-xl),
+  '4.5': var(--spacing-5-xl),
+);
+
+$layout-spacing-tokens: (
+  '1': var(--spacing-layout-2-xs),
+  '1.5': var(--spacing-layout-xs),
+  '2': var(--spacing-layout-s),
+  '3': var(--spacing-layout-m),
+  '4': var(--spacing-layout-l),
+  '6': var(--spacing-layout-xl),
+  '8': var(--spacing-layout-2-xl),
+);
+
+$spacing-hds: map-merge($spacing-tokens, $layout-spacing-tokens);
+
+$spacings: map-merge(
+  $spacing-hds,
+  (
+    '12': 12rem,
+    '16': 16rem,
+    '24': 24rem,
+    '32': 32rem,
+    '40': 40rem,
+    '48': 48rem,
+  )
+);
+
+/*
+===================================
+    Usage
+===================================
+.element {
+  margin: units(1) units(3);
+  padding: units(2);
+}
+*/
+
+@function units($value) {
+  $converted: if(type-of($value) == 'string', $value, inspect($value));
+
+  @if not map-has-key($spacings, $converted) {
+    @error '`#{$value}` is not a valid spacing unit token. '
+          + 'Valid spacing unit tokens: '
+          + '#{map-keys($spacings)}';
+  }
+
+  @return map-get($spacings, $converted);
+}

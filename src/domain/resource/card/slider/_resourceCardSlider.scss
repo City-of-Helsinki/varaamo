@@ -1,7 +1,7 @@
 .app-ResourceCardSlider {
   $button-size: $line-height-computed;
-  $button-offset: 10px;
-  $button-offset-mobile: 2px;
+  $button-offset: units(0.75);
+  $button-offset-mobile: units(0.125);
 
   position: relative;
 

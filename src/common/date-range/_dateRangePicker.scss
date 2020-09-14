@@ -49,7 +49,7 @@
 
   .DayPicker-Day {
     border-radius: 0;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $gray-light;
     text-decoration: line-through;

@@ -73,7 +73,7 @@
   }
 
   &__inline-modal {
-    padding: 16px 18px;
+    padding: units(1);
 
     box-shadow: 4px 4px 14px 4px rgba(29, 27, 49, 0.4);
     background: $white;
@@ -88,7 +88,7 @@
        would cause the position of the event to flicker when the event
        spanned the final hour visible in the calendar in the week view.
       */
-    margin-bottom: 12px;
+    margin-bottom: units(0.75);
   } 
 
   .fc-event,
@@ -108,9 +108,9 @@
 
   .fc-time-grid-event.fc-selected {
     .fc-resizer {
-      width: 12px;
-      height: 12px;
-      bottom: -7px;
+      width: units(0.75);
+      height: units(0.75);
+      bottom: calc(#{units(0.5)} * -1);
       left: 49%;
       z-index: z-index(time-picker-calendar-resizer) !important;
       border-radius: 50%;
@@ -120,7 +120,7 @@
         max-height: 80px;
         top: 0;
         left: 0;
-        margin-left: -40px;
+        margin-left: calc(#{units(2.5)} * -1);
       }
 
       &::after {

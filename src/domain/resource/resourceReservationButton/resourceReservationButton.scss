@@ -1,6 +1,6 @@
 .app-ResourceReservationButton {
   &__selectedInfo {
-    margin: 20px 0;
+    margin: units(1.5) 0;
     display: flex;
 
     @media (max-width: $screen-sm-max) {
@@ -15,7 +15,7 @@
     align-items: center;
 
     @media (max-width: $screen-sm-max) {
-      margin-bottom: 20px;
+      margin-bottom: units(1.5);
       text-align: center;
     }
   }
