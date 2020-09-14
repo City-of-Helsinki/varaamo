@@ -4,7 +4,7 @@
 .app-UserReservationPage {
 
   &__overlay {
-    z-index: 5;
+    z-index: z-index(reservation-page-overlay);
   }
 
   &__content {

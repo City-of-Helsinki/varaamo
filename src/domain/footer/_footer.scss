@@ -1,7 +1,7 @@
 footer {
   background-color: $brand-primary;
   color: #fff;
-  z-index: $max-map-z-index + 1;
+  z-index: z-index(footer);
   margin-top: units(2.5);
   text-align: center;
   font-size: 1.6rem;

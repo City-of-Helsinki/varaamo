@@ -5,7 +5,7 @@ $map-height: 600px;
     height: $map-height;
     width: 100%;
     position: relative;
-    z-index: 1;
+    z-index: z-index(resource-map);
   }
 
   .leaflet-marker-icon {

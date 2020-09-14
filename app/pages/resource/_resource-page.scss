@@ -194,7 +194,7 @@ $content-padding: units(0.75);
   @media (max-width: $screen-xs-max) {
     #footer {
       position: relative;
-      z-index: -15;
+      z-index: z-index(resource-page-footer);
     }
     .app-ResourceHeader__content {
       padding: units(1);

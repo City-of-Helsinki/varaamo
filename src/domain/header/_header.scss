@@ -5,5 +5,5 @@
 @import './accessibilityMenu';
 
 .app-Header {
-  z-index: 4;
+  z-index: z-index(header);
 }
