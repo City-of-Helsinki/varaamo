@@ -2,6 +2,7 @@
 @import './reservation-list/reservation-list';
 
 .app-UserReservationPage {
+  height: 100%;
 
   &__overlay {
     z-index: z-index(reservation-page-overlay);

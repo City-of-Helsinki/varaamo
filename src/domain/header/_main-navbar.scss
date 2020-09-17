@@ -20,8 +20,12 @@ $externalIconMarginLeft: units(0.5);
   }
   .navbar-brand,
   .navbar-brand:hover,
-  .navbar-toggle .icon-bar {
+  .navbar-brand:focus {
     color: $white;
+  }
+
+  .navbar-toggle .icon-bar {
+    background-color: $white;
   }
 
   .navbar-nav {
