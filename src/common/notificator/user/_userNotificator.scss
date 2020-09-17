@@ -15,7 +15,7 @@
     right: units(1.5);
     top: units(0.25);
     color: $gray;
-    z-index: 1;
+    z-index: z-index(user-notificator-close);
   }
 
   .close-notificator:hover {

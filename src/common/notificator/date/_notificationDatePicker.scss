@@ -19,7 +19,7 @@
     right: 0;
     border: 2px solid $black;
     border-top: none;
-    z-index: 1000;
+    z-index: z-index(notificator-date-picker);
     width: 90%;
     display: flex;
     justify-content: center;

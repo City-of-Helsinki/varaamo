@@ -96,55 +96,7 @@
       width: 110px;
       height: $av-header-height;
       box-sizing: content-box;
-      z-index: 3;
-    }
-    .react-date-field__calendar-icon {
-      z-index: 10;
-      border: none;
-      &:hover {
-        background-color: transparent;
-        .react-date-field__calendar-icon-inner {
-          background-color: transparent;
-        }
-      }
-      &:active {
-        border: none;
-      }
-      &::before,
-      &::after {
-        visibility: hidden;
-      }
-      .react-date-field__calendar-icon-inner {
-        line-height: $av-header-height;
-        height: $av-header-height;
-        margin: 0;
-        padding: 0;
-        width: 150px;
-        text-align: right;
-        cursor: pointer;
-        margin-left: calc(#{units(1.5)} * -1);
-        z-index: 10;
-        margin-left: -140px;
-        position: static;
-        background-color: transparent;
-
-        &::after {
-          font-family: 'Glyphicons Halflings';
-          content: '\e252';
-          visibility: visible;
-          color: white;
-          font-size: 1.8rem;
-          position: absolute;
-          right: units(1.5);
-        }
-      }
-    }
-    &.react-date-field--expanded {
-      .react-date-field__calendar-icon-inner {
-        &::after {
-          content: '\e253';
-        }
-      }
+      z-index: z-index(availability-view-input);
     }
   }
   .group-info {
@@ -222,11 +174,11 @@
       width: units(0.125);
       background-color: $black;
       opacity: 0.25;
-      z-index: 30;
+      z-index: z-index(availability-view-timeline);
     }
     .sticky {
       overflow: hidden;
-      z-index: 10;
+      z-index: z-index(availability-view-sticky);
     }
     .hours {
       display: flex;
@@ -289,7 +241,7 @@
     border: $slot-border;
     border-width: $slot-border-size * 2;
     border-radius: 50%;
-    z-index: 1;
+    z-index: z-index(availability-view-link);
     box-sizing: content-box;
   }
   .reservation,
@@ -369,7 +321,7 @@
 }
 
 .reservation-info-popover {
-  z-index: 1000;
+  z-index: z-index(availability-view-popover);
 
   hr {
     margin-top: units(0.25);

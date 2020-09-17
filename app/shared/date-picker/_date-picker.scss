@@ -22,7 +22,7 @@
   .date-picker-overlay {
     background-color: white;
     position: absolute;
-    z-index: 100;
+    z-index: z-index(date-picker-overlay);
     border: solid 2px $brand-primary;;
     padding: units(0.75);
     display: flex;

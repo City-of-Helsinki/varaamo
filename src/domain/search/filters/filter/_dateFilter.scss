@@ -36,7 +36,7 @@
     left: 0;
     right: 0;
     top: 100% !important;
-    z-index: 2;
+    z-index: z-index(date-filter);
     padding: units(1.5);
   }
 
