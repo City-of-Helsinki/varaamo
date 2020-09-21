@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils getCancelCategories should return an array of objects 1`] = `
+Array [
+  Object {
+    "label": "Muut",
+    "value": 1,
+  },
+  Object {
+    "label": "Testi",
+    "value": 2,
+  },
+  Object {
+    "label": "Hylätty",
+    "value": 3,
+  },
+]
+`;
