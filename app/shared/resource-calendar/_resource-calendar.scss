@@ -6,10 +6,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 30px auto;
+  margin: units(2) auto;
 
   &__icon {
-    width: 22px;
+    width: units(1.5);
   }
 
   .app-ResourceCalendar__wrapper {
@@ -77,7 +77,7 @@
     .DayPicker-Caption {
       height: auto;
       font-weight: 600;
-      line-height: 3rem;
+      line-height: units(3);
       font-size: 1.6rem;
       text-transform: capitalize;
       text-align: center;
@@ -91,8 +91,8 @@
 
     .DayPicker-Day {
       border: 2px solid $white;
-      padding: 1.2rem;
-      margin: 1px;
+      padding: units(1.5) units(1);
+      margin: units(0.125);
       line-height: 1rem;
       color: $black;
       background-color: $available-color;
@@ -134,7 +134,7 @@
     }
 
     .DayPicker-WeekdaysRow {
-      padding: 0.2rem;
+      padding: units(0.25);
       font-size: 1.4rem;
     }
 
@@ -159,15 +159,15 @@
       display: flex;
       justify-content: space-between;
       span {
-        padding: 8px;
+        padding: units(0.5);
       }
       span::before {
         content: '';
         display: inline-block;
         vertical-align: middle;
-        width: 16px;
-        height: 16px;
-        margin: 6px;
+        width: units(1);
+        height: units(1);
+        margin: units(0.5);
       }
       span.free::before {
         background-color: $copper;
@@ -183,7 +183,7 @@
     .app-ResourceCalendarOverlay {
       position: absolute;
       width: 100%;
-      z-index: 2222;
+      z-index: z-index(resource-calendar-overlay);
 
       &__overlay {
         border-style: solid;
@@ -195,7 +195,7 @@
         color: $white;
         right: 0;
         position: absolute;
-        top: 5px;
+        top: units(0.25);
       }
 
       &__hide:active,
@@ -207,9 +207,9 @@
 
       &__header {
         color: $white;
-        height: 40px;
+        height: units(2.5);
         h2 {
-          margin: 0 40px 0 15px;
+          margin: 0 units(2.5) 0 units(1);
           line-height: 40px;
           font-size: 1.6rem;
           font-weight: $font-weight-light;
@@ -218,7 +218,7 @@
 
       &__content {
         background-color: $white;
-        padding: 20px;
+        padding: units(1.5);
       }
     }
     @media (max-width: $screen-xs-max) {

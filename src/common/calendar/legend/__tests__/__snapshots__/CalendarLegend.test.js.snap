@@ -25,7 +25,7 @@ exports[`CalendarLegend Legend render normally 1`] = `
       className="color-box color-box__selection"
     />
     <p>
-      CalendarLegend.selection
+      common.selection
     </p>
   </Col>
   <Col

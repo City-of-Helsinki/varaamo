@@ -14,21 +14,21 @@
   .reservation-state-label-container {
     text-align: right;
     font-size: 2.4rem;
-    margin-bottom: 10px;
+    margin-bottom: units(0.75);
   }
 
   .reservation-edit-form {
-    padding: 10px;
-    margin-left: -10px;
-    margin-right: -10px;
-    margin-bottom: 15px;
+    padding: units(0.75);
+    margin-left: calc(#{units(0.75)} * -1);
+    margin-right: calc(#{units(0.75)} * -1);
+    margin-bottom: units(1);
 
     &.editing {
       background-color: $gray-lighter;
     }
 
     .form-group {
-      margin-bottom: 5px;
+      margin-bottom: units(0.25);
     }
 
     .col-sm-3 {
@@ -39,7 +39,7 @@
 
     .form-controls {
       button + button {
-        margin-left: 5px;
+        margin-left: units(0.25);
       }
     }
 
@@ -49,12 +49,12 @@
   }
 
   .comments-form {
-    padding-top: 15px;
+    padding-top: units(1);
     border-top: 1px solid #e5e5e5;
   }
 
   dd {
-    margin-bottom: 10px;
+    margin-bottom: units(0.75);
   }
 
   .form-controls {

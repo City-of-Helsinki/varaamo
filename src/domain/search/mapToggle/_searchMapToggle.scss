@@ -3,7 +3,7 @@
   display: block;
   margin: 0;
   position: relative;
-  z-index: 2;
+  z-index: z-index(search-map-toggle);
 
   &__results-count {
     padding-top: 8px;

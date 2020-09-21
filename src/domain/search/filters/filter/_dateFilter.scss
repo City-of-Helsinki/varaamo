@@ -36,8 +36,8 @@
     left: 0;
     right: 0;
     top: 100% !important;
-    z-index: 2;
-    padding: 20px;
+    z-index: z-index(date-filter);
+    padding: units(1.5);
   }
 
   &__calendar_error {
@@ -102,7 +102,7 @@
 
   .DayPicker-Day {
     border: 2px solid $white;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $black;
     background-color: $light-gray;

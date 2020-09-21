@@ -1,9 +1,9 @@
 .modal-backdrop {
-  z-index: 30000;
+  z-index: z-index(modal-backdrop);
 }
 
 .modal {
-  z-index: 30010;
+  z-index: z-index(modal);
   &.modal-city-theme {
     .modal-content {
       color: $black;
@@ -22,9 +22,9 @@
         left: 0;
         right: 0;
         margin: 0 auto;
-        height: 50px;
-        width: 108px;
-        margin-top: 20px;
+        height: units(3);
+        width: units(6);
+        margin-top: units(1.5);
       }
       .modal-title {
         margin-top: 80px;
@@ -42,7 +42,7 @@
   }
   .btn {
     &+.btn {
-      margin-left: 5px;
+      margin-left: units(0.5);
     }
   }
   .well {

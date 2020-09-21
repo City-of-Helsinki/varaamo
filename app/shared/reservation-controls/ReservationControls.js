@@ -16,7 +16,7 @@ class ReservationControls extends Component {
           key="cancelButton"
           onClick={this.props.onCancelClick}
         >
-          {this.props.t('ReservationControls.cancel')}
+          {this.props.t('common.cancel')}
         </Button>
       ),
       confirm: (

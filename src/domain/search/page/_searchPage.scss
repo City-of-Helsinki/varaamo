@@ -1,8 +1,9 @@
 .app-SearchPage {
   background-color: $silver;
+  height: 100%;
 
   &__overlay {
-    z-index: 5;
+    z-index: z-index(search-page-overlay);
   }
 
   &__results {

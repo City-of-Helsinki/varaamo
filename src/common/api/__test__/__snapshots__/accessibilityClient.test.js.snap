@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`domain/common/api/accessibilityClient.js getSentences returns results in correct format 1`] = `
+Array [
+  Object {
+    "sentenceGroup": "Palvelutiski / vahtimestaripalvelut",
+    "sentences": Array [
+      "Kokoustila on rakennuksessa, jossa on palvelutiski / vahtimestaripalveluita. Ilmoittaudu ensin palvelutiskillä.",
+      "Kokoustila sijaitsee samassa kerroksessa kuin sisäänkäynti.",
+    ],
+  },
+  Object {
+    "sentenceGroup": "Reitti kokoustilaan",
+    "sentences": Array [
+      "Matkalla kokoustilaan on lukittuja sähköisiä ovia, jotka avataan palvelutiskiltä tai ennakkoon hankittavalla kulunvalvonta-avaimella.",
+      "Kulkureitillä kokoustilaan on ovi tai ovia, jotka aukeavat käsin helposti. Lasiovissa on kontrastimerkinnät.",
+      "Kulkureitillä kokoustilaan on yli 2 cm korkeita kynnyksiä.",
+    ],
+  },
+  Object {
+    "sentenceGroup": "Kokoustila",
+    "sentences": Array [
+      "Kokoustilan ovi aukeaa kulunvalvonta-avaimella. Oviaukossa ei ole kynnystä.",
+      "Kokoustilassa on niukasti tilaa liikkua pyörätuolin kanssa.",
+      "Kokoustilassa on taustamelua, jonka lähde on ilmanvaihto. Kokolattiamatto vaimentaa ääntä.",
+      "Kokoustilassa on istuimia. Kaikissa istuimissa on selkänoja.",
+      "Kokoustilassa on pöytiä, joiden ääreen pääsee pyörätuolilla. Pöytien yhteydessä on pistorasioita kuten myös kokoustilan seinissä.",
+      "Kokoustilan valaistus on tasainen ja häikäisemätön.",
+    ],
+  },
+  Object {
+    "sentenceGroup": "Esteetön wc",
+    "sentences": Array [
+      "Esteetön wc on samassa kerroksessa kuin kokoustila.",
+      "Lähin miesten/naisten wc on samassa kerroksessa kuin kokoustila.",
+    ],
+  },
+]
+`;
+
+exports[`domain/common/api/accessibilityClient.js getShortcomings returns results in correct format 1`] = `
+Array [
+  Object {
+    "sentenceGroup": "Olen pyörätuolin käyttäjä",
+    "sentences": Array [
+      "Kulkureitillä kokoustilaan on yli 2 cm korkeita kynnyksiä.",
+      "Kokoustilassa ei ole tarpeeksi tilaa liikkua pyörätuolilla.",
+    ],
+  },
+  Object {
+    "sentenceGroup": "Olen rollaattorin käyttäjä",
+    "sentences": Array [
+      "Kulkureitillä kokoustilaan on yli 2 cm korkeita kynnyksiä.",
+      "Kokoustilassa ei ole tarpeeksi tilaa liikkua rollaattorilla.",
+    ],
+  },
+  Object {
+    "sentenceGroup": "Käytän kuulolaitetta",
+    "sentences": Array [
+      "Kokoustilassa ei ole kiinteää eikä siirrettävää induktiosilmukkaa.",
+      "Kokoustilassa on häiritsevää taustamelua.",
+    ],
+  },
+]
+`;

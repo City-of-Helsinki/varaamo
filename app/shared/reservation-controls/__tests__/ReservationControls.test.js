@@ -67,7 +67,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(2), 'cancel', 'common.cancel', onCancelClick);
       });
     });
 
@@ -159,7 +159,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+          makeButtonTests(buttons.at(1), 'cancel', 'common.cancel', onCancelClick);
         });
 
         describe('the third button', () => {
@@ -180,7 +180,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
         });
 
         describe('the second button', () => {
-          makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+          makeButtonTests(buttons.at(1), 'cancel', 'common.cancel', onCancelClick);
         });
       });
     });
@@ -206,7 +206,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(2), 'cancel', 'common.cancel', onCancelClick);
       });
     });
 
@@ -227,7 +227,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the third button', () => {
-        makeButtonTests(buttons.at(2), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(2), 'cancel', 'common.cancel', onCancelClick);
       });
     });
 
@@ -270,7 +270,7 @@ describe('shared/reservation-controls/ReservationControls', () => {
       });
 
       describe('the second button', () => {
-        makeButtonTests(buttons.at(1), 'cancel', 'ReservationControls.cancel', onCancelClick);
+        makeButtonTests(buttons.at(1), 'cancel', 'common.cancel', onCancelClick);
       });
     });
   });

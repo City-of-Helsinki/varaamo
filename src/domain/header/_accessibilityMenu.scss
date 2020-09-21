@@ -1,0 +1,33 @@
+.app-AccessibilityMenu {
+    padding: units(1) units(2);
+    width: 420px;
+    overflow: hidden;
+    max-height: 70vh;
+    
+    &__btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    &__options-wrapper {
+        overflow: scroll;
+        max-height: 70vh;
+    }
+    
+    &__btn {
+        margin-left: 8px;
+    }
+
+    &__checkbox {
+        margin-bottom: units(1.5);
+
+        input {
+            margin-top: 0;
+        }
+        
+        label {
+            font-weight: normal;
+            padding-left: units(4) !important;
+        }
+    }
+}

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { DateUtils } from 'react-day-picker';
 
 import AppConstants from '../../../app/constants/AppConstants';
 
@@ -12,7 +11,9 @@ export const DatePickerValidationError = Object.freeze({
 });
 
 const diffDays = (date, other) => {
-  return moment(date).startOf('day').diff(moment(other).startOf('day'), 'days') + 1;
+  return (
+    moment(date).startOf('day').diff(moment(other).startOf('day'), 'days') + 1
+  );
 };
 
 const isRangeTooLong = (range, maxDays) => {
@@ -27,20 +28,24 @@ const isValidStartingDay = (range, startingDays) => {
   return startingDays.some(startingDay => moment(startingDay).isSame(range.from, 'day'));
 };
 
+const isDayInRange = (day, range) => {
+  return moment(day).isBetween(range.from, range.to, undefined, '[]');
+};
+
 const isOverlappingReservation = (range, reservations) => {
   return reservations.some(
-    reservation => DateUtils.isDayInRange(range.from, reservation)
-      || DateUtils.isDayInRange(range.to, reservation)
-      || DateUtils.isDayInRange(reservation.from, range)
-      || DateUtils.isDayInRange(reservation.to, range),
+    reservation => isDayInRange(range.from, reservation)
+      || isDayInRange(range.to, reservation)
+      || isDayInRange(reservation.from, range)
+      || isDayInRange(reservation.to, range),
   );
 };
 
 const isWithinOpeningPeriods = (range, openingPeriods) => {
   // TODO: perhaps need to check for overlapping opening periods and merge them?
   return openingPeriods.some(
-    openingPeriod => DateUtils.isDayInRange(range.from, openingPeriod)
-      && DateUtils.isDayInRange(range.to, openingPeriod),
+    openingPeriod => isDayInRange(range.from, openingPeriod)
+      && isDayInRange(range.to, openingPeriod),
   );
 };
 
@@ -85,5 +90,5 @@ export const formatTimeRange = (startDate, endDate) => {
 };
 
 export const getDateRangeDuration = (startDate, endDate) => {
-  return moment(endDate).diff(moment(startDate), 'days');
+  return diffDays(endDate, startDate);
 };

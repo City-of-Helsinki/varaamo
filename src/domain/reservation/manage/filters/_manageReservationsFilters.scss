@@ -13,7 +13,7 @@
     .separator {
       margin-bottom: $form-group-margin-bottom;
       width: 30px;
-      padding-top: 24px;
+      padding-top: units(1.5);
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -26,10 +26,10 @@
   }
 
   &__resetButton {
-    margin-top: 20px;
+    margin-top: units(1.5);
 
     img {
-      margin-left: -6px;
+      margin-left: calc(#{units(0.5)} * -1);;
       width: $line-height-computed;
     }
   }

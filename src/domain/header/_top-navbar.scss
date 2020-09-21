@@ -16,7 +16,7 @@
     width: 24px;
     height: 24px;
     float: left;
-    margin-right: 4px;
+    margin-right: units(0.25);
   }
 
   &__language > a::before {
@@ -55,8 +55,8 @@
   .nav {
     li {
       a {
-        padding-left: 2px;
-        margin-left: 2px;
+        padding-left: units(0.125);
+        margin-left: units(0.125);
       }
 
       a#language-nav-dropdown {
@@ -80,7 +80,7 @@
   .navbar-nav {
     float: left;
     margin: 0;
-    margin-right: -15px;
+    margin-right: calc(#{units(1)} * -1);
 
     > li {
       float: left;
@@ -105,7 +105,7 @@
       content: '';
       border-bottom: solid 3px #000000;
       position: absolute;
-      bottom: 12px;
+      bottom: units(0.25);
       margin-left: auto;
       margin-right: auto;
       left: 0;

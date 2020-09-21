@@ -51,7 +51,6 @@ $font-weight-regular:    400;
 $font-weight-light:      200;
 
 $favorite-color:         #BF0863;
-$max-map-z-index:        1000;
 $input-box-shadow-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 $force-open-navbar-screen-width: 1280px;
 
@@ -66,7 +65,7 @@ $button-horizontal-padding:    15px;
 
 $app-ResourceCard-height: 180px;
 $app-SearchPage-max-width: 800px;
-$app-SearchPage-margin: 10px;
+$app-SearchPage-margin: units(0.75);
 
 $app-DateRangePicker-color-reserved: #f6e2e6;
 $app-DateRangePicker-color-available: #e2f5f3;

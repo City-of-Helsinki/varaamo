@@ -51,8 +51,11 @@ store.subscribe(() => {
 export class ApiClient {
   baseUrl;
 
-  constructor(baseUrl) {
+  useAuth;
+
+  constructor(baseUrl, useAuth = true) {
     this.baseUrl = baseUrl;
+    this.useAuth = useAuth;
     authToken = getToken();
   }
 
@@ -64,7 +67,7 @@ export class ApiClient {
 
   getHeaders = () => ({
     ...constants.REQUIRED_API_HEADERS,
-    ...(authToken
+    ...(this.useAuth && authToken
       ? { Authorization: `JWT ${authToken}` }
       : {}),
   });

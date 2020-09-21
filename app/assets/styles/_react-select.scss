@@ -1,14 +1,13 @@
 $selectBorderWidth: 2px;
-$selectBorderRadius: 2px;
+$selectBorderRadius: units(0.125);
 $selectBoxPadding: 0 0 0 8px;
 $selectLineHeight: 39px;
 $selectDropdownBorderWidth: 5px 5px 2.5px;
 $selectFocusedOptionColor: lighten($hel-fog, 15%);
 $selectFontSize: 3rem;
 $selectDropdownWidth: 25px;
-$selectMenuPaddingTop: -2px;
-$selectDropdownAfterMarginTop: 4px;
-$selectDropdownPaddingRight: 4px;
+$selectDropdownAfterMarginTop: units(0.25);
+$selectDropdownPaddingRight: units(0.25);
 
 .app-Select {
   display: flex;
@@ -116,7 +115,7 @@ $selectDropdownPaddingRight: 4px;
   }
 
   .app-Select__menu {
-    margin-top: $selectMenuPaddingTop;
+    margin-top: -#{$selectBorderWidth};
     border: $selectBorderWidth solid $black;
     border-radius: 0;
     box-shadow: none;

@@ -1,14 +1,14 @@
 .resource-type-button {
   text-transform: capitalize;
   & + & {
-    margin-left: 10px;
+    margin-left: units(0.75);
   }
 }
 
 .resource-type-filter-container {
   background-color: $gray-lighter;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: units(0.75);
+  margin-bottom: units(0.75);
 
   h6 {
     color: $gray-darker;

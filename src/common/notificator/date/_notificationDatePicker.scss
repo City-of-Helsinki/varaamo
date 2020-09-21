@@ -6,7 +6,7 @@
   .date-holder {
     height: 100%;
     width: 100%;
-    padding: 0 10px;
+    padding: 0 units(0.75);
     display: flex;
     align-items: center;
   }
@@ -15,11 +15,11 @@
     background-color: $white;
     position: absolute;
     top: 100% !important;
-    left: 15px;
+    left: units(1);
     right: 0;
     border: 2px solid $black;
     border-top: none;
-    z-index: 1000;
+    z-index: z-index(notificator-date-picker);
     width: 90%;
     display: flex;
     justify-content: center;

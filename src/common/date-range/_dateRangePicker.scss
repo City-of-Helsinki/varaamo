@@ -49,7 +49,7 @@
 
   .DayPicker-Day {
     border-radius: 0;
-    margin: 1px;
+    margin: units(0.125);
     line-height: 1rem;
     color: $gray-light;
     text-decoration: line-through;
@@ -129,6 +129,38 @@
       -45deg,
       $app-DateRangePicker-color-reserved 50%,
       $app-DateRangePicker-color-selected 50%
+    ) !important;
+  }
+
+  .DayPicker-Day--reserved.DayPicker-Day--selectionEnd {
+    background: linear-gradient(
+        -45deg,
+        $app-DateRangePicker-color-reserved 50%,
+        $app-DateRangePicker-color-selected 50%
+    ) !important;
+  }
+
+  .DayPicker-Day--reserved.DayPicker-Day--selectionStart {
+    background: linear-gradient(
+        -45deg,
+        $app-DateRangePicker-color-selected 50%,
+        $app-DateRangePicker-color-reserved 50%
+    ) !important;
+  }
+
+  .DayPicker-Day--reservationEnd.DayPicker-Day--selectionEnd {
+    background: linear-gradient(
+        -45deg,
+        $app-DateRangePicker-color-available 50%,
+        $app-DateRangePicker-color-selected 50%
+    ) !important;
+  }
+
+  .DayPicker-Day--reservationStart.DayPicker-Day--selectionStart {
+    background: linear-gradient(
+        -45deg,
+        $app-DateRangePicker-color-selected 50%,
+        $app-DateRangePicker-color-available 50%
     ) !important;
   }
 

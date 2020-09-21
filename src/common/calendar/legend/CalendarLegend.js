@@ -15,7 +15,7 @@ const CalendarLegend = (props) => {
 
       <Col md={3}>
         <div className="color-box color-box__selection" />
-        <p>{t('CalendarLegend.selection')}</p>
+        <p>{t('common.selection')}</p>
       </Col>
 
       <Col md={3}>

@@ -1,9 +1,9 @@
 $carousel-image-min-height: 260px;
 $carousel-image-mid-height: 350px;
-$carousel-image-max-height: 420px;
+$carousel-image-max-height: 4units(1.5);
 $resource-page-width: 700px;
-$margin-between-items: 10px;
-$content-padding: 10px;
+$margin-between-items: units(0.75);
+$content-padding: units(0.75);
 
 // https://github.com/twbs/bootstrap/blob/a4a04cd9ec741050390746f8056cc79a9c04c8df/scss/mixins/_screen-reader.scss
 @mixin sr-only {
@@ -50,13 +50,13 @@ $content-padding: 10px;
   }
 
   &__content {
-    padding: 30px 0;
+    padding: units(2) 0;
     background-color: $white;
-    margin: 15px 0 30px;
+    margin: units(1) 0 units(2);
   }
 
   .date-header {
-    margin-bottom: 20px;
+    margin-bottom: units(1.5);
     font-size: 1.8rem;
     color: $brand-primary;
     text-align: left;
@@ -86,8 +86,8 @@ $content-padding: 10px;
 
   .app-ResourceCard {
     position: fixed;
-    bottom: 15px;
-    left: 15px;
+    bottom: units(1);
+    left: units(1);
     margin: 0;
     width: calc(100% - 30px);
     max-width: $app-SearchPage-max-width;
@@ -97,14 +97,14 @@ $content-padding: 10px;
   &__back-button {
     @include button-variant($gray, $white, $white);
     display: inline-block;
-    margin-top: 7px;
-    margin-right: 7px;
-    margin-bottom: 7px;
+    margin-top: units(0.5);
+    margin-right: units(0.5);
+    margin-bottom: units(0.5);
     box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
     border-style: none;
     border-radius: 100px;
-    padding: 5px;
-    padding-right: 10px;
+    padding: units(0.25);
+    padding-right: units(0.75);
     font-size: 1.3rem;
 
     & > div {
@@ -114,7 +114,7 @@ $content-padding: 10px;
     .app-ResourcePage__map-icon {
       color: $brand-primary;
       font-size: 3.3rem;
-      margin-right: 3px;
+      margin-right: units(0.25);
       vertical-align: middle;
     }
 
@@ -125,23 +125,23 @@ $content-padding: 10px;
   }
 
   &__back-button {
-    line-height: 33px;
+    line-height: units(2);
   }
 
   .panel {
     background-color: transparent;
     border-top: 3px solid $silver;
     box-shadow: none;
-    margin: 15px 0;
+    margin: units(1) 0;
 
     .panel-heading {
       background-color: transparent;
-      padding: 15px 0;
+      padding: units(1) 0;
 
       .panel-title {
         a {
           color: $black;
-          padding-left: 24px;
+          padding-left: units(2.5);
           position: relative;
           text-decoration: none;
 
@@ -180,7 +180,7 @@ $content-padding: 10px;
 
   @media (min-width: $screen-xs-max) {
     .app-ResourceHeader__content {
-      padding: 15px 15px 15px 15px;
+      padding: units(1);
     }
 
     .h1, h1 {
@@ -194,10 +194,10 @@ $content-padding: 10px;
   @media (max-width: $screen-xs-max) {
     #footer {
       position: relative;
-      z-index: -15;
+      z-index: z-index(resource-page-footer);
     }
     .app-ResourceHeader__content {
-      padding: 15px 15px 15px 15px;
+      padding: units(1);
     }
     .h1, h1 {
       font-size: 2.4rem;

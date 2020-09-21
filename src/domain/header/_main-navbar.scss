@@ -1,4 +1,4 @@
-$externalIconMarginLeft: 5px;
+$externalIconMarginLeft: units(0.5);
 
 .app-MainNavbar {
   background-color: $theme-primary-dark;
@@ -20,8 +20,12 @@ $externalIconMarginLeft: 5px;
   }
   .navbar-brand,
   .navbar-brand:hover,
-  .navbar-toggle .icon-bar {
+  .navbar-brand:focus {
     color: $white;
+  }
+
+  .navbar-toggle .icon-bar {
+    background-color: $white;
   }
 
   .navbar-nav {
@@ -29,6 +33,16 @@ $externalIconMarginLeft: 5px;
       a {
         display: flex;
         align-items: center;
+      }
+
+      .app-MainNavbar__selection {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .app-MainNavbar__selection-overview {
+        font-weight: normal;
       }
     }
   }

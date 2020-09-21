@@ -1,16 +1,16 @@
-$horizontal-margin: 20px;
+$horizontal-margin: units(1.5);
 
 .app-ResourceInfo {
   &__images {
     min-height: 240px;
 
     @media (min-width: $screen-md-min) {
-      padding-top: 15px;
+      padding-top: units(1);
     }
   }
 
   &__image-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: units(2);
     text-align: center;
 
     &--main-image {
@@ -19,9 +19,9 @@ $horizontal-margin: 20px;
 
     &--mobile-main-image {
       display: block;
-      margin-top: 30px;
-      margin-left: 15px;
-      margin-right: 15px;
+      margin-top: units(2);
+      margin-left: units(1);
+      margin-right: units(1);
     }
 
     @media (min-width: $screen-md-min) {
@@ -98,10 +98,45 @@ $horizontal-margin: 20px;
     &-header {
       color: $gold;
       font-weight: 600;
-      margin: 30px 0 15px 0;
+      margin: units(2) 0 units(1) 0;
     }
     &-label {
-      margin-right: 10px;
+      margin-right: units(0.75);
+    }
+  }
+
+  &__accessibility {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5rem;
+
+    &__icon {
+      width: units(1.5);
+      height: units(1.5);
+      margin-right: units(1);
+    }
+
+    &__shortcoming-sentence-group {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__accessibility-resource-panel {
+    a {
+      display: block;
+    }
+
+    &__title-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &__shortcomings {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
     }
   }
 }
