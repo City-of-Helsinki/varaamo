@@ -26,6 +26,8 @@ import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
 import { isAdminSelector } from '../../../../../app/state/selectors/authSelectors';
 import ReservationCancelModal from '../../modal/ReservationCancelModal';
+import { getCancelCategories } from '../../modal/utils';
+import { getHasOnlinePaymentSupport } from '../../../resource/utils';
 
 export const PAGE_SIZE = 50;
 const INITIAL_SELECTED_RESERVATION_RESOURCE = {
@@ -166,13 +168,11 @@ class ManageReservationsPage extends React.Component {
   }
 
   loadCancelReasonCategories = () => {
+    const { isAdmin, locale } = this.props;
+
     client.get('cancel_reason_category').then((res) => {
-      this.setState({
-        cancelCategories: res.data && res.data.map(category => ({
-          value: category.id,
-          label: category.name[this.props.locale || 'fi'],
-        })),
-      });
+      const cancelCategories = getCancelCategories(res.data, isAdmin, locale);
+      this.setState({ cancelCategories });
     });
   }
 
@@ -394,6 +394,7 @@ class ManageReservationsPage extends React.Component {
         )}
         {isReservationCancelModalOpen && (
           <ReservationCancelModal
+            billable={getHasOnlinePaymentSupport(this.selectedReservationResource)}
             cancelCategories={cancelCategories}
             onEditReservation={this.onEditReservation}
             parentToggle={this.parentToggle}

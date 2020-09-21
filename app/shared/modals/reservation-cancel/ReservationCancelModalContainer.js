@@ -11,6 +11,7 @@ import reservationCancelModalSelector from './reservationCancelModalSelector';
 import ReservationCancelModal from '../../../../src/domain/reservation/modal/ReservationCancelModal';
 import ReservationCancelNotAllowed from '../../../../src/domain/reservation/modal/ReservationCancelNotAllowed';
 import client from '../../../../src/common/api/client';
+import { getCancelCategories } from '../../../../src/domain/reservation/modal/utils';
 
 class UnconnectedReservationCancelModalContainer extends Component {
   constructor(props) {
@@ -27,13 +28,11 @@ class UnconnectedReservationCancelModalContainer extends Component {
   }
 
   loadCancelReasonCategories = () => {
+    const { isAdmin, locale } = this.props;
+
     client.get('cancel_reason_category').then((res) => {
-      this.setState({
-        cancelCategories: res.data && res.data.map(category => ({
-          value: category.id,
-          label: category.name[this.props.locale || 'fi'],
-        })),
-      });
+      const cancelCategories = getCancelCategories(res.data, isAdmin, locale);
+      this.setState({ cancelCategories });
     });
   }
 
@@ -89,6 +88,7 @@ UnconnectedReservationCancelModalContainer.propTypes = {
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   locale: PropTypes.string.isRequired,
 };
 
