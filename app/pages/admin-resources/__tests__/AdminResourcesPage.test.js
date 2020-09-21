@@ -15,7 +15,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
   const selectAdminResourceType = simple.stub();
   const openConfirmReservationModal = simple.stub();
   const unselectAdminResourceType = simple.stub();
-  const myPremisessSetSelectedTimeSlots = simple.stub();
+  const myPremisesSetSelectedTimeSlots = simple.stub();
 
   const defaultProps = {
     actions: {
@@ -26,7 +26,7 @@ describe('pages/admin-resources/AdminResourcesPage', () => {
       selectAdminResourceType,
       openConfirmReservationModal,
       unselectAdminResourceType,
-      myPremisessSetSelectedTimeSlots,
+      myPremisesSetSelectedTimeSlots,
     },
     date: '2017-01-10',
     selectedResourceTypes: [],
