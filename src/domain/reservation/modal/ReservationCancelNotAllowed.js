@@ -25,7 +25,7 @@ const ReservationCancelNotAllowed = ({
       onHide={handleClose}
       show={show}
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>
           {t('ReservationCancelModal.cancelNotAllowedTitle')}
         </Modal.Title>
@@ -44,7 +44,7 @@ const ReservationCancelNotAllowed = ({
                 <p><FormattedHTMLMessage id="ReservationCancelModal.takeIntoAccount" /></p>
               </>
             )}
-          <p>{resource.responsibleContactInfo}</p>
+          {resource.responsibleContactInfo && <p>{resource.responsibleContactInfo}</p>}
         </div>
       </Modal.Body>
       <Modal.Footer>

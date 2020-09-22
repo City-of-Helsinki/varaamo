@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`domain/reservation/modal/ReservationCancelNotAllowed renders correctly 1`] = `
+exports[`domain/reservation/modal/ReservationCancelNotAllowed Modal renders correctly 1`] = `
 <Modal
   animation={true}
   autoFocus={true}
@@ -28,7 +28,7 @@ exports[`domain/reservation/modal/ReservationCancelNotAllowed renders correctly 
 >
   <ModalHeader
     bsClass="modal-header"
-    closeButton={false}
+    closeButton={true}
     closeLabel="Close"
   >
     <ModalTitle
@@ -49,7 +49,6 @@ exports[`domain/reservation/modal/ReservationCancelNotAllowed renders correctly 
       <p>
         ReservationCancelModal.cancelNotAllowedInfoOnlinePayment.2
       </p>
-      <p />
     </div>
   </ModalBody>
   <ModalFooter

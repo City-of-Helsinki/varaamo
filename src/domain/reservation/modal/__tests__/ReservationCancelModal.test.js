@@ -20,8 +20,8 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
     cancelCategories: [],
   };
 
-  const getWrapper = (extraProps = {}) => {
-    return shallowWithIntl(<ReservationCancelModal {...props} {...extraProps} />);
+  const getWrapper = (customProps = {}) => {
+    return shallowWithIntl(<ReservationCancelModal {...props} {...customProps} />);
   };
 
   beforeEach(() => {
@@ -85,37 +85,16 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
     test('is rendered', () => {
       expect(getModalBodyWrapper).toHaveLength(1);
     });
-
-    describe('if cancel is allowed', () => {
-      const cancelAllowed = true;
-
-      test('renders CompactReservationList', () => {
-        expect(
-          getModalBodyWrapper({ cancelAllowed }).find(CompactReservationList),
-        ).toHaveLength(1);
-      });
-
-      test('does not render responsibleContactInfo', () => {
-        expect(
-          getModalBodyWrapper({ cancelAllowed }).find('.responsible-contact-info'),
-        ).toHaveLength(0);
-      });
+    test('renders CompactReservationList', () => {
+      expect(
+        getModalBodyWrapper().find(CompactReservationList),
+      ).toHaveLength(1);
     });
 
-    describe('if resource has payment support', () => {
-      test('renders custom message', () => {
-        const wrapper = getModalBodyWrapper({
-          resource: {
-            products: [
-              {
-                type: 'rent',
-              },
-            ],
-          },
-        });
-
-        expect(toJSON(wrapper)).toMatchSnapshot();
-      });
+    test('does not render responsibleContactInfo', () => {
+      expect(
+        getModalBodyWrapper().find('.responsible-contact-info'),
+      ).toHaveLength(0);
     });
   });
 
@@ -125,8 +104,7 @@ describe('domain/reservation/modal/ReservationCancelModal', () => {
     }
 
     describe('if cancel is allowed', () => {
-      const cancelAllowed = true;
-      const buttons = getFooterButtonsWrapper({ cancelAllowed });
+      const buttons = getFooterButtonsWrapper();
 
       test('renders cancel button', () => {
         expect(buttons.at(0).props().children).toBe('ReservationCancelModal.cancelAllowedCancel');
