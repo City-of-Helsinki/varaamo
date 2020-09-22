@@ -22,22 +22,10 @@ const ReservationCancelModal = ({
   const [show, setShow] = useState(toggleShow);
   const [cancelCategoryId, setCancelCategoryId] = useState();
   const [cancelDescription, setCancelDescription] = useState('');
-  /**
-   * Until we have billable information in resource data the checkbox disabled is false. See below...
-   */
   const [acceptedRefundInstr, setAcceptedRefundInstr] = useState();
-  /**
-   * We need a way to distinguish between billable and free resources.
-   * Until that it implemented in respa we ENABLE checkbox (see above...) and set billable to false.
-   * Remove eslint-disable later!
-   */
-  // eslint-disable-next-line no-unused-vars
-  // const [billable, setBillable] = useState(true);
   const handleClose = () => {
     setShow(() => false);
     parentToggle(false);
-    // Remove comment when billable information in implemented in respa. See above...
-    // disableCheckbox(true);
   };
 
   /**
