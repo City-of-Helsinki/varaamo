@@ -33,7 +33,6 @@ describe('utils', () => {
 
     test('should allow only "own" category type fo non-admin users', () => {
       const isAdmin = false;
-      
       expect(getCancelCategories(fixture, isAdmin, 'fi')).toHaveLength(1);
       expect(getCancelCategories(fixture, isAdmin, 'fi')).toHaveProperty([0, 'value'], fixture[1].id);
     });
