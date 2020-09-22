@@ -228,7 +228,7 @@ class ManageReservationsPage extends React.Component {
       if (status === RESERVATION_STATE.CANCELLED) {
         if (openReservationCancelModal) {
           // We are calling ReservationCancelModal via ManageReservationsList.
-          await this.setState((prevState) => {
+          this.setState((prevState) => {
             return {
               isReservationCancelModalOpen: !prevState.isReservationCancelModalOpen,
               selectedReservation: reservation,
@@ -237,13 +237,14 @@ class ManageReservationsPage extends React.Component {
         } else {
           // We are calling ReservationCancelModal via ReservationInformationModal.
           await reservationUtils.cancelReservation(reservation.id, cancelReason);
+          this.loadReservations();
           // We need to close the ReservationCancelModal.
           this.parentToggle(false);
         }
       } else {
         await reservationUtils.putReservation(reservation, { state: status });
+        this.loadReservations();
       }
-      this.loadReservations();
     } catch (error) {
       // We show the error message from respa to staff because it helps with support and debugging.
       createNotification(NOTIFICATION_TYPE.ERROR, error.message);
