@@ -14,6 +14,7 @@ export default class AvailabilityView extends React.Component {
     isAdmin: PropTypes.bool.isRequired,
     onDateChange: PropTypes.func.isRequired,
     onSelect: PropTypes.func,
+    onMultidaySelect: PropTypes.func,
   };
 
   constructor(props) {
@@ -35,6 +36,10 @@ export default class AvailabilityView extends React.Component {
   }
 
   handleReservationSlotClick(slot) {
+    if (slot.type === 'multiday-reservation-slot') {
+      this.props.onMultidaySelect(slot);
+      return;
+    }
     if (this.state.selection) {
       this.endSelection(slot);
     } else {

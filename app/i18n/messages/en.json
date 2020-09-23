@@ -470,5 +470,7 @@
 
   "CalendarLegend.closed": "Unavailable",
   "CalendarLegend.taken": "Taken",
-  "CalendarLegend.available": "Available"
+  "CalendarLegend.available": "Available",
+
+  "CreateMultidayReservationModal.error.invalidDate": "Invalid date range selected for reservation. Please select another date range."
 }

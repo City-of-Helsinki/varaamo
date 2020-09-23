@@ -14,6 +14,7 @@ import injectT from '../../../i18n/injectT';
 import ResourceCalendar from '../../../shared/resource-calendar/ResourceCalendar';
 import TimePickerCalendar from '../../../../src/common/calendar/TimePickerCalendar';
 import { reservationLengthType } from '../../../../src/domain/resource/constants';
+// eslint-disable-next-line max-len
 import ResourceMultidayReservationCalendar from '../../../../src/domain/resource/resourceMultidayReservationCalendar/ResourceMultidayReservationCalendar';
 
 class ReservationTime extends Component {

@@ -479,5 +479,7 @@
 
   "CalendarLegend.closed": "Ei varattavissa",
   "CalendarLegend.taken": "Varattu",
-  "CalendarLegend.available": "Varattavissa"
+  "CalendarLegend.available": "Varattavissa",
+
+  "CreateMultidayReservationModal.error.invalidDate": "Varaukselle on valittu virheellinen ajanjakso. Valitse uusi ajanjakso."
 }

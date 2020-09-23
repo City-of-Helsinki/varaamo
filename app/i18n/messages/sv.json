@@ -469,5 +469,7 @@
 
   "CalendarLegend.closed": "Inte tillgänglig",
   "CalendarLegend.taken": "Tagen",
-  "CalendarLegend.available": "Tillgängligt"
+  "CalendarLegend.available": "Tillgängligt",
+
+  "CreateMultidayReservationModal.error.invalidDate": "Ogiltigt datumintervall har valts för bokning. Välj ett annat datumintervall."
 }

@@ -14,6 +14,7 @@ const initialState = Immutable({
   failed: [],
   selected: [],
   selectedSlot: null,
+  selectedMultidaySlot: null,
   toCancel: [],
   toEdit: [],
   toShow: [],
@@ -79,6 +80,19 @@ function reservationsReducer(state = initialState, action) {
       });
     }
 
+    case types.UI.SET_SELECTED_MULTIDAY_TIME_SLOT: {
+      const { payload } = action;
+      const slot = {
+        begin: payload.begin,
+        end: payload.end,
+        resource: payload.resourceId,
+      };
+      return state.merge({
+        selectedMultidaySlot: payload,
+        selected: [slot],
+      });
+    }
+
     case types.API.RESERVATION_POST_ERROR: {
       const reservation = action.meta.reservation;
       const failReason = parseError(action.payload);
@@ -97,6 +111,13 @@ function reservationsReducer(state = initialState, action) {
     }
 
     case types.UI.CANCEL_RESERVATION_EDIT: {
+      return state.merge({
+        selected: [],
+        toEdit: [],
+      });
+    }
+
+    case types.UI.CANCEL_MULTIDAY_RESERVATION_CREATION: {
       return state.merge({
         selected: [],
         toEdit: [],

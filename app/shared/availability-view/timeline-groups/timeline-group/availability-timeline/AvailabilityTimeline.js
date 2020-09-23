@@ -10,10 +10,11 @@ import { resourcesSelector } from '../../../../../state/selectors/dataSelectors'
 class UnconnectedAvailabilityTimeline extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['reservation', 'reservation-slot']).isRequired,
+        type: PropTypes.oneOf(['reservation', 'reservation-slot', 'multiday-reservation-slot']).isRequired,
         data: PropTypes.object,
       }),
     ).isRequired,
@@ -43,14 +44,16 @@ class UnconnectedAvailabilityTimeline extends React.Component {
       products,
       selection,
       slotSize,
+      date,
     } = this.props;
     return (
       <div className="availability-timeline">
         {this.props.items.map((item, index) => {
-          if (item.type === 'reservation-slot') {
+          if (item.type === 'reservation-slot' || item.type === 'multiday-reservation-slot') {
             return (
               <ReservationSlot
                 {...item.data}
+                date={date}
                 itemIndex={index}
                 key={item.key}
                 onClick={onReservationSlotClick}
@@ -60,12 +63,14 @@ class UnconnectedAvailabilityTimeline extends React.Component {
                 resourceId={this.props.id}
                 selection={selection}
                 slotSize={slotSize}
+                slotType={item.type}
               />
             );
           }
           return (
             <Reservation
               {...item.data}
+              date={date}
               key={item.key}
               onClick={onReservationClick}
               products={products}

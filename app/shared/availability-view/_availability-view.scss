@@ -329,11 +329,22 @@
     &.paid {
       background-color: #007a64;
     }
-    .names {
+    .tags {
       height: 100%;
       overflow: hidden;
       text-overflow: clip;
       white-space: nowrap;
+
+      .top-tags {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 5px;
+      }
+
+      .bottom-tags {
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
   .reservation-slot {
@@ -359,12 +370,18 @@
 
   .price-tag {
     display: flex;
-    justify-content: flex-start;
     background-color: $black;
     color: $white;
-    width: 43px;
     padding: 0 3px;
+    margin-right: 3px;
     font-size: 1.25rem;
+  }
+
+  .date-range {
+    display: flex;
+    background-color: $white;
+    color: $black;
+    padding: 0 3px;
   }
 }
 

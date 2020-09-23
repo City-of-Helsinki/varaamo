@@ -5,13 +5,21 @@ import ModalTypes from '../constants/ModalTypes';
 
 const cancelReservationEdit = createAction(types.UI.CANCEL_RESERVATION_EDIT);
 
+const cancelMultidayReservationCreation = createAction(
+  types.UI.CANCEL_MULTIDAY_RESERVATION_CREATION,
+);
+
 const cancelReservationEditInInfoModal = createAction(
   types.UI.CANCEL_RESERVATION_EDIT_IN_INFO_MODAL,
 );
 
-const changeAdminReservationFilters = createAction(types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS);
+const changeAdminReservationFilters = createAction(
+  types.UI.CHANGE_ADMIN_RESERVATIONS_FILTERS,
+);
 
-const changeAdminResourcesPageDate = createAction(types.UI.CHANGE_ADMIN_RESOURCES_PAGE_DATE);
+const changeAdminResourcesPageDate = createAction(
+  types.UI.CHANGE_ADMIN_RESOURCES_PAGE_DATE,
+);
 
 const changeSearchFilters = createAction(types.UI.CHANGE_SEARCH_FILTERS);
 
@@ -20,6 +28,11 @@ const clearReservations = createAction(types.UI.CLEAR_RESERVATIONS);
 const closeConfirmReservationModal = createAction(
   types.UI.CLOSE_MODAL,
   () => ModalTypes.RESERVATION_CONFIRM,
+);
+
+const closeCreateMultidayReservationModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.MULTIDAY_RESERVATION_CREATE,
 );
 
 const closeReservationCancelModal = createAction(
@@ -37,12 +50,19 @@ const closeReservationSuccessModal = createAction(
   () => ModalTypes.RESERVATION_SUCCESS,
 );
 
-const closeResourceTermsModal = createAction(types.UI.CLOSE_MODAL, () => ModalTypes.RESOURCE_TERMS);
+const closeResourceTermsModal = createAction(
+  types.UI.CLOSE_MODAL,
+  () => ModalTypes.RESOURCE_TERMS,
+);
 
 const disableGeoposition = createAction(types.UI.DISABLE_GEOPOSITION);
 const disableTimeRange = createAction(types.UI.DISABLE_TIME_RANGE);
-const enableGeopositionRequest = createAction(types.UI.ENABLE_GEOPOSITION_REQUEST);
-const enableGeopositionSuccess = createAction(types.UI.ENABLE_GEOPOSITION_SUCCESS);
+const enableGeopositionRequest = createAction(
+  types.UI.ENABLE_GEOPOSITION_REQUEST,
+);
+const enableGeopositionSuccess = createAction(
+  types.UI.ENABLE_GEOPOSITION_SUCCESS,
+);
 const enableGeopositionError = createAction(types.UI.ENABLE_GEOPOSITION_ERROR);
 
 const enableGeoposition = () => (dispatch) => {
@@ -58,13 +78,22 @@ const enableGeoposition = () => (dispatch) => {
 
 const enableTimeRange = createAction(types.UI.ENABLE_TIME_RANGE);
 
-const selectAdminResourceType = createAction(types.UI.SELECT_ADMIN_RESOURCE_TYPE);
+const selectAdminResourceType = createAction(
+  types.UI.SELECT_ADMIN_RESOURCE_TYPE,
+);
 
-const hideReservationInfoModal = createAction(types.UI.HIDE_RESERVATION_INFO_MODAL);
+const hideReservationInfoModal = createAction(
+  types.UI.HIDE_RESERVATION_INFO_MODAL,
+);
 
 const openConfirmReservationModal = createAction(
   types.UI.OPEN_MODAL,
   () => ModalTypes.RESERVATION_CONFIRM,
+);
+
+const openMultidayReservationCreationModal = createAction(
+  types.UI.OPEN_MODAL,
+  () => ModalTypes.MULTIDAY_RESERVATION_CREATE,
 );
 
 const openReservationCancelModal = createAction(
@@ -77,38 +106,64 @@ const openReservationCommentModal = createAction(
   () => ModalTypes.RESERVATION_COMMENT,
 );
 
-const selectReservationToCancel = createAction(types.UI.SELECT_RESERVATION_TO_CANCEL);
+const selectReservationToCancel = createAction(
+  types.UI.SELECT_RESERVATION_TO_CANCEL,
+);
 
-const selectReservationToEdit = createAction(types.UI.SELECT_RESERVATION_TO_EDIT);
+const selectReservationToEdit = createAction(
+  types.UI.SELECT_RESERVATION_TO_EDIT,
+);
 
-const selectReservationToShow = createAction(types.UI.SELECT_RESERVATION_TO_SHOW);
+const selectReservationToShow = createAction(
+  types.UI.SELECT_RESERVATION_TO_SHOW,
+);
 
-const openResourceTermsModal = createAction(types.UI.OPEN_MODAL, () => ModalTypes.RESOURCE_TERMS);
+const openResourceTermsModal = createAction(
+  types.UI.OPEN_MODAL,
+  () => ModalTypes.RESOURCE_TERMS,
+);
 
-const showReservationInfoModal = createAction(types.UI.SHOW_RESERVATION_INFO_MODAL);
+const showReservationInfoModal = createAction(
+  types.UI.SHOW_RESERVATION_INFO_MODAL,
+);
 
-const startReservationEditInInfoModal = createAction(types.UI.START_RESERVATION_EDIT_IN_INFO_MODAL);
+const startReservationEditInInfoModal = createAction(
+  types.UI.START_RESERVATION_EDIT_IN_INFO_MODAL,
+);
 
 const setSelectedTimeSlots = createAction(types.UI.SET_SELECTED_TIME_SLOTS);
 
 const toggleResourceMap = createAction(types.UI.TOGGLE_RESOURCE_SHOW_MAP);
 
-const unselectAdminResourceType = createAction(types.UI.UNSELECT_ADMIN_RESOURCE_TYPE);
+const unselectAdminResourceType = createAction(
+  types.UI.UNSELECT_ADMIN_RESOURCE_TYPE,
+);
 
-const myPremisessSetSelectedTimeSlots = createAction(types.UI.MY_PREMISES_SET_SELECTED_TIME_SLOTS);
+const myPremisessSetSelectedTimeSlots = createAction(
+  types.UI.MY_PREMISES_SET_SELECTED_TIME_SLOTS,
+);
 
-const changeFontSize = createAction(types.UI.CHANGE_FONTSIZE, fontsize => fontsize);
+const setSelectedMultidayTimeSlot = createAction(
+  types.UI.SET_SELECTED_MULTIDAY_TIME_SLOT,
+);
+
+const changeFontSize = createAction(
+  types.UI.CHANGE_FONTSIZE,
+  fontsize => fontsize,
+);
 
 const toggleContrast = createAction(types.UI.TOGGLE_HIGH_CONTRAST);
 
 export {
   cancelReservationEdit,
+  cancelMultidayReservationCreation,
   cancelReservationEditInInfoModal,
   changeAdminReservationFilters,
   changeAdminResourcesPageDate,
   changeSearchFilters,
   clearReservations,
   closeConfirmReservationModal,
+  closeCreateMultidayReservationModal,
   closeReservationCancelModal,
   closeReservationCommentModal,
   closeReservationSuccessModal,
@@ -120,6 +175,7 @@ export {
   selectAdminResourceType,
   hideReservationInfoModal,
   openConfirmReservationModal,
+  openMultidayReservationCreationModal,
   openReservationCancelModal,
   openReservationCommentModal,
   openResourceTermsModal,
@@ -132,6 +188,7 @@ export {
   unselectAdminResourceType,
   setSelectedTimeSlots,
   myPremisessSetSelectedTimeSlots,
+  setSelectedMultidayTimeSlot,
   changeFontSize,
   toggleContrast,
 };

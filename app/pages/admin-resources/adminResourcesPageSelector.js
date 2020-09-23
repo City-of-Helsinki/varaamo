@@ -47,6 +47,8 @@ const filteredAdminResourcesIdsSelector = createSelector(
   },
 );
 
+const selectedMultidaySlotSelector = state => state.ui.reservations.selectedMultidaySlot;
+
 const adminResourcesPageSelector = createStructuredSelector({
   date: dateSelector,
   selectedResourceTypes: selectedResourceTypesSelector,
@@ -55,6 +57,7 @@ const adminResourcesPageSelector = createStructuredSelector({
   isFetchingResources: requestIsActiveSelectorFactory(ActionTypes.API.RESOURCES_GET_REQUEST),
   resources: filteredAdminResourcesIdsSelector,
   resourceTypes: adminResourceTypesSelector,
+  selectedMultidaySlot: selectedMultidaySlotSelector,
 });
 
 export default adminResourcesPageSelector;

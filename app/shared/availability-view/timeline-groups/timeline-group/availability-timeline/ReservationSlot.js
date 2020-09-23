@@ -25,6 +25,9 @@ export class UninjectedReservationSlot extends React.Component {
       resourceId: PropTypes.string.isRequired,
     }),
     slotSize: PropTypes.string,
+    slotType: PropTypes.string.isRequired,
+    reservationPeriod: PropTypes.object,
+    date: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -48,9 +51,10 @@ export class UninjectedReservationSlot extends React.Component {
   getIsSelected(selection = this.props.selection) {
     return (
       selection
-      && ((!selection.resourceId || selection.resourceId === this.props.resourceId)
-        && this.props.begin >= selection.begin
-        && this.props.end <= selection.end)
+      && (!selection.resourceId
+        || selection.resourceId === this.props.resourceId)
+      && this.props.begin >= selection.begin
+      && this.props.end <= selection.end
     );
   }
 
@@ -58,16 +62,26 @@ export class UninjectedReservationSlot extends React.Component {
     const { end, slotSize } = this.props;
     const slotDuration = moment.duration(slotSize).hours();
     const slotDivider = moment.duration(slotSize).hours() * 2 - 1;
-    const slotEnd = slotDuration < 1 ? end : moment(end).add(30 * slotDivider, 'minutes').format('YYYY-MM-DDTHH:mm:ss');
+    const slotEnd = slotDuration < 1
+      ? end
+      : moment(end)
+        .add(30 * slotDivider, 'minutes')
+        .format('YYYY-MM-DDTHH:mm:ss');
     return {
       begin: this.props.begin,
       end: slotEnd,
       resourceId: this.props.resourceId,
+      type: this.props.slotType,
+      reservationPeriod: this.props.reservationPeriod,
     };
   }
 
   shouldShowPopover(isSelected, props = this.props) {
-    return isSelected && !props.selection.hover && props.selection.begin === props.begin;
+    return (
+      isSelected
+      && !props.selection.hover
+      && props.selection.begin === props.begin
+    );
   }
 
   handleClick(event) {
@@ -93,10 +107,18 @@ export class UninjectedReservationSlot extends React.Component {
   }
 
   render() {
-    const { itemIndex, slotSize } = this.props;
+    const {
+      itemIndex, slotSize, slotType, begin, end, date,
+    } = this.props;
     const slotDuration = moment.duration(slotSize).hours();
     const divideIndex = slotDuration * 2;
     const isSelected = this.getIsSelected();
+    // eslint-disable-next-line no-nested-ternary
+    const width = slotType === 'multiday-reservation-slot'
+      ? utils.getTimeSlotWidth({ startTime: begin, endTime: end, date })
+      : slotDuration < 1
+        ? utils.getTimeSlotWidth()
+        : utils.getTimeSlotWidth() * divideIndex;
     const slot = (
       <button
         className={classNames('reservation-slot', {
@@ -106,7 +128,7 @@ export class UninjectedReservationSlot extends React.Component {
         onClick={this.handleClick}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        style={{ width: slotDuration < 1 ? utils.getTimeSlotWidth() : utils.getTimeSlotWidth() * divideIndex }}
+        style={{ width }}
         type="button"
       >
         <span className="a11y-text" />

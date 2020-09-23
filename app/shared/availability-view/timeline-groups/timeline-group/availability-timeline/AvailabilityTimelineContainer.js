@@ -22,6 +22,7 @@ export function selector() {
     resourceIdSelector,
     (resources, id) => resources[id],
   );
+
   const reservationsSelector = createSelector(
     resourceSelector,
     dateSelector,
@@ -33,24 +34,20 @@ export function selector() {
       'begin',
     ),
   );
+
   const itemsSelector = createSelector(
+    resourceSelector,
     reservationsSelector,
     dateSelector,
     resourceIdSelector,
-    (reservations, date, resourceId) => utils.getTimelineItems(
-      moment(date), reservations, resourceId,
+    nonHoverSelectionSelector,
+    (resource, reservations, date, resourceId, selection) => utils.getTimelineItems(
+      resource, moment(date), reservations, resourceId, selection,
     ),
   );
 
-  const itemsWithSelectionDataSelector = createSelector(
-    itemsSelector,
-    nonHoverSelectionSelector,
-    resourceSelector,
-    (items, selection, resource) => utils.addSelectionData(selection, resource, items),
-  );
-
   return createSelector(
-    itemsWithSelectionDataSelector,
+    itemsSelector,
     items => ({ items }),
   );
 }

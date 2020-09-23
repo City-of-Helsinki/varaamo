@@ -11,10 +11,13 @@ import {
 } from '../utils/apiUtils';
 
 function fetchFavoritedResources(timeAsMoment, source) {
+  // FIXME: We need to pass large time ranges here to get reservation information of resources.
+  // This is in case we need to display multiday reservations far in the past/future.
+  // This might cause slower queries to the backend: need to investigate.
   const params = {
-    end: timeAsMoment.endOf('day').toISOString(),
+    end: timeAsMoment.clone().add(100, 'years').toISOString(),
     is_favorite: true,
-    start: timeAsMoment.startOf('day').toISOString(),
+    start: timeAsMoment.clone().add(-100, 'years').toISOString(),
   };
   return fetchResources(params, source);
 }
