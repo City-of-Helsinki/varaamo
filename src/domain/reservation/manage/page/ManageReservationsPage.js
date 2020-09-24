@@ -25,7 +25,9 @@ import ReservationInformationModal from '../../modal/ReservationInformationModal
 import { RESERVATION_SHOWONLY_FILTERS } from '../../constants';
 import { userFavouriteResourcesSelector } from '../../../../../app/state/selectors/dataSelectors';
 import { isAdminSelector } from '../../../../../app/state/selectors/authSelectors';
-import ConnectedReservationCancelModal from '../../modal/ReservationCancelModal';
+import ReservationCancelModal from '../../modal/ReservationCancelModal';
+import { getCancelCategories } from '../../modal/utils';
+import { getHasOnlinePaymentSupport } from '../../../resource/utils';
 
 export const PAGE_SIZE = 50;
 const INITIAL_SELECTED_RESERVATION_RESOURCE = {
@@ -166,13 +168,11 @@ class ManageReservationsPage extends React.Component {
   }
 
   loadCancelReasonCategories = () => {
+    const { isAdmin, locale } = this.props;
+
     client.get('cancel_reason_category').then((res) => {
-      this.setState({
-        cancelCategories: res.data && res.data.map(category => ({
-          value: category.id,
-          label: category.name[this.props.locale || 'fi'],
-        })),
-      });
+      const cancelCategories = getCancelCategories(res.data, isAdmin, locale);
+      this.setState({ cancelCategories });
     });
   }
 
@@ -228,7 +228,7 @@ class ManageReservationsPage extends React.Component {
       if (status === RESERVATION_STATE.CANCELLED) {
         if (openReservationCancelModal) {
           // We are calling ReservationCancelModal via ManageReservationsList.
-          await this.setState((prevState) => {
+          this.setState((prevState) => {
             return {
               isReservationCancelModalOpen: !prevState.isReservationCancelModalOpen,
               selectedReservation: reservation,
@@ -237,13 +237,14 @@ class ManageReservationsPage extends React.Component {
         } else {
           // We are calling ReservationCancelModal via ReservationInformationModal.
           await reservationUtils.cancelReservation(reservation.id, cancelReason);
+          this.loadReservations();
           // We need to close the ReservationCancelModal.
           this.parentToggle(false);
         }
       } else {
         await reservationUtils.putReservation(reservation, { state: status });
+        this.loadReservations();
       }
-      this.loadReservations();
     } catch (error) {
       // We show the error message from respa to staff because it helps with support and debugging.
       createNotification(NOTIFICATION_TYPE.ERROR, error.message);
@@ -319,6 +320,7 @@ class ManageReservationsPage extends React.Component {
       selectedReservation,
       showOnlyFilters,
       isReservationCancelModalOpen,
+      cancelCategories,
     } = this.state;
     const filters = searchUtils.getFiltersFromUrl(location, false);
     const title = t('ManageReservationsPage.title');
@@ -392,8 +394,9 @@ class ManageReservationsPage extends React.Component {
           </div>
         )}
         {isReservationCancelModalOpen && (
-          <ConnectedReservationCancelModal
-            cancelCategories={this.state.cancelCategories}
+          <ReservationCancelModal
+            billable={getHasOnlinePaymentSupport(this.selectedReservationResource)}
+            cancelCategories={cancelCategories}
             onEditReservation={this.onEditReservation}
             parentToggle={this.parentToggle}
             reservation={selectedReservation}

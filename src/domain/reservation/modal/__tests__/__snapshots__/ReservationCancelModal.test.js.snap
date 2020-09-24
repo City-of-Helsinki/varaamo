@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] = `
+exports[`domain/reservation/modal/ReservationCancelModal Modal renders a checkbox when the resource is billable 1`] = `
 <Modal
+  animation={true}
   autoFocus={true}
   backdrop={true}
-  backdropClassName="modal-backdrop"
-  backdropTransition={[Function]}
-  containerClassName="modal-open"
+  bsClass="modal"
+  dialogComponentClass={[Function]}
   enforceFocus={true}
   keyboard={true}
   manager={
@@ -21,101 +21,239 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
       "remove": [Function],
     }
   }
-  onEntering={[Function]}
-  onExited={[Function]}
   onHide={[Function]}
   renderBackdrop={[Function]}
   restoreFocus={true}
   show={true}
-  transition={[Function]}
 >
-  <ModalDialog
-    bsClass="modal"
-    className=""
-    onClick={[Function]}
-    style={Object {}}
+  <ModalHeader
+    bsClass="modal-header"
+    closeButton={true}
+    closeLabel="Close"
   >
-    <ModalHeader
-      bsClass="modal-header"
-      closeButton={true}
-      closeLabel="Close"
+    <ModalTitle
+      bsClass="modal-title"
+      componentClass="h4"
     >
-      <ModalTitle
-        bsClass="modal-title"
-        componentClass="h4"
+      ReservationCancelModal.cancelAllowedTitle
+    </ModalTitle>
+  </ModalHeader>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <div>
+      <p>
+        <strong>
+          ReservationCancelModal.lead
+        </strong>
+      </p>
+      <CompactReservationList
+        reservations={
+          Array [
+            Object {
+              "begin": "2019-08-14T14:00:00+03:00",
+              "comments": "",
+              "end": "2019-08-14T15:00:00+03:00",
+              "event_description": "",
+              "event_subject": "",
+              "has_catering_order": false,
+              "id": 1,
+              "its_own": false,
+              "resource": undefined,
+              "staff_event": false,
+              "state": "requested",
+              "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+              "user": Object {},
+              "user_permissions": null,
+            },
+          ]
+        }
+        resources={
+          Object {
+            "undefined": Object {
+              "name": "",
+            },
+          }
+        }
       />
-    </ModalHeader>
-    <ModalBody
-      bsClass="modal-body"
-      componentClass="div"
-    >
       <div>
         <p>
-          <strong />
+          <strong>
+            ReservationInformationForm.refundCheckBox
+          </strong>
         </p>
-        <CompactReservationList
-          reservations={
-            Array [
-              Object {
-                "begin": "2019-08-14T14:00:00+03:00",
-                "comments": "",
-                "end": "2019-08-14T15:00:00+03:00",
-                "event_description": "",
-                "event_subject": "",
-                "has_catering_order": false,
-                "id": 1,
-                "its_own": false,
-                "resource": undefined,
-                "staff_event": false,
-                "state": "requested",
-                "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-                "user": Object {},
-                "user_permissions": null,
-              },
-            ]
-          }
-          resources={
+        <Toggle
+          defaultChecked={false}
+          icons={
             Object {
-              "undefined": Object {
-                "name": "",
-              },
+              "checked": <Unknown />,
+              "unchecked": <Unknown />,
             }
           }
+          id="checkbox"
+          onChange={[Function]}
         />
       </div>
-      <InjectT(SelectField)
-        id="cancelReasonCategory"
-        onChange={[Function]}
-        options={Array []}
-      />
-      <TextAreaField
-        id="cancelReasonExplanation"
-        onChange={[Function]}
-        rows={5}
-        value=""
-      />
-    </ModalBody>
-    <ModalFooter
-      bsClass="modal-footer"
-      componentClass="div"
+    </div>
+    <InjectT(SelectField)
+      id="cancelReasonCategory"
+      label="ReservationInformationForm.cancellationReason"
+      onChange={[Function]}
+      options={Array []}
+    />
+    <TextAreaField
+      id="cancelReasonExplanation"
+      label="ReservationInformationForm.explanation"
+      onChange={[Function]}
+      rows={5}
+      value=""
+    />
+  </ModalBody>
+  <ModalFooter
+    bsClass="modal-footer"
+    componentClass="div"
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      disabled={false}
+      onClick={[Function]}
     >
-      <Button
-        active={false}
-        block={false}
-        bsClass="btn"
-        bsStyle="default"
-        disabled={false}
-        onClick={[Function]}
+      ReservationCancelModal.cancelAllowedCancel
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="danger"
+      disabled={true}
+      onClick={[Function]}
+    >
+      ReservationCancelModal.cancelAllowedConfirm
+    </Button>
+  </ModalFooter>
+</Modal>
+`;
+
+exports[`domain/reservation/modal/ReservationCancelModal Modal renders correctly 1`] = `
+<Modal
+  animation={true}
+  autoFocus={true}
+  backdrop={true}
+  bsClass="modal"
+  dialogComponentClass={[Function]}
+  enforceFocus={true}
+  keyboard={true}
+  manager={
+    ModalManager {
+      "add": [Function],
+      "containers": Array [],
+      "data": Array [],
+      "handleContainerOverflow": true,
+      "hideSiblingNodes": true,
+      "isTopModal": [Function],
+      "modals": Array [],
+      "remove": [Function],
+    }
+  }
+  onHide={[Function]}
+  renderBackdrop={[Function]}
+  restoreFocus={true}
+  show={true}
+>
+  <ModalHeader
+    bsClass="modal-header"
+    closeButton={true}
+    closeLabel="Close"
+  >
+    <ModalTitle
+      bsClass="modal-title"
+      componentClass="h4"
+    >
+      ReservationCancelModal.cancelAllowedTitle
+    </ModalTitle>
+  </ModalHeader>
+  <ModalBody
+    bsClass="modal-body"
+    componentClass="div"
+  >
+    <div>
+      <p>
+        <strong>
+          ReservationCancelModal.lead
+        </strong>
+      </p>
+      <CompactReservationList
+        reservations={
+          Array [
+            Object {
+              "begin": "2019-08-14T14:00:00+03:00",
+              "comments": "",
+              "end": "2019-08-14T15:00:00+03:00",
+              "event_description": "",
+              "event_subject": "",
+              "has_catering_order": false,
+              "id": 1,
+              "its_own": false,
+              "resource": undefined,
+              "staff_event": false,
+              "state": "requested",
+              "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
+              "user": Object {},
+              "user_permissions": null,
+            },
+          ]
+        }
+        resources={
+          Object {
+            "undefined": Object {
+              "name": "",
+            },
+          }
+        }
       />
-      <Button
-        active={false}
-        block={false}
-        bsClass="btn"
-        bsStyle="danger"
-        disabled={true}
-        onClick={[Function]}
-      />
-    </ModalFooter>
-  </ModalDialog>
+    </div>
+    <InjectT(SelectField)
+      id="cancelReasonCategory"
+      label="ReservationInformationForm.cancellationReason"
+      onChange={[Function]}
+      options={Array []}
+    />
+    <TextAreaField
+      id="cancelReasonExplanation"
+      label="ReservationInformationForm.explanation"
+      onChange={[Function]}
+      rows={5}
+      value=""
+    />
+  </ModalBody>
+  <ModalFooter
+    bsClass="modal-footer"
+    componentClass="div"
+  >
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="default"
+      disabled={false}
+      onClick={[Function]}
+    >
+      ReservationCancelModal.cancelAllowedCancel
+    </Button>
+    <Button
+      active={false}
+      block={false}
+      bsClass="btn"
+      bsStyle="danger"
+      disabled={true}
+      onClick={[Function]}
+    >
+      ReservationCancelModal.cancelAllowedConfirm
+    </Button>
+  </ModalFooter>
 </Modal>
 `;

@@ -217,7 +217,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       ReservationInfoModal.cancelButton
     </Button>
   </ModalFooter>
-  <Connect(InjectT(UnconnectedReservationCancelModal))
+  <InjectT(ReservationCancelModal)
     onEditReservation={[MockFunction]}
     parentToggle={[Function]}
     reservation={

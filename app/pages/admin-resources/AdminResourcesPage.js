@@ -12,7 +12,7 @@ import {
   selectAdminResourceType,
   openConfirmReservationModal,
   unselectAdminResourceType,
-  myPremisessSetSelectedTimeSlots,
+  myPremisesSetSelectedTimeSlots,
 } from '../../actions/uiActions';
 import injectT from '../../i18n/injectT';
 import PageWrapper from '../PageWrapper';
@@ -54,7 +54,7 @@ class UnconnectedAdminResourcesPage extends Component {
   }
 
   handleSelect(selection) {
-    this.props.actions.myPremisessSetSelectedTimeSlots(selection);
+    this.props.actions.myPremisesSetSelectedTimeSlots(selection);
     this.setState({ selection });
     this.props.actions.changeRecurringBaseTime(selection);
     this.props.actions.openConfirmReservationModal();
@@ -135,7 +135,7 @@ function mapDispatchToProps(dispatch) {
     selectAdminResourceType,
     openConfirmReservationModal,
     unselectAdminResourceType,
-    myPremisessSetSelectedTimeSlots,
+    myPremisesSetSelectedTimeSlots,
   };
 
   return { actions: bindActionCreators(actionCreators, dispatch) };

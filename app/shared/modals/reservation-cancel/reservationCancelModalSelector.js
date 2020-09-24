@@ -30,6 +30,7 @@ const cancelAllowedSelector = createSelector(
 
 const reservationCancelModalSelector = createStructuredSelector({
   cancelAllowed: cancelAllowedSelector,
+  isAdmin: isAdminSelector,
   isCancellingReservations: requestIsActiveSelectorFactory(
     ActionTypes.API.RESERVATION_DELETE_REQUEST,
   ),
