@@ -13,7 +13,9 @@ describe('src/domain/search/utils.js', () => {
   };
 
   test('getFiltersFromUrl', () => {
-    const filters = searchUtils.getFiltersFromUrl({ search: `?${expectedSearch}` });
+    const filters = searchUtils.getFiltersFromUrl({
+      search: `?${expectedSearch}`,
+    });
     expect(filters).toEqual(expectedFilters);
   });
 
@@ -41,10 +43,8 @@ describe('src/domain/search/utils.js', () => {
       expect(options[2]).toMatchObject({ value: 2 });
     });
 
-    test('returns label in Finnish if current locale doesn\'t exist', () => {
-      const units = [
-        { id: 1, name: { fi: 'B' } },
-      ];
+    test("returns label in Finnish if current locale doesn't exist", () => {
+      const units = [{ id: 1, name: { fi: 'B' } }];
       const [option] = searchUtils.getUnitOptions(units, 'en');
 
       expect(option.label).toEqual(units[0].name.fi);
@@ -96,10 +96,48 @@ describe('src/domain/search/utils.js', () => {
     expect(options.length).toBe(constants.DEFAULT_MUNICIPALITY_OPTIONS.length);
     expect(Object.keys(options[0])).toContainEqual('value');
     expect(Object.keys(options[0])).toContainEqual('label');
-    expect(options.map(option => option.label)).toEqual(constants.DEFAULT_MUNICIPALITY_OPTIONS);
+    expect(options.map(option => option.label)).toEqual(
+      constants.DEFAULT_MUNICIPALITY_OPTIONS,
+    );
   });
 
   test('getSearchPageLink', () => {
-    expect(searchUtils.getSearchPageLink(expectedFilters)).toBe(`/search?${expectedSearch}`);
+    expect(searchUtils.getSearchPageLink(expectedFilters)).toBe(
+      `/search?${expectedSearch}`,
+    );
+  });
+
+  describe('getAccessibilityShortcomingsCount', () => {
+    const testResource = {
+      accessibility_summaries: [
+        {
+          viewpoint_id: '10',
+          value: 'red',
+          shortage_count: 5,
+        },
+        {
+          viewpoint_id: '20',
+          value: 'red',
+          shortage_count: 7,
+        },
+      ],
+    };
+
+    test('returns 0 for null, undefined and empty list', () => {
+      [null, undefined, []].forEach((value) => {
+        const shortComingsCount = searchUtils.getAccessibilityShortcomingsCount(value);
+        expect(shortComingsCount).toBe(0);
+      });
+    });
+
+    test('returns values only for selected viewpoints', () => {
+      const shortComingsCount = searchUtils.getAccessibilityShortcomingsCount(testResource, []);
+      expect(shortComingsCount).toBe(0);
+    });
+
+    test('returns sum of shortage_counts for selected viewponts with value equal to "red"', () => {
+      const shortComingsCount = searchUtils.getAccessibilityShortcomingsCount(testResource, [10, 20]);
+      expect(shortComingsCount).toBe(12);
+    });
   });
 });

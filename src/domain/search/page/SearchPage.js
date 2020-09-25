@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import flowRight from 'lodash/flowRight';
 import {
-  withRouter,
-  Switch,
-  Route,
-  Redirect,
+  withRouter, Switch, Route, Redirect,
 } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import moment from 'moment';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 import constants from '../../../../app/constants/AppConstants';
 import injectT from '../../../../app/i18n/injectT';
@@ -20,6 +19,7 @@ import SearchFilters from '../filters/SearchFilters';
 import SearchListResults from '../results/SearchListResults';
 import SearchMapResults from '../results/SearchMapResults';
 import SearchMapToggle from '../mapToggle/SearchMapToggle';
+import accessibilityPreferencesSelector from '../../../../app/state/selectors/accessibilityPreferencesSelector';
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -27,6 +27,7 @@ class SearchPage extends React.Component {
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
+    accessibilityPreferences: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -78,33 +79,43 @@ class SearchPage extends React.Component {
 
       // We can just reload results with positional data if we already have the coordinates.
       if (coords) {
-        this.setState({
-          isGeolocationEnabled: true,
-        }, () => this.loadResources());
-      } else { // If we don't have the coordinates we also need to fetch them.
+        this.setState(
+          {
+            isGeolocationEnabled: true,
+          },
+          () => this.loadResources(),
+        );
+      } else {
+        // If we don't have the coordinates we also need to fetch them.
         this.setState({
           isGeolocationEnabled: true,
           isLoadingGeolocation: true,
         });
 
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.setState({
-            isLoadingGeolocation: false,
-            coords: position.coords,
-          });
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.setState({
+              isLoadingGeolocation: false,
+              coords: position.coords,
+            });
 
-          this.loadResources();
-        }, () => {
-          this.setState({
-            isLoadingGeolocation: false,
-          });
-        });
+            this.loadResources();
+          },
+          () => {
+            this.setState({
+              isLoadingGeolocation: false,
+            });
+          },
+        );
       }
     } else {
-      this.setState({
-        isGeolocationEnabled: false,
-        isLoadingGeolocation: false,
-      }, () => this.loadResources());
+      this.setState(
+        {
+          isGeolocationEnabled: false,
+          isLoadingGeolocation: false,
+        },
+        () => this.loadResources(),
+      );
     }
   };
 
@@ -113,7 +124,8 @@ class SearchPage extends React.Component {
       isLoadingUnits: true,
     });
 
-    client.get('unit', { page_size: 500, unit_has_resource: true })
+    client
+      .get('unit', { page_size: 500, unit_has_resource: true })
       .then(({ data }) => {
         this.setState({
           isLoadingUnits: false,
@@ -127,25 +139,18 @@ class SearchPage extends React.Component {
       isLoadingPurposes: true,
     });
 
-    client.get('purpose', { page_size: 500 })
-      .then(({ data }) => {
-        this.setState({
-          isLoadingPurposes: false,
-          purposes: get(data, 'results', []),
-        });
+    client.get('purpose', { page_size: 500 }).then(({ data }) => {
+      this.setState({
+        isLoadingPurposes: false,
+        purposes: get(data, 'results', []),
       });
+    });
   };
 
   loadResources = () => {
-    const {
-      location,
-    } = this.props;
+    const { location, accessibilityPreferences } = this.props;
 
-    const {
-      isGeolocationEnabled,
-      isLoadingGeolocation,
-      coords,
-    } = this.state;
+    const { isGeolocationEnabled, isLoadingGeolocation, coords } = this.state;
 
     const filters = searchUtils.getFiltersFromUrl(location);
 
@@ -153,12 +158,8 @@ class SearchPage extends React.Component {
       isLoading: true,
     });
 
-    const start = moment(filters.date)
-      .startOf('day')
-      .toISOString();
-    const end = moment(filters.date)
-      .endOf('day')
-      .toISOString();
+    const start = moment(filters.date).startOf('day').toISOString();
+    const end = moment(filters.date).endOf('day').toISOString();
     // Fetch resource reservations time range 1 day from filter date.
 
     const params = {
@@ -167,6 +168,7 @@ class SearchPage extends React.Component {
       start,
       end,
       include: 'accessibility_summaries',
+      accessibility_viewpoint: accessibilityPreferences,
     };
 
     // Only include positional params if user has toggled the position filter on.
@@ -175,7 +177,8 @@ class SearchPage extends React.Component {
       params.lon = coords.longitude;
     }
 
-    client.get('resource', searchUtils.getApiParamsFromFilters(params))
+    client
+      .get('resource', searchUtils.getApiParamsFromFilters(params))
       .then(({ data }) => {
         this.setState({
           isLoading: false,
@@ -195,33 +198,29 @@ class SearchPage extends React.Component {
     const updateIsFavorite = (isFavorite) => {
       this.setState({
         resources: resources.map((item) => {
-          return item.id !== resource.id ? item : {
-            ...item,
-            is_favorite: isFavorite,
-          };
+          return item.id !== resource.id
+            ? item
+            : {
+              ...item,
+              is_favorite: isFavorite,
+            };
         }),
       });
     };
 
     if (resource.is_favorite) {
-      client.post(`resource/${resource.id}/unfavorite`)
-        .then(() => {
-          updateIsFavorite(false);
-        });
+      client.post(`resource/${resource.id}/unfavorite`).then(() => {
+        updateIsFavorite(false);
+      });
     } else {
-      client.post(`resource/${resource.id}/favorite`)
-        .then(() => {
-          updateIsFavorite(true);
-        });
+      client.post(`resource/${resource.id}/favorite`).then(() => {
+        updateIsFavorite(true);
+      });
     }
   };
 
   render() {
-    const {
-      t,
-      history,
-      match,
-    } = this.props;
+    const { t, history, match } = this.props;
 
     const {
       isLoading,
@@ -247,7 +246,8 @@ class SearchPage extends React.Component {
           isLoadingPurposes={isLoadingPurposes}
           isLoadingUnits={isLoadingUnits}
           onChange={this.onFiltersChange}
-          onGeolocationToggle={() => this.onGeolocationChange(!isGeolocationEnabled)}
+          onGeolocationToggle={() => this.onGeolocationChange(!isGeolocationEnabled)
+          }
           purposes={purposes}
           units={units}
         />
@@ -276,18 +276,19 @@ class SearchPage extends React.Component {
               path={`${match.path}/map`}
               render={(props) => {
                 return (
-                  <PageWrapper
-                    title={pageTitle}
-                    transparent
-                  >
+                  <PageWrapper title={pageTitle} transparent>
                     <Row>
                       <Col>
                         <SearchMapResults
                           {...props}
-                          isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
+                          isLoading={
+                            isLoading || isLoadingUnits || isLoadingGeolocation
+                          }
                           onFavoriteClick={this.onFavoriteClick}
                           onFiltersChange={this.onFiltersChange}
-                          position={coords ? [coords.latitude, coords.longitude] : null}
+                          position={
+                            coords ? [coords.latitude, coords.longitude] : null
+                          }
                           resources={resources}
                           units={units}
                         />
@@ -302,13 +303,12 @@ class SearchPage extends React.Component {
               path={match.path}
               render={(props) => {
                 return (
-                  <PageWrapper
-                    title={pageTitle}
-                    transparent
-                  >
+                  <PageWrapper title={pageTitle} transparent>
                     <SearchListResults
                       {...props}
-                      isLoading={isLoading || isLoadingUnits || isLoadingGeolocation}
+                      isLoading={
+                        isLoading || isLoadingUnits || isLoadingGeolocation
+                      }
                       onFavoriteClick={this.onFavoriteClick}
                       onFiltersChange={this.onFiltersChange}
                       resources={resources}
@@ -329,8 +329,9 @@ class SearchPage extends React.Component {
 
 const UnWrappedSearchPage = injectT(SearchPage);
 
+const selector = createStructuredSelector({
+  accessibilityPreferences: accessibilityPreferencesSelector,
+});
+
 export { UnWrappedSearchPage };
-export default flowRight([
-  injectT,
-  withRouter,
-])(SearchPage);
+export default connect(selector)(flowRight([injectT, withRouter])(SearchPage));

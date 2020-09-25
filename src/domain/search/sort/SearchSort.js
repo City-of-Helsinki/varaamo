@@ -5,16 +5,14 @@ import injectT from '../../../../app/i18n/injectT';
 import SelectFilter from '../filters/filter/SelectFilter';
 
 const UntranslatedSearchSort = ({
-  t,
-  locale,
-  onChange,
-  value,
+  t, locale, onChange, value,
 }) => {
   const sortOptions = [
     { label: t('SearchSort.nameLabel'), value: `resource_name_${locale}` },
     { label: t('SearchSort.typeLabel'), value: `type_name_${locale}` },
     { label: t('SearchSort.premiseLabel'), value: `unit_name_${locale}` },
     { label: t('SearchSort.peopleLabel'), value: 'people_capacity' },
+    { label: t('SearchSort.accessibility'), value: '-accessibility' },
   ];
   const option = sortOptions.find(options => options.value === value);
   const label = !option ? t('SearchSort.premiseLabel') : option.label;
