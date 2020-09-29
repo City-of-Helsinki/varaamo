@@ -74,7 +74,16 @@ class UnconnectedReservationEditForm extends Component {
         </Col>
         <Col sm={9}>
           {Array.isArray(value)
-            ? <FormControl.Static>{value.map((val, key) => <div key={key}>{val}</div>)}</FormControl.Static>
+            ? (
+              <FormControl.Static>
+                {value.map((val, key) => (
+                  <React.Fragment key={key}>
+                    {val}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </FormControl.Static>
+            )
             : <FormControl.Static>{value}</FormControl.Static>
           }
         </Col>
@@ -245,6 +254,9 @@ class UnconnectedReservationEditForm extends Component {
             reservation.cancelReason.category.name[locale || 'fi'],
             reservation.cancelReason.category.description[locale || 'fi'],
           ])
+        }
+        {this.renderInfoRow(t('ReservationInformationForm.cancellationDescription'),
+          reservation.cancelReason && (reservation.cancelReason.description || null))
         }
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
         {isAdminOrOwner && reservationIsEditable && (
