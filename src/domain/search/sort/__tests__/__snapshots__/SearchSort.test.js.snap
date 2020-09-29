@@ -34,6 +34,10 @@ exports[`SearchSort renders correctly 1`] = `
           "label": "SearchSort.peopleLabel",
           "value": "people_capacity",
         },
+        Object {
+          "label": "SearchSort.accessibility",
+          "value": "-accessibility",
+        },
       ]
     }
   />

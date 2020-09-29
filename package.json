@@ -53,6 +53,7 @@
     "normalizr": "2.2.1",
     "passport": "0.3.2",
     "passport-helsinki": "git+https://github.com/City-of-Helsinki/passport-helsinki.git",
+    "qs": "^6.9.4",
     "query-string": "4.2.3",
     "rc-slider": "8.3.1",
     "react": "16.8.4",

@@ -101,6 +101,8 @@ const changeFontSize = createAction(types.UI.CHANGE_FONTSIZE, fontsize => fontsi
 
 const toggleContrast = createAction(types.UI.TOGGLE_HIGH_CONTRAST);
 
+const setAccessibilityPreferences = createAction(types.UI.SET_ACCESSIBILITY_PREFERENCES);
+
 export {
   cancelReservationEdit,
   cancelReservationEditInInfoModal,
@@ -134,4 +136,5 @@ export {
   myPremisesSetSelectedTimeSlots,
   changeFontSize,
   toggleContrast,
+  setAccessibilityPreferences,
 };

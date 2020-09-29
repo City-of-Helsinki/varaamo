@@ -28,7 +28,7 @@ import ResourceAvailability from '../availability/ResourceAvailability';
 import UnpublishedLabel from '../../../../app/shared/label/unpublished/UnpublishedLabel';
 import ResourceCardInfoCell from './ResourceCardInfoCell';
 import { isLoggedInSelector } from '../../../../app/state/selectors/authSelectors';
-import { getSelA11yPref } from '../../../../app/utils/accessibilityUtils';
+import accessibilityPreferencesSelector from '../../../../app/state/selectors/accessibilityPreferencesSelector';
 
 class ResourceCard extends React.Component {
   static propTypes = {
@@ -43,6 +43,7 @@ class ResourceCard extends React.Component {
     onFavoriteClick: PropTypes.func.isRequired,
     onFilterClick: PropTypes.func.isRequired,
     isNormalFontSize: PropTypes.bool,
+    accessibilityPreferences: PropTypes.array.isRequired,
   };
 
   getResourcePageLink = () => {
@@ -72,6 +73,7 @@ class ResourceCard extends React.Component {
       intl,
       t,
       isNormalFontSize,
+      accessibilityPreferences,
     } = this.props;
     const locale = intl.locale;
     const typeName = resource.type
@@ -79,7 +81,7 @@ class ResourceCard extends React.Component {
       : '';
     const accessibilityShortcomingsCount = searchUtils.getAccessibilityShortcomingsCount(
       resource,
-      getSelA11yPref(),
+      accessibilityPreferences,
     );
 
     return (
@@ -187,9 +189,14 @@ class ResourceCard extends React.Component {
             }
             text={
               accessibilityShortcomingsCount
-                ? t('ResourceInfo.foundAccessibilityShortcomings', {
-                  nShortcomings: accessibilityShortcomingsCount,
-                })
+                ? t(
+                  accessibilityShortcomingsCount === 1
+                    ? 'ResourceInfo.foundAccessibilityShortcoming'
+                    : 'ResourceInfo.foundAccessibilityShortcomings',
+                  {
+                    nShortcomings: accessibilityShortcomingsCount,
+                  },
+                )
                 : t('ResourceInfo.noAccessibilityShortcomings')
             }
           />
@@ -207,6 +214,7 @@ const isNormalFontSizeSelector = state => state.ui.accessibility.fontSize !== Fo
 const selector = createStructuredSelector({
   isLoggedIn: isLoggedInSelector,
   isNormalFontSize: isNormalFontSizeSelector,
+  accessibilityPreferences: accessibilityPreferencesSelector,
 });
 
 export default flowRight([injectIntl, connect(selector)])(

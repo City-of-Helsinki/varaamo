@@ -1,5 +1,6 @@
 import axios from 'axios';
 import get from 'lodash/get';
+import * as qs from 'qs';
 
 import constants from '../../../app/constants/AppConstants';
 import store from '../../store';
@@ -8,36 +9,39 @@ import { parseData } from '../data/utils';
 let authToken;
 
 // Response interceptor to be able to handle errors.
-axios.interceptors.response.use((response) => {
-  return response;
-}, (error) => {
-  if (error.response) {
-    // The request was made and the server responded with a status code that falls out of the range of 2xx.
-    // TODO: Find all the forms Respa may send us errors in.
-    // TODO: Create a way to translate these messages.
-    const nonFieldError = get(error, 'response.data.non_field_errors', '');
-    const permissionError = get(error, 'data.detail', '');
-    const state = get(error, 'response.data.state', '')[0];
-    if (nonFieldError && permissionError) {
-      throw new Error(`${nonFieldError} ${permissionError}`);
-    } else if (state) {
-      throw new Error(`${state}`);
-    } else {
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code that falls out of the range of 2xx.
+      // TODO: Find all the forms Respa may send us errors in.
+      // TODO: Create a way to translate these messages.
+      const nonFieldError = get(error, 'response.data.non_field_errors', '');
+      const permissionError = get(error, 'data.detail', '');
+      const state = get(error, 'response.data.state', '')[0];
+      if (nonFieldError && permissionError) {
+        throw new Error(`${nonFieldError} ${permissionError}`);
+      } else if (state) {
+        throw new Error(`${state}`);
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(error.response);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received.
+      // `error.request` is an instance of XMLHttpRequest in the browser.
       // eslint-disable-next-line no-console
-      console.error(error.response);
+      console.error(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error.
+      // eslint-disable-next-line no-console
+      console.error(error.message);
     }
-  } else if (error.request) {
-    // The request was made but no response was received.
-    // `error.request` is an instance of XMLHttpRequest in the browser.
-    // eslint-disable-next-line no-console
-    console.error(error.request);
-  } else {
-    // Something happened in setting up the request that triggered an Error.
-    // eslint-disable-next-line no-console
-    console.error(error.message);
-  }
-  return Promise.reject(error);
-});
+    return Promise.reject(error);
+  },
+);
 
 const getToken = () => {
   const state = store.getState();
@@ -67,18 +71,15 @@ export class ApiClient {
 
   getHeaders = () => ({
     ...constants.REQUIRED_API_HEADERS,
-    ...(this.useAuth && authToken
-      ? { Authorization: `JWT ${authToken}` }
-      : {}),
+    ...(this.useAuth && authToken ? { Authorization: `JWT ${authToken}` } : {}),
   });
 
   request = async ({
-    method,
-    endpoint,
-    data = {},
-    headers = {},
+    method, endpoint, data = {}, headers = {},
   }) => {
-    const dataOrParams = ['GET', 'DELETE'].includes(method.toUpperCase()) ? 'params' : 'data';
+    const dataOrParams = ['GET', 'DELETE'].includes(method.toUpperCase())
+      ? 'params'
+      : 'data';
 
     return axios
       .request({
@@ -89,6 +90,7 @@ export class ApiClient {
           ...headers,
         },
         [dataOrParams]: data,
+        paramsSerializer: params => qs.stringify(params, { arrayFormat: 'repeat' }),
       })
       .then(response => ({
         data: get(response, 'data'),

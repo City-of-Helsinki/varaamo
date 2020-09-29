@@ -3,17 +3,22 @@ import React, { useState } from 'react';
 import { Checkbox, Button } from 'hds-react';
 import without from 'lodash/without';
 import findIndex from 'lodash/findIndex';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 import injectT from '../../../app/i18n/injectT';
-import { getSelA11yPref, setSelA11yPref } from '../../../app/utils/accessibilityUtils';
+import { setAccessibilityPreferences as setAccessibilityPreferencesAction } from '../../../app/actions/uiActions';
+import accessibilityPreferencesSelector from '../../../app/state/selectors/accessibilityPreferencesSelector';
 
-const AccessibilityMenu = ({
+const UnconnectedAccessibilityMenu = ({
   handleClose,
   locale,
   t,
   viewpoints,
+  accessibilityPreferences,
+  setAccessibilityPreferences,
 }) => {
-  const [selectedViewpoints, setSelectedViewpoints] = useState(getSelA11yPref());
+  const [selectedViewpoints, setSelectedViewpoints] = useState(accessibilityPreferences);
 
   const handleCheck = viewpoint => (e) => {
     if (e.target.checked && !selectedViewpoints.includes(viewpoint.viewpointId)) {
@@ -25,8 +30,7 @@ const AccessibilityMenu = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    setSelA11yPref(selectedViewpoints);
+    setAccessibilityPreferences(selectedViewpoints);
     handleClose();
   };
 
@@ -60,11 +64,21 @@ const AccessibilityMenu = ({
   );
 };
 
-AccessibilityMenu.propTypes = {
+UnconnectedAccessibilityMenu.propTypes = {
   handleClose: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   viewpoints: PropTypes.array.isRequired,
+  accessibilityPreferences: PropTypes.array.isRequired,
+  setAccessibilityPreferences: PropTypes.func.isRequired,
 };
 
-export default injectT(AccessibilityMenu);
+const selector = createStructuredSelector({
+  accessibilityPreferences: accessibilityPreferencesSelector,
+});
+
+const actions = {
+  setAccessibilityPreferences: setAccessibilityPreferencesAction,
+};
+
+export default connect(selector, actions)(injectT(UnconnectedAccessibilityMenu));

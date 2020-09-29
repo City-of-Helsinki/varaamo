@@ -173,7 +173,7 @@ export const getAccessibilityShortcomingsCount = (
 
   return resourceOrUnit.accessibility_summaries.reduce(
     (acc, summary) => (summary.value === 'red' && viewpoints.includes(parseInt(summary.viewpoint_id, 10))
-      ? acc + 1
+      ? acc + summary.shortage_count
       : acc),
     0,
   );
