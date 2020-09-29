@@ -82,10 +82,11 @@ const ReservationInformationModal = ({
           {payerEmail && renderField('payment_email', payerEmail)}
           {renderField('reservation_time', getDateAndTime(reservation))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
-          {renderInfoRow(t('ReservationInformationForm.cancellationReason'), [
-            get(reservation, ['cancel_reason', 'category', 'name', locale || 'fi']),
-            get(reservation, ['cancel_reason', 'category', 'description', locale || 'fi']),
-          ])
+          {renderInfoRow(t('ReservationInformationForm.cancellationReason'),
+            get(reservation, 'cancel_reason') && [
+              get(reservation, ['cancel_reason', 'category', 'name', locale || 'fi']),
+              get(reservation, ['cancel_reason', 'category', 'description', locale || 'fi']),
+            ])
           }
           {renderInfoRow(t('ReservationInformationForm.cancellationDescription'),
             get(reservation, 'cancel_reason.description') || null)
