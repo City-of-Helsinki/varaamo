@@ -73,7 +73,10 @@ class UnconnectedReservationEditForm extends Component {
           <ControlLabel>{label}</ControlLabel>
         </Col>
         <Col sm={9}>
-          <FormControl.Static>{value}</FormControl.Static>
+          {Array.isArray(value)
+            ? <FormControl.Static>{value.map((val, key) => <div key={key}>{val}</div>)}</FormControl.Static>
+            : <FormControl.Static>{value}</FormControl.Static>
+          }
         </Col>
       </FormGroup>
     );
