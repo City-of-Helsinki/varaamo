@@ -98,13 +98,13 @@ exports[`domain/reservation/modal/ReservationCancelModal Modal renders a checkbo
     </div>
     <InjectT(SelectField)
       id="cancelReasonCategory"
-      label="ReservationInformationForm.cancellationReason"
+      label="ReservationInformationForm.cancellationReason:"
       onChange={[Function]}
       options={Array []}
     />
     <TextAreaField
       id="cancelReasonExplanation"
-      label="ReservationInformationForm.explanation"
+      label="ReservationInformationForm.explanation:"
       onChange={[Function]}
       rows={5}
       value=""
@@ -218,13 +218,13 @@ exports[`domain/reservation/modal/ReservationCancelModal Modal renders correctly
     </div>
     <InjectT(SelectField)
       id="cancelReasonCategory"
-      label="ReservationInformationForm.cancellationReason"
+      label="ReservationInformationForm.cancellationReason:"
       onChange={[Function]}
       options={Array []}
     />
     <TextAreaField
       id="cancelReasonExplanation"
-      label="ReservationInformationForm.explanation"
+      label="ReservationInformationForm.explanation:"
       onChange={[Function]}
       rows={5}
       value=""

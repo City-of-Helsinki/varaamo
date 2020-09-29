@@ -10,7 +10,19 @@ const ReservationInformationModalContentRow = ({ label, content, ...rest }) => {
           {label}
         </Col>
         <Col className="app-ReservationInformationModal__field__value" xs={7}>
-          {content}
+          {Array.isArray(content)
+            ? (
+              <span>
+                {content.map((val, key) => (
+                  <React.Fragment key={key}>
+                    {val}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </span>
+            )
+            : <span>{content}</span>
+          }
         </Col>
       </Row>
     </div>

@@ -30,7 +30,7 @@ const ReservationInformationModal = ({
   const renderField = (label, value) => {
     return (
       <ReservationInformationModalContentRow
-        content={(<span>{value}</span>)}
+        content={value}
         key={label}
         label={<span>{t(`common.${(camelCase(label))}Label`)}</span>}
       />
@@ -76,6 +76,7 @@ const ReservationInformationModal = ({
           {payerFirstName && payerLastName && renderField('payment_name', `${payerFirstName} ${payerLastName}`)}
           {payerEmail && renderField('payment_email', payerEmail)}
           {renderField('reservation_time', getDateAndTime(reservation))}
+          {renderField('resource', get(reservation, 'resource.name.fi', ''))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
 
           {/* Render reservation metadata (extra) fields */}

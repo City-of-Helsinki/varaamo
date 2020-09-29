@@ -70,11 +70,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         className="app-ReservationInformationModal__information__account"
       >
         <ReservationInformationModalContentRow
-          content={
-            <span>
-              
-            </span>
-          }
+          content=""
           key="user_name"
           label={
             <span>
@@ -83,11 +79,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
           }
         />
         <ReservationInformationModalContentRow
-          content={
-            <span>
-              
-            </span>
-          }
+          content=""
           key="user_email"
           label={
             <span>
@@ -97,11 +89,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         />
       </div>
       <ReservationInformationModalContentRow
-        content={
-          <span>
-            ke 14.08.2019 14:00 - 15:00
-          </span>
-        }
+        content="ke 14.08.2019 14:00 - 15:00"
         key="reservation_time"
         label={
           <span>
@@ -110,11 +98,16 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         }
       />
       <ReservationInformationModalContentRow
-        content={
+        content=""
+        key="resource"
+        label={
           <span>
-            
+            common.resourceLabel
           </span>
         }
+      />
+      <ReservationInformationModalContentRow
+        content=""
         key="resource"
         label={
           <span>
