@@ -384,6 +384,7 @@ class ManageReservationsPage extends React.Component {
             <ReservationInformationModal
               isAdmin={isAdmin}
               isOpen={isModalOpen}
+              onCancelReservation={() => this.parentToggle(true)}
               onEditClick={this.onEditClick}
               onEditReservation={this.onEditReservation}
               onHide={this.onInfoModalClose}

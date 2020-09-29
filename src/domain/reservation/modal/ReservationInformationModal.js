@@ -11,21 +11,25 @@ import injectT from '../../../../app/i18n/injectT';
 import { getDateAndTime } from '../manage/list/ManageReservationsList';
 import { RESERVATION_STATE } from '../../../constants/ReservationState';
 import ReservationMetadata from '../information/ReservationMetadata';
-import ConnectedReservationCancelModal from './ReservationCancelModal';
 import { getShowRefundPolicy } from '../utils';
 import ReservationInformationModalContentRow from './ReservationInformationModalContentRow';
 
 const ReservationInformationModal = ({
-  t, reservation, resource, onHide, isOpen, isAdmin, onEditClick, onEditReservation, onSaveComment,
+  t,
+  locale,
+  reservation,
+  resource,
+  onHide,
+  isOpen,
+  isAdmin,
+  onEditClick,
+  onEditReservation,
+  onCancelReservation,
+  onSaveComment,
 }) => {
   const [comment, setComment] = useState(get(reservation, 'comments') || '');
-  const [isReservationCancelModalOpen, toggleReservationCancelModal] = useState(false);
   const saveComment = () => onSaveComment(reservation, comment);
   const normalizedReservation = Object.assign({}, reservation, { resource: reservation.resource.id });
-
-  const parentToggle = (bool) => {
-    toggleReservationCancelModal(bool);
-  };
 
   const renderField = (label, value) => {
     return (
@@ -54,6 +58,7 @@ const ReservationInformationModal = ({
   const payerEmail = get(reservation, 'billing_email_address', '');
   const isRequestedReservation = reservation.state === RESERVATION_STATE.REQUESTED;
   const showRefundPolicy = resource !== null && getShowRefundPolicy(isAdmin, reservation, resource);
+  const canEdit = reservation.state !== 'cancelled';
 
   return (
     <Modal
@@ -77,7 +82,15 @@ const ReservationInformationModal = ({
           {payerEmail && renderField('payment_email', payerEmail)}
           {renderField('reservation_time', getDateAndTime(reservation))}
           {renderField('resource', get(reservation, 'resource.name.fi', ''))}
-          {renderField('resource', get(reservation, 'resource.name.fi', ''))}
+          {renderInfoRow(t('ReservationInformationForm.cancellationReason'),
+            get(reservation, 'cancel_reason') && [
+              get(reservation, ['cancel_reason', 'category', 'name', locale || 'fi']),
+              get(reservation, ['cancel_reason', 'category', 'description', locale || 'fi']),
+            ])
+          }
+          {renderInfoRow(t('ReservationInformationForm.cancellationDescription'),
+            get(reservation, 'cancel_reason.description') || null)
+          }
 
           {/* Render reservation metadata (extra) fields */}
           <ReservationMetadata
@@ -100,35 +113,39 @@ const ReservationInformationModal = ({
           }
 
         </div>
-        <div className="app-ReservationInformationModal__edit-reservation-btn">
-          <Button
-            bsStyle="primary"
-            onClick={() => onEditClick(reservation)}
-          >
-            {t('ReservationEditForm.startEdit')}
-          </Button>
-        </div>
-        <div className="app-ReservationInformationModal__comments-section">
-          <ControlLabel>
-            {`${t('common.commentsLabel')}:`}
-          </ControlLabel>
-          <FormControl
-            className="app-ReservationInformationModal__comments-field"
-            componentClass="textarea"
-            onChange={e => setComment(e.target.value)}
-            placeholder={t('common.commentsPlaceholder')}
-            rows={5}
-            value={comment}
-          />
-          <div className="app-ReservationInformationModal__save-comment">
+        {canEdit && (
+          <div className="app-ReservationInformationModal__edit-reservation-btn">
             <Button
               bsStyle="primary"
-              onClick={saveComment}
+              onClick={() => onEditClick(reservation)}
             >
-              {t('ReservationInfoModal.saveComment')}
+              {t('ReservationEditForm.startEdit')}
             </Button>
           </div>
-        </div>
+        )}
+        {canEdit && (
+          <div className="app-ReservationInformationModal__comments-section">
+            <ControlLabel>
+              {`${t('common.commentsLabel')}:`}
+            </ControlLabel>
+            <FormControl
+              className="app-ReservationInformationModal__comments-field"
+              componentClass="textarea"
+              onChange={e => setComment(e.target.value)}
+              placeholder={t('common.commentsPlaceholder')}
+              rows={5}
+              value={comment}
+            />
+            <div className="app-ReservationInformationModal__save-comment">
+              <Button
+                bsStyle="primary"
+                onClick={saveComment}
+              >
+                {t('ReservationInfoModal.saveComment')}
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button
@@ -138,12 +155,14 @@ const ReservationInformationModal = ({
           {t('common.back')}
         </Button>
 
-        <Button
-          bsStyle="default"
-          onClick={() => toggleReservationCancelModal(!isReservationCancelModalOpen)}
-        >
-          {t('ReservationInfoModal.cancelButton')}
-        </Button>
+        {canEdit && (
+          <Button
+            bsStyle="default"
+            onClick={() => onCancelReservation(true)}
+          >
+            {t('ReservationInfoModal.cancelButton')}
+          </Button>
+        )}
 
         {isRequestedReservation && (
           <>
@@ -163,21 +182,17 @@ const ReservationInformationModal = ({
           </>
         )}
       </Modal.Footer>
-      <ConnectedReservationCancelModal
-        onEditReservation={onEditReservation}
-        parentToggle={parentToggle}
-        reservation={reservation}
-        toggleShow={isReservationCancelModalOpen}
-      />
     </Modal>
   );
 };
 
 ReservationInformationModal.propTypes = {
   t: PropTypes.func.isRequired,
+  locale: PropTypes.string.isRequired,
   reservation: PropTypes.object.isRequired,
   resource: PropTypes.object,
   onHide: PropTypes.func,
+  onCancelReservation: PropTypes.func,
   onEditClick: PropTypes.func,
   onEditReservation: PropTypes.func,
   onSaveComment: PropTypes.func.isRequired,
