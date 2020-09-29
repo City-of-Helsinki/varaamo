@@ -164,6 +164,7 @@ class UnconnectedReservationEditForm extends Component {
       isEditing,
       isSaving,
       userUnitRole,
+      locale,
       onCancelEditClick,
       onStartEditClick,
       reservation,
@@ -239,6 +240,12 @@ class UnconnectedReservationEditForm extends Component {
         {this.renderAddressRow('billingAddress')}
         {this.renderStaticInfoRow('accessCode')}
         {this.renderStaticInfoRow('reservationExtraQuestions')}
+        {this.renderInfoRow(t('ReservationInformationForm.cancellationReason'),
+          reservation.cancelReason && [
+            reservation.cancelReason.category.name[locale || 'fi'],
+            reservation.cancelReason.category.description[locale || 'fi'],
+          ])
+        }
         {isAdmin && !reservationIsEditable && this.renderStaticInfoRow('comments')}
         {isAdminOrOwner && reservationIsEditable && (
           <div className="form-controls">
@@ -282,6 +289,7 @@ UnconnectedReservationEditForm.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   isSaving: PropTypes.bool.isRequired,
   userUnitRole: PropTypes.oneOf([...Object.values(resourceRoles), null]),
+  locale: PropTypes.string.isRequired,
   onCancelEditClick: PropTypes.func.isRequired,
   onStartEditClick: PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
