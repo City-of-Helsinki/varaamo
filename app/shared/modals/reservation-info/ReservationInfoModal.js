@@ -107,10 +107,7 @@ class ReservationInfoModal extends Component {
                   && !reservation.staffEvent && (
                     <InfoLabel labelStyle={paymentLabel.labelBsStyle} labelText={t(paymentLabel.labelTextId)} />
                 )}
-                {reservation.needManualConfirmation
-                  && reservation.state !== 'cancelled' && (
-                    <InfoLabel labelStyle={stateLabel.labelBsStyle} labelText={t(stateLabel.labelTextId)} />
-                )}
+                <InfoLabel labelStyle={stateLabel.labelBsStyle} labelText={t(stateLabel.labelTextId)} />
               </div>
               <ReservationEditForm
                 enableReinitialize
