@@ -115,13 +115,16 @@ $resourceCardTitleBottomMargin: units(0.5);
     flex-wrap: wrap;
 
     @media (min-width: $screen-xs-min) {
-      display: inline-block;
       width: 100%;
     }
 
     @media (min-width: $screen-md-min) {
       flex: 1 2 30%;
     }
+  }
+
+  &__info-cell {
+    margin-bottom: units(0.75);
   }
 
   .label-success {

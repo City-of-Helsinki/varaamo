@@ -9,6 +9,7 @@ $cellHeight: 50%;
   width: $cellWidth;
   height: $cellHeight;
   align-items: center;
+  padding: 0;
 
   &:hover,
   &:focus {
