@@ -29,13 +29,16 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
 
   let dayWrapper;
   let wrapper;
+
+  const todayPlusDays = days => moment().add(days, 'days').format('YYYY-MM-DD');
+
   beforeAll(() => {
     wrapper = getWrapper({
       availability: {
-        '2020-10-01': { percentage: 0 },
-        '2020-10-02': { percentage: 50 },
-        '2020-10-03': { percentage: 81 },
-        '2020-10-04': { percentage: 100 },
+        [todayPlusDays(10)]: { percentage: 0 },
+        [todayPlusDays(11)]: { percentage: 50 },
+        [todayPlusDays(12)]: { percentage: 81 },
+        [todayPlusDays(13)]: { percentage: 100 },
       },
     });
     dayWrapper = wrapper.find(DayPicker);
@@ -171,24 +174,24 @@ describe('shared/resource-calendar/ResourceCalendar', () => {
   describe('modifiers', () => {
     test('is available if percentage is greater than 80', () => {
       const func = dayWrapper.prop('modifiers').available;
-      expect(func(new Date('2020-10-01'))).toBe(false);
-      expect(func(new Date('2020-10-02'))).toBe(false);
-      expect(func(new Date('2020-10-03'))).toBe(true);
-      expect(func(new Date('2020-10-04'))).toBe(true);
+      expect(func(new Date(todayPlusDays(10)))).toBe(false);
+      expect(func(new Date(todayPlusDays(11)))).toBe(false);
+      expect(func(new Date(todayPlusDays(12)))).toBe(true);
+      expect(func(new Date(todayPlusDays(13)))).toBe(true);
     });
     test('is busy if percentage is lower than 80', () => {
       const func = dayWrapper.prop('modifiers').busy;
-      expect(func(new Date('2020-10-01'))).toBe(false);
-      expect(func(new Date('2020-10-02'))).toBe(true);
-      expect(func(new Date('2020-10-03'))).toBe(false);
-      expect(func(new Date('2020-10-04'))).toBe(false);
+      expect(func(new Date(todayPlusDays(10)))).toBe(false);
+      expect(func(new Date(todayPlusDays(11)))).toBe(true);
+      expect(func(new Date(todayPlusDays(12)))).toBe(false);
+      expect(func(new Date(todayPlusDays(13)))).toBe(false);
     });
     test('is booked if percentage is 0', () => {
       const func = dayWrapper.prop('modifiers').booked;
-      expect(func(new Date('2020-10-01'))).toBe(true);
-      expect(func(new Date('2020-10-02'))).toBe(false);
-      expect(func(new Date('2020-10-03'))).toBe(false);
-      expect(func(new Date('2020-10-04'))).toBe(false);
+      expect(func(new Date(todayPlusDays(10)))).toBe(true);
+      expect(func(new Date(todayPlusDays(11)))).toBe(false);
+      expect(func(new Date(todayPlusDays(12)))).toBe(false);
+      expect(func(new Date(todayPlusDays(13)))).toBe(false);
     });
   });
 
