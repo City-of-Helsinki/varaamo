@@ -38,7 +38,7 @@ function AboutPage({ t }) {
         <h3>{t('AboutPageContent.customerRegisterHeader')}</h3>
         <p>
           {t('AboutPageContent.customerRegisterParagraph')}
-          <a href="https://app.helmet-kirjasto.fi/varaamo/rekisteriseloste.php">
+          <a href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kuva/Tilanvaraus-%20ja%20tietokantarekisteri,%20Varaamo%20ja%20Respa.pdf">
             {t('AboutPageContent.customerRegisterLink')}
           </a>
         </p>
