@@ -1,4 +1,6 @@
-# Unreleased
+# 0.12.1
+  **MINOR CHANGES**
+  - Enlarged font for danger type of notifications ([#1201](https://github.com/City-of-Helsinki/varaamo/pull/1201))
 
 # 0.12.0
   **MINOR CHANGES**
@@ -20,7 +22,7 @@
   - Fixed fixed prices always being zero ([#1151](https://github.com/City-of-Helsinki/varaamo/pull/1151))
   - Fixed some buttons being enabled on first load on user reservations page when they should not have been ([#1156](https://github.com/City-of-Helsinki/varaamo/pull/1156))
   - Removed link to resource unit in search results ([#1153](https://github.com/City-of-Helsinki/varaamo/pull/1153))
-  
+
   **CHANGELOG**
   - [#1155](https://github.com/City-of-Helsinki/varaamo/pull/1155) Added keyboard friendly form into resource page for making reservations
 
@@ -79,8 +81,8 @@
   - Staff no longer needs to fill all mandatory metadata fields.
   - Sort by select box has enough clearance so it won't disappear behind footer if there are no search results.
   - Search page time range is always visible.
-  - Added today buttons and functionality to search page and my premises. 
-  
+  - Added today buttons and functionality to search page and my premises.
+
   **CHANGELOG**
   - [#1087](https://github.com/City-of-Helsinki/varaamo/pull/1087) Navigation will bring user back to correct page when editing reservation. During edit form values are filled with existing data.
   - [#1088](https://github.com/City-of-Helsinki/varaamo/pull/1088) Sort by on search page has enough space so it won't disappear under footer. TimeRangeFilter selects are always show, but disabled if not toggled.
@@ -101,7 +103,7 @@
   - Removed admin utilities from Your reservations page. Future and past reservations are shown below titles and page is now paginated.
   - Your premise list items have label for payment state and show price that was paid. If user is not admin modify button is disabled and cancel button shows modal with directions.
   - Fixed some finnish translations on Manage reservations page. Total number of reservations is also shown.
-  - Cancel buttons in Manage reservations have extra confirmation dialog.  
+  - Cancel buttons in Manage reservations have extra confirmation dialog.
 
   **CHANGELOG**
   - [#1070](https://github.com/City-of-Helsinki/varaamo/pull/1070) Add first name last name email phone number to payment form
@@ -138,11 +140,11 @@
   - [#1061](https://github.com/City-of-Helsinki/varaamo/pull/1061) FullCalendar arrows change date and is better connected to DatePicker.
   - [#1062](https://github.com/City-of-Helsinki/varaamo/pull/1062) Old notifications are reverted back to app folder.
   - [#1063](https://github.com/City-of-Helsinki/varaamo/pull/1063) Increased timepicker z-index value.
-  - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL. 
+  - [#1064](https://github.com/City-of-Helsinki/varaamo/pull/1064) Replaced ? with & in Feedback URL.
   - [#1065](https://github.com/City-of-Helsinki/varaamo/pull/1065) Replaced some frontpage icons.
   - [#1066](https://github.com/City-of-Helsinki/varaamo/pull/1066) Minor change in ReservationInformationModal reservation data structure.
   - [#1067](https://github.com/City-of-Helsinki/varaamo/pull/1067) FullCalendar mobile improvements and styling changes.
-  
+
 # 0.6.1
   **HOTFIX**
   - Resource fetchAll come with empty reservations data, affect resource availability status was determined wrong, which confuse user and display wrong status.
