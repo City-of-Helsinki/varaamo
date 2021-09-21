@@ -31,7 +31,7 @@
     "dotenv": "7.0.0",
     "dragscroll": "0.0.8",
     "enzyme-to-json": "^3.3.5",
-    "firebase": "^7.5.2",
+    "firebase": "^7.24.0",
     "hash-file": "3.0.0",
     "hds-core": "^0.12.1",
     "hds-design-tokens": "^0.10.1",
