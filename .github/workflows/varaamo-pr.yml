@@ -23,3 +23,5 @@ jobs:
           yarn lint
           yarn test:ci
           docker build  -t varaamo .
+        env:
+          TZ: Europe/Helsinki
