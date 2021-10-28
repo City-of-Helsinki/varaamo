@@ -6,8 +6,7 @@
     "url": "https://github.com/City-of-Helsinki/varaamo"
   },
   "engines": {
-    "node": ">=8.15.1",
-    "npm": ">=6.4.1"
+    "node": ">=14"
   },
   "main": "server/index.js",
   "homepage": "https://varaamo.hel.fi/",
