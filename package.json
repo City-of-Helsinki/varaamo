@@ -81,7 +81,7 @@
     "redux": "4.0.1",
     "redux-actions": "2.6.5",
     "redux-api-middleware": "3.0.1",
-    "redux-form": "8.1.0",
+    "redux-form": "8.3.7",
     "redux-thunk": "2.2.0",
     "reselect": "2.5.4",
     "seamless-immutable": "7.1.4",
