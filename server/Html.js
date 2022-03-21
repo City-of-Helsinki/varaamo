@@ -22,6 +22,22 @@ class Html extends Component {
     return `window.INITIAL_STATE = ${serialize(initialState)};`;
   }
 
+  renderCookieHubCode() {
+    const cookieHubString = `var cpm = {};
+      (function(h,u,b){
+      var d=h.getElementsByTagName('script')[0],e=h.createElement('script');
+      e.async=true;e.src='https://cookiehub.net/c2/c7e96adf.js';
+      e.onload=function(){u.cookiehub.load(b);}
+      d.parentNode.insertBefore(e,d);
+      })(document,window,cpm);`;
+
+    return (
+      <div>
+        <script dangerouslySetInnerHTML={{ __html: cookieHubString }} />
+      </div>
+    );
+  }
+
   renderAnalyticsCode(piwikSiteId) {
     if (!piwikSiteId) {
       return null;
@@ -32,7 +48,7 @@ class Html extends Component {
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="https://analytics.hel.ninja/";
+        var u='https://analytics.hel.ninja/';
         _paq.push(['setTrackerUrl', u+'matomo.php']);
         _paq.push(['setSiteId', ${piwikSiteId}]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -43,13 +59,14 @@ class Html extends Component {
         s.parentNode.insertBefore(g,s);
       })();
     `;
-    const imgSrc = `//analytics.hel.ninja/matomo.php?idsite=${piwikSiteId}&amp;rec=1`;
+
     return (
       <div>
-        <script dangerouslySetInnerHTML={{ __html: scriptString }} />
-        <noscript>
-          <p><img alt="" src={imgSrc} style={{ border: 0 }} /></p>
-        </noscript>
+        <script
+          dangerouslySetInnerHTML={{ __html: scriptString }}
+          data-consent="analytics"
+          type="text/plain"
+        />
       </div>
     );
   }
@@ -89,13 +106,17 @@ class Html extends Component {
           <div id="root" />
           <script
             dangerouslySetInnerHTML={{
-              __html: stringifyStateIntoWindow(ENV_NAMESPACE, pick(settings, CLIENT_ENV)),
+              __html: stringifyStateIntoWindow(
+                ENV_NAMESPACE,
+                pick(settings, CLIENT_ENV),
+              ),
             }}
           />
           <script dangerouslySetInnerHTML={{ __html: initialStateHtml }} />
           {/* eslint-disable-next-line max-len */}
           <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en-gb,Intl.~locale.fi,Intl.~locale.sv" />
           <script src={appScriptSrc} />
+          {this.renderCookieHubCode()}
           {this.renderAnalyticsCode(piwikSiteId)}
         </body>
       </html>
