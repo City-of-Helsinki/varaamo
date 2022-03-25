@@ -23,7 +23,7 @@ class Html extends Component {
   }
 
   renderCookieHubCode() {
-    const cookieHubString = `var cpm = {};
+    const cookieHubString = `var cpm =  {cookie:{domain:''}};
       (function(h,u,b){
       var d=h.getElementsByTagName('script')[0],e=h.createElement('script');
       e.async=true;e.src='https://cookiehub.net/c2/c7e96adf.js';
