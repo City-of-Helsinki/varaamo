@@ -83,7 +83,7 @@
     "reselect": "2.5.4",
     "seamless-immutable": "7.1.4",
     "serialize-javascript": "6.0.0",
-    "validator": "13.6.0"
+    "validator": "13.7.0"
   },
   "devDependencies": {
     "@babel/core": "7.15.8",
