@@ -56,7 +56,7 @@ exports[`domain/footer/Footer When there is no customization in use renders corr
           <span
             className="app-varaamo-version"
           >
-            v0.12.2
+            v0.12.3
           </span>
         </div>
       </Col>
@@ -121,7 +121,7 @@ exports[`domain/footer/Footer renders correctly 1`] = `
           <span
             className="app-varaamo-version"
           >
-            v0.12.2
+            v0.12.3
           </span>
         </div>
       </Col>
