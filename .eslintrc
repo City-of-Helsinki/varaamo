@@ -20,7 +20,7 @@
   },
 
   "rules": {
-
+    "quotes": [2, "single", { "avoidEscape": true }],
     "class-methods-use-this": "off",
 
     "import/no-extraneous-dependencies": "off",
