@@ -126,7 +126,7 @@
     "react-test-renderer": "^16.8.4",
     "react-transform-hmr": "1.0.4",
     "redux-devtools-extension": "2.13.8",
-    "resolve-url-loader": "3.0.1",
+    "resolve-url-loader": "3.1.4",
     "rosie": "1.6.0",
     "sass-loader": "7.1.0",
     "simple-mock": "0.8.0",
