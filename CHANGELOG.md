@@ -1,3 +1,7 @@
+
+# 0.12.6
+**MINOR CHANGES**
+  - Update deps
 # 0.12.1
   **MINOR CHANGES**
   - Enlarged font for danger type of notifications ([#1201](https://github.com/City-of-Helsinki/varaamo/pull/1201))
