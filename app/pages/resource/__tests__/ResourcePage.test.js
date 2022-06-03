@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import simple from 'simple-mock';
-import Lightbox from 'lightbox-react';
+import Lightbox from 'react-image-lightbox';
 
 import NotFoundPage from '../../not-found/NotFoundPage';
 import PageWrapper from '../../PageWrapper';

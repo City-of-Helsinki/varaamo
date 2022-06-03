@@ -9,9 +9,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import Lightbox from 'lightbox-react';
+import Lightbox from 'react-image-lightbox';
 import { decamelizeKeys } from 'humps';
-import 'lightbox-react/style.css';
+import 'react-image-lightbox/style.css';
 
 import { addNotification } from '../../actions/notificationsActions';
 import constants from '../../constants/AppConstants';
