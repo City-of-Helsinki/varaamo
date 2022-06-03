@@ -140,6 +140,16 @@
     "webpack-hot-middleware": "2.24.3",
     "webpack-merge": "4.2.1"
   },
+  "resolutions": {
+    "@firebase/util": "0.3.4",
+    "ansi-html": "0.0.8",
+    "ansi-regex": "^4.1.1",
+    "glob-parent": "5.1.2",
+    "minimist": "^1.2.6",
+    "node-fetch": "2.6.7",
+    "node-notifier": "8.0.1",
+    "protobufjs": "6.11.3"
+  },
   "scripts": {
     "build": "./node_modules/.bin/webpack --config config/webpack.production.js",
     "lint": "./node_modules/.bin/eslint .",
