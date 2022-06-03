@@ -1,6 +1,10 @@
-
+# 0.12.7
+  **MINOR CHANGES**
+  - Security updates; most notable changes below ([#1241](https://github.com/City-of-Helsinki/varaamo/pull/1241))
+    - Replace `lightbox-react` with `react-image-lightbox`
+    - Replace `node-sass` with `dart-sass`
 # 0.12.6
-**MINOR CHANGES**
+  **MINOR CHANGES**
   - Update deps
 # 0.12.1
   **MINOR CHANGES**
