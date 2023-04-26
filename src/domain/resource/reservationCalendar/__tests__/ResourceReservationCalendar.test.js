@@ -15,6 +15,7 @@ describe('ResourceReservationCalendar', () => {
       onReserve: jest.fn(),
       t: jest.fn(),
       locale: 'en',
+      onTimeChange: jest.fn(),
     };
 
     const wrapper = shallowWithIntl(
