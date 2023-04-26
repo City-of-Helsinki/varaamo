@@ -6,8 +6,8 @@ import { UntranslatedResourceReservationCalendar as ResourceReservationCalendar 
 import resource from '../../../../common/data/fixtures/resource';
 
 describe('ResourceReservationCalendar', () => {
+  globalDateMock();
   test('renders correctly', () => {
-    globalDateMock();
     const props = {
       resource: resource.build(),
       date: '2019-08-15',

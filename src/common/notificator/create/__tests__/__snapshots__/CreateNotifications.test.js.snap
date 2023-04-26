@@ -23,7 +23,7 @@ exports[`CreateNotifications Snapshot test 1`] = `
     onFieldChange={[Function]}
     onHide={[Function]}
     save={[Function]}
-    selectedNotification={Object {}}
+    selectedNotification={{}}
   />
 </div>
 `;

@@ -13,12 +13,12 @@ exports[`ReservationInformationModal renders correctly 1`] = `
   manager={
     ModalManager {
       "add": [Function],
-      "containers": Array [],
-      "data": Array [],
+      "containers": [],
+      "data": [],
       "handleContainerOverflow": true,
       "hideSiblingNodes": true,
       "isTopModal": [Function],
-      "modals": Array [],
+      "modals": [],
       "remove": [Function],
     }
   }
@@ -45,7 +45,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
   >
     <InjectT(ManageReservationsStatus)
       reservation={
-        Object {
+        {
           "begin": "2019-08-14T14:00:00+03:00",
           "comments": "",
           "end": "2019-08-14T15:00:00+03:00",
@@ -58,7 +58,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
           "staff_event": false,
           "state": "confirmed",
           "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-          "user": Object {},
+          "user": {},
           "user_permissions": null,
         }
       }
@@ -125,7 +125,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
       <InjectT(ReservationMetadata)
         customField={[Function]}
         reservation={
-          Object {
+          {
             "begin": "2019-08-14T14:00:00+03:00",
             "comments": "",
             "end": "2019-08-14T15:00:00+03:00",
@@ -138,7 +138,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
             "staff_event": false,
             "state": "confirmed",
             "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-            "user": Object {},
+            "user": {},
             "user_permissions": null,
           }
         }
@@ -221,7 +221,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
     onEditReservation={[MockFunction]}
     parentToggle={[Function]}
     reservation={
-      Object {
+      {
         "begin": "2019-08-14T14:00:00+03:00",
         "comments": "",
         "end": "2019-08-14T15:00:00+03:00",
@@ -234,7 +234,7 @@ exports[`ReservationInformationModal renders correctly 1`] = `
         "staff_event": false,
         "state": "confirmed",
         "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-        "user": Object {},
+        "user": {},
         "user_permissions": null,
       }
     }

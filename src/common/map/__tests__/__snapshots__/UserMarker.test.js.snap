@@ -5,27 +5,27 @@ exports[`UserMarker renders correctly 1`] = `
   icon={
     NewClass {
       "_initHooksCalled": true,
-      "options": Object {
-        "iconAnchor": Array [
+      "options": {
+        "iconAnchor": [
           12,
           41,
         ],
         "iconRetinaUrl": "test-file-stub",
-        "iconSize": Array [
+        "iconSize": [
           25,
           41,
         ],
         "iconUrl": "test-file-stub",
-        "popupAnchor": Array [
+        "popupAnchor": [
           1,
           -34,
         ],
-        "shadowSize": Array [
+        "shadowSize": [
           41,
           41,
         ],
         "shadowUrl": "test-file-stub",
-        "tooltipAnchor": Array [
+        "tooltipAnchor": [
           16,
           -28,
         ],
@@ -33,7 +33,7 @@ exports[`UserMarker renders correctly 1`] = `
     }
   }
   position={
-    Array [
+    [
       60.20843,
       24.975634,
     ]

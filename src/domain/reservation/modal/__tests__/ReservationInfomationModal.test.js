@@ -1,7 +1,7 @@
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 
-import { shallowWithIntl, globalDateMock } from '../../../../../app/utils/testUtils';
+import { shallowWithIntl } from '../../../../../app/utils/testUtils';
 import ReservationInformationModal from '../ReservationInformationModal';
 import reservation from '../../../../common/data/fixtures/reservation';
 
@@ -13,6 +13,7 @@ describe('ReservationInformationModal', () => {
     end: '2019-08-14T15:00:00+03:00',
     state: 'confirmed',
   });
+
   const defaultProps = {
     reservation: mockReservation,
     onHide: jest.fn(),
@@ -21,13 +22,12 @@ describe('ReservationInformationModal', () => {
     onEditReservation: jest.fn(),
     t: path => path,
   };
+
   const getWrapper = props => shallowWithIntl(
     <ReservationInformationModal {...defaultProps} {...props} />,
   );
 
   test('renders correctly', () => {
-    globalDateMock();
-
     expect(toJSON(getWrapper())).toMatchSnapshot();
   });
 

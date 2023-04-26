@@ -6,54 +6,54 @@ exports[`ResourceCardSlider renders correctly 1`] = `
 >
   <InjectIntl(Connect(InjectT(ResourceCard)))
     date="30-07-2019"
-    history={Object {}}
+    history={{}}
     isStacked={false}
-    location={Object {}}
+    location={{}}
     onFavoriteClick={[MockFunction]}
     onFilterClick={[MockFunction]}
     resource={
-      Object {
-        "available_hours": Array [],
-        "equipment": Array [],
+      {
+        "available_hours": [],
+        "equipment": [],
         "id": 1,
         "is_favorite": false,
-        "name": Object {
+        "name": {
           "en": "Resource (en) - 1",
           "fi": "Resource (fi) - 1",
           "sv": "Resource (sv) - 1",
         },
         "need_manual_confirmation": false,
-        "opening_hours": Array [],
-        "products": Array [],
+        "opening_hours": [],
+        "products": [],
         "public": true,
-        "required_reservation_extra_fields": Array [],
+        "required_reservation_extra_fields": [],
         "reservable": true,
         "reservable_after": null,
         "slot_size": "00:30:00",
-        "supported_reservation_extra_fields": Array [],
+        "supported_reservation_extra_fields": [],
         "unit": 1,
-        "user_permissions": Object {
+        "user_permissions": {
           "canMakeReservations": true,
           "isAdmin": false,
         },
       }
     }
     unit={
-      Object {
+      {
         "id": 1,
-        "location": Object {
-          "coordinates": Array [
+        "location": {
+          "coordinates": [
             25.01571,
             60.249935,
           ],
           "type": "Point",
         },
-        "name": Object {
+        "name": {
           "en": "Unit (en) - 1",
           "fi": "Unit (fi) - 1",
           "sv": "Unit (sv) - 1",
         },
-        "opening_hours_today": Object {},
+        "opening_hours_today": {},
       }
     }
   />

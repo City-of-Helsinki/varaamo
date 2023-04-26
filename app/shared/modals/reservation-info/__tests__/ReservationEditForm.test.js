@@ -103,7 +103,7 @@ describe('shared/modals/reservation-info/ReservationEditForm', () => {
       });
 
       test('renders numberOfParticipants', () => {
-        expect(getData()).toContain(reservation.numberOfParticipants);
+        expect(getData()).toContain(reservation.numberOfParticipants.toString());
       });
 
       test('renders reserverAddressCity', () => {

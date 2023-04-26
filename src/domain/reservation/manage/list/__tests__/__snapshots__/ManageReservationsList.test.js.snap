@@ -72,7 +72,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
         <td>
           <ManageReservationsPincode
             reservation={
-              Object {
+              {
                 "begin": "",
                 "comments": "",
                 "end": "",
@@ -85,7 +85,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "staff_event": false,
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-                "user": Object {},
+                "user": {},
                 "user_permissions": null,
               }
             }
@@ -99,7 +99,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
         <td>
           <InjectT(ManageReservationsStatus)
             reservation={
-              Object {
+              {
                 "begin": "",
                 "comments": "",
                 "end": "",
@@ -112,7 +112,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "staff_event": false,
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-                "user": Object {},
+                "user": {},
                 "user_permissions": null,
               }
             }
@@ -123,7 +123,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
             onEditClick={[Function]}
             onInfoClick={[Function]}
             reservation={
-              Object {
+              {
                 "begin": "",
                 "comments": "",
                 "end": "",
@@ -136,7 +136,7 @@ exports[`ManageReservationsList renders correctly 1`] = `
                 "staff_event": false,
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-                "user": Object {},
+                "user": {},
                 "user_permissions": null,
               }
             }

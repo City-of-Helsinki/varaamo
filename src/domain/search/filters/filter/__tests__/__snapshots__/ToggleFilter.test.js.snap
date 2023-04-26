@@ -7,7 +7,7 @@ exports[`ToggleFilter render normally 1`] = `
   <Toggle
     className="app-ToggleFilter__toggle"
     icons={
-      Object {
+      {
         "checked": <Unknown />,
         "unchecked": <Unknown />,
       }

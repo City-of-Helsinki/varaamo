@@ -14,12 +14,12 @@ exports[`CreateNotificationsModal Renders correcly 1`] = `
     manager={
       ModalManager {
         "add": [Function],
-        "containers": Array [],
-        "data": Array [],
+        "containers": [],
+        "data": [],
         "handleContainerOverflow": true,
         "hideSiblingNodes": true,
         "isTopModal": [Function],
-        "modals": Array [],
+        "modals": [],
         "remove": [Function],
       }
     }
@@ -51,7 +51,7 @@ exports[`CreateNotificationsModal Renders correcly 1`] = `
           addElement={[Function]}
           addNew={[Function]}
           isEditing={true}
-          newNotification={Object {}}
+          newNotification={{}}
           onFieldChange={[Function]}
         />
       </div>

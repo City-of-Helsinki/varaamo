@@ -23,20 +23,20 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
           label="ManageReservationsFilters.statusLabel"
           onChange={[Function]}
           options={
-            Array [
-              Object {
+            [
+              {
                 "label": "Reservation.stateLabelConfirmed",
                 "value": "confirmed",
               },
-              Object {
+              {
                 "label": "Reservation.stateLabelCancelled",
                 "value": "cancelled",
               },
-              Object {
+              {
                 "label": "Reservation.stateLabelDenied",
                 "value": "denied",
               },
-              Object {
+              {
                 "label": "Reservation.stateLabelRequested",
                 "value": "requested",
               },
@@ -103,8 +103,8 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
           label="ManageReservationsFilters.unitLabel"
           onChange={[Function]}
           options={
-            Array [
-              Object {
+            [
+              {
                 "label": "Unit (en) - 1",
                 "value": 1,
               },
@@ -123,12 +123,12 @@ exports[`ManageReservationsFilters renders correctly 1`] = `
           label="ManageReservationsFilters.showOnly.title"
           onChange={[Function]}
           options={
-            Array [
-              Object {
+            [
+              {
                 "label": "ManageReservationsFilters.showOnly.favoriteButtonLabel",
                 "value": "favorite",
               },
-              Object {
+              {
                 "label": "ManageReservationsFilters.showOnly.canModifyButtonLabel",
                 "value": "can_modify",
               },

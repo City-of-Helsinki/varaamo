@@ -20,8 +20,8 @@ exports[`SelectFilter render normally 1`] = `
       noOptionsMessage={[Function]}
       onChange={[Function]}
       options={
-        Array [
-          Object {
+        [
+          {
             "label": "bar",
             "value": "foo",
           },

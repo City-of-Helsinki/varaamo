@@ -17,20 +17,20 @@ exports[`SearchSort renders correctly 1`] = `
     label="SearchSort.label"
     onChange={[Function]}
     options={
-      Array [
-        Object {
+      [
+        {
           "label": "SearchSort.nameLabel",
           "value": "resource_name_en",
         },
-        Object {
+        {
           "label": "SearchSort.typeLabel",
           "value": "type_name_en",
         },
-        Object {
+        {
           "label": "SearchSort.premiseLabel",
           "value": "unit_name_en",
         },
-        Object {
+        {
           "label": "SearchSort.peopleLabel",
           "value": "people_capacity",
         },
