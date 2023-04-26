@@ -167,7 +167,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --collectCoverage",
-    "test:ci": "jest --runInBand --collectCoverage",
+    "test:ci": "jest --collectCoverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   }
 }
