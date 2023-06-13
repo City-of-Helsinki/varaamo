@@ -56,46 +56,46 @@ exports[`DateFilter render normally 1`] = `
     animation={false}
     container={
       UntranslatedDateFilter {
-        "context": Object {},
+        "context": {},
         "handleDateButtonClick": [Function],
         "handleInputBlur": [Function],
         "handleInputChange": [Function],
         "handleInputKeydown": [Function],
         "isValidDate": [Function],
         "onChange": [Function],
-        "props": Object {
+        "props": {
           "date": 2017-12-09T22:00:00.000Z,
           "label": "foo",
           "locale": "en",
           "name": "test",
           "onChange": [MockFunction],
           "t": [MockFunction] {
-            "calls": Array [
-              Array [
+            "calls": [
+              [
                 "DatePickerControl.button.imageAlt",
               ],
             ],
-            "results": Array [
-              Object {
+            "results": [
+              {
                 "type": "return",
                 "value": "DatePickerControl.button.imageAlt",
               },
             ],
           },
         },
-        "refs": Object {},
-        "state": Object {
+        "refs": {},
+        "state": {
           "inputTouched": false,
           "inputValue": "10.12.2017",
           "isOpen": false,
         },
         "updater": Updater {
-          "_callbacks": Array [],
+          "_callbacks": [],
           "_renderer": ReactShallowRenderer {
-            "_context": Object {},
+            "_context": {},
             "_currentlyRenderingComponent": null,
             "_didScheduleRenderPhaseUpdate": false,
-            "_dispatcher": Object {
+            "_dispatcher": {
               "readContext": [Function],
               "useCallback": [Function],
               "useContext": [Function],
@@ -116,13 +116,13 @@ exports[`DateFilter render normally 1`] = `
               onChange={[MockFunction]}
               t={
                 [MockFunction] {
-                  "calls": Array [
-                    Array [
+                  "calls": [
+                    [
                       "DatePickerControl.button.imageAlt",
                     ],
                   ],
-                  "results": Array [
-                    Object {
+                  "results": [
+                    {
                       "type": "return",
                       "value": "DatePickerControl.button.imageAlt",
                     },
@@ -203,7 +203,7 @@ exports[`DateFilter render normally 1`] = `
                     captionElement={
                       <Caption
                         classNames={
-                          Object {
+                          {
                             "body": "DayPicker-Body",
                             "caption": "DayPicker-Caption",
                             "container": "DayPicker",
@@ -230,7 +230,7 @@ exports[`DateFilter render normally 1`] = `
                           }
                         }
                         localeUtils={
-                          Object {
+                          {
                             "formatDay": [Function],
                             "formatMonthTitle": [Function],
                             "formatWeekdayLong": [Function],
@@ -242,7 +242,7 @@ exports[`DateFilter render normally 1`] = `
                       />
                     }
                     classNames={
-                      Object {
+                      {
                         "body": "DayPicker-Body",
                         "caption": "DayPicker-Caption",
                         "container": "DayPicker",
@@ -273,14 +273,14 @@ exports[`DateFilter render normally 1`] = `
                     fixedWeeks={false}
                     initialMonth={2017-12-09T22:00:00.000Z}
                     labels={
-                      Object {
+                      {
                         "nextMonth": "Next Month",
                         "previousMonth": "Previous Month",
                       }
                     }
                     locale="en"
                     localeUtils={
-                      Object {
+                      {
                         "formatDate": [Function],
                         "formatDay": [Function],
                         "formatMonthTitle": [Function],
@@ -294,7 +294,7 @@ exports[`DateFilter render normally 1`] = `
                     navbarElement={
                       <Navbar
                         classNames={
-                          Object {
+                          {
                             "body": "DayPicker-Body",
                             "caption": "DayPicker-Caption",
                             "container": "DayPicker",
@@ -322,7 +322,7 @@ exports[`DateFilter render normally 1`] = `
                         }
                         dir="ltr"
                         labels={
-                          Object {
+                          {
                             "nextMonth": "Next Month",
                             "previousMonth": "Previous Month",
                           }
@@ -365,7 +365,7 @@ exports[`DateFilter render normally 1`] = `
         captionElement={
           <Caption
             classNames={
-              Object {
+              {
                 "body": "DayPicker-Body",
                 "caption": "DayPicker-Caption",
                 "container": "DayPicker",
@@ -392,7 +392,7 @@ exports[`DateFilter render normally 1`] = `
               }
             }
             localeUtils={
-              Object {
+              {
                 "formatDay": [Function],
                 "formatMonthTitle": [Function],
                 "formatWeekdayLong": [Function],
@@ -404,7 +404,7 @@ exports[`DateFilter render normally 1`] = `
           />
         }
         classNames={
-          Object {
+          {
             "body": "DayPicker-Body",
             "caption": "DayPicker-Caption",
             "container": "DayPicker",
@@ -435,14 +435,14 @@ exports[`DateFilter render normally 1`] = `
         fixedWeeks={false}
         initialMonth={2017-12-09T22:00:00.000Z}
         labels={
-          Object {
+          {
             "nextMonth": "Next Month",
             "previousMonth": "Previous Month",
           }
         }
         locale="en"
         localeUtils={
-          Object {
+          {
             "formatDate": [Function],
             "formatDay": [Function],
             "formatMonthTitle": [Function],
@@ -456,7 +456,7 @@ exports[`DateFilter render normally 1`] = `
         navbarElement={
           <Navbar
             classNames={
-              Object {
+              {
                 "body": "DayPicker-Body",
                 "caption": "DayPicker-Caption",
                 "container": "DayPicker",
@@ -484,7 +484,7 @@ exports[`DateFilter render normally 1`] = `
             }
             dir="ltr"
             labels={
-              Object {
+              {
                 "nextMonth": "Next Month",
                 "previousMonth": "Previous Month",
               }

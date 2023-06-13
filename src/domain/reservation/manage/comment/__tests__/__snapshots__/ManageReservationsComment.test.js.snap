@@ -14,7 +14,7 @@ exports[`ManageReservationsComment renders correctly 1`] = `
     title={
       <FormattedMessage
         id="CommentForm.label"
-        values={Object {}}
+        values={{}}
       />
     }
   >

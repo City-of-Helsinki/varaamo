@@ -48,16 +48,16 @@ exports[`CreateNotificationForm Snapshot test 1`] = `
         defaultValue={null}
         onChange={[Function]}
         options={
-          Array [
-            Object {
+          [
+            {
               "label": "Staff",
               "value": "staff",
             },
-            Object {
+            {
               "label": "User",
               "value": "user",
             },
-            Object {
+            {
               "label": "All",
               "value": "all",
             },
@@ -82,16 +82,16 @@ exports[`CreateNotificationForm Snapshot test 1`] = `
         defaultValue={null}
         onChange={[Function]}
         options={
-          Array [
-            Object {
+          [
+            {
               "label": "Common",
               "value": "common",
             },
-            Object {
+            {
               "label": "Warning",
               "value": "warning",
             },
-            Object {
+            {
               "label": "Danger",
               "value": "danger",
             },

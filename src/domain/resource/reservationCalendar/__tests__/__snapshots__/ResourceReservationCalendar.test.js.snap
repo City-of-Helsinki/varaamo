@@ -8,28 +8,29 @@ exports[`ResourceReservationCalendar renders correctly 1`] = `
     date="2019-08-15"
     disabled={true}
     onDateChange={[MockFunction]}
+    onTimeChange={[MockFunction]}
     resource={
-      Object {
-        "available_hours": Array [],
-        "equipment": Array [],
+      {
+        "available_hours": [],
+        "equipment": [],
         "id": 1,
         "is_favorite": false,
-        "name": Object {
+        "name": {
           "en": "Resource (en) - 1",
           "fi": "Resource (fi) - 1",
           "sv": "Resource (sv) - 1",
         },
         "need_manual_confirmation": false,
-        "opening_hours": Array [],
-        "products": Array [],
+        "opening_hours": [],
+        "products": [],
         "public": true,
-        "required_reservation_extra_fields": Array [],
+        "required_reservation_extra_fields": [],
         "reservable": true,
         "reservable_after": null,
         "slot_size": "00:30:00",
-        "supported_reservation_extra_fields": Array [],
+        "supported_reservation_extra_fields": [],
         "unit": 1,
-        "user_permissions": Object {
+        "user_permissions": {
           "canMakeReservations": true,
           "isAdmin": false,
         },

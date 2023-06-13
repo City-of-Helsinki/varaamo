@@ -6,6 +6,7 @@ import { globalDateMock } from '../../../../../app/utils/testUtils';
 import { UntranslatedDateField as DateField } from '../DateField';
 
 describe('DateField', () => {
+  globalDateMock();
   test('renders correctly', () => {
     const props = {
       onChange: jest.fn(),
@@ -14,8 +15,6 @@ describe('DateField', () => {
       value: new Date(2019, 8, 9),
       locale: 'en',
     };
-
-    globalDateMock();
 
     const wrapper = shallow(
       <DateField {...props} />,

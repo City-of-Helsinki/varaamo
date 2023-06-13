@@ -25,7 +25,7 @@ exports[`pages/about/AboutPage render normally 1`] = `
     <p>
       <FormattedHTMLMessage
         id="AboutPageContent.basedOnParagraph"
-        values={Object {}}
+        values={{}}
       />
     </p>
     <p>

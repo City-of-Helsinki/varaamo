@@ -12,12 +12,12 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
   manager={
     ModalManager {
       "add": [Function],
-      "containers": Array [],
-      "data": Array [],
+      "containers": [],
+      "data": [],
       "handleContainerOverflow": true,
       "hideSiblingNodes": true,
       "isTopModal": [Function],
-      "modals": Array [],
+      "modals": [],
       "remove": [Function],
     }
   }
@@ -33,7 +33,7 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
     bsClass="modal"
     className=""
     onClick={[Function]}
-    style={Object {}}
+    style={{}}
   >
     <ModalHeader
       bsClass="modal-header"
@@ -55,8 +55,8 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
         </p>
         <CompactReservationList
           reservations={
-            Array [
-              Object {
+            [
+              {
                 "begin": "2019-08-14T14:00:00+03:00",
                 "comments": "",
                 "end": "2019-08-14T15:00:00+03:00",
@@ -69,14 +69,14 @@ exports[`domain/reservation/modal/ReservationCancelModal renders correctly 1`] =
                 "staff_event": false,
                 "state": "requested",
                 "url": "https://respa.koe.hel.ninja/v1/reservation/192388/",
-                "user": Object {},
+                "user": {},
                 "user_permissions": null,
               },
             ]
           }
           resources={
-            Object {
-              "undefined": Object {
+            {
+              "undefined": {
                 "name": "",
               },
             }

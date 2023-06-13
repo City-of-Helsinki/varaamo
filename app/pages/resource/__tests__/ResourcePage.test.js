@@ -55,6 +55,7 @@ describe('pages/resource/ResourcePage', () => {
     resource: Immutable(resource),
     showMap: false,
     unit: Immutable(unit),
+    isLargeFontSize: false,
   };
 
   function getWrapper(props) {

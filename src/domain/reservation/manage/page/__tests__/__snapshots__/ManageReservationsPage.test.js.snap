@@ -29,18 +29,18 @@ exports[`ManageReservationsPage renders correctly 1`] = `
     </Grid>
     <InjectIntl(InjectT(ManageReservationsFilters))
       filters={
-        Object {
+        {
           "date": "2017-12-10",
         }
       }
       onSearchChange={[Function]}
       onShowOnlyFiltersChange={[Function]}
       showOnlyFilters={
-        Array [
+        [
           "can_modify",
         ]
       }
-      units={Array []}
+      units={[]}
     />
     <Grid
       bsClass="container"
@@ -88,7 +88,7 @@ exports[`ManageReservationsPage renders correctly 1`] = `
               onEditClick={[Function]}
               onEditReservation={[Function]}
               onInfoClick={[Function]}
-              reservations={Array []}
+              reservations={[]}
             />
           </Component>
           <InjectT(Pagination)

@@ -346,7 +346,7 @@ describe('Utils: reservationUtils', () => {
     };
 
     afterAll(() => {
-      jest.mock.resetAll();
+      jest.resetAllMocks();
     });
 
     axios.request.mockResolvedValue({

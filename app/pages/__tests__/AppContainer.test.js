@@ -19,6 +19,7 @@ describe('pages/AppContainer', () => {
       userId: null,
       language: 'fi',
       fontSize: 'fontSizeSmall',
+      isHighContrast: false,
     };
     return shallow(<AppContainer {...defaults} {...props} />);
   }

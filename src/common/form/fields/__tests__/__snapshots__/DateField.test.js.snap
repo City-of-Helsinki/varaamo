@@ -30,7 +30,7 @@ exports[`DateField renders correctly 1`] = `
         <span
           className="value"
         >
-          09.09.2019
+          10.12.2017
         </span>
       </InputGroupAddon>
       <InputGroupAddon
@@ -48,26 +48,26 @@ exports[`DateField renders correctly 1`] = `
     animation={false}
     container={
       UntranslatedDateField {
-        "context": Object {},
+        "context": {},
         "onChange": [Function],
-        "props": Object {
+        "props": {
           "id": "foo",
           "label": "foo",
           "locale": "en",
           "onChange": [MockFunction],
-          "value": 2019-09-08T21:00:00.000Z,
+          "value": 2017-12-09T22:00:00.000Z,
         },
-        "refs": Object {},
-        "state": Object {
+        "refs": {},
+        "state": {
           "isOpen": false,
         },
         "updater": Updater {
-          "_callbacks": Array [],
+          "_callbacks": [],
           "_renderer": ReactShallowRenderer {
-            "_context": Object {},
+            "_context": {},
             "_currentlyRenderingComponent": null,
             "_didScheduleRenderPhaseUpdate": false,
-            "_dispatcher": Object {
+            "_dispatcher": {
               "readContext": [Function],
               "useCallback": [Function],
               "useContext": [Function],
@@ -85,7 +85,7 @@ exports[`DateField renders correctly 1`] = `
               label="foo"
               locale="en"
               onChange={[MockFunction]}
-              value={2019-09-08T21:00:00.000Z}
+              value={2017-12-09T22:00:00.000Z}
             />,
             "_firstWorkInProgressHook": null,
             "_forcedUpdate": false,
@@ -124,7 +124,7 @@ exports[`DateField renders correctly 1`] = `
                     <span
                       className="value"
                     >
-                      09.09.2019
+                      10.12.2017
                     </span>
                   </InputGroupAddon>
                   <InputGroupAddon
@@ -152,7 +152,7 @@ exports[`DateField renders correctly 1`] = `
                     captionElement={
                       <Caption
                         classNames={
-                          Object {
+                          {
                             "body": "DayPicker-Body",
                             "caption": "DayPicker-Caption",
                             "container": "DayPicker",
@@ -179,7 +179,7 @@ exports[`DateField renders correctly 1`] = `
                           }
                         }
                         localeUtils={
-                          Object {
+                          {
                             "formatDay": [Function],
                             "formatMonthTitle": [Function],
                             "formatWeekdayLong": [Function],
@@ -191,7 +191,7 @@ exports[`DateField renders correctly 1`] = `
                       />
                     }
                     classNames={
-                      Object {
+                      {
                         "body": "DayPicker-Body",
                         "caption": "DayPicker-Caption",
                         "container": "DayPicker",
@@ -219,16 +219,16 @@ exports[`DateField renders correctly 1`] = `
                     }
                     enableOutsideDaysClick={true}
                     fixedWeeks={false}
-                    initialMonth={2019-09-08T21:00:00.000Z}
+                    initialMonth={2017-12-09T22:00:00.000Z}
                     labels={
-                      Object {
+                      {
                         "nextMonth": "Next Month",
                         "previousMonth": "Previous Month",
                       }
                     }
                     locale="en"
                     localeUtils={
-                      Object {
+                      {
                         "formatDate": [Function],
                         "formatDay": [Function],
                         "formatMonthTitle": [Function],
@@ -242,7 +242,7 @@ exports[`DateField renders correctly 1`] = `
                     navbarElement={
                       <Navbar
                         classNames={
-                          Object {
+                          {
                             "body": "DayPicker-Body",
                             "caption": "DayPicker-Caption",
                             "container": "DayPicker",
@@ -270,7 +270,7 @@ exports[`DateField renders correctly 1`] = `
                         }
                         dir="ltr"
                         labels={
-                          Object {
+                          {
                             "nextMonth": "Next Month",
                             "previousMonth": "Previous Month",
                           }
@@ -285,7 +285,7 @@ exports[`DateField renders correctly 1`] = `
                     renderDay={[Function]}
                     renderWeek={[Function]}
                     reverseMonths={false}
-                    selectedDays={2019-09-08T21:00:00.000Z}
+                    selectedDays={2017-12-09T22:00:00.000Z}
                     showOutsideDays={true}
                     showWeekDays={true}
                     showWeekNumbers={true}
@@ -313,7 +313,7 @@ exports[`DateField renders correctly 1`] = `
         captionElement={
           <Caption
             classNames={
-              Object {
+              {
                 "body": "DayPicker-Body",
                 "caption": "DayPicker-Caption",
                 "container": "DayPicker",
@@ -340,7 +340,7 @@ exports[`DateField renders correctly 1`] = `
               }
             }
             localeUtils={
-              Object {
+              {
                 "formatDay": [Function],
                 "formatMonthTitle": [Function],
                 "formatWeekdayLong": [Function],
@@ -352,7 +352,7 @@ exports[`DateField renders correctly 1`] = `
           />
         }
         classNames={
-          Object {
+          {
             "body": "DayPicker-Body",
             "caption": "DayPicker-Caption",
             "container": "DayPicker",
@@ -380,16 +380,16 @@ exports[`DateField renders correctly 1`] = `
         }
         enableOutsideDaysClick={true}
         fixedWeeks={false}
-        initialMonth={2019-09-08T21:00:00.000Z}
+        initialMonth={2017-12-09T22:00:00.000Z}
         labels={
-          Object {
+          {
             "nextMonth": "Next Month",
             "previousMonth": "Previous Month",
           }
         }
         locale="en"
         localeUtils={
-          Object {
+          {
             "formatDate": [Function],
             "formatDay": [Function],
             "formatMonthTitle": [Function],
@@ -403,7 +403,7 @@ exports[`DateField renders correctly 1`] = `
         navbarElement={
           <Navbar
             classNames={
-              Object {
+              {
                 "body": "DayPicker-Body",
                 "caption": "DayPicker-Caption",
                 "container": "DayPicker",
@@ -431,7 +431,7 @@ exports[`DateField renders correctly 1`] = `
             }
             dir="ltr"
             labels={
-              Object {
+              {
                 "nextMonth": "Next Month",
                 "previousMonth": "Previous Month",
               }
@@ -446,7 +446,7 @@ exports[`DateField renders correctly 1`] = `
         renderDay={[Function]}
         renderWeek={[Function]}
         reverseMonths={false}
-        selectedDays={2019-09-08T21:00:00.000Z}
+        selectedDays={2017-12-09T22:00:00.000Z}
         showOutsideDays={true}
         showWeekDays={true}
         showWeekNumbers={true}

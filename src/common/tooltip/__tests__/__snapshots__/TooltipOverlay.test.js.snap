@@ -19,7 +19,7 @@ exports[`TooltipOverlay renders correctly 1`] = `
     }
     placement="top"
     trigger={
-      Array [
+      [
         "hover",
         "focus",
       ]

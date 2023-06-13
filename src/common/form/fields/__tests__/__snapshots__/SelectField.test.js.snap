@@ -24,12 +24,12 @@ exports[`SelectField renders correctly 1`] = `
       noOptionsMessage={[Function]}
       onChange={[Function]}
       options={
-        Array [
-          Object {
+        [
+          {
             "label": "Foo",
             "value": "foo",
           },
-          Object {
+          {
             "label": "Bar",
             "value": "bar",
           },
@@ -37,7 +37,7 @@ exports[`SelectField renders correctly 1`] = `
       }
       placeholder="common.select"
       value={
-        Object {
+        {
           "label": "Foo",
           "value": "foo",
         }

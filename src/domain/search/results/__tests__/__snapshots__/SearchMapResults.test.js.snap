@@ -12,20 +12,20 @@ exports[`SearchMapResults renders correctly 1`] = `
   >
     <Map
       bounds={
-        Array [
-          Array [
+        [
+          [
             60.249935,
             25.01571,
           ],
-          Array [
+          [
             60.249935,
             25.01571,
           ],
         ]
       }
       boundsOptions={
-        Object {
-          "padding": Array [
+        {
+          "padding": [
             50,
             50,
           ],
@@ -37,7 +37,7 @@ exports[`SearchMapResults renders correctly 1`] = `
       zoomControl={false}
     >
       <ForwardRef(Leaflet(TileLayer))
-        attribution="© <a href=\\"http://osm.org/copyright\\">OpenStreetMap</a> contributors"
+        attribution="© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors"
         url="https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidmFyYWFtbyIsImEiOiJjamU2cWhmdTUwM2ZmMzFud2dvZzFqb2dnIn0.Mj6YrtV9RbJXiU82dqqwhw"
       />
       <ForwardRef(Leaflet(ZoomControl))
@@ -48,28 +48,28 @@ exports[`SearchMapResults renders correctly 1`] = `
         key="unitMarker-1"
         onClick={[Function]}
         resources={
-          Array [
-            Object {
-              "available_hours": Array [],
-              "equipment": Array [],
+          [
+            {
+              "available_hours": [],
+              "equipment": [],
               "id": 1,
               "is_favorite": false,
-              "name": Object {
+              "name": {
                 "en": "Resource (en) - 1",
                 "fi": "Resource (fi) - 1",
                 "sv": "Resource (sv) - 1",
               },
               "need_manual_confirmation": false,
-              "opening_hours": Array [],
-              "products": Array [],
+              "opening_hours": [],
+              "products": [],
               "public": true,
-              "required_reservation_extra_fields": Array [],
+              "required_reservation_extra_fields": [],
               "reservable": true,
               "reservable_after": null,
               "slot_size": "00:30:00",
-              "supported_reservation_extra_fields": Array [],
+              "supported_reservation_extra_fields": [],
               "unit": 1,
-              "user_permissions": Object {
+              "user_permissions": {
                 "canMakeReservations": true,
                 "isAdmin": false,
               },
@@ -77,21 +77,21 @@ exports[`SearchMapResults renders correctly 1`] = `
           ]
         }
         unit={
-          Object {
+          {
             "id": 1,
-            "location": Object {
-              "coordinates": Array [
+            "location": {
+              "coordinates": [
                 25.01571,
                 60.249935,
               ],
               "type": "Point",
             },
-            "name": Object {
+            "name": {
               "en": "Unit (en) - 1",
               "fi": "Unit (fi) - 1",
               "sv": "Unit (sv) - 1",
             },
-            "opening_hours_today": Object {},
+            "opening_hours_today": {},
           }
         }
       />

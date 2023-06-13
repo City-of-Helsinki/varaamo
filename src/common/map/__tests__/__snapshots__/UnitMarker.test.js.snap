@@ -5,14 +5,14 @@ exports[`UnitMarker renders correctly 1`] = `
   icon={
     NewClass {
       "_initHooksCalled": true,
-      "options": Object {
+      "options": {
         "className": "marker-icon",
-        "html": "<div>1</div><img src=\\"test-file-stub\\" />",
-        "iconAnchor": Array [
+        "html": "<div>1</div><img src="test-file-stub" />",
+        "iconAnchor": [
           12,
           48,
         ],
-        "iconSize": Array [
+        "iconSize": [
           25,
           48,
         ],
@@ -21,7 +21,7 @@ exports[`UnitMarker renders correctly 1`] = `
   }
   onClick={[Function]}
   position={
-    Array [
+    [
       60.20843,
       24.975634,
     ]
@@ -34,14 +34,14 @@ exports[`UnitMarker show number of resources when more than 1 resources 1`] = `
   icon={
     NewClass {
       "_initHooksCalled": true,
-      "options": Object {
+      "options": {
         "className": "marker-icon",
-        "html": "<div>2</div><img src=\\"test-file-stub\\" />",
-        "iconAnchor": Array [
+        "html": "<div>2</div><img src="test-file-stub" />",
+        "iconAnchor": [
           12,
           48,
         ],
-        "iconSize": Array [
+        "iconSize": [
           25,
           48,
         ],
@@ -50,7 +50,7 @@ exports[`UnitMarker show number of resources when more than 1 resources 1`] = `
   }
   onClick={[Function]}
   position={
-    Array [
+    [
       60.20843,
       24.975634,
     ]

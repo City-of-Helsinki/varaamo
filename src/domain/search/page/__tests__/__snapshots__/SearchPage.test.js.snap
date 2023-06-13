@@ -6,7 +6,7 @@ exports[`SearchPage renders correctly 1`] = `
 >
   <InjectIntl(InjectT(SearchFilters))
     filters={
-      Object {
+      {
         "date": "2017-12-10",
       }
     }
@@ -15,8 +15,8 @@ exports[`SearchPage renders correctly 1`] = `
     isLoadingUnits={false}
     onChange={[Function]}
     onGeolocationToggle={[Function]}
-    purposes={Array []}
-    units={Array []}
+    purposes={[]}
+    units={[]}
   />
   <InjectT(SearchMapToggle)
     active="map"

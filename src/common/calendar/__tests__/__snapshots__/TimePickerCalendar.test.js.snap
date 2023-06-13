@@ -7,51 +7,51 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
   <FullCalendar
     allDaySlot={false}
     businessHours={
-      Array [
-        Object {
-          "daysOfWeek": Array [
+      [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
           "startTime": "00:00",
         },
-        Object {
-          "daysOfWeek": Array [
+        {
+          "daysOfWeek": [
             0,
           ],
           "endTime": "00:00",
@@ -60,16 +60,16 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
       ]
     }
     customButtons={
-      Object {
-        "myNext": Object {
+      {
+        "myNext": {
           "click": [Function],
           "text": " ",
         },
-        "myPrev": Object {
+        "myPrev": {
           "click": [Function],
           "text": " ",
         },
-        "myToday": Object {
+        "myToday": {
           "click": [Function],
           "text": "TimePickerCalendar.info.today",
         },
@@ -85,10 +85,10 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     eventOverlap={false}
     eventRender={[Function]}
     eventResize={[Function]}
-    events={Array []}
+    events={[]}
     firstDay={1}
     header={
-      Object {
+      {
         "center": "title",
         "left": "myPrev,myNext,myToday",
         "right": "timeGridDay,timeGridWeek",
@@ -97,17 +97,17 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     height="auto"
     locale="en"
     locales={
-      Array [
-        Object {
+      [
+        {
           "code": "en-gb",
-          "week": Object {
+          "week": {
             "dow": 1,
             "doy": 4,
           },
         },
-        Object {
+        {
           "allDayText": "Heldag",
-          "buttonText": Object {
+          "buttonText": {
             "day": "Dag",
             "list": "Program",
             "month": "Månad",
@@ -119,15 +119,15 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
           "code": "sv",
           "eventLimitText": "till",
           "noEventsMessage": "Inga händelser att visa",
-          "week": Object {
+          "week": {
             "dow": 1,
             "doy": 4,
           },
           "weekLabel": "v.",
         },
-        Object {
+        {
           "allDayText": "Koko päivä",
-          "buttonText": Object {
+          "buttonText": {
             "day": "Päivä",
             "list": "Tapahtumat",
             "month": "Kuukausi",
@@ -139,7 +139,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
           "code": "fi",
           "eventLimitText": "lisää",
           "noEventsMessage": "Ei näytettäviä tapahtumia",
-          "week": Object {
+          "week": {
             "dow": 1,
             "doy": 4,
           },
@@ -153,119 +153,119 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     nowIndicator={true}
     onDatesRender={[Function]}
     plugins={
-      Array [
-        Object {
-          "calendarInteractions": Array [],
+      [
+        {
+          "calendarInteractions": [],
           "cmdFormatter": undefined,
-          "componentInteractions": Array [],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
+          "componentInteractions": [],
+          "datePointTransforms": [],
+          "dateSelectionTransformers": [],
+          "dateSpanTransforms": [],
           "defaultView": "timeGridWeek",
-          "deps": Array [],
+          "deps": [],
           "elementDraggingImpl": undefined,
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
+          "eventDefMutationAppliers": [],
+          "eventDefParsers": [],
+          "eventDragMutationMassagers": [],
+          "eventDropTransformers": [],
+          "eventResizeJoinTransforms": [],
+          "eventSourceDefs": [],
+          "externalDefTransforms": [],
           "id": "6",
-          "isDraggableTransformers": Array [],
+          "isDraggableTransformers": [],
           "isPropsValid": null,
           "namedTimeZonedImpl": undefined,
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {
-            "timeGrid": Object {
+          "optionChangeHandlers": {},
+          "recurringTypes": [],
+          "reducers": [],
+          "themeClasses": {},
+          "viewContainerModifiers": [],
+          "viewPropsTransformers": [],
+          "views": {
+            "timeGrid": {
               "allDaySlot": true,
               "class": [Function],
               "slotDuration": "00:30:00",
               "slotEventOverlap": true,
             },
-            "timeGridDay": Object {
-              "duration": Object {
+            "timeGridDay": {
+              "duration": {
                 "days": 1,
               },
               "type": "timeGrid",
             },
-            "timeGridWeek": Object {
-              "duration": Object {
+            "timeGridWeek": {
+              "duration": {
                 "weeks": 1,
               },
               "type": "timeGrid",
             },
           },
         },
-        Object {
-          "calendarInteractions": Array [],
+        {
+          "calendarInteractions": [],
           "cmdFormatter": undefined,
-          "componentInteractions": Array [],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
+          "componentInteractions": [],
+          "datePointTransforms": [],
+          "dateSelectionTransformers": [],
+          "dateSpanTransforms": [],
           "defaultView": "",
-          "deps": Array [],
+          "deps": [],
           "elementDraggingImpl": undefined,
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
+          "eventDefMutationAppliers": [],
+          "eventDefParsers": [],
+          "eventDragMutationMassagers": [],
+          "eventDropTransformers": [],
+          "eventResizeJoinTransforms": [],
+          "eventSourceDefs": [],
+          "externalDefTransforms": [],
           "id": "7",
-          "isDraggableTransformers": Array [],
+          "isDraggableTransformers": [],
           "isPropsValid": null,
           "namedTimeZonedImpl": [Function],
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {},
+          "optionChangeHandlers": {},
+          "recurringTypes": [],
+          "reducers": [],
+          "themeClasses": {},
+          "viewContainerModifiers": [],
+          "viewPropsTransformers": [],
+          "views": {},
         },
-        Object {
-          "calendarInteractions": Array [
+        {
+          "calendarInteractions": [
             [Function],
           ],
           "cmdFormatter": undefined,
-          "componentInteractions": Array [
+          "componentInteractions": [
             [Function],
             [Function],
             [Function],
             [Function],
           ],
-          "datePointTransforms": Array [],
-          "dateSelectionTransformers": Array [],
-          "dateSpanTransforms": Array [],
+          "datePointTransforms": [],
+          "dateSelectionTransformers": [],
+          "dateSpanTransforms": [],
           "defaultView": "",
-          "deps": Array [],
+          "deps": [],
           "elementDraggingImpl": [Function],
-          "eventDefMutationAppliers": Array [],
-          "eventDefParsers": Array [],
-          "eventDragMutationMassagers": Array [],
-          "eventDropTransformers": Array [],
-          "eventResizeJoinTransforms": Array [],
-          "eventSourceDefs": Array [],
-          "externalDefTransforms": Array [],
+          "eventDefMutationAppliers": [],
+          "eventDefParsers": [],
+          "eventDragMutationMassagers": [],
+          "eventDropTransformers": [],
+          "eventResizeJoinTransforms": [],
+          "eventSourceDefs": [],
+          "externalDefTransforms": [],
           "id": "8",
-          "isDraggableTransformers": Array [],
+          "isDraggableTransformers": [],
           "isPropsValid": null,
           "namedTimeZonedImpl": undefined,
-          "optionChangeHandlers": Object {},
-          "recurringTypes": Array [],
-          "reducers": Array [],
-          "themeClasses": Object {},
-          "viewContainerModifiers": Array [],
-          "viewPropsTransformers": Array [],
-          "views": Object {},
+          "optionChangeHandlers": {},
+          "recurringTypes": [],
+          "reducers": [],
+          "themeClasses": {},
+          "viewContainerModifiers": [],
+          "viewPropsTransformers": [],
+          "views": {},
         },
       ]
     }
@@ -277,7 +277,7 @@ exports[`TimePickerCalendar FullCalendar render normally 1`] = `
     selectable={true}
     slotDuration="00:30:00"
     slotLabelFormat={
-      Object {
+      {
         "hour": "numeric",
         "meridiem": "short",
         "minute": "2-digit",
