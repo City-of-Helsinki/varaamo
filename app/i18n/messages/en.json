@@ -71,6 +71,8 @@
   "common.confirmed": "Approved",
   "common.continue": "Continue",
   "common.denied": "Denied",
+  "common.created": "Created",
+  "common.waitingForPayment": "Waiting for payment",
   "common.eventDescriptionLabel": "Description of the event",
   "common.eventSubjectLabel": "Name of the event (public)",
   "common.numberOfParticipantsLabel": "Number of participants",

@@ -31,8 +31,10 @@ describe('pages/user-reservations/reservation-filters/AdminReservationFilters', 
         { label: 'common.optionsAllLabel', value: 'all' },
         { label: 'common.cancelled', value: 'cancelled' },
         { label: 'common.confirmed', value: 'confirmed' },
+        { label: 'common.created', value: 'created' },
         { label: 'common.denied', value: 'denied' },
         { label: 'common.requested', value: 'requested' },
+        { label: 'common.waitingForPayment', value: 'waiting_for_payment' },
       ];
       expect(select.props().options).toEqual(expected);
     });

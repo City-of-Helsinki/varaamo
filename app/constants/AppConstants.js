@@ -44,6 +44,14 @@ export default {
       labelBsStyle: 'primary',
       labelTextId: 'common.requested',
     },
+    created: {
+      labelBsStyle: 'default',
+      labelTextId: 'common.created',
+    },
+    waiting_for_payment: {
+      labelBsStyle: 'warning',
+      labelTextId: 'common.waitingForPayment',
+    },
   },
   RESERVATION_PAYMENT_LABELS: {
     confirmed: {
