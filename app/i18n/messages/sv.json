@@ -71,6 +71,8 @@
   "common.confirmed": "Godkänd",
   "common.continue": "Fortsätta",
   "common.denied": "Ej godkänd",
+  "common.created": "Skapad",
+  "common.waitingForPayment": "Väntar på betalning",
   "common.eventDescriptionLabel": "Beskrivning av evenemanget",
   "common.eventSubjectLabel": "Namnet på evenemag (visas offentligt)",
   "common.numberOfParticipantsLabel": "Antal deltagare",
