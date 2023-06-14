@@ -71,6 +71,8 @@
   "common.confirmed": "Hyväksytty",
   "common.continue": "Jatka",
   "common.denied": "Hylätty",
+  "common.created": "Luotu",
+  "common.waitingForPayment": "Odottaa maksua",
   "common.eventDescriptionLabel": "Tilaisuuden kuvaus",
   "common.eventSubjectLabel": "Varauksen tai tilaisuuden nimi (julkinen)",
   "common.numberOfParticipantsLabel": "Osallistujamäärä",

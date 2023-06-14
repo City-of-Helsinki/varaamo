@@ -76,16 +76,21 @@ class ReservationListItem extends Component {
         </div>
         <div className="col-xs-8 col-md-6 col-lg-7 reservation-details">
           <div className="reservation-state-label-container">
-            {hasProducts(resource) && !resource.staff_event && price > 0 && (
+            {hasProducts(resource)
+              && !resource.staff_event
+              && price > 0
+              && paymentLabel && (
+                <InfoLabel
+                  labelStyle={paymentLabel.labelBsStyle}
+                  labelText={t(paymentLabel.labelTextId)}
+                />
+            )}
+            {statusLabel && (
               <InfoLabel
-                labelStyle={paymentLabel.labelBsStyle}
-                labelText={t(paymentLabel.labelTextId)}
+                labelStyle={statusLabel.labelBsStyle}
+                labelText={t(statusLabel.labelTextId)}
               />
             )}
-            <InfoLabel
-              labelStyle={statusLabel.labelBsStyle}
-              labelText={t(statusLabel.labelTextId)}
-            />
           </div>
           <Link to={getResourcePageUrl(resource)}>
             <h4>{this.localize(resource.name)}</h4>
@@ -115,12 +120,7 @@ class ReservationListItem extends Component {
           />
           {hasProducts(resource) && !resource.staff_event && price > 0 && (
             <div>
-              <span className="price">
-                {`${t(
-                  'common.totalPriceLabel',
-                )}: `}
-
-              </span>
+              <span className="price">{`${t('common.totalPriceLabel')}: `}</span>
               <span>{t('common.priceWithVAT', tVariables)}</span>
             </div>
           )}
