@@ -58,7 +58,7 @@ export default {
       labelBsStyle: 'success',
       labelTextId: 'payment.success',
     },
-    waiting: {
+    waiting_for_payment: {
       labelBsStyle: 'warning',
       labelTextId: 'payment.processing',
     },
@@ -69,6 +69,14 @@ export default {
     cancelled: {
       labelBsStyle: 'danger',
       labelTextId: 'payment.cancelled',
+    },
+    requested: {
+      labelBsStyle: 'primary',
+      labelTextId: 'common.requested',
+    },
+    created: {
+      labelBsStyle: 'default',
+      labelTextId: 'common.created',
     },
   },
   SEARCH_PAGE_SIZE: 30,
