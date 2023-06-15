@@ -16,6 +16,7 @@ export const getLabelStyle = (status) => {
     case RESERVATION_STATE.DENIED:
       return 'danger';
     case RESERVATION_STATE.REQUESTED:
+    case RESERVATION_STATE.WAITING_FOR_PAYMENT:
       return 'warning';
     default:
       return '';
