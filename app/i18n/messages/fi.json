@@ -435,6 +435,7 @@
   "Reservation.stateLabelConfirmed": "Hyväksytty",
   "Reservation.stateLabelDenied": "Evätty",
   "Reservation.stateLabelRequested": "Käsiteltävänä",
+  "Reservation.stateLabelWaiting_for_payment": "Odottaa maksua",
   "ResourceReservationCalendar.reserveButton": "Tee varaus",
   "ResourceReservationCalendar.selectedDateLabel": "Valittu aika:",
   "ResourceReservationCalendar.selectedDateValue": "{date} klo {start} - klo {end} ({duration})",

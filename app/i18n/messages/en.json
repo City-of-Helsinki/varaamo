@@ -426,6 +426,7 @@
   "Reservation.stateLabelConfirmed": "Approved",
   "Reservation.stateLabelDenied": "Denied",
   "Reservation.stateLabelRequested": "Requested",
+  "Reservation.stateLabelWaiting_for_payment": "Waiting for payment",
   "ResourceReservationCalendar.reserveButton": "Reserve",
   "ResourceReservationCalendar.selectedDateLabel": "Selected time:",
   "ResourceReservationCalendar.selectedDateValue": "{date} at {start} - at {end} ({duration})",

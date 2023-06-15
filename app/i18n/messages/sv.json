@@ -428,6 +428,7 @@
   "Reservation.stateLabelConfirmed": "Godkänd",
   "Reservation.stateLabelDenied": "Nekad",
   "Reservation.stateLabelRequested": "Begärda",
+  "Reservation.stateLabelWaiting_for_payment": "Väntar på betalning",
   "ResourceReservationCalendar.reserveButton": "Boka",
   "ResourceReservationCalendar.selectedDateLabel": "Utvald tidpunkt:",
   "ResourceReservationCalendar.selectedDateValue": "{date} kl. {start} - kl. {end} ({duration})",
