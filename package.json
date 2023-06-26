@@ -27,6 +27,7 @@
     "bootstrap-sass": "3.4.1",
     "camelcase-keys-deep": "^0.1.0",
     "classnames": "2.2.5",
+    "csurf": "^1.11.0",
     "dotenv": "7.0.0",
     "dragscroll": "0.0.8",
     "enzyme-to-json": "^3.3.5",
