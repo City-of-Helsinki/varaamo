@@ -9,8 +9,11 @@ import injectT from '../../../app/i18n/injectT';
 import { getCurrentCustomization } from '../../../app/utils/customizationUtils';
 
 function AboutPage({ t }) {
-  const city = getCurrentCustomization() ? getCurrentCustomization().toLowerCase() : 'default';
   // TODO: Remove me along with getCurrentCustomization stuff.
+  const city = getCurrentCustomization() ? getCurrentCustomization().toLowerCase() : 'default';
+
+  // eslint-disable-next-line max-len
+  const registerLink = 'https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kuva/Tilanvaraus-%20ja%20tietokantarekisteri,%20Varaamo%20ja%20Respa.pdf';
 
   return (
     <PageWrapper className="about-page" title={t('AboutPage.title')}>
@@ -38,7 +41,7 @@ function AboutPage({ t }) {
         <h3>{t('AboutPageContent.customerRegisterHeader')}</h3>
         <p>
           {t('AboutPageContent.customerRegisterParagraph')}
-          <a href="https://www.hel.fi/static/liitteet-2019/Kaupunginkanslia/Rekisteriselosteet/Kuva/Tilanvaraus-%20ja%20tietokantarekisteri,%20Varaamo%20ja%20Respa.pdf">
+          <a href={registerLink}>
             {t('AboutPageContent.customerRegisterLink')}
           </a>
         </p>
