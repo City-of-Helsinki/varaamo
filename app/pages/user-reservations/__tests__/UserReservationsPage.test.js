@@ -11,7 +11,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
       search: '',
     },
     history: {
-      push: () => {},
+      push: () => { },
     },
     t: path => path,
     reduxReservations: {},
@@ -73,7 +73,7 @@ describe('pages/user-reservations/UserReservationsPage', () => {
   describe('tabs', () => {
     const findTabs = wrapper => wrapper.find('[role="tab"]');
     const findUpcomingTab = wrapper => findTabs(wrapper).at(0);
-    const findPastTab = wrapper => findTabs(wrapper).at(1);
+    // const findPastTab = wrapper => findTabs(wrapper).at(1);
 
     test('should render upcoming and past tabs', () => {
       expect(findTabs(getWrapper()).length).toEqual(2);

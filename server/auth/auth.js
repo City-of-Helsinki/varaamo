@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 import nocache from 'nocache';
-import csurf from 'csurf';
 
 import configurePassport from './configurePassport';
 import getAuthState from './getAuthState';
@@ -25,8 +24,6 @@ router.use(cookieSession({
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.use(csurf({ cookie: true }));
-
 router.get('/auth', nocache(), (req, res) => {
   res.json(getAuthState(req));
 });
@@ -39,7 +36,6 @@ router.get('/login',
   passport.authenticate('helsinki'));
 
 router.get('/login/helsinki/return',
-  csurf(),
   passport.authenticate('helsinki', { failureRedirect: '/login' }),
   (req, res) => {
     if (req.session.next) {
