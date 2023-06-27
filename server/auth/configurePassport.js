@@ -11,6 +11,7 @@ function configurePassport() {
       clientSecret: settings.CLIENT_SECRET,
       callbackURL: settings.LOGIN_CALLBACK_URL,
       proxy: Boolean(settings.PROXY),
+      state: true,
     },
     (accessToken, refreshToken, profile, cb) => {
       helsinkiStrategy.getAPIToken(accessToken, settings.TARGET_APP, (token) => {
