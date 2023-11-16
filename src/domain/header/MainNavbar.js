@@ -80,7 +80,7 @@ class MainNavbar extends React.Component {
                       {t('Navbar.manageReservations')}
                     </NavItem>
                   </LinkContainer>
-                  <NavItem eventKey="adminMaintenance" href="https://api.hel.fi/respa/ra/" target="_blank">
+                  <NavItem eventKey="adminMaintenance" href="https://respa.api.hel.fi/respa/ra/" target="_blank">
                     {t('Navbar.adminMaintenance')}
                     <FAIcon icon={faExternalLinkAlt} />
                   </NavItem>

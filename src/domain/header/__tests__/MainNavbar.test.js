@@ -11,7 +11,7 @@ import FAIcon from '../../../../app/shared/fontawesome-icon/FontAwesomeIcon';
 describe('shared/main-navbar/MainNavbar', () => {
   const pathname = 'somepath';
   const gitbookURL = 'https://cityofhelsinki.gitbook.io/varaamo';
-  const respaURL = 'https://api.hel.fi/respa/ra/';
+  const respaURL = 'https://respa.api.hel.fi/respa/ra/';
 
   function getWrapper(props) {
     const defaults = {
