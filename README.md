@@ -1,3 +1,5 @@
+This repo is deprecated; see instead https://github.com/City-of-Helsinki/tilavarauspalvelu-ui for the React.js frontend on the new City of Helsinki space/resource reservation system.
+
 # Varaamo
 
 [![Build status](https://travis-ci.org/City-of-Helsinki/varaamo.svg?branch=develop)](https://travis-ci.org/City-of-Helsinki/varaamo)
